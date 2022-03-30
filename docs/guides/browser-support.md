@@ -1,30 +1,72 @@
 ---
-sidebar_position: 2
+sidebar_position: 7
 ---
 
-# Browser support
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-We aim to support recent versions of Chrome, Firefox, Safari and Edge.
+# Supporting IE11
 
-<details>
-  <summary>Polyfills for IE11</summary>
+We officially support recent versions of Chrome, Firefox, Safari and Edge.
 
-  You can install polyfills or use the legacy CND bundle for IE11, but we are not running tests against IE11
-  so there is a risk involved.
+Internet Explorer is not officially supported, as in we don't run tests for it,
+but you can be mostly confident it works with the right polyfills.
+However it does come with a risk of unexpected results in styling or functionality.
 
-  ```js
-  import 'core-js'
-  import 'whatwg-fetch'
-  import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
-  // Order matters: AbortController needs fetch which needs Promise (provided by core-js).
+## Polyfills
 
-  import 'md-gum-polyfill'
-  import ResizeObserver from 'resize-observer-polyfill'
+<Tabs>
+  <TabItem value="npm" label="NPM" default>
 
-  window.ResizeObserver ??= ResizeObserver
-
-  export { default } from '@uppy/core'
-  export * from '@uppy/core'
+  ```shell
+  npm install core-js whatwg-fetch abortcontroller-polyfill md-gum-polyfill resize-observer-polyfill
   ```
 
-</details>
+  </TabItem>
+
+  <TabItem value="yarn" label="Yarn">
+
+  ```shell
+  yarn add core-js whatwg-fetch abortcontroller-polyfill md-gum-polyfill resize-observer-polyfill
+  ```
+
+  </TabItem>
+</Tabs>
+
+```js
+import 'core-js'
+import 'whatwg-fetch'
+import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
+// Order matters: AbortController needs fetch which needs Promise (provided by core-js).
+
+import 'md-gum-polyfill'
+import ResizeObserver from 'resize-observer-polyfill'
+
+window.ResizeObserver ??= ResizeObserver
+
+export { default } from '@uppy/core'
+export * from '@uppy/core'
+```
+
+## Legacy CDN bundle
+
+:::caution
+The bundle consists of most Uppy plugins, so this method is not recommended for production,
+as your users will have to download all plugins when you are likely using only a few.
+:::
+
+```html
+  <!-- 1. Add CSS to `<head>` -->
+  <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.legacy.min.css" rel="stylesheet">
+
+  <!-- 2. Add JS before the closing `</body>` -->
+  <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.legacy.min.js"></script>
+
+  <!-- 3. Initialize -->
+  <div id="uppy"></div>
+  <script>
+    var uppy = new Uppy.Core()
+    uppy.use(Uppy.DragDrop, { target: '#uppy' })
+    uppy.use(Uppy.Tus, { endpoint: '//tusd.tusdemo.net/files/' })
+  </script>
+```
