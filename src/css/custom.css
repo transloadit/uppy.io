@@ -11,6 +11,13 @@
   font-display: swap;
   src: local("IBM Plex Mono"), local("IBMPlexMono"), url("/fonts/IBMPlexMono-Regular.woff2") format("woff2");
 }
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("IBM Plex Mono SemiBold"), local("IBMPlexMono-SemiBold"), url("/fonts/IBMPlexMono-SemiBold.woff2") format("woff2");
+}
 
 @font-face {
   font-family: 'IBM Plex Sans';
@@ -76,6 +83,19 @@
 
 h1 {
   margin-top: calc(var(--ifm-h1-vertical-rhythm-top) * var(--ifm-leading) / 2);
+}
+
+.markdown > h4:not(:first-of-type) {
+  margin-top: calc(var(--ifm-heading-vertical-rhythm-top) * var(--ifm-leading) * 2);
+}
+
+code {
+  border: none;
+}
+
+p > code {
+  vertical-align: initial;
+  font-size: var(--ifm-font-size-base);
 }
 
 .admonition h5 {
