@@ -15,8 +15,8 @@ It acts as a state manager, event emitter, and restrictions handler.
 
 ## When should I use it?
 
-`@uppy/core` is an essential building block and is always required.
-You can't install plugins without it. 
+`@uppy/core` is the fundament of the Uppy ecosystem, the orchestrator for all added plugins.
+No matter the uploading experience you're looking for, it all starts with installing this plugin.
 
 ## Install
 
@@ -64,7 +64,7 @@ You can't install plugins without it.
 
 ## Use
 
-`@uppy/core` has four exports: `Uppy`, `UIPlugin`, `BasePlugin`, and `defaultLogger`.
+`@uppy/core` has four exports: `Uppy`, `UIPlugin`, `BasePlugin`, and `debugLogger`.
 The default export is the `Uppy` class.
 
 ```js
@@ -526,7 +526,7 @@ How long an [Informer](/docs/user-interfaces/elements/informer) notification wil
 
 ### Methods
 
-#### `uppy.use(plugin, opts)`
+#### `use(plugin, opts)`
 
 Add a plugin to Uppy, with an optional plugin options object.
 
@@ -538,19 +538,19 @@ const uppy = new Uppy()
 uppy.use(DragDrop, { target: 'body' })
 ```
 
-#### `uppy.removePlugin(instance)`
+#### `removePlugin(instance)`
 
 Uninstall and remove a plugin.
 
-#### `uppy.getPlugin(id)`
+#### `getPlugin(id)`
 
 Get a plugin by its [`id`](/docs/plugins/#id) to access its methods.
 
-#### `uppy.getID()`
+#### `getID()`
 
 Get the Uppy instance ID, see the [`id` option](#id-39-uppy-39).
 
-#### `uppy.addFile(file)`
+#### `addFile(file)`
 
 Add a new file to Uppy’s internal state. `addFile` will return the generated id for the file that was added.
 
@@ -597,7 +597,7 @@ so that the user sees them, but they won’t actually be uploaded by Uppy.
 This can be achieved by [looping through files and setting `uploadComplete: true, uploadStarted: true` on them](https://github.com/transloadit/uppy/issues/1112#issuecomment-432339569)
 :::
 
-#### `uppy.removeFile(fileID)`
+#### `removeFile(fileID)`
 
 Remove a file from Uppy.
 Removing a file that is already being uploaded cancels that upload.
@@ -606,7 +606,7 @@ Removing a file that is already being uploaded cancels that upload.
 uppy.removeFile('uppyteamkongjpg1501851828779')
 ```
 
-#### `uppy.getFile(fileID)`
+#### `getFile(fileID)`
 
 Get a specific [Uppy file](#working-with-uppy-files) by its ID.
 
@@ -614,7 +614,7 @@ Get a specific [Uppy file](#working-with-uppy-files) by its ID.
 const file = uppy.getFile('uppyteamkongjpg1501851828779')
 ```
 
-#### `uppy.getFiles()`
+#### `getFiles()`
 
 Get an array of all previously added [Uppy files](#working-with-uppy-files).
 
@@ -622,7 +622,7 @@ Get an array of all previously added [Uppy files](#working-with-uppy-files).
 const files = uppy.getFiles()
 ```
 
-#### `uppy.upload()`
+#### `upload()`
 
 Start uploading added files.
 
@@ -644,31 +644,31 @@ uppy.upload().then((result) => {
 })
 ```
 
-#### `uppy.pauseResume(fileID)`
+#### `pauseResume(fileID)`
 
 Toggle pause/resume on an upload. Will only work if resumable upload plugin, such as [Tus](/docs/uploaders/tus/), is used.
 
-#### `uppy.pauseAll()`
+#### `pauseAll()`
 
 Pause all uploads. Will only work if a resumable upload plugin, such as [Tus](/docs/uploaders/tus/), is used.
 
-#### `uppy.resumeAll()`
+#### `resumeAll()`
 
 Resume all uploads. Will only work if resumable upload plugin, such as [Tus](/docs/uploaders/tus/), is used.
 
-#### `uppy.retryUpload(fileID)`
+#### `retryUpload(fileID)`
 
 Retry an upload (after an error, for example).
 
-#### `uppy.retryAll()`
+#### `retryAll()`
 
 Retry all uploads (after an error, for example).
 
-#### `uppy.cancelAll()`
+#### `cancelAll()`
 
 Cancel all uploads, reset progress and remove all files.
 
-#### `uppy.setState(patch)`
+#### `setState(patch)`
 
 Update Uppy’s internal state. Usually, this method is called internally,
 but in some cases it might be useful to alter something directly, especially when implementing your own plugins.
@@ -705,18 +705,18 @@ When updating values, make sure not mutate them, but instead create copies.
 See [Redux docs](http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html) for more info on this.
 :::note
 
-#### `uppy.getState()`
+#### `getState()`
 
 Returns the current state from the [Store](#store-defaultStore).
 
-#### `uppy.setFileState(fileID, state)`
+#### `setFileState(fileID, state)`
 
 Update the state for a single file. This is mostly useful for plugins that may want to store data on [Uppy files](#working-with-uppy-files),
 or need to pass file-specific configurations to other plugins that support it.
 
 `fileID` is the string file ID. `state` is an object that will be merged into the file’s state object.
 
-#### `uppy.setMeta(data)`
+#### `setMeta(data)`
 
 Alters global `meta` object in state, the one that can be set in Uppy options and gets merged with all newly added files.
 Calling `setMeta` will also merge newly added meta data with files that had been selected before.
@@ -725,7 +725,7 @@ Calling `setMeta` will also merge newly added meta data with files that had been
 uppy.setMeta({ resize: 1500, token: 'ab5kjfg' })
 ```
 
-#### `uppy.setFileMeta(fileID, data)`
+#### `setFileMeta(fileID, data)`
 
 Update metadata for a specific file.
 
@@ -733,7 +733,7 @@ Update metadata for a specific file.
 uppy.setFileMeta('myfileID', { resize: 1500 })
 ```
 
-#### `uppy.setOptions(opts)`
+#### `setOptions(opts)`
 
 Change the options Uppy initialized with.
 
@@ -763,22 +763,22 @@ uppy.getPlugin('Dashboard').setOptions({
 })
 ```
 
-#### `uppy.reset()`
+#### `reset()`
 
 Stop all uploads in progress and clear file selection, set progress to 0.
 More or less, it returns things to the way they were before any user input.
 
-#### `uppy.close()`
+#### `close()`
 
 Uninstall all plugins and close down this Uppy instance. Also runs `uppy.reset()` before uninstalling.
 
-#### `uppy.logout()`
+#### `logout()`
 
 Calls `provider.logout()` on each remote provider plugin (Google Drive, Instagram, etc).
 Useful, for example, after your users log out of their account in your app
 — this will clean things up with Uppy cloud providers as well, for extra security.
 
-#### `uppy.log(message, type)`
+#### `log(message, type)`
 
 | Argument  | Type      | Description                 |
 | --------- | --------- | --------------------------- |
@@ -791,7 +791,7 @@ See [`logger`](#logger) docs for details.
 uppy.log('[Dashboard] adding files...')
 ```
 
-#### `uppy.info(message, type, duration)`
+#### `info(message, type, duration)`
 
 Sets a message in state, with optional details, that can be shown by notification UI plugins.
 It’s using the [Informer](/docs/interfaces/elements/informer/) plugin, included by default in Dashboard.
@@ -816,15 +816,54 @@ this.info({
 }, 'error', 5000)
 ```
 
-#### `uppy.on('event', action)`
+#### `addPreProcessor(fn)`
+
+Add a preprocessing function.
+`fn` gets called with a list of file IDs before an upload starts.
+`fn` should return a Promise. Its resolution value is ignored.
+
+:::info
+To change file data and such, use Uppy state updates, for example using [`setFileState`](#setFileState).
+:::
+
+#### `addUploader(fn)`
+
+Add an uploader function.
+`fn` gets called with a list of file IDs when an upload should start.
+Uploader functions should do the actual uploading work,
+such as creating and sending an XMLHttpRequest or calling into some upload service SDK.
+`fn` should return a Promise that resolves once all files have been uploaded.
+
+:::tip
+You may choose to still resolve the Promise if some file uploads fail.
+This way, any postprocessing will still run on the files that were uploaded successfully,
+while uploads that failed will be retried when [`retryAll`](#retryall) is called.
+:::
+
+#### `addPostProcessor(fn)`
+
+Add a postprocessing function.
+`fn` is called with a list of file IDs when an upload has finished.
+`fn` should return a Promise that resolves when the processing work is complete.
+The value of the Promise is ignored.
+
+For example, you could wait for file encoding or CDN propagation to complete,
+or you could do an HTTP API call to create an album containing all images that were uploaded.
+
+#### `removePreProcessor/removeUploader/removePostProcessor(fn)`
+
+Remove a processor or uploader function that was added before.
+Normally, this should be done in the [`uninstall()`](#uninstall) method.
+
+#### `on('event', action)`
 
 Subscribe to an uppy-event. See below for the full list of events.
 
-#### `uppy.once('event', action)`
+#### `once('event', action)`
 
 Create an event listener that fires once. See below for the full list of events.
 
-#### `uppy.off('event', action)`
+#### `off('event', action)`
 
 Unsubscribe to an uppy-event. See below for the full list of events.
 
@@ -1077,7 +1116,7 @@ Fired when “info” message should be hidden in the UI. See [`info-visible`](#
 
 #### `cancel-all`
 
-Fired when `uppy.cancelAll()` is called, all uploads are canceled, files removed and progress is reset.
+Fired when `cancelAll()` is called, all uploads are canceled, files removed and progress is reset.
 
 #### `restriction-failed`
 
@@ -1092,7 +1131,7 @@ uppy.on('restriction-failed', (file, error) => {
 
 #### `reset-progress`
 
-Fired when `uppy.resetProgress()` is called, each file has its upload progress reset to zero.
+Fired when `resetProgress()` is called, each file has its upload progress reset to zero.
 
 ```javascript
 uppy.on('reset-progress', () => {
@@ -1102,7 +1141,200 @@ uppy.on('reset-progress', () => {
 
 ## `new BasePlugin(uppy, options?)`
 
+The initial building block for a plugin.
+
+`BasePlugin` does not contain DOM rendering so it can be used for plugins
+without an user interface.
+
+:::info
+See [`UIPlugin`][] for the extended version with Preact rendering for interfaces.
+:::
+
+:::info
+Checkout the [building plugins](/docs/guides/building-plugins) guide.
+:::
+
+:::note
+If you don't use any UI plugins and want to make sure Preact isn’t bundled into your app,
+import `BasePlugin` like this: `import BasePlugin from '@uppy/core/lib/BasePlugin`.
+:::
+
+### Options
+
+The options passed to `BasePlugin` are all you options you wish to support in your plugin.
+
+You should pass the options to `super` in your plugin class:
+
+```js
+class MyPlugin extends BasePlugin {
+  constructor (uppy, opts) {
+    super(uppy, opts)
+  }
+}
+```
+
+### Methods
+
+#### `setOptions(options)`
+
+Options passed during initialization can also be altered dynamically with `setOptions`.
+
+#### `getPluginState()`
+
+Retrieves the plugin state from the `Uppy` class.
+Uppy keeps a `plugins` object in state in which each key is the plugin’s `id`,
+and the value its state. 
+
+#### `setPluginState()`
+
+Set the plugin state in the `Uppy` class.
+Uppy keeps a `plugins` object in state in which each key is the plugin’s `id`,
+and the value its state. 
+
+#### `install()`
+
+The `install` method is ran once, when the plugin is added to Uppy with `.use()`.
+Use this to initialize the plugin.
+
+For example, if you are creating a pre-processor (such as [@uppy/compressor](/docs/compressor))
+you must add it:
+
+```js
+install () {
+  this.uppy.addPreProcessor(this.prepareUpload)
+}
+```
+
+Another common thing to do when creating a [UI plugin](#new-uipluginuppy-options)
+is to [`mount`](#mount) it to the DOM:
+
+```js
+install () {
+  const { target } = this.opts
+  if (target) {
+    this.mount(target, this)
+  }
+}
+```
+
+#### `uninstall()`
+
+The `uninstall` method is ran once, when the plugin is removed from Uppy.
+This happens when `.close()` is called or when the plugin is destroyed in
+a framework integration.
+
+Use this to clean things up.
+
+For instance when creating a pre-processor, uploader, or post-processor to remove it:
+
+```js
+uninstall () {
+  this.uppy.removePreProcessor(this.prepareUpload)
+}
+```
+
+When creating a [UI plugin](#new-uipluginuppy-options) you should [`unmount`](#unmount) it from the DOM:
+
+```js
+uninstall () {
+  this.unmount()
+}
+```
+
+#### `i18nInit`
+
+Call `this.i18nInit()` once in the constructor of your plugin class to
+initialize [internationalisation](/docs/guides/using-locales).
+
+#### `addTarget`
+
+You can use this method to make your plugin a `target` for other plugins.
+This is what `@uppy/dashboard` uses to add other plugins to its UI.
+
+#### `update`
+
+Called on each state update. You will rarely need to use this,
+unless if you want to build a UI plugin using something other than Preact.
+
+#### `afterUpdate`
+
+Called after every state update with a debounce, after everything has mounted.
+
 ## `new UIPlugin(uppy, options?)`
 
-## `defaultLogger()`
+`UIPlugin` extends [`BasePlugin`][] to add rendering with [Preact](https://preactjs.com/).
+Use this when you want to create an user interface or an addition to one, such as [Dashboard][].
 
+:::info
+See [`BasePlugin`][] for the initial building block for all plugins.
+:::
+
+:::info
+Checkout the [building plugins](/docs/guides/building-plugins) guide.
+:::
+
+### Options
+
+The options passed to `UIPlugin` are all you options you wish to support in your plugin.
+
+You should pass the options to `super` in your plugin class:
+
+```js
+class MyPlugin extends UIPlugin {
+  constructor (uppy, opts) {
+    super(uppy, opts)
+  }
+}
+```
+
+In turn these are also passed to the underlying `BasePlugin`.
+
+### Methods
+
+All the methods from [`BasePlugin`][] are also inherited into `UIPlugin`.
+
+#### `mount(target)`
+
+Mount this plugin to the `target` element. `target` can be a CSS query selector,
+a DOM element, or another Plugin. If `target` is a Plugin, the source (current) plugin
+will register with the target plugin, and the latter can decide how and where to render the source plugin.
+
+#### `onMount()`
+
+Called after Preact has rendered the components of the plugin.
+
+#### `unmount`
+
+Removing the plugin from the DOM.
+You generally don’t need to override it but you should call it from [`uninstall`](#uninstall).
+
+The default is:
+
+```js
+unmount () {
+  if (this.isTargetDOMEl) {
+    this.el?.remove()
+  }
+  this.onUnmount()
+}
+```
+
+#### `onUnmount()`
+
+Called after the elements have been removed from the DOM. Can be used to do some clean up or other side-effects.
+
+#### `render()`
+
+Render the UI of the plugin. Uppy uses [Preact](https://preactjs.com) as its view engine,
+so `render()` should return a Preact element. `render` is automatically called by Uppy on each state change.
+
+#### `update(state)`
+
+Called on each state update. You will rarely need to use this,
+unless if you want to build a UI plugin using something other than Preact.
+
+## `debugLogger()`
+
+[Dashboard]: /docs/user-interfaces/dashboard
+[`BasePlugin`]: #new-basepluginuppy-options
+[`UIPlugin`]: #new-uipluginuppy-options
