@@ -218,6 +218,12 @@ event to continue to the next step in your app’s upload flow.
 A typical use case for this is uploading a new profile picture.
 If you are integrating with an existing HTML form, this option gives the closest behaviour to a bare `<input type="file">`.
 
+#### `debug`
+
+Whether to send debugging and warning logs (`Boolean`, default: `false`). 
+
+Setting this to `true` sets the [`logger`](#logger) to [`debugLogger`](#debuglogger).
+
 #### `logger`
 
 Logger used for [`uppy.log`](#uppy-log) (`Object`, default: `justErrorsLogger`).
@@ -1334,6 +1340,43 @@ Called on each state update. You will rarely need to use this,
 unless if you want to build a UI plugin using something other than Preact.
 
 ## `debugLogger()`
+
+Logger with additional debug and warning logs for during development.
+
+```js
+import { Uppy, debugLogger } from '@uppy/core'
+
+new Uppy({ logger: debugLogger })
+```
+
+:::info
+You can also enable this logger by setting [`debug`](#debug) to `true`.
+:::
+
+The default value of [`logger`](#logger) is `justErrorsLogger`, which looks like this:
+
+```js
+// Swallow all logs, except errors.
+// default if logger is not set or debug: false
+const justErrorsLogger = {
+  debug: () => {},
+  warn: () => {},
+  error: (...args) => console.error(`[Uppy] [${getTimeStamp()}]`, ...args),
+}
+```
+
+`debugLogger` sends additional debugging and warning logs which could be helpful
+during development:
+
+```js
+// Print logs to console with namespace + timestamp,
+// set by logger: Uppy.debugLogger or debug: true
+const debugLogger = {
+  debug: (...args) => console.debug(`[Uppy] [${getTimeStamp()}]`, ...args),
+  warn: (...args) => console.warn(`[Uppy] [${getTimeStamp()}]`, ...args),
+  error: (...args) => console.error(`[Uppy] [${getTimeStamp()}]`, ...args),
+}
+```
 
 [Dashboard]: /docs/user-interfaces/dashboard
 [`BasePlugin`]: #new-basepluginuppy-options
