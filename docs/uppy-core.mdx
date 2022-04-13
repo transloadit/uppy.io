@@ -941,6 +941,21 @@ uppy.on('upload', (data) => {
 })
 ```
 
+#### `preprocess-progress`
+
+Progress of the pre-processors.
+
+**Parameters**
+
+`progress` is an object with properties:
+
+* `mode` - Either `'determinate'` or `'indeterminate'`.
+* `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
+
+When `mode` is `'determinate'`, also add the `value` property:
+
+* `value` - A progress value between 0 and 1.
+
 #### `progress`
 
 Fired each time the total upload progress is updated:
@@ -976,6 +991,21 @@ uppy.on('upload-progress', (file, progress) => {
   console.log(file.id, progress.bytesUploaded, progress.bytesTotal)
 })
 ```
+
+#### `postprocess-progress`
+
+Progress of the post-processors.
+
+**Parameters**
+
+`progress` is an object with properties:
+
+* `mode` - Either `'determinate'` or `'indeterminate'`.
+* `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
+
+When `mode` is `'determinate'`, also add the `value` property:
+
+* `value` - A progress value between 0 and 1.
 
 #### `upload-success`
 
