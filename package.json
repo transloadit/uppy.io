@@ -2,6 +2,9 @@
   "name": "uppy-io",
   "version": "0.0.0",
   "private": true,
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
@@ -12,7 +15,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-beta.22",
@@ -26,6 +30,13 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^2.0.0-beta.22",
     "@tsconfig/docusaurus": "^1.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-mdx": "^1.17.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.8",
+    "prettier": "2.6.2",
+    "remark-preset-lint-consistent": "^5.1.1",
+    "remark-preset-prettier": "^1.0.0",
     "typescript": "^4.6.2"
   },
   "browserslist": {

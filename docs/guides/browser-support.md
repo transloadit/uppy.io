@@ -18,34 +18,34 @@ However it does come with a risk of unexpected results in styling or functionali
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install core-js whatwg-fetch abortcontroller-polyfill md-gum-polyfill resize-observer-polyfill
-  ```
+```shell
+npm install core-js whatwg-fetch abortcontroller-polyfill md-gum-polyfill resize-observer-polyfill
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add core-js whatwg-fetch abortcontroller-polyfill md-gum-polyfill resize-observer-polyfill
-  ```
+```shell
+yarn add core-js whatwg-fetch abortcontroller-polyfill md-gum-polyfill resize-observer-polyfill
+```
 
   </TabItem>
 </Tabs>
 
 ```js
-import 'core-js'
-import 'whatwg-fetch'
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
+import "core-js";
+import "whatwg-fetch";
+import "abortcontroller-polyfill/dist/polyfill-patch-fetch";
 // Order matters: AbortController needs fetch which needs Promise (provided by core-js).
 
-import 'md-gum-polyfill'
-import ResizeObserver from 'resize-observer-polyfill'
+import "md-gum-polyfill";
+import ResizeObserver from "resize-observer-polyfill";
 
-window.ResizeObserver ??= ResizeObserver
+window.ResizeObserver ??= ResizeObserver;
 
-export { default } from '@uppy/core'
-export * from '@uppy/core'
+export { default } from "@uppy/core";
+export * from "@uppy/core";
 ```
 
 ## Legacy CDN bundle
@@ -56,17 +56,20 @@ as your users will have to download all plugins when you are likely using only a
 :::
 
 ```html
-  <!-- 1. Add CSS to `<head>` -->
-  <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.legacy.min.css" rel="stylesheet">
+<!-- 1. Add CSS to `<head>` -->
+<link
+  href="https://releases.transloadit.com/uppy/v2.9.0/uppy.legacy.min.css"
+  rel="stylesheet"
+/>
 
-  <!-- 2. Add JS before the closing `</body>` -->
-  <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.legacy.min.js"></script>
+<!-- 2. Add JS before the closing `</body>` -->
+<script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.legacy.min.js"></script>
 
-  <!-- 3. Initialize -->
-  <div id="uppy"></div>
-  <script>
-    var uppy = new Uppy.Core()
-    uppy.use(Uppy.DragDrop, { target: '#uppy' })
-    uppy.use(Uppy.Tus, { endpoint: '//tusd.tusdemo.net/files/' })
-  </script>
+<!-- 3. Initialize -->
+<div id="uppy"></div>
+<script>
+  var uppy = new Uppy.Core();
+  uppy.use(Uppy.DragDrop, { target: "#uppy" });
+  uppy.use(Uppy.Tus, { endpoint: "//tusd.tusdemo.net/files/" });
+</script>
 ```
