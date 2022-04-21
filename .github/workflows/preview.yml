@@ -21,7 +21,7 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
-          sed -i "s/baseUrl: '\/'/baseUrl: '\/pr-preview\/pr-"$PR_NUMBER"\/'/" docusaurus.config.js
+          sed -i "s/baseUrl: '\/'/baseUrl: '\/uppy.io/pr-preview\/pr-"$PR_NUMBER"\/'/" docusaurus.config.js
         shell: bash
 
       - name: Install and Build
