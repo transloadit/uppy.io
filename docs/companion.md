@@ -153,137 +153,6 @@ You can also pass in the path to your JSON config file, like so:
 companion --config /path/to/companion.json
 ```
 
-
-<!-- ```bash -->
-<!-- ####### Mandatory variables ########### -->
-<!---->
-<!-- # any long set of random characters for the server session -->
-<!-- export COMPANION_SECRET="shh!Issa Secret!" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_SECRET_FILE="PATH/TO/COMPANION/SECRET/FILE" -->
-<!-- # corresponds to the server.host option -->
-<!-- export COMPANION_DOMAIN="YOUR SERVER DOMAIN" -->
-<!-- # corresponds to the filePath option -->
-<!-- export COMPANION_DATADIR="PATH/TO/DOWNLOAD/DIRECTORY" -->
-<!---->
-<!-- ###### Optional variables ########## -->
-<!---->
-<!-- # corresponds to the server.protocol option, defaults to http -->
-<!-- export COMPANION_PROTOCOL="YOUR SERVER PROTOCOL" -->
-<!-- # the port on which to start the server, defaults to 3020 -->
-<!-- export COMPANION_PORT="YOUR SERVER PORT" -->
-<!-- # corresponds to the server.port option, defaults to '' -->
-<!-- export COMPANION_PATH="/SERVER/PATH/TO/WHERE/COMPANION/LIVES" -->
-<!-- # disables the welcome page, defaults to false -->
-<!-- export COMPANION_HIDE_WELCOME="true" -->
-<!-- # disables the metrics page, defaults to false -->
-<!-- export COMPANION_HIDE_METRICS="true" -->
-<!---->
-<!-- # use this in place of COMPANION_PATH if the server path should not be -->
-<!-- # handled by the express.js app, but maybe by an external server configuration -->
-<!-- # instead (e.g Nginx). -->
-<!-- export COMPANION_IMPLICIT_PATH="/SERVER/PATH/TO/WHERE/UPPY/SERVER/LIVES" -->
-<!---->
-<!-- # corresponds to the corsOrigins option, but can contain a comma-separated list of String values. -->
-<!-- # if neither this or COMPANION_CLIENT_ORIGINS_REGEX specified, the server would allow any host -->
-<!-- export COMPANION_CLIENT_ORIGINS="http://localhost:3452,https://uppy.io" -->
-<!---->
-<!-- # Like COMPANION_CLIENT_ORIGINS, but allows a single regex instead -->
-<!-- # (COMPANION_CLIENT_ORIGINS will be ignored if this is used and vice versa) -->
-<!-- export COMPANION_CLIENT_ORIGINS_REGEX="https://.*\.example\.(com|eu)$" -->
-<!---->
-<!-- # corresponds to the redisUrl option -->
-<!-- # this also enables Redis session storage if set -->
-<!-- export COMPANION_REDIS_URL="REDIS URL" -->
-<!---->
-<!-- # to enable Dropbox -->
-<!-- export COMPANION_DROPBOX_KEY="YOUR DROPBOX KEY" -->
-<!-- export COMPANION_DROPBOX_SECRET="YOUR DROPBOX SECRET" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_DROPBOX_SECRET_FILE="PATH/TO/DROPBOX/SECRET/FILE" -->
-<!---->
-<!-- # to enable Box -->
-<!-- export COMPANION_BOX_KEY="YOUR BOX KEY" -->
-<!-- export COMPANION_BOX_SECRET="YOUR BOX SECRET" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_BOX_SECRET_FILE="PATH/TO/BOX/SECRET/FILE" -->
-<!---->
-<!-- # to enable Google Drive -->
-<!-- export COMPANION_GOOGLE_KEY="YOUR GOOGLE DRIVE KEY" -->
-<!-- export COMPANION_GOOGLE_SECRET="YOUR GOOGLE DRIVE SECRET" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_GOOGLE_SECRET_FILE="PATH/TO/GOOGLEDRIVE/SECRET/FILE" -->
-<!---->
-<!-- # to enable Instagram -->
-<!-- export COMPANION_INSTAGRAM_KEY="YOUR INSTAGRAM KEY" -->
-<!-- export COMPANION_INSTAGRAM_SECRET="YOUR INSTAGRAM SECRET" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_INSTAGRAM_SECRET_FILE="PATH/TO/INSTAGRAM/SECRET/FILE" -->
-<!---->
-<!-- # to enable Facebook -->
-<!-- export COMPANION_FACEBOOK_KEY="YOUR FACEBOOK KEY" -->
-<!-- export COMPANION_FACEBOOK_SECRET="YOUR FACEBOOK SECRET" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_FACEBOOK_SECRET_FILE="PATH/TO/FACEBOOK/SECRET/FILE" -->
-<!---->
-<!-- # to enable Onedrive -->
-<!-- export COMPANION_ONEDRIVE_KEY="YOUR ONEDRIVE KEY" -->
-<!-- export COMPANION_ONEDRIVE_SECRET="YOUR ONEDRIVE SECRET" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_ONEDRIVE_SECRET_FILE="PATH/TO/ONEDRIVE/SECRET/FILE" -->
-<!---->
-<!-- # to enable Zoom -->
-<!-- export COMPANION_ZOOM_KEY="YOUR ZOOM KEY" -->
-<!-- export COMPANION_ZOOM_SECRET="YOUR ZOOM SECRET" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_ZOOM_SECRET_FILE="PATH/TO/ZOOM/SECRET/FILE" -->
-<!---->
-<!-- # to enable S3 -->
-<!-- export COMPANION_AWS_KEY="YOUR AWS KEY" -->
-<!-- export COMPANION_AWS_SECRET="YOUR AWS SECRET" -->
-<!-- # specifying a secret file will override a directly set secret -->
-<!-- export COMPANION_AWS_SECRET_FILE="PATH/TO/AWS/SECRET/FILE" -->
-<!-- export COMPANION_AWS_BUCKET="YOUR AWS S3 BUCKET" -->
-<!-- export COMPANION_AWS_REGION="AWS REGION" -->
-<!-- # to enable S3 Transfer Acceleration (default: false) -->
-<!-- export COMPANION_AWS_USE_ACCELERATE_ENDPOINT="false" -->
-<!-- # to set X-Amz-Expires query param in presigned urls (in seconds, default: 300) -->
-<!-- export COMPANION_AWS_EXPIRES="300" -->
-<!-- # to set a canned ACL for uploaded objects: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl -->
-<!-- export COMPANION_AWS_ACL="public-read" -->
-<!---->
-<!-- # corresponds to the server.oauthDomain option -->
-<!-- export COMPANION_OAUTH_DOMAIN="sub.domain.com" -->
-<!-- # corresponds to the server.validHosts option -->
-<!-- export COMPANION_DOMAINS="sub1.domain.com,sub2.domain.com,sub3.domain.com" -->
-<!---->
-<!-- # corresponds to the sendSelfEndpoint option -->
-<!-- export COMPANION_SELF_ENDPOINT="THIS SHOULD BE SAME AS YOUR DOMAIN + PATH" -->
-<!---->
-<!-- # comma-separated URLs -->
-<!-- # corresponds to the uploadUrls option (comma-separated) -->
-<!-- export COMPANION_UPLOAD_URLS="http://tusd.tusdemo.net/files/,https://tusd.tusdemo.net/files/" -->
-<!---->
-<!-- # corresponds to the streamingUpload option -->
-<!-- export COMPANION_STREAMING_UPLOAD=true -->
-<!---->
-<!-- # corresponds to the allowLocalUrls option -->
-<!-- export COMPANION_ALLOW_LOCAL_URLS=false -->
-<!---->
-<!-- # corresponds to the maxFileSize option -->
-<!-- export COMPANION_MAX_FILE_SIZE="100000000" -->
-<!---->
-<!-- # corresponds to the chunkSize option -->
-<!-- export COMPANION_CHUNK_SIZE="50000000" -->
-<!---->
-<!-- # corresponds to the periodicPingUrls option (CSV string converted to array) -->
-<!-- export COMPANION_PERIODIC_PING_URLS="https://example.com/ping1,https://example.com/ping2" -->
-<!-- # corresponds to the periodicPingInterval option -->
-<!-- export COMPANION_PERIODIC_PING_INTERVAL=60000 -->
-<!-- # corresponds to the periodicPingStaticPayload option (JSON string) -->
-<!-- export COMPANION_PERIODIC_PING_STATIC_JSON_PAYLOAD="{\"static\":\"data\"}" -->
-<!-- ``` -->
-
 ## API
 
 ### Options
@@ -353,7 +222,7 @@ When integrating Companion into your own server, you pass the options to `compan
 If you are using the standalone version, you configure Companion using environment variables.
 :::
 
-#### `filePath` `COMPANION_PATH`
+#### `filePath` `COMPANION_DATADIR`
 
 Full path to the directory to which provider files will be downloaded temporarily.
 
@@ -385,6 +254,10 @@ Omitting this leaves your system open to potential [SSRF](https://en.wikipedia.o
 and may throw an error in future `@uppy/companion` releases.
 :::
 
+#### `COMPANION_PORT`
+
+The port on which to start the standalone server, defaults to 3020.
+
 #### `redisUrl` `COMPANION_REDIS_URL`
 
 TODO: needs a great explanation if it actually works, so let's figure out if it works
@@ -408,14 +281,14 @@ Setting this option will prefix all events with the name provided and a colon.
 
 Configuation options for the underlying server.
 
-| Key            | Value             | Description                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| -------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `protocol`     | `http` or `https` | Used to build a URL to reference the Companion instance itself, which is used for headers and cookies. Companion does not serve SSL certificates, so by default you should use `http`. You want to set this to `https` if you’ve enabled SSL/HTTPS for your domain by running a reverse https-proxy in front of Companion, or with a built-in HTTPS feature of your hosting service, such as Heroku.
-| `host`         | `String`          | Your server’s publically facing hostname (for example `example.com`).                                                                                                                                                                                                                                                                                                                                                             |
-| `oauthDomain`  | `String`          | If you have several instances of Companion with different (and perhaps dynamic) subdomains, you can set a single fixed subdomain and server (such as `sub1.example.com`) to handle your OAuth authentication for you. This would then redirect back to the correct instance with the required credentials on completion. This way you only need to configure a single callback URL for OAuth providers.                                 |
-| `path`         | `String`          | The server path to where the Companion app is sitting. For instance, if Companion is at `example.com/companion`, then the path would be `/companion`).                                                                                                                                                                                                                                                                                        |
-| `implicitPath` | `String`          | If the URL’s path in your reverse proxy is different from your Companion path in your express app, then you need to set this path as `implicitPath`. For instance, if your Companion URL is `example.com/mypath/companion`. Where the path `/mypath` is defined in your NGINX server, while `/companion` is set in your express app. Then you need to set the option `implicitPath` to `/mypath`, and set the `path` option to `/companion`. |
-| `validHosts`   | `Array`           | If you are setting an `oauthDomain`, you need to set a list of valid hosts, so the oauth handler can validate the host of the Uppy instance requesting the authentication. This is essentially a list of valid domains running your Companion instances. The list may also contain regex patterns. e.g `['sub2.example.com', 'sub3.example.com', '(\\w+).example.com']`                                                             |
+| Key / Env var                            | Value             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `protocol` `COMPANION_PROTOCOL`          | `http` or `https` | Used to build a URL to reference the Companion instance itself, which is used for headers and cookies. Companion does not serve SSL certificates, so by default you should use `http`. You want to set this to `https` if you’ve enabled SSL/HTTPS for your domain by running a reverse https-proxy in front of Companion, or with a built-in HTTPS feature of your hosting service, such as Heroku.                                     |
+| `host` `COMPANION_DOMAIN`                | `String`          | Your server’s publically facing hostname (for example `example.com`).                                                                                                                                                                                                                                                                                                                                                                        |
+| `oauthDomain` `COMPANION_OAUTH_DOMAIN`   | `String`          | If you have several instances of Companion with different (and perhaps dynamic) subdomains, you can set a single fixed subdomain and server (such as `sub1.example.com`) to handle your OAuth authentication for you. This would then redirect back to the correct instance with the required credentials on completion. This way you only need to configure a single callback URL for OAuth providers.                                        |
+| `path` `COMPANION_PATH`                  | `String`          | The server path to where the Companion app is sitting. For instance, if Companion is at `example.com/companion`, then the path would be `/companion`).                                                                                                                                                                                                                                                                                         |
+| `implicitPath` `COMPANION_IMPLICIT_PATH` | `String`          | If the URL’s path in your reverse proxy is different from your Companion path in your express app, then you need to set this path as `implicitPath`. For instance, if your Companion URL is `example.com/mypath/companion`. Where the path `/mypath` is defined in your NGINX server, while `/companion` is set in your express app. Then you need to set the option `implicitPath` to `/mypath`, and set the `path` option to `/companion`. |
+| `validHosts` `COMPANION_DOMAINS`         | `Array`           | If you are setting an `oauthDomain`, you need to set a list of valid hosts, so the oauth handler can validate the host of the Uppy instance requesting the authentication. This is essentially a list of valid domains running your Companion instances. The list may also contain regex patterns. e.g `['sub2.example.com', 'sub3.example.com', '(\\w+).example.com']`                                                                        |
 
 #### `sendSelfEndpoint` `COMPANION_SELF_ENDPOINT`
 
@@ -522,12 +395,29 @@ app.use(uppy.app({
 }))
 ```
 
+#### `COMPANION_AWS_SECRET_FILE`
+
+Using a secret file instead of [`s3.secret`](#s3secret-companion_aws_secret).
+A secret file is a file that only contains the secret.
+ 
+#### `COMPANION_AWS_USE_ACCELERATE_ENDPOINT`
+
+Enable S3 [Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html).
+
+#### `COMPANION_AWS_EXPIRES`
+
+Set `X-Amz-Expires` query parameter in the presigned urls (in seconds, default: 300).
+
+#### `COMPANION_AWS_ACL`
+
+Set a [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) for uploaded objects.
+
 #### `customProviders`
 
 This option enables you to add custom providers along with the already supported providers.
 See [adding custom providers](#how-to-add-custom-providers) for more information.
 
-#### `debug`
+#### `debug` `COMPANION_DEBUG`
 
 A boolean flag to tell Companion whether to log useful debug information while running.
 
@@ -535,11 +425,11 @@ A boolean flag to tell Companion whether to log useful debug information while r
 
 A boolean flag to tell Companion whether to log its version upon startup.
 
-#### `metrics`
+#### `metrics` `COMPANION_HIDE_METRICS`
  
 A boolean flag to tell Companion whether to provide an endpoint `/metrics` with Prometheus metrics.
 
-#### `streamingUpload`
+#### `streamingUpload` `COMPANION_STREAMING_UPLOAD`
 
 A boolean flag to tell Companion whether to enable streaming uploads.
 If enabled, it will lead to _faster uploads_ because companion will start uploading at the same time as downloading using `stream.pipe`.
@@ -550,24 +440,24 @@ Defaults to `false`.
 Do not set it to `true` if you have a [custom Companion provider](#how-to-add-custom-providers) that does not use the new async/stream API.
 :::
 
-#### `maxFileSize`
+#### `maxFileSize` `COMPANION_MAX_FILE_SIZE`
 
 If this value is set, companion will limit the maximum file size to process. If unset, it will process files without any size limit (this is the default).
 
-#### `periodicPingUrls`
+#### `periodicPingUrls` `COMPANION_PERIODIC_PING_URLS`
 
 If this value is set, companion will periodically send POST requests to the specified URLs.
 Useful for keeping track of companion instances as a keep-alive.
 
-#### `periodicPingInterval`
+#### `periodicPingInterval` `COMPANION_PERIODIC_PING_INTERVAL`
 
 Interval for periodic ping requests (in ms).
 
-#### `periodicPingStaticPayload`
+#### `periodicPingStaticPayload` `COMPANION_PERIODIC_PING_STATIC_JSON_PAYLOAD`
 
 A `JSON.stringify`-able JavaScript Object that will be sent as part of the JSON body in the period ping requests.
 
-#### `allowLocalUrls`
+#### `allowLocalUrls` `COMPANION_ALLOW_LOCAL_URLS`
 
 A boolean flag to tell Companion whether to allow requesting local URLs.
 
@@ -575,10 +465,26 @@ A boolean flag to tell Companion whether to allow requesting local URLs.
 Only enable this in development. **Enabling it in production is a security risk.**
 :::
 
-#### `corsOrigins`
+#### `corsOrigins` `COMPANION_CLIENT_ORIGINS`
 
 Allowed CORS Origins (default `true`). 
 Passed as the `origin` option in [cors](https://github.com/expressjs/cors#configuration-options))
+
+#### `COMPANION_SECRET_FILE`
+
+Specifying a secret file will override a directly set [secret](#secret).
+
+#### `COMPANION_HIDE_WELCOME`
+
+Disables the welcome page.
+
+#### `COMPANION_CLIENT_ORIGINS_REGEX`
+Like COMPANION_CLIENT_ORIGINS, but allows a single regex instead.
+`COMPANION_CLIENT_ORIGINS` will be ignored if this is used.
+
+#### `COMPANION_CHUNK_SIZE`
+
+Chunk size?
 
 ### Events
 
