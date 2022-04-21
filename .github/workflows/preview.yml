@@ -17,6 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Alter Docusaurus config baseUrl
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          sed -i "s/baseUrl: '\/'/baseUrl: '\/uppy.io\/pr-preview\/pr-"$PR_NUMBER"\/'/" docusaurus.config.js
+        shell: bash
+
       - name: Install and Build
         run: |
           npm install
