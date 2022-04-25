@@ -18,9 +18,10 @@ If you want to let users download files from [Box][], [Dropbox][], [Facebook][],
 [OneDrive][], [Unsplash][], [Import from URL][Url], or [Zoom][] — you need Companion.
 
 Companion supports the same [uploaders](/docs/guides/choosing-upload-strategy) as Uppy:
-Tus, AWS S3, and regular multipart. But instead of a plugin you configure which one to use with [`protocol`](#options).
+Tus, AWS S3, and regular multipart. But instead of manually setting a plugin,
+Uppy sends along a header with the uploader and Companion will use the same on the server.
 This means if you are using [Tus](/docs/uploaders/tus) for your local uploads, you can send your remote uploads
-to the same Tus server (and likewise for AWS S3).
+to the same Tus server (and likewise for your AWS S3 bucket).
 
 :::note
 Companion only deals with _remote_ files, _local_ files are still uploaded from the client
