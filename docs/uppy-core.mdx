@@ -304,12 +304,12 @@ Metadata from each file is then attached to uploads in the [Tus](/docs/uploaders
 :::
 
 :::info
-There are also two methods for updating `metadata`: [`setMeta`](#) and [`setFileMeta`](#).
+There are also two methods for updating `metadata`: [`setMeta`](#setmetadata) and [`setFileMeta`](#setfilemetafileid-data).
 :::
 
 :::info
 Metadata can also be added from a `<form>` element on your page,
-through the [Form](/docs/form/) plugin or through the UI if you are using Dashboard with the [`metaFields`](/docs/dashboard/#metaFields) option.
+through the [Form](#) plugin or through the UI if you are using Dashboard with the [`metaFields`](/docs/user-interfaces/dashboard#metafields) option.
 :::
 
 <a id="onBeforeFileAdded"></a>
@@ -331,8 +331,8 @@ you should use a [custom plugin](/docs/guides/building-plugins) instead.
 
 :::info
 No notification will be shown to the user about a file not passing validation by default.
-We recommend showing a message using [`uppy.info()`](#uppy-info) and logging to console
-for debugging purposes via [`uppy.log()`](#uppy-log).
+We recommend showing a message using [`uppy.info()`](#infomessage-type-duration) and logging to console
+for debugging purposes via [`uppy.log()`](#logmessage-type).
 :::
 
 <details>
@@ -398,8 +398,8 @@ you should use a [custom plugin](/docs/guides/building-plugins) instead.
 
 :::info
 No notification will be shown to the user about a file not passing validation by default.
-We recommend showing a message using [`uppy.info()`](#uppy-info) and logging to console
-for debugging purposes via [`uppy.log()`](#uppy-log).
+We recommend showing a message using [`uppy.info()`](#infomessage-type-duration) and logging to console
+for debugging purposes via [`uppy.log()`](#logmessage-type).
 :::
 
 <details>
@@ -550,11 +550,11 @@ Uninstall and remove a plugin.
 
 #### `getPlugin(id)`
 
-Get a plugin by its [`id`](/docs/plugins/#id) to access its methods.
+Get a plugin by its `id` to access its methods.
 
 #### `getID()`
 
-Get the Uppy instance ID, see the [`id` option](#id-39-uppy-39).
+Get the Uppy instance ID, see the [`id`](#id) option.
 
 #### `addFile(file)`
 
@@ -713,7 +713,7 @@ See [Redux docs](http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html
 
 #### `getState()`
 
-Returns the current state from the [Store](#store-defaultStore).
+Returns the current state from the [Store](#store).
 
 #### `setFileState(fileID, state)`
 
@@ -829,7 +829,7 @@ Add a preprocessing function.
 `fn` should return a Promise. Its resolution value is ignored.
 
 :::info
-To change file data and such, use Uppy state updates, for example using [`setFileState`](#setFileState).
+To change file data and such, use Uppy state updates, for example using [`setFileState`](#setfilestatefileid-state).
 :::
 
 #### `addUploader(fn)`
