@@ -261,15 +261,15 @@ const nullLogger = {
 
 Conditions for restricting an upload (`Object`, default: `{}`).
 
-| Property             | Value             | Description                                                                                                                      |
-| -------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `maxFileSize`        | `null`, `Number`  | maximum file size in bytes for each individual file                                                                              |
-| `minFileSize`        | `null`, `Number_` | minimum file size in bytes for each individual file                                                                              |
-| `maxTotalFileSize`   | `null`, `Number`  | maximum file size in bytes for all the files that can be selected for upload                                                     |
-| `maxNumberOfFiles`   | `null`, `Number`  | total number of files that can be selected                                                                                       |
-| `minNumberOfFiles`   | `null`, `Number`  | minimum number of files that must be selected before the upload                                                                  |
-| `allowedFileTypes`   | `null`, `Array`   | wildcards `image/*`, or exact mime types `image/jpeg`, or file extensions `.jpg`: `['image/*', '.jpg', '.jpeg', '.png', '.gif']` |
-| `requiredMetaFields` | `Array<string>`   | ...                                                                                                                              |
+| Property             | Value           | Description                                                                                                                      |
+| -------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `maxFileSize`        | `Number`        | maximum file size in bytes for each individual file                                                                              |
+| `minFileSize`        | `Number`        | minimum file size in bytes for each individual file                                                                              |
+| `maxTotalFileSize`   | `Number`        | maximum file size in bytes for all the files that can be selected for upload                                                     |
+| `maxNumberOfFiles`   | `Number`        | total number of files that can be selected                                                                                       |
+| `minNumberOfFiles`   | `Number`        | minimum number of files that must be selected before the upload                                                                  |
+| `allowedFileTypes`   | `Array`         | wildcards `image/*`, or exact mime types `image/jpeg`, or file extensions `.jpg`: `['image/*', '.jpg', '.jpeg', '.png', '.gif']` |
+| `requiredMetaFields` | `Array<string>` | make keys from the `meta` object in every file required before uploading                                                         |
 
 :::note
 `maxNumberOfFiles` also affects the number of files a user is able to select via the system file dialog
