@@ -213,7 +213,7 @@ An upload batch is made up of the files that were added since the earlier `.uplo
 With this option set to `true`, users can upload some files, and then add _more_ files and upload those as well.
 A model use case for this is uploading images to a gallery or adding attachments to an email.
 
-With this option set to `false`, users can upload some files, and you can listen for the [`'complete'`](/docs/uppy/#complete)
+With this option set to `false`, users can upload some files, and you can listen for the [`'complete'`](#complete)
 event to continue to the next step in your app’s upload flow.
 A typical use case for this is uploading a new profile picture.
 If you are integrating with an existing HTML form, this option gives the closest behaviour to a bare `<input type="file">`.
@@ -231,15 +231,7 @@ Logger used for [`uppy.log`](#uppy-log) (`Object`, default: `justErrorsLogger`).
 By providing your own `logger`, you can send the debug information to a server, choose to log errors only, etc.
 
 :::note
-Set `logger` to `Uppy.debugLogger` to get debug info output to the browser console:
-
-```js
-import Uppy from '@uppy/core'
-
-const uppy = new Uppy({
-  logger: Uppy.debugLogger,
-})
-```
+Set `logger` to [`debugLogger`](#debuglogger) to get debug info output to the browser console:
 :::
 
 :::note
@@ -520,7 +512,7 @@ module.exports = {
 
 #### `store`
 
-The store that is used to keep track of internal state (`Object`, default: [`DefaultStore`](/docs/stores/#DefaultStore)).
+The store that is used to keep track of internal state (`Object`, default: [`DefaultStore`](/docs/custom-stores/default-store)).
 
 This option can be used to plug Uppy state into an external state management library, such as [Redux](/docs/custom-stores/redux-store).
 
