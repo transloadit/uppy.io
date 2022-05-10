@@ -226,7 +226,7 @@ Setting this to `true` sets the [`logger`](#logger) to [`debugLogger`](#debuglog
 
 #### `logger`
 
-Logger used for [`uppy.log`](#uppy-log) (`Object`, default: `justErrorsLogger`).
+Logger used for [`uppy.log`](#logmessage-type) (`Object`, default: `justErrorsLogger`).
 
 By providing your own `logger`, you can send the debug information to a server, choose to log errors only, etc.
 
@@ -1037,7 +1037,7 @@ uppy.on('upload-success', (file, response) => {
 Fired when all uploads are complete.
 
 The `result` parameter is an object with arrays of `successful` and `failed` files,
-as in [`uppy.upload()`](#uppy-upload)’s return value.
+as in [`uppy.upload()`](#upload)’s return value.
 
 ```js
 uppy.on('complete', (result) => {
@@ -1234,7 +1234,7 @@ install () {
 ```
 
 Another common thing to do when creating a [UI plugin](#new-uipluginuppy-options)
-is to [`mount`](#mount) it to the DOM:
+is to [`mount`](#mounttarget) it to the DOM:
 
 ```js
 install () {
