@@ -147,24 +147,34 @@ new Uppy.use(Dashboard, {
 })
 ```
 
-#### `id: 'Dashboard'`
+#### `id`
 
-A unique identifier for this plugin. It defaults to `'Dashboard'`, but you can change this if you need several Dashboard instances.
+A unique identifier for this plugin (`String`, default: `'Dashboard'`).
+
 Plugins that are added by the Dashboard get unique IDs based on this ID, like `'Dashboard:StatusBar'` and `'Dashboard:Informer'`.
 
-#### `target: 'body'`
+#### `target`
 
+Where to render the Dashboard (`String` or `Element`, default: `'body'`). 
+
+You can pass an element, class, or id as a string. 
 Dashboard is rendered into `body`, because it’s hidden by default and only opened as a modal when `trigger` is clicked.
 
-#### `inline: false`
+#### `inline`
 
-By default, Dashboard will be rendered as a modal, which is opened by clicking on `trigger`. If `inline: true`, Dashboard will be rendered into `target` and fit right in.
+Render the Dashboard as a modal or inline (`Boolean`, default: `false`).
 
-#### `trigger: null`
+When `false`, Dashboard is opened by clicking on [`trigger`](#trigger).
+If `inline: true`, Dashboard will be rendered into [`target`](#target) and fit right in.
 
-String with a CSS selector for a button that will trigger opening the Dashboard modal. Several buttons or links can be used, as long as they are selected using a class selector (`.select-file-button`, for example).
+#### `trigger`
 
-#### `plugins: []`
+A CSS selector for a button that will trigger opening the Dashboard modal (`String`, default: `null`).
+
+Several buttons or links can be used, as long as they are selected using the same selector (`.select-file-button`, for example).
+
+<!-- TODO: deprecate this? -->
+#### `plugins: []` TODO
 
 List of plugin IDs that should be shown in the Dashboard’s top bar. For example, to show the Webcam plugin:
 
@@ -177,64 +187,73 @@ uppy.use(Dashboard, {
 
 You could also use the `target` option in the Webcam plugin to achieve this, but that does not work with the React components. The `target` option may be changed in the future to only accept DOM elements, so it’s recommended to use this `plugins` array instead.
 
-#### `width: 750`
+#### `width`
 
-Width of the Dashboard in pixels. Used when `inline: true`.
+Width of the Dashboard in pixels (`Number`, default: `750`). Used when `inline: true`.
 
-#### `height: 550`
+#### `height`
 
-Height of the Dashboard in pixels. Used when `inline: true`.
+Height of the Dashboard in pixels (`Number`, default: `550`). Used when `inline: true`.
 
-#### `waitForThumbnailsBeforeUpload: false`
+#### `waitForThumbnailsBeforeUpload`
 
-Whether to wait for all thumbnails from `@uppy/thumbnail-generator` to be ready before starting the upload. If set to `true`, Thumbnail Generator will envoke Uppy’s internal processing stage, displaying “Generating thumbnails...” message, and wait for `thumbnail:all-generated` event, before proceeding to the uploading stage.
+Whether to wait for all thumbnails from `@uppy/thumbnail-generator` to be ready before starting the upload (`Boolean`, default `false`).
+
+If set to `true`, Thumbnail Generator will envoke Uppy’s internal processing stage, displaying “Generating thumbnails...” message, and wait for `thumbnail:all-generated` event, before proceeding to the uploading stage.
 
 This is useful because Thumbnail Generator also adds EXIF data to images, and if we wait until it’s done processing, this data will be avilable on the server after the upload.
 
-#### `showLinkToFileUploadResult: false`
+#### `showLinkToFileUploadResult`
 
-Turn the file icon and thumbnail in the Dashboard into a link to the uploaded file. Please make sure to return the `url` key (or the one set via `responseUrlFieldName`) from your server.
+Turn the file icon and thumbnail in the Dashboard into a link to the uploaded file (`Boolean`, default: `false`).
 
-#### `showProgressDetails: false`
+Please make sure to return the `url` key (or the one set via `responseUrlFieldName`) from your server.
 
-Passed to the Status Bar plugin used in the Dashboard.
+#### `showProgressDetails`
+
+Show or hise progress details in the status bar (`Boolean`, default: `false`).
 
 By default, progress in Status Bar is shown as a percentage. If you would like to also display remaining upload size and time, set this to `true`.
 
 `showProgressDetails: false`: Uploading: 45%
+
 `showProgressDetails: true`: Uploading: 45%・43 MB of 101 MB・8s left
 
-#### `hideUploadButton: false`
+#### `hideUploadButton`
 
-Passed to the Status Bar plugin used in the Dashboard.
+Show or hide the upload button (`Boolean`, default: `false`).
 
-Hide the upload button. Use this if you are providing a custom upload button somewhere, and using the `uppy.upload()` API.
+Use this if you are providing a custom upload button somewhere, and are using the `uppy.upload()` API.
 
-#### `hideRetryButton: false`
+#### `hideRetryButton`
 
-Hide the retry button in StatusBar (the progress bar below the file list) and on each individual file.
+Hide the retry button in the status bar and on each individual file (`Boolean`, default: `false`).
 
-Use this if you are providing a custom retry button somewhere, and using the `uppy.retryAll()` or `uppy.retryUpload(fileID)` API.
+Use this if you are providing a custom retry button somewhere and if you are using the `uppy.retryAll()` or `uppy.retryUpload(fileID)` API.
 
-#### `hidePauseResumeButton: false`
+#### `hidePauseResumeButton`
 
-Hide the pause/resume button (for resumable uploads, via [tus](http://tus.io), for example) in StatusBar and on each individual file.
+Hide the pause/resume button (for resumable uploads, via [tus](http://tus.io), for example) in the status bar and on each individual file
+(`Boolean`, default: `false`).
 
 Use this if you are providing custom cancel or pause/resume buttons somewhere, and using the `uppy.pauseResume(fileID)` or `uppy.removeFile(fileID)` API.
 
-#### `hideCancelButton: false`
+#### `hideCancelButton`
 
-Hide the cancel button in StatusBar and on each individual file.
+Hide the cancel button in status bar and on each individual file (`Boolean`, default: `false`).
 
 Use this if you are providing a custom retry button somewhere, and using the `uppy.cancelAll()` API.
 
-#### `hideProgressAfterFinish: false`
+#### `hideProgressAfterFinish`
 
-Hide Status Bar after the upload has finished.
+Hide the status bar after the upload has finished (`Boolean`, default: `false`).
 
-#### `doneButtonHandler`
+#### `doneButtonHandler()`
 
-This option is passed to the StatusBar, and will render a “Done” button in place of pause/resume/cancel buttons, once the upload/encoding is done. The behaviour of this “Done” button is defined by the handler function — can be used to close file picker modals or clear the upload state. This is what the Dashboard sets by default:
+This option is passed to the status bar and will render a “Done” button in place of pause/resume/cancel buttons, once the upload/encoding is done.
+The behaviour of this “Done” button is defined by this handler function, for instance to close the file picker modals or clear the upload state. 
+
+This is what the Dashboard sets by default:
 
 ```js
 const doneButtonHandler = () => {
@@ -245,16 +264,22 @@ const doneButtonHandler = () => {
 
 Set to `null` to disable the “Done” button.
 
-#### `showSelectedFiles: true`
+#### `showSelectedFiles`
 
-Show the list (grid) of selected files with preview and file name. In case you are showing selected files in your own app’s UI and want the Uppy Dashboard to only be a picker, the list can be hidden with this option.
+Show the list of added files with a preview and file information (`Boolean`, default: `true`).
 
-See also `disableStatusBar` option, which can hide the progress and upload button.
+In case you are showing selected files in your own app’s UI and want the Uppy Dashboard to only be a picker, the list can be hidden with this option.
 
-#### `showRemoveButtonAfterComplete: false`
+See also [`disableStatusBar`](#disablestatusbar) option, which can hide the progress and upload button.
 
-Sometimes you might want to let users remove an uploaded file. Enabling this option only shows the remove `X` button in the Dashboard UI, but to actually send a request you should listen to [`file-removed`](https://uppy.io/docs/uppy/#file-removed) event and add your logic there.
+#### `showRemoveButtonAfterComplete`
 
+Show the remove button on every file after a successful upload (`Boolean`, default: `false`).
+
+Enabling this option only shows the remove `X` button in the Dashboard UI,
+but to actually send a request you should listen to [`file-removed`](https://uppy.io/docs/uppy/#file-removed) event and add your logic there.
+
+Example:
 ```js
 uppy.on('file-removed', (file, reason) => {
   if (reason === 'removed-by-user') {
@@ -263,23 +288,41 @@ uppy.on('file-removed', (file, reason) => {
 })
 ```
 
-For an implementation example, please see [#2301](https://github.com/transloadit/uppy/issues/2301#issue-628931176)).
+For an implementation example, please see [#2301](https://github.com/transloadit/uppy/issues/2301#issue-628931176).
 
-#### `note: null`
+#### `note`
 
-Optionally, specify a string of text that explains something about the upload for the user. This is a place to explain any `restrictions` that are put in place. For example: `'Images and video only, 2–3 files, up to 1 MB'`.
+A string of text to be placed in the Dashboard UI (`String`, default: `null`). 
 
-#### `metaFields: []`
+This could for instance be used to explain any [`restrictions`](#restrictions) that are put in place.
+For example: `'Images and video only, 2–3 files, up to 1 MB'`.
 
-An array of UI field objects, or a function that takes a [File Object](https://uppy.io/docs/uppy/#File-Objects) and returns an array of UI field objects, that will be shown when a user clicks the “edit” button on that file. Configuring this enables the “edit” button on file cards. Each object requires:
+#### `metaFields`
 
-* `id`, the name of the meta field. Note: this will also be used in CSS/HTML as part of the `id` attribute, so it’s better to [avoid using characters like periods, semicolons, etc](https://stackoverflow.com/a/79022).
-* `name`, the label shown in the interface.
-* `placeholder`, the text shown when no value is set in the field. (Not needed when a custom render function is provided)
+Create text or custom input fields for the user to fill in (`Array<Object>` or `Function`, default: `null`).
 
-Optionally, you can specify `render: ({value, onChange, required, form}, h) => void`, a function for rendering a custom form element.
-It gets passed `({value, onChange, required, form}, h)` where `value` is the current value of the meta field, `required` is a boolean that’s true if the field `id` is in the `restrictedMetaFields` restriction, `form` is the `id` of the associated `<form>` element, and `onChange: (newVal) => void` is a function saving the new value and `h` is the `createElement` function from [preact](https://preactjs.com/guide/v10/api-reference#h--createelement).
-`h` can be useful when using uppy from plain JavaScript, where you cannot write JSX.
+This will be shown when a user clicks the “edit” button on that file. 
+
+:::note
+The meta data will only be set on a file object if it’s entered by the user.
+If the user doesn’t edit a file’s metadata, it will not have default values; instead everything will be `undefined`.
+If you want to set a certain meta field to each file regardless of user actions, set [`meta` in the Uppy constructor options](/docs/uppy-core/#meta).
+:::
+
+Each object can contain:
+
+* `id`. The name of the meta field. This will also be used in CSS/HTML as part of the `id` attribute, so it’s better to [avoid using characters like periods, semicolons, etc](https://stackoverflow.com/a/79022).
+* `name`. The label shown in the interface.
+* `placeholder`. The text shown when no value is set in the field. (Not needed when a custom render function is provided)
+* `render: ({value, onChange, required, form}, h) => void` (optional). A function for rendering a custom form element.
+  * `value` is the current value of the meta field
+  * `onChange: (newVal) => void` is a function saving the new value and `h` is the `createElement` function from [Preact](https://preactjs.com/guide/v10/api-reference#h--createelement).
+  * `required` is a boolean that’s true if the field `id` is in the `restrictedMetaFields` restriction
+  * `form` is the `id` of the associated `<form>` element.
+  * `h` can be useful when using Uppy from plain JavaScript, where you cannot write JSX.
+
+<details>
+<summary>Example: meta fields configured as an `Array`</summary>
 
 ```js
 uppy.use(Dashboard, {
@@ -299,7 +342,10 @@ uppy.use(Dashboard, {
 })
 ```
 
-If you’d like the meta fields to be dynamically assigned depending on, for instance, the file type, pass a function:
+</details>
+
+<details>
+<summary>Example: dynamic meta fields based on file type with a `Function`</summary>
 
 ```js
 uppy.use(Dashboard, {
@@ -328,53 +374,74 @@ uppy.use(Dashboard, {
 })
 ```
 
-<!-- ![](/images/uppy-dashboard-meta-fields.jpg) -->
+</details>
 
-Note that this metadata will only be set on a file object if it’s entered by the user. If the user doesn’t edit a file’s metadata, it will not have default values; instead everything will be `undefined`. If you want to set a certain meta field to each file regardless of user actions, set [`meta` in the Uppy constructor options](/docs/uppy/#meta).
+#### `closeModalOnClickOutside`
 
-#### `closeModalOnClickOutside: false`
+Set to true to automatically close the modal when the user clicks outside of it (`Boolean`, default: `false`).
 
-Set to true to automatically close the modal when the user clicks outside of it.
+#### `closeAfterFinish`
 
-#### `closeAfterFinish: false`
+Set to true to automatically close the modal when all current uploads are complete (`Boolean`, default: `false`).
 
-Set to true to automatically close the modal when all current uploads are complete. You can use this together with the [`allowMultipleUploads: false`](/docs/uppy#allowMultipleUploads-true) option in Uppy Core to create a smooth experience when uploading a single (batch of) file(s).
+With this option, the modal is only automatically closed when uploads are complete _and successful_.
+If some uploads failed, the modal stays open so the user can retry failed uploads or cancel the current batch and upload an entirely different set of files instead.
 
-With this option, the modal is only automatically closed when uploads are complete _and successful_. If some uploads failed, the modal stays open so the user can retry failed uploads or cancel the current batch and upload an entirely different set of files instead.
+:::info
+You can use this together with the [`allowMultipleUploads: false`](/docs/uppy-core/#allowmultipleuploads) option in Uppy Core
+to create a smooth experience when uploading a single (batch of) file(s).
 
-> Setting [`allowMultipleUploads: false`](/docs/uppy#allowMultipleUploads-true) is **strongly** recommended when using this option. With several upload batches, the auto-closing behavior can be quite confusing for users.
+This is recommended. With several upload batches, the auto-closing behavior can be quite confusing for users.
+:::
 
-#### `disablePageScrollWhenModalOpen: true`
+#### `disablePageScrollWhenModalOpen`
 
-Page scrolling is disabled by default when the Dashboard modal is open, so when you scroll a list of files in Uppy, the website in the background stays still. Set to false to override this behaviour and leave page scrolling intact.
+Disable page scroll when the modal is open (`Boolean`, default: `true`).
 
-#### `animateOpenClose: true`
+Page scrolling is disabled by default when the Dashboard modal is open, so when you scroll a list of files in Uppy,
+the website in the background stays still.
+Set to false to override this behaviour and leave page scrolling intact.
 
-Add light animations when the modal dialog is opened or closed, for a more satisfying user experience.
+#### `animateOpenClose`
 
-#### `fileManagerSelectionType: 'files'`
+Add animations when the modal dialog is opened or closed, for a more satisfying user experience (`Boolean`, default: `true`).
 
-Configure the type of selections allowed when browsing your file system via the file manager selection window. May be either `'files'`, `'folders'`, or `'both'`. Selecting entire folders for upload may not be supported on all [browsers](https://caniuse.com/#feat=input-file-directory).
+#### `fileManagerSelectionType`
 
-#### `proudlyDisplayPoweredByUppy: true`
+Configure the type of selections allowed when browsing your file system via the file manager selection window (`String`, default: `'files'`).
 
-Uppy is provided to the world for free by the team behind [Transloadit](https://transloadit.com). In return, we ask that you consider keeping a tiny Uppy logo at the bottom of the Dashboard, so that more people can discover and use Uppy.
+May be either `'files'`, `'folders'`, or `'both'`.
+Selecting entire folders for upload may not be supported on all [browsers](https://caniuse.com/#feat=input-file-directory).
 
-Set this option to `false` if you do not wish to display the Uppy logo.
+#### `proudlyDisplayPoweredByUppy`
 
-#### `disableStatusBar: false`
+Show the Uppy logo with a link (`Boolean`, default: `true`).
 
-Dashboard ships with the `StatusBar` plugin that shows upload progress and pause/resume/cancel buttons. If you want, you can disable the StatusBar to provide your own custom solution.
+Uppy is provided to the world for free by the team behind [Transloadit](https://transloadit.com). 
+In return, we ask that you consider keeping a tiny Uppy logo at the bottom of the Dashboard, so that more people can discover and use Uppy.
+
+#### `disableStatusBar`
+
+Disable the status bar completely (`Boolean`, default: `false`).
+
+Dashboard ships with the `StatusBar` plugin that shows upload progress and pause/resume/cancel buttons.
+If you want, you can disable the StatusBar to provide your own custom solution.
 
 #### `disableInformer: false`
 
-Dashboard ships with the `Informer` plugin that notifies when the browser is offline, or when it’s time to say cheese if `Webcam` is taking a picture. If you want, you can disable the Informer and/or provide your own custom solution.
+Disable informer (shows notifications in the form of 'toasts') completely (`Boolean`, default: `false`).
 
-#### `disableThumbnailGenerator: false`
+Dashboard ships with the `Informer` plugin that notifies when the browser is offline, or when it’s time to say cheese if `Webcam` is taking a picture.
+If you want, you can disable the Informer and/or provide your own custom solution.
 
-Dashboard ships with the `ThumbnailGenerator` plugin that adds small resized image thumbnails to images, for preview purposes only. If you want, you can disable the `ThumbnailGenerator` and/or provide your own custom solution.
+#### `disableThumbnailGenerator`
 
-#### `locale: {}`
+Disable the thumbnail generator completely (`Boolean`, default: `false`).
+
+Dashboard ships with the `ThumbnailGenerator` plugin that adds small resized image thumbnails to images, for preview purposes only.
+If you want, you can disable the `ThumbnailGenerator` and/or provide your own custom solution.
+
+#### `locale`
 
 <!-- eslint-disable no-restricted-globals, no-multiple-empty-lines -->
 
@@ -470,7 +537,9 @@ module.exports = {
 
 ```
 
-#### `theme: 'light'`
+#### `theme`
+
+Light or dark theme for the Dashboard (`String`, default: `'light'`).
 
 Uppy Dashboard supports “Dark Mode”. You can try it live on [the Dashboard example page](https://uppy.io/examples/dashboard/).
 
@@ -480,18 +549,18 @@ It supports the following values:
 * `dark`
 * `auto` — will respect the user’s system settings and switch automatically
 
-<!-- ![Uppy dark mode screenshot](/images/uppy-dashboard-dark-mar-2020.png) -->
+#### `autoOpenFileEditor`
 
-#### `autoOpenFileEditor: false`
+Automatically open file editor (see [`@uppy/image-editor`](/docs/user-interfaces/elements/image-editor/)) for the first file in a batch (`Boolean`, default: `false`).
 
-Automatically open file editor (see [`@uppy/image-editor`](/docs/image-editor/)) for the first file in a batch. If one file is added, editor opens for that file, if 10 files are added — editor opens for the first file.
-
+If one file is added, editor opens for that file, if 10 files are added — editor opens for the first file.
 Use case: user adds an image — Uppy opens Image Editor right away — user crops / adjusts the image — upload.
 
-#### `disabled: false`
+#### `disabled`
 
-Enabling this option makes the Dashboard grayed-out and non-interactive. Users won’t be able to click on buttons or drop files.
+Enabling this option makes the Dashboard grayed-out and non-interactive (`Boolean`, default: `false`).
 
+Users won’t be able to click on buttons or drop files.
 Useful when you need to conditionally enable/disable file uploading or manipulation, based on a condition in your app. Can be set on init or via API:
 
 ```js
@@ -503,11 +572,30 @@ userNameInput.addEventListener('change', () => {
 })
 ```
 
-#### `disableLocalFiles: false`
+#### `disableLocalFiles`
 
-Enabling this option will disable drag & drop, hide the “browse” and “My Device” button, allowing only uploads from plugins, such as Webcam, Screen Capture, Google Drive, Instagram.
+Disable local files (`Boolean`, default: `false`).
+
+Enabling this option will disable drag & drop, hide the “browse” and “My Device” button,
+allowing only uploads from plugins, such as Webcam, Screen Capture, Google Drive, Instagram.
+
+#### `onDragOver(event)`
+
+Callback for the [`ondragover`][ondragover] event handler.
+
+#### `onDrop(event)`
+
+Callback for the [`ondrop`][ondrop] event handler.
+
+#### `onDragLeave(event)`
+
+Callback for the [`ondragleave`][ondragleave] event handler.
 
 ### Methods
+
+#### `setOptions(options)`
+
+TODO...
 
 #### `openModal()`
 
@@ -534,11 +622,7 @@ if (dashboard.isModalOpen()) {
 
 ### Events
 
-## Integrations
-
-## Events
-
-### `dashboard:modal-open`
+#### `dashboard:modal-open`
 
 Fired when the Dashboard modal is open.
 
@@ -548,11 +632,11 @@ uppy.on('dashboard:modal-open', () => {
 })
 ```
 
-### `dashboard:modal-closed`
+#### `dashboard:modal-closed`
 
 Fired when the Dashboard modal is closed.
 
-### `dashboard:file-edit-start`
+#### `dashboard:file-edit-start`
 
 **Parameters:**
 
@@ -560,7 +644,7 @@ Fired when the Dashboard modal is closed.
 
 Fired when the user clicks “edit” icon next to a file in the Dashboard. The FileCard panel is then open with file metadata available for editing.
 
-### `dashboard:file-edit-complete`
+#### `dashboard:file-edit-complete`
 
 **Parameters:**
 
@@ -568,17 +652,9 @@ Fired when the user clicks “edit” icon next to a file in the Dashboard. The 
 
 Fired when the user finished editing the file metadata.
 
-### `onDragOver(event)`
+## Integrations
 
-Callback for the [`ondragover`][ondragover] event handler.
-
-### `onDrop(event)`
-
-Callback for the [`ondrop`][ondrop] event handler.
-
-### `onDragLeave(event)`
-
-Callback for the [`ondragleave`][ondragleave] event handler.
+TODO...
 
 <!-- definitions -->
 
