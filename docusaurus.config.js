@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight');
-const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
+const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight')
+const darkCodeTheme = require('prism-react-renderer/themes/vsDark')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -40,7 +40,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      docs: { sidebar: { autoCollapseCategories: true }},
+      docs: { sidebar: { autoCollapseCategories: true } },
       colorMode: { disableSwitch: true },
       navbar: {
         title: 'Uppy',
@@ -55,11 +55,17 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          { to: '/examples', label: 'Examples', position: 'left' },
+          { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/transloadit/uppy',
             label: 'GitHub',
-            position: 'right',
+            position: 'left',
+          },
+          {
+            href: 'https://community.transloadit.com/',
+            label: 'Community Support Forum',
+            position: 'left',
           },
         ],
       },
@@ -113,6 +119,6 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-};
+}
 
-module.exports = config;
+module.exports = config
