@@ -173,20 +173,6 @@ A CSS selector for a button that will trigger opening the Dashboard modal (`Stri
 
 Several buttons or links can be used, as long as they are selected using the same selector (`.select-file-button`, for example).
 
-<!-- TODO: deprecate this? -->
-#### `plugins: []` TODO
-
-List of plugin IDs that should be shown in the Dashboard’s top bar. For example, to show the Webcam plugin:
-
-```js
-uppy.use(Webcam)
-uppy.use(Dashboard, {
-  plugins: ['Webcam'],
-})
-```
-
-You could also use the `target` option in the Webcam plugin to achieve this, but that does not work with the React components. The `target` option may be changed in the future to only accept DOM elements, so it’s recommended to use this `plugins` array instead.
-
 #### `width`
 
 Width of the Dashboard in pixels (`Number`, default: `750`). Used when `inline: true`.
@@ -593,9 +579,9 @@ Callback for the [`ondragleave`][ondragleave] event handler.
 
 ### Methods
 
-#### `setOptions(options)`
-
-TODO...
+:::info
+Dashboard also contains the methods described in [`UIPlugin`](/docs/uppy-core#new-uipluginuppy-options) and [`BasePlugin`](/docs/uppy-core#new-basepluginuppy-options).
+:::
 
 #### `openModal()`
 
@@ -654,7 +640,37 @@ Fired when the user finished editing the file metadata.
 
 ## Integrations
 
-TODO...
+These are the plugins specifically made for the Dashboard.
+This is not a list of all Uppy plugins.
+
+### Sources
+
+- [`@uppy/audio`](/docs/sources/audio) — record audio.
+- [`@uppy/box`](/docs/sources/companion-plugins/box) — import files from [Box](https://www.box.com/en-nl/home).
+- [`@uppy/dropbox`](/docs/sources/companion-plugins/dropbox) — import from [Dropbox](https://dropbox.com).
+- [`@uppy/facebook`](/docs/sources/companion-plugins/dropbox) — import from [Facebook](https://facebook.com).
+- [`@uppy/google-drive`](/docs/sources/companion-plugins/google-drive) — import from [Google Drive](https://drive.google.com).
+- [`@uppy/instagram`](/docs/sources/companion-plugins/instagram) — import from [Instagram](https://instagram.com).
+- [`@uppy/onedrive`](/docs/sources/companion-plugins/onedrive) — import from [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage).
+- [`@uppy/screen-capture`](/docs/sources/screen-capture) — Record your screen, including (optionally) your microphone.
+- [`@uppy/unsplash`](/docs/sources/companion-plugins/unsplash) — import files from [Unsplash](https://unsplash.com/)
+- [`@uppy/url`](/docs/sources/companion-plugins/url) — import files from any URL.
+- [`@uppy/webcam`](/docs/sources/webcam) — Record or make a picture with your webcam.
+- [`@uppy/zoom`](/docs/sources/companion-plugins/url) — import files from [Zoom](https://zoom.us).
+
+### UI
+
+- [`@uppy/image-editor`](/docs/user-interfaces/elements/image-editor) — allows users to crop, rotate, zoom and flip images that are added to Uppy.
+- [`@uppy/informer`](/docs/user-interfaces/elements/informer) — show notifications.
+- [`@uppy/status-bar`](/docs/user-interfaces/elements/status-bar) — advanced upload progress status bar.
+- [`@uppy/thumbnail-generator`](/docs/user-interfaces/elements/thumbnail-generator) — generate preview thumbnails for images to be uploaded.
+
+### Frameworks
+
+- [`@uppy/angular`](/docs/framework-integrations/angular) — Dashboard component for [Angular](https://angular.io/).
+- [`@uppy/react`](/docs/framework-integrations/react) — Dashboard component for [React](https://reactjs.org/).
+- [`@uppy/svelte`](/docs/framework-integrations/svelte) — Dashboard component for [Svelte](https://svelte.dev/).
+- [`@uppy/vue`](/docs/framework-integrations/vue) — Dashboard component for [Vue](https://vuejs.org/).
 
 <!-- definitions -->
 
