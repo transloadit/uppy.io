@@ -2,4 +2,160 @@
 sidebar_position: 2
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
+
 # Drag & Drop
+
+The `@uppy/drag-drop` plugin renders a drag and drop area for file selection.
+
+:::tip
+[Try out the live example](/examples) or take it for a spin in [CodeSandbox](#).
+:::
+
+## When should I use this?
+
+It can be useful when you only want the local device as a file source, don’t need file previews and a UI for metadata editing,
+or the [Dashboard](/docs/dashboard/) is simply too much. However, it can be too minimal too.
+By default there is no indication that a file has been added and there is no progress bar.
+
+## Install
+
+<Tabs>
+  <TabItem value="npm" label="NPM" default>
+
+  ```shell
+  npm install @uppy/core @uppy/drag-drop
+  ```
+
+  </TabItem>
+
+  <TabItem value="yarn" label="Yarn">
+
+  ```shell
+  yarn add @uppy/core @uppy/drag-drop
+  ```
+
+  </TabItem>
+
+  <TabItem value="cdn" label="CDN">
+  <Admonition type="caution">
+    <p>
+      The bundle consists of most Uppy plugins, so this method is not recommended for production,
+      as your users will have to download all plugins when you are likely using only a few.
+    </p>
+  </Admonition>
+
+  ```html
+    <!-- 1. Add CSS to `<head>` -->
+    <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
+
+    <!-- 2. Add JS before the closing `</body>` -->
+    <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
+
+    <!-- 3. Initialize -->
+    <div id="uppy"></div>
+    <script>
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.DragDrop, { target: '#uppy', inline: true })
+    </script>
+  ```
+
+  </TabItem>
+</Tabs>
+
+## API
+
+:::info
+Certain [restrictions](/docs/uppy#restrictions) set in Uppy’s options, namely `maxNumberOfFiles` and `allowedFileTypes`, 
+affect the system file picker dialog. If `maxNumberOfFiles: 1`, users will only be able to select one file,
+and `allowedFileTypes: ['video/*', '.gif']` means only videos or gifs (files with `.gif` extension) will be selectable.
+:::
+
+### Options
+
+```js
+import Uppy from '@uppy/core'
+import DragDrop from '@uppy/drag-drop'
+
+// The `@uppy/drag-drop` plugin includes some basic styles.
+// You can also choose not to use it and provide your own styles instead.
+import '@uppy/core/dist/style.min.css'
+import '@uppy/drag-drop/dist/style.min.css'
+
+// Example of setting all the options to their defaults.
+// Not passing anything to `DragDrop` is therefor the same as the example below.
+new Uppy().use(DragDrop, {
+  id: 'DragDrop',
+  target: null,
+  width: '100%',
+  height: '100%',
+  note: null,
+  locale: {
+    strings: { dropHereOr: 'Drop here or %{browse}', browse: 'browse' },
+  },
+})
+```
+
+#### `id`
+
+A unique identifier for this plugin (`String`, Default: `'DragDrop'`)
+
+Use this if you need to add several DragDrop instances.
+
+#### `target`
+
+DOM element, CSS selector, or plugin to place the drag and drop area into (`String` or `Element`, default: `null`).
+
+#### `width`
+
+Drag and drop area width (`String`, default: `'100%'`)
+
+Set in inline CSS, so feel free to use percentage, pixels or other values that you like.
+
+#### `height`
+
+Drag and drop area height (`String`, default: `'100%'`)
+
+Set in inline CSS, so feel free to use percentage, pixels or other values that you like.
+
+#### `note`
+
+Optionally, specify a string of text that explains something about the upload for the user (`String`, default: `null`).
+
+This is a place to explain any `restrictions` that are put in place. For example: `'Images and video only, 2–3 files, up to 1 MB'`.
+
+#### `locale`
+
+```js
+export default {
+  strings: {
+    // Text to show on the droppable area.
+    // `%{browse}` is replaced with a link that opens the system file selection dialog.
+    dropHereOr: 'Drop here or %{browse}',
+    // Used as the label for the link that opens the system file selection dialog.
+    browse: 'browse',
+  },
+}
+```
+
+#### `onDragOver(event)`
+
+Callback for the [`ondragover`][ondragover] event handler.
+
+#### `onDragLeave(event)`
+
+Callback for the [`ondragleave`][ondragleave] event handler.
+
+#### `onDrop(event)`
+
+Callback for the [`ondrop`][ondrop] event handler.
+
+<!-- definitions -->
+
+[ondragover]: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondragover
+
+[ondragleave]: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondragleave
+
+[ondrop]: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondrop
