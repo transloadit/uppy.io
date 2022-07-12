@@ -15,7 +15,7 @@ Add files from [remote sources](/docs/companion), [edit images](/docs/user-inter
 Checkout [integrations](#integrations) for the full list of plugins you can integrate.
 
 :::tip
-[Try out the live example with all plugins](/examples) or take a minimal version for a spin in [StackBlitz](#) or [CodeSandbox](#).
+[Try out the live example with all plugins](/examples) or take it for a spin in [CodeSandbox](https://codesandbox.io/s/uppy-dashboard-xpxuhd).
 :::
 
 ## When should I use this?
