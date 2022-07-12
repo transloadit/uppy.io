@@ -168,7 +168,11 @@ export default {
 
 ### Events
 
-#### file-editor:start
+:::info
+You can use [`on`](/docs/uppy-core#onevent-action) and [`once`](/docs/uppy-core#onceevent-action) to listen to these events.
+:::
+
+#### `file-editor:start`
 
 Emitted when `selectFile(file)` is called.
 
@@ -178,7 +182,7 @@ uppy.on('file-editor:start', (file) => {
 })
 ```
 
-#### file-editor:complete
+#### `file-editor:complete`
 
 Emitted after `save(blob)` is called.
 
@@ -188,7 +192,7 @@ uppy.on('file-editor:complete', (updatedFile) => {
 })
 ```
 
-#### file-editor:cancel
+#### `file-editor:cancel`
 
 Emitted when `uninstall` is called or when the current image editing changes are discarded.
 
