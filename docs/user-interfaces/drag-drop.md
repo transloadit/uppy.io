@@ -58,7 +58,7 @@ By default there is no indication that a file has been added and there is no pro
     <div id="uppy"></div>
     <script>
       var uppy = new Uppy.Core()
-      uppy.use(Uppy.DragDrop, { target: '#uppy', inline: true })
+      uppy.use(Uppy.DragDrop, { target: '#uppy' })
     </script>
   ```
 
