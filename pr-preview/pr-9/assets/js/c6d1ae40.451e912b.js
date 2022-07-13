@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkuppy_io=self.webpackChunkuppy_io||[]).push([[5942],{7282:function(p){p.exports=JSON.parse('{"label":"facebook","permalink":"/uppy.io/pr-preview/pr-9/blog/tags/facebook","allTagsPath":"/uppy.io/pr-preview/pr-9/blog/tags","count":1}')}}]);
