@@ -18,6 +18,13 @@ It acts as a state manager, event emitter, and restrictions handler.
 `@uppy/core` is the fundament of the Uppy ecosystem, the orchestrator for all added plugins.
 No matter the uploading experience you're looking for, it all starts with installing this plugin.
 
+You can use `@uppy/core` and [build your own UI](/docs/guides/building-your-own-ui-with-uppy)
+or go for the [Dashboard](/docs/interfaces/dashboard) integration.
+For an uploading plugin, you can refer to [choosing the upload strategy you need](/docs/guides/choosing-upload-strategy).
+
+If you want to see how it all comes together, checkout the examples on the [landing page](/).
+
+
 ## Install
 
 <Tabs>
@@ -66,42 +73,6 @@ No matter the uploading experience you're looking for, it all starts with instal
 
 `@uppy/core` has four exports: `Uppy`, `UIPlugin`, `BasePlugin`, and `debugLogger`.
 The default export is the `Uppy` class.
-
-```js
-import Uppy from '@uppy/core'
-// ...
-
-// Example of setting all the options to their defaults.
-// Not passing anything to `Uppy` is therefor the same as the example below.
-const uppy = new Uppy({
-  id: 'uppy',
-  autoProceed: false,
-  allowMultipleUploadBatches: true,
-  debug: false,
-  restrictions: {
-    maxFileSize: null,
-    minFileSize: null,
-    maxTotalFileSize: null,
-    maxNumberOfFiles: null,
-    minNumberOfFiles: null,
-    allowedFileTypes: null,
-    requiredMetaFields: [],
-  },
-  meta: {},
-  onBeforeFileAdded: (currentFile, files) => currentFile,
-  onBeforeUpload: (files) => {},
-  locale: {},
-  store: new DefaultStore(),
-  logger: justErrorsLogger,
-  infoTimeout: 5000,
-})
-```
-
-You can use `@uppy/core` and [build your own UI](/docs/guides/building-your-own-ui-with-uppy)
-or go for the [Dashboard](/docs/interfaces/dashboard) integration.
-For an uploading plugin, you can refer to [choosing the upload strategy you need](/docs/guides/choosing-upload-strategy).
-
-If you want to see how it all comes together, checkout the examples on the [landing page](/).
 
 ### Working with Uppy files
 
@@ -181,6 +152,37 @@ When an upload is completed, this may contain a URL to the uploaded file. Depend
 ## `new Uppy(options?)`
 
 ### Options
+
+```js
+import Uppy from '@uppy/core'
+// ...
+
+// Example of setting all the options to their defaults.
+// Not passing anything to `Uppy` is therefor the same as the example below.
+const uppy = new Uppy({
+  id: 'uppy',
+  autoProceed: false,
+  allowMultipleUploadBatches: true,
+  debug: false,
+  restrictions: {
+    maxFileSize: null,
+    minFileSize: null,
+    maxTotalFileSize: null,
+    maxNumberOfFiles: null,
+    minNumberOfFiles: null,
+    allowedFileTypes: null,
+    requiredMetaFields: [],
+  },
+  meta: {},
+  onBeforeFileAdded: (currentFile, files) => currentFile,
+  onBeforeUpload: (files) => {},
+  locale: {},
+  store: new DefaultStore(),
+  logger: justErrorsLogger,
+  infoTimeout: 5000,
+})
+```
+
 
 #### `id`
 
