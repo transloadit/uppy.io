@@ -100,7 +100,7 @@ new Uppy().use(DragDrop, {
 
 #### `id`
 
-A unique identifier for this plugin (`String`, Default: `'DragDrop'`)
+A unique identifier for this plugin (`String`, Default: `'DragDrop'`).
 
 Use this if you need to add several DragDrop instances.
 
@@ -110,13 +110,13 @@ DOM element, CSS selector, or plugin to place the drag and drop area into (`Stri
 
 #### `width`
 
-Drag and drop area width (`String`, default: `'100%'`)
+Drag and drop area width (`String`, default: `'100%'`).
 
 Set in inline CSS, so feel free to use percentage, pixels or other values that you like.
 
 #### `height`
 
-Drag and drop area height (`String`, default: `'100%'`)
+Drag and drop area height (`String`, default: `'100%'`).
 
 Set in inline CSS, so feel free to use percentage, pixels or other values that you like.
 
