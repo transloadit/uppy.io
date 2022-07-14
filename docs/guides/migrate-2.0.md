@@ -8,11 +8,11 @@ sidebar_position: 5
 
 With 2.0, following in the footsteps of Microsoft, we are dropping support for IE11. As a result, we are able to remove all built-in polyfills, and the new bundle size is **25% smaller**! If you want your app to still support older browsers (such as IE11), you may need to add the following polyfills to your bundle:
 
-* [abortcontroller-polyfill](https://github.com/mo/abortcontroller-polyfill)
-* [core-js](https://github.com/zloirock/core-js)
-* [md-gum-polyfill](https://github.com/mozdevs/mediaDevices-getUserMedia-polyfill)
-* [resize-observer-polyfill](https://github.com/que-etc/resize-observer-polyfill)
-* [whatwg-fetch](https://github.com/github/fetch)
+*   [abortcontroller-polyfill](https://github.com/mo/abortcontroller-polyfill)
+*   [core-js](https://github.com/zloirock/core-js)
+*   [md-gum-polyfill](https://github.com/mozdevs/mediaDevices-getUserMedia-polyfill)
+*   [resize-observer-polyfill](https://github.com/que-etc/resize-observer-polyfill)
+*   [whatwg-fetch](https://github.com/github/fetch)
 
 If you’re using a bundler, you need import these before Uppy:
 
@@ -265,14 +265,14 @@ to:
 
 <div class="table-responsive">
 
-| Provider | New Redirect URI
-|-|-|
-| Dropbox | `https://$COMPANION_HOST_NAME/dropbox/redirect` |
-| Google Drive | `https://$COMPANION_HOST_NAME/drive/redirect` |
-| OneDrive | `https://$COMPANION_HOST_NAME/onedrive/redirect` |
-| Box | `https://$YOUR_COMPANION_HOST_NAME/box/redirect` |
-| Facebook | `https://$COMPANION_HOST_NAME/facebook/redirect` |
-| Instagram | `https://$COMPANION_HOST_NAME/instagram/redirect` |
+| Provider     | New Redirect URI                                  |
+| ------------ | ------------------------------------------------- |
+| Dropbox      | `https://$COMPANION_HOST_NAME/dropbox/redirect`   |
+| Google Drive | `https://$COMPANION_HOST_NAME/drive/redirect`     |
+| OneDrive     | `https://$COMPANION_HOST_NAME/onedrive/redirect`  |
+| Box          | `https://$YOUR_COMPANION_HOST_NAME/box/redirect`  |
+| Facebook     | `https://$COMPANION_HOST_NAME/facebook/redirect`  |
+| Instagram    | `https://$COMPANION_HOST_NAME/instagram/redirect` |
 
 </div>
 

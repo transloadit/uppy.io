@@ -8,10 +8,10 @@ You can find already a few useful Uppy plugins out there,
 but there might come a time when you will want to build your own.
 Plugins can hook into the upload process or render a custom UI, typically to:
 
-* Render some custom UI element, such as [StatusBar](/docs/statusbar) or [Dashboard](/docs/dashboard).
-* Do the actual uploading, such as [XHRUpload](/docs/xhrupload) or [Tus](/docs/tus).
-* Do work before the upload, like compressing an image or calling external API.
-* Interact with a third-party service to process uploads correctly,
+*   Render some custom UI element, such as [StatusBar](/docs/statusbar) or [Dashboard](/docs/dashboard).
+*   Do the actual uploading, such as [XHRUpload](/docs/xhrupload) or [Tus](/docs/tus).
+*   Do work before the upload, like compressing an image or calling external API.
+*   Interact with a third-party service to process uploads correctly,
   such as [Transloadit](/docs/transloadit) or [AwsS3](/docs/aws-s3).
 
 See a [full example of a plugin](#Example-of-a-custom-plugin) below.
@@ -208,9 +208,9 @@ In those situations, determinate progress is suitable.
 
 Here are the relevant events:
 
-- [`preprocess-progress`](/docs/uppy-core#preprocess-progress)
-- [`upload-progress`](/docs/uppy-core#upload-progress)
-- [`postprocess-progress`](/docs/uppy-core#postprocess-progress)
+*   [`preprocess-progress`](/docs/uppy-core#preprocess-progress)
+*   [`upload-progress`](/docs/uppy-core#upload-progress)
+*   [`postprocess-progress`](/docs/uppy-core#postprocess-progress)
 
 ## JSX
 
@@ -356,5 +356,3 @@ class UppyImageCompressor extends UIPlugin {
 
 export default UppyImageCompressor
 ```
-
-[core.setfilestate]: /docs/uppy#uppy-setFileState-fileID-state

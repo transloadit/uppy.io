@@ -25,10 +25,10 @@
     "*.{css,html,json,js,jsx,ts,tsx,yml}": [
       "prettier --write"
     ],
-    "*.md": [
+    "docs/*.md": [
       "remark -qfo --"
     ],
-    "*.mdx": [
+    "docs/*.mdx": [
       "remark -u mdx -qfo --"
     ]
   },
