@@ -68,7 +68,6 @@ export default {
   settings: {
     emphasis: "_",
     strong: "*",
-    listItemIndent: "one",
   },
   plugins: [
     remarkFrontmatter, // YAML in MD

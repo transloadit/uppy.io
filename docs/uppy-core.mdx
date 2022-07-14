@@ -115,11 +115,11 @@ Mutating these properties should be done through [methods](#methods).
 
   **Properties**
 
-  * `bytesUploaded` - Number of bytes uploaded so far.
-  * `bytesTotal` - Number of bytes that must be uploaded in total.
-  * `uploadStarted` - Null if the upload has not started yet. Once started, this property stores a UNIX timestamp. Note that this is only set _after_ preprocessing.
-  * `uploadComplete` - Boolean indicating if the upload has completed. Note this does _not_ mean that postprocessing has completed, too.
-  * `percentage` - Integer percentage between 0 and 100.
+  *   `bytesUploaded` - Number of bytes uploaded so far.
+  *   `bytesTotal` - Number of bytes that must be uploaded in total.
+  *   `uploadStarted` - Null if the upload has not started yet. Once started, this property stores a UNIX timestamp. Note that this is only set _after_ preprocessing.
+  *   `uploadComplete` - Boolean indicating if the upload has completed. Note this does _not_ mean that postprocessing has completed, too.
+  *   `percentage` - Integer percentage between 0 and 100.
 
   #### `file.size`
 
@@ -625,8 +625,8 @@ Start uploading added files.
 
 Returns a Promise `result` that resolves with an object containing two arrays of uploaded files:
 
-* `result.successful` - Files that were uploaded successfully.
-* `result.failed` - Files that did not upload successfully. These files will have a `.error` property describing what went wrong.
+*   `result.successful` - Files that were uploaded successfully.
+*   `result.failed` - Files that did not upload successfully. These files will have a `.error` property describing what went wrong.
 
 ```js
 uppy.upload().then((result) => {
@@ -875,7 +875,7 @@ Fired each time a file is added.
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that was added.
+*   `file` - The [Uppy file](#working-with-uppy-files) that was added.
 
 ```javascript
 uppy.on('file-added', (file) => {
@@ -887,7 +887,7 @@ uppy.on('file-added', (file) => {
 
 **Parameters**
 
-* `files` - Array of [Uppy files](#working-with-uppy-files) which were added at once, in a batch.
+*   `files` - Array of [Uppy files](#working-with-uppy-files) which were added at once, in a batch.
 
 Fired each time when one or more files are added — one event, for all files
 
@@ -897,10 +897,10 @@ Fired each time a file is removed.
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that was removed.
-* `reason` - A string explaining why the file was removed.
-  See [#2301](https://github.com/transloadit/uppy/issues/2301#issue-628931176) for details.
-  Current reasons are: `removed-by-user` and `cancel-all`.
+*   `file` - The [Uppy file](#working-with-uppy-files) that was removed.
+*   `reason` - A string explaining why the file was removed.
+    See [#2301](https://github.com/transloadit/uppy/issues/2301#issue-628931176) for details.
+    Current reasons are: `removed-by-user` and `cancel-all`.
 
 **Example**
 
@@ -941,12 +941,12 @@ Progress of the pre-processors.
 
 `progress` is an object with properties:
 
-* `mode` - Either `'determinate'` or `'indeterminate'`.
-* `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
+*   `mode` - Either `'determinate'` or `'indeterminate'`.
+*   `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
 
 When `mode` is `'determinate'`, also add the `value` property:
 
-* `value` - A progress value between 0 and 1.
+*   `value` - A progress value between 0 and 1.
 
 #### `progress`
 
@@ -954,7 +954,7 @@ Fired each time the total upload progress is updated:
 
 **Parameters**
 
-* `progress` - An integer (0-100) representing the total upload progress.
+*   `progress` - An integer (0-100) representing the total upload progress.
 
 **Example**
 
@@ -971,8 +971,8 @@ Fired each time an individual file upload progress is available:
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that has progressed.
-* `progress` - The same object as in `file.progress`.
+*   `file` - The [Uppy file](#working-with-uppy-files) that has progressed.
+*   `progress` - The same object as in `file.progress`.
 
 **Example**
 
@@ -992,12 +992,12 @@ Progress of the post-processors.
 
 `progress` is an object with properties:
 
-* `mode` - Either `'determinate'` or `'indeterminate'`.
-* `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
+*   `mode` - Either `'determinate'` or `'indeterminate'`.
+*   `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
 
 When `mode` is `'determinate'`, also add the `value` property:
 
-* `value` - A progress value between 0 and 1.
+*   `value` - A progress value between 0 and 1.
 
 #### `upload-success`
 
@@ -1005,9 +1005,9 @@ Fired each time a single upload is completed.
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that was uploaded.
-* `response` - An object with response data from the remote endpoint.
-  The actual contents depend on the upload plugin that is used.
+*   `file` - The [Uppy file](#working-with-uppy-files) that was uploaded.
+*   `response` - An object with response data from the remote endpoint.
+    The actual contents depend on the upload plugin that is used.
 
 For `@uppy/xhr-upload`, the shape is:
 
@@ -1052,7 +1052,7 @@ Fired when Uppy fails to upload/encode the entire upload.
 
 **Parameters**
 
-* `error` - The error object.
+*   `error` - The error object.
 
 **Example**
 
@@ -1068,9 +1068,9 @@ Fired each time a single upload failed.
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) which didn’t upload.
-* `error` - The error object.
-* `response` - an optional parameter with response data from the upload endpoint.
+*   `file` - The [Uppy file](#working-with-uppy-files) which didn’t upload.
+*   `error` - The error object.
+*   `response` - an optional parameter with response data from the upload endpoint.
 
 It may be undefined or contain different data depending on the upload plugin in use.
 
@@ -1112,7 +1112,7 @@ Fired when an upload has been retried (after an error, for example).
 
 **Parameters**
 
-* `fileID` - ID of the file that is being retried.
+*   `fileID` - ID of the file that is being retried.
 
 **Example**
 

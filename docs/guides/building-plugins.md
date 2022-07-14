@@ -12,7 +12,7 @@ Plugins can hook into the upload process or render a custom UI, typically to:
 *   Do the actual uploading, such as [XHRUpload](/docs/xhrupload) or [Tus](/docs/tus).
 *   Do work before the upload, like compressing an image or calling external API.
 *   Interact with a third-party service to process uploads correctly,
-  such as [Transloadit](/docs/transloadit) or [AwsS3](/docs/aws-s3).
+    such as [Transloadit](/docs/transloadit) or [AwsS3](/docs/aws-s3).
 
 See a [full example of a plugin](#Example-of-a-custom-plugin) below.
 
