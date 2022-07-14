@@ -11,8 +11,8 @@
     "lint": "run-s --continue-on-error eslint remark",
     "prepare": "husky install",
     "remark": "run-s --continue-on-error remark:md remark:mdx",
-    "remark:md": "remark docs -qfo",
-    "remark:mdx": "remark docs -e mdx -u mdx -qfo",
+    "remark:md": "remark docs -qf",
+    "remark:mdx": "remark docs -e mdx -u mdx -qf",
     "serve": "docusaurus serve",
     "start": "docusaurus start",
     "swizzle": "docusaurus swizzle",
@@ -26,10 +26,10 @@
       "prettier --write"
     ],
     "docs/*.md": [
-      "remark -qfo --"
+      "remark -qf --"
     ],
     "docs/*.mdx": [
-      "remark --silently-ignore -u mdx -qfo --"
+      "remark -u mdx -qf --"
     ]
   },
   "browserslist": {
