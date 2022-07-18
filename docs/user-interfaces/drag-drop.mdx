@@ -24,15 +24,19 @@ By default it doesn’t show that a file has been added nor is there a progress 
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
-    ```shell
-    npm install @uppy/core @uppy/drag-drop
-    ```
+
+  ```shell
+  npm install @uppy/core @uppy/drag-drop
+  ```
+
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
-    ```shell
-    yarn add @uppy/core @uppy/drag-drop
-    ```
+
+  ```shell
+  yarn add @uppy/core @uppy/drag-drop
+  ```
+
   </TabItem>
 
   <TabItem value="cdn" label="CDN">
@@ -43,20 +47,20 @@ By default it doesn’t show that a file has been added nor is there a progress 
       </p>
     </Admonition>
 
-    ```html
-      <!-- 1. Add CSS to `<head>` -->
-      <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
+  ```html
+    <!-- 1. Add CSS to `<head>` -->
+    <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
 
-      <!-- 2. Add JS before the closing `</body>` -->
-      <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
+    <!-- 2. Add JS before the closing `</body>` -->
+    <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
 
-      <!-- 3. Initialize -->
-      <div id="uppy"></div>
-      <script>
-        var uppy = new Uppy.Core()
-        uppy.use(Uppy.DragDrop, { target: '#uppy' })
-      </script>
-    ```
+    <!-- 3. Initialize -->
+    <div id="uppy"></div>
+    <script>
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.DragDrop, { target: '#uppy' })
+    </script>
+  ```
   </TabItem>
 </Tabs>
 

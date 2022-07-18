@@ -21,19 +21,21 @@ Both examples can also be cloned with Git for a kickstart locally.
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
-    ```shell
-    npm install @uppy/core @uppy/dashboard @uppy/tus
-    ```
 
-    <QuickStartBoilerPlate />
+  ```shell
+  npm install @uppy/core @uppy/dashboard @uppy/tus
+  ```
+
+  <QuickStartBoilerPlate />
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
-    ```shell
-    yarn add @uppy/core @uppy/dashboard @uppy/tus
-    ```
 
-    <QuickStartBoilerPlate />
+  ```shell
+  yarn add @uppy/core @uppy/dashboard @uppy/tus
+  ```
+
+  <QuickStartBoilerPlate />
   </TabItem>
 
   <TabItem value="cdn" label="CDN">
@@ -44,21 +46,21 @@ Both examples can also be cloned with Git for a kickstart locally.
       </p>
     </Admonition>
 
-    ```html
-      <!-- 1. Add CSS to `<head>` -->
-      <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
+  ```html
+    <!-- 1. Add CSS to `<head>` -->
+    <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
 
-      <!-- 2. Add JS before the closing `</body>` -->
-      <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
+    <!-- 2. Add JS before the closing `</body>` -->
+    <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
 
-      <!-- 3. Initialize -->
-      <div id="uppy"></div>
-      <script>
-        var uppy = new Uppy.Core()
-        uppy.use(Uppy.DragDrop, { target: '#uppy' })
-        uppy.use(Uppy.Tus, { endpoint: '//tusd.tusdemo.net/files/' })
-      </script>
-    ```
+    <!-- 3. Initialize -->
+    <div id="uppy"></div>
+    <script>
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.DragDrop, { target: '#uppy' })
+      uppy.use(Uppy.Tus, { endpoint: '//tusd.tusdemo.net/files/' })
+    </script>
+  ```
   </TabItem>
 </Tabs>
 
