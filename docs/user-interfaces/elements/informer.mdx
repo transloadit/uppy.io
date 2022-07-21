@@ -1,0 +1,109 @@
+---
+sidebar_position: 3
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
+
+# Informer
+
+The `@uppy/informer` plugin is a pop-up bar for showing notifications for the [Dashboard](/docs/user-interfaces/dashboard).
+When plugins have some exciting news (or errors) to share, they can with Informer
+
+## When should I use it?
+
+When you use the [Dashboard](/docs/user-interfaces/dashboard) it’s already included by default.
+This plugin is published separately but made specifically for the Dashboard.
+You can technically use it without it, but it’s not officially supported.
+
+## Install
+
+<Tabs>
+  <TabItem value="npm" label="NPM" default>
+
+  ```shell
+  npm install @uppy/informer
+  ```
+
+  </TabItem>
+
+  <TabItem value="yarn" label="Yarn">
+
+  ```shell
+  yarn add @uppy/informer
+  ```
+
+  </TabItem>
+
+  <TabItem value="cdn" label="CDN">
+    <Admonition type="caution">
+      <p>
+        The bundle consists of most Uppy plugins, so this method is not recommended for production,
+        as your users will have to download all plugins when you are likely using only a few.
+      </p>
+    </Admonition>
+
+  ```html
+    <!-- 1. Add CSS to `<head>` -->
+    <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
+
+    <!-- 2. Add JS before the closing `</body>` -->
+    <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
+
+    <!-- 3. Initialize -->
+    <div id="uppy"></div>
+    <script>
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.Informer, { target: '#informer' })
+    </script>
+  ```
+  </TabItem>
+</Tabs>
+
+## Use
+
+```js
+import Uppy from '@uppy/core'
+import Informer from '@uppy/informer'
+
+// The `@uppy/informer` plugin includes some basic styles.
+// You can also choose not to use it and provide your own styles instead.
+import '@uppy/core/dist/style.min.css'
+import '@uppy/informer/dist/style.min.css'
+
+// Example of setting all the options to their defaults.
+// Not passing anything to `Informer` is therefor the same as the example below.
+new Uppy().use(Informer, {
+  id: 'Informer',
+  target: null,
+})
+```
+
+Informer gets its data from `uppy.state.info`,
+which is updated by various plugins via [`uppy.info`](/docs/uppy-core#infomessage-type-duration) method.
+
+In the [compressor](/docs/compressor) plugin we use it like this for instance:
+
+```js
+const size = prettierBytes(totalCompressedSize)
+this.uppy.info(this.i18n('compressedX', { size }), 'info')
+```
+
+When calling `uppy.info`, [Uppy](/docs/uppy-core) emits [`info-visible`](/docs/uppy-core#info-visible)
+and will emit [`info-hidden`](/docs/uppy-core#info-hidden) after the timeout.
+
+## API
+
+### Options
+
+### `id`
+
+A unique identifier for this plugin (`String`, default: `'Informer'`). 
+
+Use this if you need several `Informer` instances.
+
+### `target`
+
+DOM element, CSS selector, or plugin to mount the Informer into (`String` or `Element`, default: `null`).
+
