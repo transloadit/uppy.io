@@ -20,11 +20,11 @@ Checkout [integrations](#integrations) for the full list of plugins you can inte
 
 ## When should I use this?
 
-There are many reasons why you may want to use the Dashboard, but some could be:
-- when you need a battle tested plug-and-play uploading UI to save time.
-- when your users need to add files from [remote sources](/docs/companion), such [Google Drive](/docs/sources/companion-plugins/google-drive), [Dropbox](/docs/sources/companion-plugins/dropbox), and others.
-- when you need to collect [meta data](#metafields) from your users per file.
-- when your users want to take a picture with their [webcam](/docs/sources/webcam) or [capture their screen](/docs/sources/screen-capture).
+There could be many reasons why you may want to use the Dashboard, but some could be:
+-   when you need a battle tested plug-and-play uploading UI to save time.
+-   when your users need to add files from [remote sources](/docs/companion), such [Google Drive](/docs/sources/companion-plugins/google-drive), [Dropbox](/docs/sources/companion-plugins/dropbox), and others.
+-   when you need to collect [meta data](#metafields) from your users per file.
+-   when your users want to take a picture with their [webcam](/docs/sources/webcam) or [capture their screen](/docs/sources/screen-capture).
 
 ## Install
 
@@ -297,15 +297,15 @@ If you want to set a certain meta field to each file regardless of user actions,
 
 Each object can contain:
 
-* `id`. The name of the meta field. This will also be used in CSS/HTML as part of the `id` attribute, so it’s better to [avoid using characters like periods, semicolons, etc](https://stackoverflow.com/a/79022).
-* `name`. The label shown in the interface.
-* `placeholder`. The text shown when no value is set in the field. (Not needed when a custom render function is provided)
-* `render: ({value, onChange, required, form}, h) => void` (optional). A function for rendering a custom form element.
-  * `value` is the current value of the meta field
-  * `onChange: (newVal) => void` is a function saving the new value and `h` is the `createElement` function from [Preact](https://preactjs.com/guide/v10/api-reference#h--createelement).
-  * `required` is a boolean that’s true if the field `id` is in the `restrictedMetaFields` restriction
-  * `form` is the `id` of the associated `<form>` element.
-  * `h` can be useful when using Uppy from plain JavaScript, where you cannot write JSX.
+*   `id`. The name of the meta field. This will also be used in CSS/HTML as part of the `id` attribute, so it’s better to [avoid using characters like periods, semicolons, etc](https://stackoverflow.com/a/79022).
+*   `name`. The label shown in the interface.
+*   `placeholder`. The text shown when no value is set in the field. (Not needed when a custom render function is provided)
+*   `render: ({value, onChange, required, form}, h) => void` (optional). A function for rendering a custom form element.
+    *   `value` is the current value of the meta field
+    *   `onChange: (newVal) => void` is a function saving the new value and `h` is the `createElement` function from [Preact](https://preactjs.com/guide/v10/api-reference#h--createelement).
+    *   `required` is a boolean that’s true if the field `id` is in the `restrictedMetaFields` restriction
+    *   `form` is the `id` of the associated `<form>` element.
+    *   `h` can be useful when using Uppy from plain JavaScript, where you cannot write JSX.
 
 <details>
 <summary>Example: meta fields configured as an `Array`</summary>
@@ -415,7 +415,7 @@ If you want, you can disable the StatusBar to provide your own custom solution.
 
 #### `disableInformer: false`
 
-Disable informer (shows notifications in the form of 'toasts') completely (`Boolean`, default: `false`).
+Disable informer (shows notifications in the form of toasts) completely (`Boolean`, default: `false`).
 
 Dashboard ships with the `Informer` plugin that notifies when the browser is offline, or when it’s time to say cheese if `Webcam` is taking a picture.
 If you want, you can disable the Informer and/or provide your own custom solution.
@@ -428,8 +428,6 @@ Dashboard ships with the `ThumbnailGenerator` plugin that adds small resized ima
 If you want, you can disable the `ThumbnailGenerator` and/or provide your own custom solution.
 
 #### `locale`
-
-<!-- eslint-disable no-restricted-globals, no-multiple-empty-lines -->
 
 ```js
 module.exports = {
@@ -531,9 +529,9 @@ Uppy Dashboard supports “Dark Mode”. You can try it live on [the Dashboard e
 
 It supports the following values:
 
-* `light` — the default
-* `dark`
-* `auto` — will respect the user’s system settings and switch automatically
+*   `light` — the default
+*   `dark`
+*   `auto` — will respect the user’s system settings and switch automatically
 
 #### `autoOpenFileEditor`
 
@@ -580,7 +578,7 @@ Callback for the [`ondragleave`][ondragleave] event handler.
 ### Methods
 
 :::info
-Dashboard also contains the methods described in [`UIPlugin`](/docs/uppy-core#new-uipluginuppy-options) and [`BasePlugin`](/docs/uppy-core#new-basepluginuppy-options).
+Dashboard also has the methods described in [`UIPlugin`](/docs/uppy-core#new-uipluginuppy-options) and [`BasePlugin`](/docs/uppy-core#new-basepluginuppy-options).
 :::
 
 #### `openModal()`
@@ -626,7 +624,7 @@ Fired when the Dashboard modal is closed.
 
 **Parameters:**
 
-* `file` — The [File Object](https://uppy.io/docs/uppy/#File-Objects) representing the file that was opened for editing.
+*   `file` — The [File Object](https://uppy.io/docs/uppy/#File-Objects) representing the file that was opened for editing.
 
 Fired when the user clicks “edit” icon next to a file in the Dashboard. The FileCard panel is then open with file metadata available for editing.
 
@@ -634,7 +632,7 @@ Fired when the user clicks “edit” icon next to a file in the Dashboard. The 
 
 **Parameters:**
 
-* `file` — The [File Object](https://uppy.io/docs/uppy/#File-Objects) representing the file that was edited.
+*   `file` — The [File Object](https://uppy.io/docs/uppy/#File-Objects) representing the file that was edited.
 
 Fired when the user finished editing the file metadata.
 
@@ -645,34 +643,32 @@ This is not a list of all Uppy plugins.
 
 ### Sources
 
-- [`@uppy/audio`](/docs/sources/audio) — record audio.
-- [`@uppy/box`](/docs/sources/companion-plugins/box) — import files from [Box](https://www.box.com/en-nl/home).
-- [`@uppy/dropbox`](/docs/sources/companion-plugins/dropbox) — import from [Dropbox](https://dropbox.com).
-- [`@uppy/facebook`](/docs/sources/companion-plugins/dropbox) — import from [Facebook](https://facebook.com).
-- [`@uppy/google-drive`](/docs/sources/companion-plugins/google-drive) — import from [Google Drive](https://drive.google.com).
-- [`@uppy/instagram`](/docs/sources/companion-plugins/instagram) — import from [Instagram](https://instagram.com).
-- [`@uppy/onedrive`](/docs/sources/companion-plugins/onedrive) — import from [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage).
-- [`@uppy/screen-capture`](/docs/sources/screen-capture) — Record your screen, including (optionally) your microphone.
-- [`@uppy/unsplash`](/docs/sources/companion-plugins/unsplash) — import files from [Unsplash](https://unsplash.com/)
-- [`@uppy/url`](/docs/sources/companion-plugins/url) — import files from any URL.
-- [`@uppy/webcam`](/docs/sources/webcam) — Record or make a picture with your webcam.
-- [`@uppy/zoom`](/docs/sources/companion-plugins/url) — import files from [Zoom](https://zoom.us).
+*   [`@uppy/audio`](/docs/sources/audio) — record audio.
+*   [`@uppy/box`](/docs/sources/companion-plugins/box) — import files from [Box](https://www.box.com/en-nl/home).
+*   [`@uppy/dropbox`](/docs/sources/companion-plugins/dropbox) — import from [Dropbox](https://dropbox.com).
+*   [`@uppy/facebook`](/docs/sources/companion-plugins/dropbox) — import from [Facebook](https://facebook.com).
+*   [`@uppy/google-drive`](/docs/sources/companion-plugins/google-drive) — import from [Google Drive](https://drive.google.com).
+*   [`@uppy/instagram`](/docs/sources/companion-plugins/instagram) — import from [Instagram](https://instagram.com).
+*   [`@uppy/onedrive`](/docs/sources/companion-plugins/onedrive) — import from [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage).
+*   [`@uppy/screen-capture`](/docs/sources/screen-capture) — Record your screen, including (optionally) your microphone.
+*   [`@uppy/unsplash`](/docs/sources/companion-plugins/unsplash) — import files from [Unsplash](https://unsplash.com/)
+*   [`@uppy/url`](/docs/sources/companion-plugins/url) — import files from any URL.
+*   [`@uppy/webcam`](/docs/sources/webcam) — Record or make a picture with your webcam.
+*   [`@uppy/zoom`](/docs/sources/companion-plugins/url) — import files from [Zoom](https://zoom.us).
 
 ### UI
 
-- [`@uppy/image-editor`](/docs/user-interfaces/elements/image-editor) — allows users to crop, rotate, zoom and flip images that are added to Uppy.
-- [`@uppy/informer`](/docs/user-interfaces/elements/informer) — show notifications.
-- [`@uppy/status-bar`](/docs/user-interfaces/elements/status-bar) — advanced upload progress status bar.
-- [`@uppy/thumbnail-generator`](/docs/user-interfaces/elements/thumbnail-generator) — generate preview thumbnails for images to be uploaded.
+*   [`@uppy/image-editor`](/docs/user-interfaces/elements/image-editor) — allows users to crop, rotate, zoom and flip images that are added to Uppy.
+*   [`@uppy/informer`](/docs/user-interfaces/elements/informer) — show notifications.
+*   [`@uppy/status-bar`](/docs/user-interfaces/elements/status-bar) — advanced upload progress status bar.
+*   [`@uppy/thumbnail-generator`](/docs/user-interfaces/elements/thumbnail-generator) — generate preview thumbnails for images to be uploaded.
 
 ### Frameworks
 
-- [`@uppy/angular`](/docs/framework-integrations/angular) — Dashboard component for [Angular](https://angular.io/).
-- [`@uppy/react`](/docs/framework-integrations/react) — Dashboard component for [React](https://reactjs.org/).
-- [`@uppy/svelte`](/docs/framework-integrations/svelte) — Dashboard component for [Svelte](https://svelte.dev/).
-- [`@uppy/vue`](/docs/framework-integrations/vue) — Dashboard component for [Vue](https://vuejs.org/).
-
-<!-- definitions -->
+*   [`@uppy/angular`](/docs/framework-integrations/angular) — Dashboard component for [Angular](https://angular.io/).
+*   [`@uppy/react`](/docs/framework-integrations/react) — Dashboard component for [React](https://reactjs.org/).
+*   [`@uppy/svelte`](/docs/framework-integrations/svelte) — Dashboard component for [Svelte](https://svelte.dev/).
+*   [`@uppy/vue`](/docs/framework-integrations/vue) — Dashboard component for [Vue](https://vuejs.org/).
 
 [ondragover]: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondragover
 
