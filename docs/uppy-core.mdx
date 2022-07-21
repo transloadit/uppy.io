@@ -10,13 +10,19 @@ import Admonition from '@theme/Admonition';
 
 Uppy can be an uploader and an interface with a lot of features.
 Features can be added incrementally with plugins, but Uppy can be as bare bones as you want it to be.
-Therefor we build Uppy's heart, `@uppy/core`, as a standalone orchestrator.
+Therefor we build Uppy’s heart, `@uppy/core`, as a standalone orchestrator.
 It acts as a state manager, event emitter, and restrictions handler.
 
 ## When should I use it?
 
 `@uppy/core` is the fundament of the Uppy ecosystem, the orchestrator for all added plugins.
-No matter the uploading experience you're looking for, it all starts with installing this plugin.
+No matter the uploading experience you’re looking for, it all starts with installing this plugin.
+
+You can use `@uppy/core` and [build your own UI](/docs/guides/building-your-own-ui-with-uppy)
+or go for the [Dashboard](/docs/interfaces/dashboard) integration.
+For an uploading plugin, you can refer to [choosing the upload strategy you need](/docs/guides/choosing-upload-strategy).
+
+If you want to see how it all comes together, checkout the [examples](/examples).
 
 ## Install
 
@@ -67,6 +73,86 @@ No matter the uploading experience you're looking for, it all starts with instal
 `@uppy/core` has four exports: `Uppy`, `UIPlugin`, `BasePlugin`, and `debugLogger`.
 The default export is the `Uppy` class.
 
+### Working with Uppy files
+
+Uppy keeps files in state with the [`File`][] browser API, but it’s wrapped in an `Object`
+to be able to add more data to it, which we call an Uppy file.
+All these properties can be useful for plugins and side-effects (such as [events](#events)).
+
+Mutating these properties should be done through [methods](#methods).
+
+<details>
+  <summary>Uppy file properties</summary>
+
+  #### `file.source`
+
+  Name of the plugin that was responsible for adding this file. Typically a remote provider plugin like `'GoogleDrive'` or a UI plugin like `'DragDrop'`.
+
+  #### `file.id`
+
+  Unique ID for the file.
+
+  #### `file.name`
+
+  The name of the file.
+
+  #### `file.meta`
+
+  Object containing file metadata. Any file metadata should be JSON-serializable.
+
+  #### `file.type`
+
+  MIME type of the file. This may actually be guessed if a file type was not provided by the user’s browser, so this is a best-effort value and not guaranteed to be correct.
+
+  #### `file.data`
+
+  For local files, this is the actual [`File`][] or [`Blob`][] object representing the file contents.
+
+  For files that are imported from remote providers, the file data is not available in the browser.
+
+  [`File`]: https://developer.mozilla.org/en-US/docs/Web/API/File
+
+  [`Blob`]: https://developer.mozilla.org/en-US/docs/Web/API/Blob
+
+  #### `file.progress`
+
+  An object with upload progress data.
+
+  **Properties**
+
+  *   `bytesUploaded` - Number of bytes uploaded so far.
+  *   `bytesTotal` - Number of bytes that must be uploaded in total.
+  *   `uploadStarted` - Null if the upload has not started yet. Once started, this property stores a UNIX timestamp. Note that this is only set _after_ preprocessing.
+  *   `uploadComplete` - Boolean indicating if the upload has completed. Note this does _not_ mean that postprocessing has completed, too.
+  *   `percentage` - Integer percentage between 0 and 100.
+
+  #### `file.size`
+
+  Size in bytes of the file.
+
+  #### `file.isRemote`
+
+  Boolean: is this file imported from a remote provider?
+
+  #### `file.remote`
+
+  Grab bag of data for remote providers. Generally not interesting for end users.
+
+  #### `file.preview`
+
+  An optional URL to a visual thumbnail for the file.
+
+  #### `file.uploadURL`
+
+  When an upload is completed, this may contain a URL to the uploaded file.
+  Depending on server configuration it may not be accessible or correct.
+
+</details>
+
+## `new Uppy(options?)`
+
+### Options
+
 ```js
 import Uppy from '@uppy/core'
 // ...
@@ -96,91 +182,6 @@ const uppy = new Uppy({
   infoTimeout: 5000,
 })
 ```
-
-You can use `@uppy/core` and [build your own UI](/docs/guides/building-your-own-ui-with-uppy)
-or go for the [Dashboard](/docs/interfaces/dashboard) integration.
-For an uploading plugin, you can refer to [choosing the upload strategy you need](/docs/guides/choosing-upload-strategy).
-
-If you want to see how it all comes together, checkout the examples on the [landing page](/).
-
-### Working with Uppy files
-
-Uppy keeps files in state with the [`File`][] browser API, but it is wrapped in an `Object`
-to be able to add more data to it, which we call an Uppy file.
-All these properties can be useful for plugins and side-effects (such as [events](#events)).
-
-Mutating these properties should be done through [methods](#methods).
-
-<details>
-<summary>Uppy file properties</summary>
-
-#### `file.source`
-
-Name of the plugin that was responsible for adding this file. Typically a remote provider plugin like `'GoogleDrive'` or a UI plugin like `'DragDrop'`.
-
-#### `file.id`
-
-Unique ID for the file.
-
-#### `file.name`
-
-The name of the file.
-
-#### `file.meta`
-
-Object containing file metadata. Any file metadata should be JSON-serializable.
-
-#### `file.type`
-
-MIME type of the file. This may actually be guessed if a file type was not provided by the user’s browser, so this is a best-effort value and not guaranteed to be correct.
-
-#### `file.data`
-
-For local files, this is the actual [`File`][] or [`Blob`][] object representing the file contents.
-
-For files that are imported from remote providers, the file data is not available in the browser.
-
-[`File`]: https://developer.mozilla.org/en-US/docs/Web/API/File
-
-[`Blob`]: https://developer.mozilla.org/en-US/docs/Web/API/Blob
-
-#### `file.progress`
-
-An object with upload progress data.
-
-**Properties**
-
-* `bytesUploaded` - Number of bytes uploaded so far.
-* `bytesTotal` - Number of bytes that must be uploaded in total.
-* `uploadStarted` - Null if the upload has not started yet. Once started, this property stores a UNIX timestamp. Note that this is only set _after_ preprocessing.
-* `uploadComplete` - Boolean indicating if the upload has completed. Note this does _not_ mean that postprocessing has completed, too.
-* `percentage` - Integer percentage between 0 and 100.
-
-#### `file.size`
-
-Size in bytes of the file.
-
-#### `file.isRemote`
-
-Boolean: is this file imported from a remote provider?
-
-#### `file.remote`
-
-Grab bag of data for remote providers. Generally not interesting for end users.
-
-#### `file.preview`
-
-An optional URL to a visual thumbnail for the file.
-
-#### `file.uploadURL`
-
-When an upload is completed, this may contain a URL to the uploaded file. Depending on server configuration it may not be accessible or correct.
-</details>
-
-
-## `new Uppy(options?)`
-
-### Options
 
 #### `id`
 
@@ -220,7 +221,7 @@ If you are integrating with an existing HTML form, this option gives the closest
 
 #### `debug`
 
-Whether to send debugging and warning logs (`Boolean`, default: `false`). 
+Whether to send debugging and warning logs (`Boolean`, default: `false`).
 
 Setting this to `true` sets the [`logger`](#logger) to [`debugLogger`](#debuglogger).
 
@@ -289,14 +290,14 @@ like `.nii.gz`, you can do so by [setting `allowedFileTypes` to the last part of
 
 #### `meta`
 
-Key/value pairs to add to each file's `metadata` (`Object`, default: `{}`).
+Key/value pairs to add to each file’s `metadata` (`Object`, default: `{}`).
 
 :::note
 Metadata from each file is then attached to uploads in the [Tus](/docs/uploaders/tus) and [XHR](/docs/uploaders/xhr) plugins.
 :::
 
 :::info
-There are also two methods for updating `metadata`: [`setMeta`](#setmetadata) and [`setFileMeta`](#setfilemetafileid-data).
+Two methods also exist for updating `metadata`: [`setMeta`](#setmetadata) and [`setFileMeta`](#setfilemetafileid-data).
 :::
 
 :::info
@@ -304,7 +305,7 @@ Metadata can also be added from a `<form>` element on your page,
 through the [Form](#) plugin or through the UI if you are using Dashboard with the [`metaFields`](/docs/user-interfaces/dashboard#metafields) option.
 :::
 
-<a id="onBeforeFileAdded"></a>
+<a id="onBeforeFileAdded" />
 
 #### `onBeforeFileAdded(file, files)`
 
@@ -328,50 +329,52 @@ for debugging purposes via [`uppy.log()`](#logmessage-type).
 :::
 
 <details>
-<summary>Filter, modify, and abort example</summary>
+  <summary>Filter, change, and abort example</summary>
 
-Keep only files under a condition:
-```js
-const uppy = new Uppy({
-  // ...
-  onBeforeFileAdded: (currentFile, files) => {
-    if (currentFile.name === 'forest-IMG_0616.jpg') {
-      return true
-    }
-    return false
-  },
-```
+  Keep only files under a condition:
 
-Modify all file names:
-```js
-const uppy = new Uppy({
-  // ...
-  onBeforeFileAdded: (currentFile, files) => {
-    const modifiedFile = {
-      ...currentFile,
-      name: `${currentFile.name}__${Date.now()}`,
-    }
-    return modifiedFile
-  },
-```
-
-Abort a file:
-```js
-const uppy = new Uppy({
-  // ...
-  onBeforeFileAdded: (currentFile, files) => {
-    if (!currentFile.type) {
-      // log to console
-      uppy.log(`Skipping file because it has no type`)
-      // show error message to the user
-      uppy.info(`Skipping file because it has no type`, 'error', 500)
+  ```js
+  const uppy = new Uppy({
+    // ...
+    onBeforeFileAdded: (currentFile, files) => {
+      if (currentFile.name === 'forest-IMG_0616.jpg') {
+        return true
+      }
       return false
-    }
-  },
-})
-```
-</details>
+    },
+  ```
 
+  Change all file names:
+
+  ```js
+  const uppy = new Uppy({
+    // ...
+    onBeforeFileAdded: (currentFile, files) => {
+      const modifiedFile = {
+        ...currentFile,
+        name: `${currentFile.name}__${Date.now()}`,
+      }
+      return modifiedFile
+    },
+  ```
+
+  Abort a file:
+
+  ```js
+  const uppy = new Uppy({
+    // ...
+    onBeforeFileAdded: (currentFile, files) => {
+      if (!currentFile.type) {
+        // log to console
+        uppy.log(`Skipping file because it has no type`)
+        // show error message to the user
+        uppy.info(`Skipping file because it has no type`, 'error', 500)
+        return false
+      }
+    },
+  })
+  ```
+</details>
 
 #### `onBeforeUpload(files)`
 
@@ -395,42 +398,44 @@ for debugging purposes via [`uppy.log()`](#logmessage-type).
 :::
 
 <details>
-<summary>Modify and abort example</summary>
+  <summary>Change and abort example</summary>
 
-Modify all file names:
-```js
-const uppy = new Uppy({
-  // ...
-  onBeforeUpload: (files) => {
-    // We’ll be careful to return a new object, not mutating the original `files`
-    const updatedFiles = {}
-    Object.keys(files).forEach(fileID => {
-      updatedFiles[fileID] = {
-        ...files[fileID],
-        name: `${myCustomPrefix}__${files[fileID].name}`,
+  Change all file names:
+
+  ```js
+  const uppy = new Uppy({
+    // ...
+    onBeforeUpload: (files) => {
+      // We’ll be careful to return a new object, not mutating the original `files`
+      const updatedFiles = {}
+      Object.keys(files).forEach(fileID => {
+        updatedFiles[fileID] = {
+          ...files[fileID],
+          name: `${myCustomPrefix}__${files[fileID].name}`,
+        }
+      })
+      return updatedFiles
+    },
+  })
+  ```
+
+  Abort an upload:
+
+  ```js
+  const uppy = new Uppy({
+    // ...
+    onBeforeUpload: (files) => {
+      if (Object.keys(files).length < 2) {
+        // log to console
+        uppy.log(`Aborting upload because only ${Object.keys(files).length} files were selected`)
+        // show error message to the user
+        uppy.info(`You have to select at least 2 files`, 'error', 500)
+        return false
       }
-    })
-    return updatedFiles
-  },
-})
-```
-
-Abort an upload:
-```js
-const uppy = new Uppy({
-  // ...
-  onBeforeUpload: (files) => {
-    if (Object.keys(files).length < 2) {
-      // log to console
-      uppy.log(`Aborting upload because only ${Object.keys(files).length} files were selected`)
-      // show error message to the user
-      uppy.info(`You have to select at least 2 files`, 'error', 500)
-      return false
-    }
-    return true
-  },
-})
-```
+      return true
+    },
+  })
+  ```
 </details>
 
 #### `locale`
@@ -443,10 +448,8 @@ Array indexed objects are used for pluralisation.
 :::
 
 :::info
-If you want a different language it is better to use [locales](/docs/guides/using-locales).
+If you want a different language it’s better to use [locales](/docs/guides/using-locales).
 :::
-
-<!-- eslint-disable no-restricted-globals, no-multiple-empty-lines -->
 
 ```js
 module.exports = {
@@ -507,7 +510,6 @@ module.exports = {
     },
   },
 }
-
 ```
 
 #### `store`
@@ -516,7 +518,7 @@ The store that is used to keep track of internal state (`Object`, default: [`Def
 
 This option can be used to plug Uppy state into an external state management library, such as [Redux](/docs/custom-stores/redux-store).
 
-<!-- TODO document store API -->
+{/* TODO document store API */}
 
 #### `infoTimeout`
 
@@ -570,24 +572,28 @@ uppy.addFile({
 })
 ```
 
-:::note
+:::::note
 If you try to add a file that already exists, `addFile` will throw an error.
 Unless that duplicate file was dropped with a folder — duplicate files from different folders are allowed,
 when selected with that folder. This is because we add `file.meta.relativePath` to the `file.id`.
-:::note
 
+::::note
 :::info
 Checkout [working with Uppy files](#working-with-uppy-files).
 :::
+::::
+:::::
 
-:::info
+:::::info
 If `uppy.opts.autoProceed === true`, Uppy will begin uploading automatically when files are added.
-:::info
 
+::::info
 :::info
 Sometimes you might need to add a remote file to Uppy.
 This can be achieved by [fetching the file, then creating a Blob object, or using the Url plugin with Companion](https://github.com/transloadit/uppy/issues/1006#issuecomment-413495493).
 :::
+::::
+:::::
 
 :::info
 Sometimes you might need to mark some files as “already uploaded”,
@@ -614,7 +620,7 @@ const file = uppy.getFile('uppyteamkongjpg1501851828779')
 
 #### `getFiles()`
 
-Get an array of all previously added [Uppy files](#working-with-uppy-files).
+Get an array of all added [Uppy files](#working-with-uppy-files).
 
 ```js
 const files = uppy.getFiles()
@@ -626,8 +632,8 @@ Start uploading added files.
 
 Returns a Promise `result` that resolves with an object containing two arrays of uploaded files:
 
-* `result.successful` - Files that were uploaded successfully.
-* `result.failed` - Files that did not upload successfully. These [File Objects][] will have a `.error` property describing what went wrong.
+*   `result.successful` - Files that were uploaded successfully.
+*   `result.failed` - Files that did not upload successfully. These files will have a `.error` property describing what went wrong.
 
 ```js
 uppy.upload().then((result) => {
@@ -697,12 +703,12 @@ Updating state:
 uppy.setState({ smth: true })
 ```
 
-:::note
+:::::note
 State in Uppy is considered to be immutable.
 When updating values, make sure not mutate them, but instead create copies.
 See [Redux docs](http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html) for more info on this.
-:::note
 
+::::note
 #### `getState()`
 
 Returns the current state from the [Store](#store).
@@ -794,12 +800,11 @@ uppy.log('[Dashboard] adding files...')
 Sets a message in state, with optional details, that can be shown by notification UI plugins.
 It’s using the [Informer](/docs/interfaces/elements/informer/) plugin, included by default in Dashboard.
 
-| Argument   | Type               | Description                                                                         |
-| ---------- | ------------------ | ----------------------------------------------------------------------------------- |
+| Argument   | Type               | Description                                                                       |
+| ---------- | ------------------ | --------------------------------------------------------------------------------- |
 | `message`  | `String`, `Object` | `'info message'` or `{ message: 'Oh no!', details: 'File couldn’t be uploaded' }` |
-| `type`     | `String?`          | `'info'`, `'warning'`, `'success'` or `'error'`                                     |
-| `duration` | `Number?`          | in milliseconds                                                                     |
-
+| `type`     | `String?`          | `'info'`, `'warning'`, `'success'` or `'error'`                                   |
+| `duration` | `Number?`          | in milliseconds                                                                   |
 
 `info-visible` and `info-hidden` events are emitted when this info message should be visible or hidden.
 
@@ -823,6 +828,8 @@ Add a preprocessing function.
 :::info
 To change file data and such, use Uppy state updates, for example using [`setFileState`](#setfilestatefileid-state).
 :::
+::::
+:::::
 
 #### `addUploader(fn)`
 
@@ -875,7 +882,7 @@ Fired each time a file is added.
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that was added.
+*   `file` - The [Uppy file](#working-with-uppy-files) that was added.
 
 ```javascript
 uppy.on('file-added', (file) => {
@@ -887,7 +894,7 @@ uppy.on('file-added', (file) => {
 
 **Parameters**
 
-* `files` - Array of [Uppy files](#working-with-uppy-files) which were added at once, in a batch.
+*   `files` - Array of [Uppy files](#working-with-uppy-files) which were added at once, in a batch.
 
 Fired each time when one or more files are added — one event, for all files
 
@@ -897,10 +904,10 @@ Fired each time a file is removed.
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that was removed.
-* `reason` - A string explaining why the file was removed.
-  See [#2301](https://github.com/transloadit/uppy/issues/2301#issue-628931176) for details.
-  Current reasons are: `removed-by-user` and `cancel-all`.
+*   `file` - The [Uppy file](#working-with-uppy-files) that was removed.
+*   `reason` - A string explaining why the file was removed.
+    See [#2301](https://github.com/transloadit/uppy/issues/2301#issue-628931176) for details.
+    Current reasons are: `removed-by-user` and `cancel-all`.
 
 **Example**
 
@@ -941,12 +948,12 @@ Progress of the pre-processors.
 
 `progress` is an object with properties:
 
-* `mode` - Either `'determinate'` or `'indeterminate'`.
-* `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
+*   `mode` - Either `'determinate'` or `'indeterminate'`.
+*   `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
 
 When `mode` is `'determinate'`, also add the `value` property:
 
-* `value` - A progress value between 0 and 1.
+*   `value` - A progress value between 0 and 1.
 
 #### `progress`
 
@@ -954,7 +961,7 @@ Fired each time the total upload progress is updated:
 
 **Parameters**
 
-* `progress` - An integer (0-100) representing the total upload progress.
+*   `progress` - An integer (0-100) representing the total upload progress.
 
 **Example**
 
@@ -971,8 +978,8 @@ Fired each time an individual file upload progress is available:
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that has progressed.
-* `progress` - The same object as in `file.progress`.
+*   `file` - The [Uppy file](#working-with-uppy-files) that has progressed.
+*   `progress` - The same object as in `file.progress`.
 
 **Example**
 
@@ -992,12 +999,12 @@ Progress of the post-processors.
 
 `progress` is an object with properties:
 
-* `mode` - Either `'determinate'` or `'indeterminate'`.
-* `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
+*   `mode` - Either `'determinate'` or `'indeterminate'`.
+*   `message` - A message to show to the user. Something like `'Preparing upload...'`, but be more specific if possible.
 
 When `mode` is `'determinate'`, also add the `value` property:
 
-* `value` - A progress value between 0 and 1.
+*   `value` - A progress value between 0 and 1.
 
 #### `upload-success`
 
@@ -1005,19 +1012,19 @@ Fired each time a single upload is completed.
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that was uploaded.
-* `response` - An object with response data from the remote endpoint.
-  The actual contents depend on the upload plugin that is used.
+*   `file` - The [Uppy file](#working-with-uppy-files) that was uploaded.
+*   `response` - An object with response data from the remote endpoint.
+    The actual contents depend on the upload plugin that is used.
 
-  For `@uppy/xhr-upload`, the shape is:
+For `@uppy/xhr-upload`, the shape is:
 
-  ```json
-  {
-    "status": 200, // HTTP status code (0, 200, 300)
-    "body": "…", // response body
-    "uploadURL": "…" // the file url, if it was returned
-  }
-  ```
+```json
+{
+  "status": 200, // HTTP status code (0, 200, 300)
+  "body": "…", // response body
+  "uploadURL": "…" // the file url, if it was returned
+}
+```
 
 **Example**
 
@@ -1052,7 +1059,7 @@ Fired when Uppy fails to upload/encode the entire upload.
 
 **Parameters**
 
-* `error` - The error object.
+*   `error` - The error object.
 
 **Example**
 
@@ -1068,19 +1075,20 @@ Fired each time a single upload failed.
 
 **Parameters**
 
-* `file` - The [Uppy file](#working-with-uppy-files) that failed to upload.
-* `error` - The error object.
-* `response` - an optional parameter with response data from the upload endpoint.
-  It may be undefined or contain different data depending on the upload plugin in use.
+*   `file` - The [Uppy file](#working-with-uppy-files) which didn’t upload.
+*   `error` - The error object.
+*   `response` - an optional parameter with response data from the upload endpoint.
 
-  For `@uppy/xhr-upload`, the shape is:
+It may be undefined or contain different data depending on the upload plugin in use.
 
-  ```json
-  {
-    "status": 200, // HTTP status code (0, 200, 300)
-    "body": "…" // response body
-  }
-  ```
+For `@uppy/xhr-upload`, the shape is:
+
+```json
+{
+  "status": 200, // HTTP status code (0, 200, 300)
+  "body": "…" // response body
+}
+```
 
 **Example**
 
@@ -1111,7 +1119,7 @@ Fired when an upload has been retried (after an error, for example).
 
 **Parameters**
 
-* `fileID` - ID of the file that is being retried.
+*   `fileID` - ID of the file that is being retried.
 
 **Example**
 
@@ -1183,7 +1191,7 @@ Checkout the [building plugins](/docs/guides/building-plugins) guide.
 :::
 
 :::note
-If you don't use any UI plugins and want to make sure Preact isn’t bundled into your app,
+If you don’t use any UI plugins and want to make sure Preact isn’t bundled into your app,
 import `BasePlugin` like this: `import BasePlugin from '@uppy/core/lib/BasePlugin`.
 :::
 
@@ -1211,13 +1219,13 @@ Options passed during initialization can also be altered dynamically with `setOp
 
 Retrieves the plugin state from the `Uppy` class.
 Uppy keeps a `plugins` object in state in which each key is the plugin’s `id`,
-and the value its state. 
+and the value its state.
 
 #### `setPluginState()`
 
 Set the plugin state in the `Uppy` class.
 Uppy keeps a `plugins` object in state in which each key is the plugin’s `id`,
-and the value its state. 
+and the value its state.
 
 #### `install()`
 
@@ -1363,7 +1371,7 @@ unless if you want to build a UI plugin using something other than Preact.
 
 ## `debugLogger()`
 
-Logger with additional debug and warning logs for during development.
+Logger with extra debug and warning logs for during development.
 
 ```js
 import { Uppy, debugLogger } from '@uppy/core'
@@ -1387,7 +1395,7 @@ const justErrorsLogger = {
 }
 ```
 
-`debugLogger` sends additional debugging and warning logs which could be helpful
+`debugLogger` sends extra debugging and warning logs which could be helpful
 during development:
 
 ```js
@@ -1401,5 +1409,7 @@ const debugLogger = {
 ```
 
 [Dashboard]: /docs/user-interfaces/dashboard
+
 [`BasePlugin`]: #new-basepluginuppy-options
+
 [`UIPlugin`]: #new-uipluginuppy-options

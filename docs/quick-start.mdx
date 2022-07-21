@@ -27,7 +27,6 @@ Both examples can also be cloned with Git for a kickstart locally.
   ```
 
   <QuickStartBoilerPlate />
-
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
@@ -37,16 +36,15 @@ Both examples can also be cloned with Git for a kickstart locally.
   ```
 
   <QuickStartBoilerPlate />
-
   </TabItem>
 
   <TabItem value="cdn" label="CDN">
-  <Admonition type="caution">
-    <p>
-      The bundle consists of most Uppy plugins, so this method is not recommended for production,
-      as your users will have to download all plugins when you are likely using only a few.
-    </p>
-  </Admonition>
+    <Admonition type="caution">
+      <p>
+        The bundle consists of most Uppy plugins, so this method is not recommended for production,
+        as your users will have to download all plugins when you are likely using only a few.
+      </p>
+    </Admonition>
 
   ```html
     <!-- 1. Add CSS to `<head>` -->
@@ -63,24 +61,25 @@ Both examples can also be cloned with Git for a kickstart locally.
       uppy.use(Uppy.Tus, { endpoint: '//tusd.tusdemo.net/files/' })
     </script>
   ```
-
   </TabItem>
 </Tabs>
 
 ## Next steps
 
-That's it! You just tried Uppy for the first time.
-This was just a taste of what Uppy can do, its power comes from modularity and versatility.
+That’s it! You tried Uppy for the first time.
+This was a taste of what Uppy can do, its power comes from modularity and versatility.
 
 Here are some interesting things:
 
-- [Choosing the upload strategy you need](/docs/guides/choosing-upload-strategy).
-- With [Companion](/docs/companion) your users will be able to select files from remote sources, such as Instagram,
-  Google Drive and Dropbox. It bypasses the client (so a 5 GB video isn’t eating into your users’ data plans)
-  and uploads to your preferred final destination.
-- Recover files from accidental refreshes or closed tabs with [Golden Retriever](/docs/golden-retriever).
-- Add [image editing](/docs/user-interfaces/elements/image-editor) to [Dashboard][@uppy/dashboard].
+*   [Choosing the upload strategy you need](/docs/guides/choosing-upload-strategy).
+*   With [Companion](/docs/companion) your users will be able to select files from remote sources, such as Instagram,
+    Google Drive and Dropbox. It bypasses the client (so a 5 GB video isn’t eating into your users’ data plans)
+    and uploads to your preferred final destination.
+*   Recover files from accidental refreshes or closed tabs with [Golden Retriever](/docs/golden-retriever).
+*   Add [image editing](/docs/user-interfaces/elements/image-editor) to [Dashboard][@uppy/dashboard].
 
 [core]: /docs/uppy-core
+
 [@uppy/dashboard]: /docs/user-interfaces/dashboard
+
 [@uppy/tus]: /docs/uploaders/tus
