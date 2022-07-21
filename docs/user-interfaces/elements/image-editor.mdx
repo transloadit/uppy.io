@@ -12,7 +12,7 @@ Image editor. Designed to be used with the Dashboard UI.
 
 <div style={{ maxWidth: 500 }}>
 
-![Screenshot of the Image Editor plugin UI in Dashboard](https://user-images.githubusercontent.com/1199054/87208710-654db400-c307-11ea-9471-6e3c6582d2a5.png)
+  ![Screenshot of the Image Editor plugin UI in Dashboard](https://user-images.githubusercontent.com/1199054/87208710-654db400-c307-11ea-9471-6e3c6582d2a5.png)
 
 </div>
 
@@ -40,12 +40,12 @@ When you want to allow users to crop, rotate, zoom and flip images that are adde
   </TabItem>
 
   <TabItem value="cdn" label="CDN">
-  <Admonition type="caution">
-    <p>
-      The bundle consists of most Uppy plugins, so this method is not recommended for production,
-      as your users will have to download all plugins when you are likely using only a few.
-    </p>
-  </Admonition>
+    <Admonition type="caution">
+      <p>
+        The bundle consists of most Uppy plugins, so this method is not recommended for production,
+        as your users will have to download all plugins when you are likely using only a few.
+      </p>
+    </Admonition>
 
   ```html
     <!-- 1. Add CSS to `<head>` -->
@@ -62,7 +62,6 @@ When you want to allow users to crop, rotate, zoom and flip images that are adde
       uppy.use(Uppy.ImageEditor, { target: Uppy.Dashboard })
     </script>
   ```
-
   </TabItem>
 </Tabs>
 
@@ -201,4 +200,3 @@ uppy.on('file-editor:cancel', (file) => {
   console.log(file)
 })
 ```
-
