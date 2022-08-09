@@ -110,7 +110,7 @@ https://$YOUR_COMPANION_HOST_NAME/dropbox/redirect
 You can only use the integration with your own account initially.
 Make sure to apply for production status on the app page before you publish your app, or your users will not be able to sign in!
 
-Configure the Box key and secret. With the standalone Companion server, specify environment variables:
+Configure the Dropbox key and secret. With the standalone Companion server, specify environment variables:
 
 ```shell
 export COMPANION_DROPBOX_KEY="Dropbox API key"
@@ -136,11 +136,11 @@ companion.app({
 
 #### `id`
 
-A unique identifier for this plugin (`String`, default: `'Box'`).
+A unique identifier for this plugin (`String`, default: `'Dropbox'`).
 
 #### `title`
 
-Title / name shown in the UI, such as Dashboard tabs (`String`, default: `'Box'`).
+Title / name shown in the UI, such as Dashboard tabs (`String`, default: `'Dropbox'`).
 
 #### `target`
 
