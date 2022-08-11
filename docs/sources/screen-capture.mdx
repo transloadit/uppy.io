@@ -1,0 +1,158 @@
+---
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
+
+# Screen capture
+
+The `@uppy/screen-capture` plugin can record your screen or an application and save it as a video.
+
+:::tip
+[Try out the live example](/examples) or take it for a spin in [CodeSandbox](https://codesandbox.io/s/uppy-dashboard-xpxuhd).
+:::
+
+## When should I use this?
+
+When you want users record their screen on their computer.
+This plugin only works on desktop browsers which support [`getDisplayMedia API`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia).
+If no support for the API is detected, Screen Capture won’t be installed, so you don’t have to do anything.
+
+:::note
+To use the screen capture plugin in a Chromium-based browser, [your site must be served over https](https://developers.google.com/web/updates/2015/10/chrome-47-webrtc#public_service_announcements). This restriction does not apply on `localhost`, so you don’t have to jump through many hoops during development.
+:::
+
+## Install
+
+<Tabs>
+  <TabItem value="npm" label="NPM" default>
+
+  ```shell
+  npm install @uppy/screen-capture
+  ```
+
+  </TabItem>
+
+  <TabItem value="yarn" label="Yarn">
+
+  ```shell
+  yarn add @uppy/screen-capture
+  ```
+
+  </TabItem>
+
+  <TabItem value="cdn" label="CDN">
+    <Admonition type="caution">
+      <p>
+        The bundle consists of most Uppy plugins, so this method is not recommended for production,
+        as your users will have to download all plugins when you are likely using only a few.
+      </p>
+    </Admonition>
+
+  ```html
+    <!-- 1. Add CSS to `<head>` -->
+    <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
+
+    <!-- 2. Add JS before the closing `</body>` -->
+    <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
+
+    <!-- 3. Initialize -->
+    <div id="uppy"></div>
+    <script>
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.Dashboard, { inline: true, target: 'body' })
+      uppy.use(Uppy.ScreenCapture, { target: Uppy.Dashboard })
+    </script>
+  ```
+  </TabItem>
+</Tabs>
+
+## Use
+
+```js
+import Uppy from '@uppy/core'
+import Dashboard from '@uppy/dashboard'
+import Webcam from '@uppy/webcam'
+
+import '@uppy/core/dist/style.min.css'
+import '@uppy/dashboard/dist/style.min.css'
+import '@uppy/screen-capture/dist/style.min.css'
+
+new Uppy
+  .use(Dashboard, { inline: true, target: 'body' })
+  // Example of setting all the options to their defaults.
+  // Not passing anything to `ScreenCapture` is therefor the same as the example below.
+  .use(ScreenCapture, {
+    displayMediaConstraints: {
+      video: {
+        width: 1280,
+        height: 720,
+        frameRate: {
+          ideal: 3,
+          max: 5,
+        },
+        cursor: 'motion',
+        displaySurface: 'monitor',
+      },
+    },
+    userMediaConstraints: {
+      audio: true,
+    },
+    preferredVideoMimeType: 'video/webm',
+  })
+```
+
+### API
+
+### Options
+
+#### `id`
+
+A unique identifier for this plugin (`String`, default: `'ScreenCapture'`).
+
+#### `title`
+
+Configures the title / name shown in the UI, for instance, on Dashboard tabs (`String`, default: `'Screen Capture'`).
+
+#### `target`
+
+DOM element, CSS selector, or plugin to place the drag and drop area into (`String` or `Element`, default: `null`).
+
+#### `displayMediaConstraints`
+
+Options passed to [`MediaDevices.getDisplayMedia()`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia) (`Object`, default: `null`).
+
+See the [`MediaTrackConstraints`](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) for a list of options.
+
+#### `userMediaConstraints`
+
+Options passed to [`MediaDevices.getUserMedia()`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) (`Object`, default: `null`).
+
+See the [`MediaTrackConstraints`](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) for a list of options.
+
+#### `preferredVideoMimeType`
+
+Set the preferred mime type for video recordings, for example `'video/webm'` (`String`, default: `null`).
+
+If the browser supports the given mime type, the video will be recorded in this format.
+If the browser does not support it, it will use the browser default.
+
+If no preferred video mime type is given, the ScreenCapture plugin will prefer types listed in the [`allowedFileTypes` restriction](/docs/uppy/#restrictions), if any.
+
+#### `locale`
+
+```js
+export default {
+  strings: {
+    startCapturing: 'Begin screen capturing',
+    stopCapturing: 'Stop screen capturing',
+    submitRecordedFile: 'Submit recorded file',
+    streamActive: 'Stream active',
+    streamPassive: 'Stream passive',
+    micDisabled: 'Microphone access denied by user',
+    recording: 'Recording',
+  },
+}
+```
