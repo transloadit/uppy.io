@@ -246,14 +246,7 @@ This is an essential security measure.
 
 #### `uploadUrls` `COMPANION_UPLOAD_URLS`
 
-An allowlist (array) of strings (exact URLs) or regular expressions.
-If specified, Companion will only accept uploads to these URLs.
-This is needed to make sure a Companion instance is only allowed to upload to your servers.
-
-:::caution
-Omitting this leaves your system open to potential [SSRF](https://en.wikipedia.org/wiki/Server-side_request_forgery) attacks,
-and may throw an error in future `@uppy/companion` releases.
-:::
+An allowlist (array) of strings (exact URLs) or regular expressions. Companion will only accept uploads to these URLs. This ensures that your Companion instance is only allowed to upload to your trusted servers and prevents [SSRF](https://en.wikipedia.org/wiki/Server-side_request_forgery) attacks. 
 
 #### `COMPANION_PORT`
 
@@ -432,10 +425,7 @@ A boolean flag to tell Companion whether to provide an endpoint `/metrics` with 
 
 #### `streamingUpload` `COMPANION_STREAMING_UPLOAD`
 
-A boolean flag to tell Companion whether to enable streaming uploads.
-If enabled, it will lead to _faster uploads_ because companion will start uploading at the same time as downloading using `stream.pipe`.
-If `false`, files will be fully downloaded first, then uploaded.
-Defaults to `false`. 
+A boolean flag to tell Companion whether to enable streaming uploads. If enabled, it will lead to _faster uploads_ because companion will start uploading at the same time as downloading using `stream.pipe`. If `false`, files will be fully downloaded first, then uploaded. Defaults to `false`, but we recommended enabling it, especially if you're expecting to upload large files. In future versions the default might change to `true`.
 
 :::caution
 Do not set it to `true` if you have a [custom Companion provider](#how-to-add-custom-providers) that does not use the new async/stream API.
