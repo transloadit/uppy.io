@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkuppy_io=self.webpackChunkuppy_io||[]).push([[9988],{1946:function(p){p.exports=JSON.parse('{"allTagsPath":"/uppy.io/pr-preview/pr-5/blog/tags","slug":"/uppy.io/pr-preview/pr-5/blog/tags/hola","name":"hola","count":1,"permalink":"/uppy.io/pr-preview/pr-5/blog/tags/hola"}')}}]);
