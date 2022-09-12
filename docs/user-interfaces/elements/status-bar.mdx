@@ -4,7 +4,8 @@ sidebar_position: 4
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import Admonition from '@theme/Admonition';
+
+import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Status bar
 
@@ -42,27 +43,9 @@ You can still use it without it but it may need some (CSS) tweaking for your use
   </TabItem>
 
   <TabItem value="cdn" label="CDN">
-    <Admonition type="caution">
-      <p>
-        The bundle consists of most Uppy plugins, so this method is not recommended for production,
-        as your users will have to download all plugins when you are likely using only a few.
-      </p>
-    </Admonition>
-
-  ```html
-    <!-- 1. Add CSS to `<head>` -->
-    <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
-
-    <!-- 2. Add JS before the closing `</body>` -->
-    <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
-
-    <!-- 3. Initialize -->
-    <div id="uppy"></div>
-    <script>
-      var uppy = new Uppy.Core()
-      uppy.use(Uppy.StatusBar, { target: '#status-bar' })
-    </script>
-  ```
+    <UppyCdnExample>
+      {`uppy.use(Uppy.StatusBar, { target: '#status-bar' })`}
+    </UppyCdnExample>
   </TabItem>
 </Tabs>
 

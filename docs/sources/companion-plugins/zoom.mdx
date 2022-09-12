@@ -1,6 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import Admonition from '@theme/Admonition';
+
+import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Zoom
 
@@ -38,27 +39,13 @@ You can self-host Companion or get a hosted version with any [Transloadit plan](
   </TabItem>
 
   <TabItem value="cdn" label="CDN">
-  <Admonition type="caution">
-    <p>
-      The bundle consists of most Uppy plugins, so this method is not recommended for production,
-      as your users will have to download all plugins when you are likely using only a few.
-    </p>
-  </Admonition>
-
-  ```html
-    <!-- 1. Add CSS to `<head>` -->
-    <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
-
-    <!-- 2. Add JS before the closing `</body>` -->
-    <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
-
-    <!-- 3. Initialize -->
-    <div id="uppy"></div>
-    <script>
-      const Zoom = Uppy.Zoom
-    </script>
-  ```
-
+    <UppyCdnExample>
+      {`
+        uppy.use(Uppy.Zoom, {
+          // Options
+        })
+      `}
+    </UppyCdnExample>
   </TabItem>
 </Tabs>
 

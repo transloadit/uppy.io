@@ -5,6 +5,8 @@ sidebar_position: 7
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+import UppyCdnExample from '/src/components/UppyCdnExample';
+
 # Supporting IE11
 
 We officially support recent versions of Chrome, Firefox, Safari and Edge.
@@ -50,26 +52,9 @@ export * from "@uppy/core";
 
 ## Legacy CDN bundle
 
-:::caution
-The bundle consists of most Uppy plugins, so this method is not recommended for production,
-as your users will have to download all plugins when you are likely using only a few.
-:::
-
-```html
-<!-- 1. Add CSS to `<head>` -->
-<link
-  href="https://releases.transloadit.com/uppy/v2.9.0/uppy.legacy.min.css"
-  rel="stylesheet"
-/>
-
-<!-- 2. Add JS before the closing `</body>` -->
-<script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.legacy.min.js"></script>
-
-<!-- 3. Initialize -->
-<div id="uppy"></div>
-<script>
-  var uppy = new Uppy.Core();
-  uppy.use(Uppy.DragDrop, { target: "#uppy" });
-  uppy.use(Uppy.Tus, { endpoint: "//tusd.tusdemo.net/files/" });
-</script>
-```
+<UppyCdnExample uppyJsName="uppy.legacy.min.js">
+  {`
+  uppy.use(Uppy.DragDrop, { target: "#uppy" })
+  uppy.use(Uppy.Tus, { endpoint: "//tusd.tusdemo.net/files/" })
+  `}
+</UppyCdnExample>
