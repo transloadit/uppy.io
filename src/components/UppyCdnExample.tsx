@@ -2,10 +2,6 @@ import React from 'react';
 import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
 
-import {
-  useLatestVersion,
-} from '@docusaurus/plugin-content-docs/client';
-
 
 const uppyVersion = '2.9.0' // todo
 
@@ -14,9 +10,6 @@ export default function UppyCdnExample ({
   uppyCssName = 'uppy.min.css',
   uppyJsName = 'uppy.min.js',
 }) {
-  const latestVersion = useLatestVersion();
-  console.log(latestVersion)
-
   let lines = [];
 
   React.Children.toArray(children).forEach((child) => {
