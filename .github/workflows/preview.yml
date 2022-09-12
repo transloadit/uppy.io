@@ -15,7 +15,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
 
       - name: Alter Docusaurus config baseUrl
         env:
@@ -26,7 +31,7 @@ jobs:
 
       - name: Install and Build
         run: |
-          npm install
+          corepack yarn install --frozen-lockfile
           npm run build
 
       - name: Deploy preview
