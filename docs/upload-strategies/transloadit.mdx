@@ -152,18 +152,18 @@ uppy.use(Dropbox, {
 
 #### `id`
 
-A unique identifier for this plugin (`String`, default: `'Transloadit'`).
+A unique identifier for this plugin (`string`, default: `'Transloadit'`).
 
 #### `service`
 
-The Transloadit API URL to use (`String`, default: `https://api2.transloadit.com`).
+The Transloadit API URL to use (`string`, default: `https://api2.transloadit.com`).
 
 The default will try to route traffic efficiently based on the location of your users.
 You could for instance set it to `https://api2-us-east-1.transloadit.com` if you need the traffic to stay inside a particular region.
 
 #### `limit`
 
-Limit the amount of uploads going on at the same time (`Number`, default: `5`).
+Limit the amount of uploads going on at the same time (`number`, default: `5`).
 
 Setting this to `0` means no limit on concurrent uploads, but we recommend a value between `5` and `20`.
 This option is passed through to the [`@uppy/tus`](/docs/upload-strategies/tus) plugin, which this plugin uses internally.
@@ -171,7 +171,7 @@ This option is passed through to the [`@uppy/tus`](/docs/upload-strategies/tus) 
 #### `assemblyOptions`
 
 Configure the [Assembly Instructions](https://transloadit.com/docs/topics/assembly-instructions/),
-the fields to send along to the assembly, and authentication (`Object` or `Function`, default: `null`).
+the fields to send along to the assembly, and authentication (`object | function`, default: `null`).
 
 The object you can pass or return from a function has this structure:
 
@@ -217,7 +217,7 @@ Signature Authentication is a security measure that can prevent outsiders from t
 
 **As a function**
 
-A custom `assemblyOptions()` option should return an object or a Promise for an object.
+A custom `assemblyOptions()` option should return an object or a promise for an object.
 
 ```js
 uppy.use(Transloadit, {
@@ -285,7 +285,7 @@ uppy.use(Transloadit, {
 
 #### `waitForEncoding`
 
-Wait for the template to finish, rather than only the upload, before marking the upload complete (`Boolean`, default: `false`).
+Wait for the template to finish, rather than only the upload, before marking the upload complete (`boolean`, default: `false`).
 
 *   When `false`, the Assemblies will complete (or error) in the background but Uppy won’t know or care about it. You may have to let Transloadit ping you via a `notify_url` and asynchronously inform your user (email, in-app notification).
 *   When `true`, the Transloadit plugin waits for Assemblies to complete before the files are marked as completed.
@@ -296,7 +296,7 @@ When this is enabled, you can listen for the [`transloadit:result`](#transloadit
 
 #### `waitForMetadata`
 
-Wait for for Transloadit’s backend to catch early errors, not the entire Assembly to complete. (`Boolean`, default: `false`)
+Wait for for Transloadit’s backend to catch early errors, not the entire Assembly to complete. (`boolean`, default: `false`)
 
 When set to `true`, the Transloadit plugin waits for Transloadit’s backend to extract metadata from all the uploaded files.
 This is mostly handy if you want to have a quick user experience (so your users don’t necessarily need to wait for all the encoding to complete),
@@ -306,7 +306,7 @@ You you can listen for the [`transloadit:upload`](#transloadit-upload) event whe
 
 #### `importFromUploadURLs`
 
-Allow another plugin to upload files, and then import those files into the Transloadit Assembly (`Boolean`, default: `false`).
+Allow another plugin to upload files, and then import those files into the Transloadit Assembly (`boolean`, default: `false`).
 
 When enabling this option, Transloadit will _not_ configure the Tus plugin to upload to Transloadit.
 Instead, a separate upload plugin must be used.
@@ -330,7 +330,7 @@ uppy.use(Transloadit, {
   },
 })
 ```
-Tranloadit will download the files and expose them to your Template as `:original`, just as if they were directly uploaded from the Uppy client.  
+Tranloadit will download the files and expose them to your Template as `:original`, as if they were directly uploaded from the Uppy client.  
 :::note
 For this to work, the upload plugin must assign a publically accessible `uploadURL` property to the uploaded file object.
 The Tus and S3 plugins both do this automatically.
@@ -339,7 +339,7 @@ For the XHRUpload plugin, you may have to specify a custom `getResponseData` fun
 
 #### `alwaysRunAssembly`
 
-Always create and run an Assembly when `uppy.upload()` is called, even if no files were selected (`Boolean`, default: `false`).
+Always create and run an Assembly when `uppy.upload()` is called, even if no files were selected (`boolean`, default: `false`).
 
 This allows running Assemblies that do not receive files,
 but instead use a robot like [`/s3/import`](https://transloadit.com/docs/transcoding/#s3-import) to download
@@ -370,7 +370,7 @@ You can still use these options, but they will be removed in the next major vers
 
 #### `params`
 
-The Assembly parameters to use for the upload (`Object`, default: `null`)
+The Assembly parameters to use for the upload (`object`, default: `null`)
 See the Transloadit documentation on [Assembly Instructions](https://transloadit.com/docs/#14-assembly-instructions) for further information.
 
 The `auth.key` Assembly parameter is required. You can also use the `steps` or `template_id` options here as described in the Transloadit documentation.
