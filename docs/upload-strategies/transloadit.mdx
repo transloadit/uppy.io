@@ -290,12 +290,13 @@ uppy.use(Transloadit, {
 
 Wait for the template to finish, rather than only the upload, before marking the upload complete (`boolean`, default: `false`).
 
-*   When `false`, the Assemblies will complete (or error) in the background but Uppy won’t know or care about it. You may have to let Transloadit ping you via a `notify_url` and asynchronously inform your user (email, in-app notification).
+*   When `false`, the Assemblies will complete (or error) in the background but Uppy won’t know or care about it.
+    You may have to let Transloadit ping you via a `notify_url` and asynchronously inform your user (email, in-app notification).
 *   When `true`, the Transloadit plugin waits for Assemblies to complete before the files are marked as completed.
     This means users have to wait for a potentially long time, depending on how complicated your Assembly instructions are.
     But, you can receive the final status and transcoding results on the client side with less effort.
 
-When this is enabled, you can listen for the [`transloadit:result`](#transloadit-result) and [`transloadit:complete`](#transloadit-complete) events.
+When this is enabled, you can listen for the [`transloadit:result`](#transloaditresult) and [`transloadit:complete`](#transloaditcomplete) events.
 
 #### `waitForMetadata`
 
@@ -305,7 +306,7 @@ When set to `true`, the Transloadit plugin waits for Transloadit’s backend to 
 This is mostly handy if you want to have a quick user experience (so your users don’t necessarily need to wait for all the encoding to complete),
 but you do want to let users know about some types of errors that can be caught early on, like file format issues.
 
-You you can listen for the [`transloadit:upload`](#transloadit-upload) event when it’s enabled.
+You you can listen for the [`transloadit:upload`](#transloaditupload) event when this or `waitForEncoding` is enabled.
 
 #### `importFromUploadURLs`
 
@@ -454,7 +455,7 @@ uppy.use(Dropbox, {
 })
 ```
 
-When using `COMPANION_URL`, you should also configure [`companionAllowedHosts: COMPANION_ALLOWED_HOSTS`](#COMPANION_ALLOWED_HOSTS).
+When using `COMPANION_URL`, you should also configure [`companionAllowedHosts`](#companion_allowed_hosts).
 
 The value of this constant is `https://api2.transloadit.com/companion`.
 If you are using a custom [`service`](#service) option, you should also set a custom host option in your provider plugins,
@@ -512,7 +513,7 @@ uppy.on('transloadit:assembly-created', (assembly, fileIDs) => {
 
 #### `transloadit:upload`
 
-Fired when Transloadit has received an upload.
+Fired when Transloadit has received an upload. Requires [`waitForMetadata`](#waitformetadata) to be set.
 
 **Parameters**
 
@@ -529,7 +530,7 @@ Fired when Transloadit has received all uploads, and is executing the Assembly.
 
 #### `transloadit:result`
 
-Fired when a result came in from an Assembly.
+Fired when a result came in from an Assembly. Requires [`waitForEncoding`](#waitforencoding) to be set.
 
 **Parameters**
 
@@ -553,7 +554,7 @@ uppy.on('transloadit:result', (stepName, result) => {
 
 #### `transloadit:complete`
 
-Fired when an Assembly completed.
+Fired when an Assembly completed. Requires [`waitForEncoding`](#waitForEncoding) to be set.
 
 **Parameters**
 
