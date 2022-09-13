@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: lts/*
           cache: 'yarn'
 
       - name: Alter Docusaurus config baseUrl
@@ -31,7 +31,7 @@ jobs:
 
       - name: Install and Build
         run: |
-          corepack yarn install --frozen-lockfile
+          corepack yarn install --immutable
           npm run build
 
       - name: Deploy preview
