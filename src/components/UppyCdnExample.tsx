@@ -2,8 +2,9 @@ import React from 'react';
 import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
 
+import packageJson from "../../package.json";
 
-const uppyVersion = '2.9.0' // todo
+const { version: uppyVersion } = packageJson;
 
 export default function UppyCdnExample ({
   children,
