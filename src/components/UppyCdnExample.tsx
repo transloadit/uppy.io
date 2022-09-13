@@ -30,7 +30,7 @@ export default function UppyCdnExample ({
 <div id="uppy"></div>
 
 <script>
-  var uppy = new Uppy.Core()${linesProcessed.length > 0 ? `\n\n${linesProcessed}` : ''}
+${linesProcessed}
 </script>
 `;
 

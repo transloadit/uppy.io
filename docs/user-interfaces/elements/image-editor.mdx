@@ -43,6 +43,7 @@ When you want to allow users to crop, rotate, zoom and flip images that are adde
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
+        var uppy = new Uppy.Core()
         uppy.use(Uppy.Dashboard, { target: '#uppy', inline: true })
         uppy.use(Uppy.ImageEditor, { target: Uppy.Dashboard })
       `}

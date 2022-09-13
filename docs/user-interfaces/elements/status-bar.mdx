@@ -44,7 +44,10 @@ You can still use it without it but it may need some (CSS) tweaking for your use
 
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
-      {`uppy.use(Uppy.StatusBar, { target: '#status-bar' })`}
+      {`
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.StatusBar, { target: '#status-bar' })
+      `}
     </UppyCdnExample>
   </TabItem>
 </Tabs>

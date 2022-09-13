@@ -54,6 +54,7 @@ export * from "@uppy/core";
 
 <UppyCdnExample uppyJsName="uppy.legacy.min.js">
   {`
+  var uppy = new Uppy.Core()
   uppy.use(Uppy.DragDrop, { target: "#uppy" })
   uppy.use(Uppy.Tus, { endpoint: "//tusd.tusdemo.net/files/" })
   `}

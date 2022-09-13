@@ -39,7 +39,10 @@ You can technically use it without it, but it’s not officially supported.
 
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
-      {`uppy.use(Uppy.Informer, { target: '#informer' })`}
+      {`
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.Informer, { target: '#informer' })
+      `}
     </UppyCdnExample>
   </TabItem>
 </Tabs>

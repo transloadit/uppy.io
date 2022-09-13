@@ -41,6 +41,7 @@ Both examples can also be cloned with Git for a kickstart locally.
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
+        var uppy = new Uppy.Core()
         uppy.use(Uppy.DragDrop, { target: '#uppy' })
         uppy.use(Uppy.Tus, { endpoint: '//tusd.tusdemo.net/files/' })
       `}

@@ -39,7 +39,10 @@ For most cases, [Dashboard](/docs/user-interfaces/dashboard) or [Drag & Drop](/d
 
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
-      {`uppy.use(Uppy.ProgressBar, { target: '#progress-bar' })`}
+      {`
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.ProgressBar, { target: '#progress-bar' })
+      `}
     </UppyCdnExample>
   </TabItem>
 </Tabs>

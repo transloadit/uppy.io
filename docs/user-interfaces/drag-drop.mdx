@@ -42,7 +42,10 @@ By default it doesn’t show that a file has been added nor is there a progress 
 
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
-      {`uppy.use(Uppy.DragDrop, { target: '#uppy' })`}
+      {`
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.DragDrop, { target: '#uppy' })
+      `}
     </UppyCdnExample>
   </TabItem>
 </Tabs>

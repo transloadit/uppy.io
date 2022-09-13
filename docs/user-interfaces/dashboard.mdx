@@ -48,7 +48,10 @@ There could be many reasons why you may want to use the Dashboard, but some coul
 
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
-      {`uppy.use(Uppy.Dashboard, { target: '#uppy', inline: true })`}
+      {`
+        var uppy = new Uppy.Core()
+        uppy.use(Uppy.Dashboard, { target: '#uppy', inline: true })
+      `}
     </UppyCdnExample>
   </TabItem>
 </Tabs>

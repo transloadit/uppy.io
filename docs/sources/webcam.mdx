@@ -43,6 +43,7 @@ You can technically use it without it, but it’s not officially supported.
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
+        var uppy = new Uppy.Core()
         uppy.use(Uppy.Dashboard, { inline: true, target: 'body' })
         uppy.use(Uppy.Webcam, { target: Uppy.Dashboard })
       `}

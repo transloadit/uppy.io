@@ -47,6 +47,7 @@ To use the screen capture plugin in a Chromium-based browser, [your site must be
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
+        var uppy = new Uppy.Core()
         uppy.use(Uppy.Dashboard, { inline: true, target: 'body' })
         uppy.use(Uppy.ScreenCapture, { target: Uppy.Dashboard })
       `}

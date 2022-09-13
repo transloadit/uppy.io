@@ -42,7 +42,10 @@ Some providers, such as Google Drive, have baked in thumbnails into their API re
 
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
-      {`uppy.use(Uppy.ThumbnailGenerator)`}
+      {`
+      var uppy = new Uppy.Core()
+      uppy.use(Uppy.ThumbnailGenerator)
+      `}
     </UppyCdnExample>
   </TabItem>
 </Tabs>
