@@ -21,7 +21,9 @@ Transloadit’s strength is versatility.
 By doing video, audio, images, documents, and more,
 you only need one vendor for [all your file processing needs][transloadit-services].
 The `@uppy/transloadit` plugin directly uploads to Transloadit
-so you only have to worry about creating a [Template][transloadit-concepts]. Transloadit accepts the files, processes according to the instructions in the Template, and stores the results in storage of your choosing, such as a self-owned S3 bucket. 
+so you only have to worry about creating a [Template][transloadit-concepts].
+Transloadit accepts the files, processes according to the instructions in the Template,
+and stores the results in storage of your choosing, such as a self-owned S3 bucket. 
 The Transloadit plugin uses [Tus](/docs/upload-strategies/tus) under the hood so you don’t have to sacrifice reliable, resumable uploads.
 
 You should use `@uppy/transloadit` if you don’t want to host your own Tus or Companion servers,
@@ -199,7 +201,7 @@ The object you can pass or return from a function has this structure:
     *   `steps` _(optional)_ can be used to [overrule Templates at runtime](https://transloadit.com/docs/topics/templates/#overruling-templates-at-runtime).
         A typical use case might be changing the storage path on the fly based on the session user id.
         For most use cases, we recommend to let your Templates handle dynamic cases (they can accept `fields` and execute arbitrary JavaScript as well), and not pass in `steps` from a browser. 
-        The template editor has extra validations and context.
+        The template editor also has extra validations and context.
     *   `notify_url` _(optional)_ is a pingback with the assembly status as JSON.
         For instance, if you don’t want to block the user experience by letting them wait for your template to complete with [`waitForEncoding`](#waitForEncoding),
         but you do want to want to asynchrounously have an update, you can provide an URL which will be “pinged” with the assembly status.
@@ -368,16 +370,21 @@ export default {
 <details>
   <summary>Deprecated options</summary>
 
-These options have been deprecated in favor of [`assemblyOptions`](#assemblyOptions),
+These options have been deprecated in favor of [`assemblyOptions`](#assemblyoptions),
 which we now recommend for all use cases.
 You can still use these options, but they will be removed in the next major version.
+
+#### `getAssemblyOptions`
+
+This function behaves the same as passing a function to [`assemblyOptions`](assemblyoptions).
 
 #### `params`
 
 The Assembly parameters to use for the upload (`object`, default: `null`)
 See the Transloadit documentation on [Assembly Instructions](https://transloadit.com/docs/#14-assembly-instructions) for further information.
 
-The `auth.key` Assembly parameter is required. You can also use the `steps` or `template_id` options here as described in the Transloadit documentation.
+The `auth.key` Assembly parameter is required.
+You can also use the `steps` or `template_id` options here as described in the Transloadit documentation.
 
 ```js
 uppy.use(Transloadit, {
