@@ -27,7 +27,7 @@ export default function UppyCdnExample ({
 <!-- 2. Initialize -->
 <div id="uppy"></div>
 
-<script>
+<script type="module">
 ${linesProcessed.replace(/{{UPPY_JS_URL}}/g, uppyJsUrl)}
 </script>
 `;
