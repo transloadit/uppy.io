@@ -32,7 +32,7 @@ All with minimal effort.
 This means accidentally closing your tab or losing connection let’s you continue, for instance, your 10GB upload
 instead of starting all over.
 
-It supports any language, any platform, and any network. You can checkout the [GitHub organisation][tus-gh] to
+It supports any language, any platform, and any network. You can checkout the [implementations](https://tus.io/implementations.html) to
 find the implementation in your favorite language. You can store files on your self-hosted Tus server, but also use service integrations (such as S3) to store files
 externally.
 
@@ -85,5 +85,3 @@ If you want to send regular file uploads to your own server you can use **[@uppy
 [@uppy/xhr]: /docs/uploaders/xhr
 
 [tus]: https://tus.io/
-
-[tus-gh]: https://github.com/tus
