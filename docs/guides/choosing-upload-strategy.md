@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Choosing the upload strategy you need
 
-Versatile, reliable uploading is at the heart of Uppy. It has many configurable plugins to suit your needs.
+Versatile, reliable uploading is at the heart of Uppy. It has many configurable upload strategies to suit your needs. In contrast to sources, an upload strategy is the destination for your files. When using a local source (like webcam) the strategies can upload directly from your browser, but if the source is remote (like Google Drive), a [Companion](companion) server must be used in order to facilitate the upload.
 In this guide we will explain the different plugins, their strategies, and when to use them based on use cases.
 
 ## Use cases
@@ -22,14 +22,14 @@ so you only have to worry about creating a [template][transloadit-concepts].
 It uses [Tus](#i-want-reliable-resumable-uploads) under the hood so you don’t have to
 sacrifice reliable, resumable uploads for convenience.
 
-You should use **[@uppy/transloadit][]** if you don’t want to host your own server,
+You should use **[@uppy/transloadit][]** if you don’t want to host your own Tus and Companion server,
 (optionally) need file processing, and store it in the service (such as S3 or GCS) of your liking.
 All with minimal effort.
 
 ### I want reliable, resumable uploads
 
 [Tus][tus] is a new open protocol for resumable uploads built on HTTP.
-This means accidentally closing your tab or losing connection let’s you continue, for instance, your 10GB upload
+This means accidentally closing your tab or losing connection lets you continue, for instance, your 10GB upload
 instead of starting all over.
 
 It supports any language, any platform, and any network. You can checkout the [GitHub organisation][tus-gh] to
