@@ -43,8 +43,9 @@ Some providers, such as Google Drive, have baked in thumbnails into their API re
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
-      var uppy = new Uppy.Core()
-      uppy.use(Uppy.ThumbnailGenerator)
+        import { Uppy, ThumbnailGenerator } from "{{UPPY_JS_URL}}"
+        const uppy = new Uppy()
+        uppy.use(ThumbnailGenerator)
       `}
     </UppyCdnExample>
   </TabItem>

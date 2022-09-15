@@ -46,7 +46,10 @@ If you want to see how it all comes together, checkout the [examples](/examples)
 
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
-      {`var uppy = new Uppy.Core()`}
+      {`
+        import { Uppy } from "{{UPPY_JS_URL}}"
+        const uppy = new Uppy()
+      `}
     </UppyCdnExample>
   </TabItem>
 </Tabs>

@@ -19,18 +19,16 @@ export default function UppyCdnExample ({
 
   const linesProcessed = lines.map((line) => `  ${line}`).join('\n');
 
+  const uppyJsUrl = `https://releases.transloadit.com/uppy/v${uppyVersion}/${uppyJsName}`;
   const html = `\
 <!-- 1. Add CSS to \`<head>\` -->
 <link href="https://releases.transloadit.com/uppy/v${uppyVersion}/${uppyCssName}" rel="stylesheet">
 
-<!-- 2. Add JS before the closing \`</body>\` -->
-<script src="https://releases.transloadit.com/uppy/v${uppyVersion}/${uppyJsName}"></script>
-
-<!-- 3. Initialize -->
+<!-- 2. Initialize -->
 <div id="uppy"></div>
 
-<script>
-${linesProcessed}
+<script type="module">
+${linesProcessed.replace(/{{UPPY_JS_URL}}/g, uppyJsUrl)}
 </script>
 `;
 
