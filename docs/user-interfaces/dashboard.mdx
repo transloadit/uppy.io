@@ -135,41 +135,41 @@ new Uppy.use(Dashboard, {
 
 #### `id`
 
-A unique identifier for this plugin (`String`, default: `'Dashboard'`).
+A unique identifier for this plugin (`string`, default: `'Dashboard'`).
 
 Plugins that are added by the Dashboard get unique IDs based on this ID, like `'Dashboard:StatusBar'` and `'Dashboard:Informer'`.
 
 #### `target`
 
-Where to render the Dashboard (`String` or `Element`, default: `'body'`). 
+Where to render the Dashboard (`string` or `Element`, default: `'body'`). 
 
 You can pass an element, class, or id as a string. 
 Dashboard is rendered into `body`, because it’s hidden by default and only opened as a modal when `trigger` is clicked.
 
 #### `inline`
 
-Render the Dashboard as a modal or inline (`Boolean`, default: `false`).
+Render the Dashboard as a modal or inline (`boolean`, default: `false`).
 
 When `false`, Dashboard is opened by clicking on [`trigger`](#trigger).
 If `inline: true`, Dashboard will be rendered into [`target`](#target) and fit right in.
 
 #### `trigger`
 
-A CSS selector for a button that will trigger opening the Dashboard modal (`String`, default: `null`).
+A CSS selector for a button that will trigger opening the Dashboard modal (`string`, default: `null`).
 
 Several buttons or links can be used, as long as they are selected using the same selector (`.select-file-button`, for example).
 
 #### `width`
 
-Width of the Dashboard in pixels (`Number`, default: `750`). Used when `inline: true`.
+Width of the Dashboard in pixels (`number`, default: `750`). Used when `inline: true`.
 
 #### `height`
 
-Height of the Dashboard in pixels (`Number`, default: `550`). Used when `inline: true`.
+Height of the Dashboard in pixels (`number`, default: `550`). Used when `inline: true`.
 
 #### `waitForThumbnailsBeforeUpload`
 
-Whether to wait for all thumbnails from `@uppy/thumbnail-generator` to be ready before starting the upload (`Boolean`, default `false`).
+Whether to wait for all thumbnails from `@uppy/thumbnail-generator` to be ready before starting the upload (`boolean`, default `false`).
 
 If set to `true`, Thumbnail Generator will envoke Uppy’s internal processing stage, displaying “Generating thumbnails...” message, and wait for `thumbnail:all-generated` event, before proceeding to the uploading stage.
 
@@ -177,13 +177,13 @@ This is useful because Thumbnail Generator also adds EXIF data to images, and if
 
 #### `showLinkToFileUploadResult`
 
-Turn the file icon and thumbnail in the Dashboard into a link to the uploaded file (`Boolean`, default: `false`).
+Turn the file icon and thumbnail in the Dashboard into a link to the uploaded file (`boolean`, default: `false`).
 
 Please make sure to return the `url` key (or the one set via `responseUrlFieldName`) from your server.
 
 #### `showProgressDetails`
 
-Show or hise progress details in the status bar (`Boolean`, default: `false`).
+Show or hise progress details in the status bar (`boolean`, default: `false`).
 
 By default, progress in Status Bar is shown as a percentage. If you would like to also display remaining upload size and time, set this to `true`.
 
@@ -193,32 +193,32 @@ By default, progress in Status Bar is shown as a percentage. If you would like t
 
 #### `hideUploadButton`
 
-Show or hide the upload button (`Boolean`, default: `false`).
+Show or hide the upload button (`boolean`, default: `false`).
 
 Use this if you are providing a custom upload button somewhere, and are using the `uppy.upload()` API.
 
 #### `hideRetryButton`
 
-Hide the retry button in the status bar and on each individual file (`Boolean`, default: `false`).
+Hide the retry button in the status bar and on each individual file (`boolean`, default: `false`).
 
 Use this if you are providing a custom retry button somewhere and if you are using the `uppy.retryAll()` or `uppy.retryUpload(fileID)` API.
 
 #### `hidePauseResumeButton`
 
 Hide the pause/resume button (for resumable uploads, via [tus](http://tus.io), for example) in the status bar and on each individual file
-(`Boolean`, default: `false`).
+(`boolean`, default: `false`).
 
 Use this if you are providing custom cancel or pause/resume buttons somewhere, and using the `uppy.pauseResume(fileID)` or `uppy.removeFile(fileID)` API.
 
 #### `hideCancelButton`
 
-Hide the cancel button in status bar and on each individual file (`Boolean`, default: `false`).
+Hide the cancel button in status bar and on each individual file (`boolean`, default: `false`).
 
 Use this if you are providing a custom retry button somewhere, and using the `uppy.cancelAll()` API.
 
 #### `hideProgressAfterFinish`
 
-Hide the status bar after the upload has finished (`Boolean`, default: `false`).
+Hide the status bar after the upload has finished (`boolean`, default: `false`).
 
 #### `doneButtonHandler()`
 
@@ -238,7 +238,7 @@ Set to `null` to disable the “Done” button.
 
 #### `showSelectedFiles`
 
-Show the list of added files with a preview and file information (`Boolean`, default: `true`).
+Show the list of added files with a preview and file information (`boolean`, default: `true`).
 
 In case you are showing selected files in your own app’s UI and want the Uppy Dashboard to only be a picker, the list can be hidden with this option.
 
@@ -246,7 +246,7 @@ See also [`disableStatusBar`](#disablestatusbar) option, which can hide the prog
 
 #### `showRemoveButtonAfterComplete`
 
-Show the remove button on every file after a successful upload (`Boolean`, default: `false`).
+Show the remove button on every file after a successful upload (`boolean`, default: `false`).
 
 Enabling this option only shows the remove `X` button in the Dashboard UI,
 but to actually send a request you should listen to [`file-removed`](https://uppy.io/docs/uppy/#file-removed) event and add your logic there.
@@ -264,7 +264,7 @@ For an implementation example, please see [#2301](https://github.com/transloadit
 
 #### `note`
 
-A string of text to be placed in the Dashboard UI (`String`, default: `null`). 
+A string of text to be placed in the Dashboard UI (`string`, default: `null`). 
 
 This could for instance be used to explain any [`restrictions`](#restrictions) that are put in place.
 For example: `'Images and video only, 2–3 files, up to 1 MB'`.
@@ -350,11 +350,11 @@ uppy.use(Dashboard, {
 
 #### `closeModalOnClickOutside`
 
-Set to true to automatically close the modal when the user clicks outside of it (`Boolean`, default: `false`).
+Set to true to automatically close the modal when the user clicks outside of it (`boolean`, default: `false`).
 
 #### `closeAfterFinish`
 
-Set to true to automatically close the modal when all current uploads are complete (`Boolean`, default: `false`).
+Set to true to automatically close the modal when all current uploads are complete (`boolean`, default: `false`).
 
 With this option, the modal is only automatically closed when uploads are complete _and successful_.
 If some uploads failed, the modal stays open so the user can retry failed uploads or cancel the current batch and upload an entirely different set of files instead.
@@ -368,7 +368,7 @@ This is recommended. With several upload batches, the auto-closing behavior can 
 
 #### `disablePageScrollWhenModalOpen`
 
-Disable page scroll when the modal is open (`Boolean`, default: `true`).
+Disable page scroll when the modal is open (`boolean`, default: `true`).
 
 Page scrolling is disabled by default when the Dashboard modal is open, so when you scroll a list of files in Uppy,
 the website in the background stays still.
@@ -376,39 +376,39 @@ Set to false to override this behaviour and leave page scrolling intact.
 
 #### `animateOpenClose`
 
-Add animations when the modal dialog is opened or closed, for a more satisfying user experience (`Boolean`, default: `true`).
+Add animations when the modal dialog is opened or closed, for a more satisfying user experience (`boolean`, default: `true`).
 
 #### `fileManagerSelectionType`
 
-Configure the type of selections allowed when browsing your file system via the file manager selection window (`String`, default: `'files'`).
+Configure the type of selections allowed when browsing your file system via the file manager selection window (`string`, default: `'files'`).
 
 May be either `'files'`, `'folders'`, or `'both'`.
 Selecting entire folders for upload may not be supported on all [browsers](https://caniuse.com/#feat=input-file-directory).
 
 #### `proudlyDisplayPoweredByUppy`
 
-Show the Uppy logo with a link (`Boolean`, default: `true`).
+Show the Uppy logo with a link (`boolean`, default: `true`).
 
 Uppy is provided to the world for free by the team behind [Transloadit](https://transloadit.com). 
 In return, we ask that you consider keeping a tiny Uppy logo at the bottom of the Dashboard, so that more people can discover and use Uppy.
 
 #### `disableStatusBar`
 
-Disable the status bar completely (`Boolean`, default: `false`).
+Disable the status bar completely (`boolean`, default: `false`).
 
 Dashboard ships with the `StatusBar` plugin that shows upload progress and pause/resume/cancel buttons.
 If you want, you can disable the StatusBar to provide your own custom solution.
 
 #### `disableInformer: false`
 
-Disable informer (shows notifications in the form of toasts) completely (`Boolean`, default: `false`).
+Disable informer (shows notifications in the form of toasts) completely (`boolean`, default: `false`).
 
 Dashboard ships with the `Informer` plugin that notifies when the browser is offline, or when it’s time to say cheese if `Webcam` is taking a picture.
 If you want, you can disable the Informer and/or provide your own custom solution.
 
 #### `disableThumbnailGenerator`
 
-Disable the thumbnail generator completely (`Boolean`, default: `false`).
+Disable the thumbnail generator completely (`boolean`, default: `false`).
 
 Dashboard ships with the `ThumbnailGenerator` plugin that adds small resized image thumbnails to images, for preview purposes only.
 If you want, you can disable the `ThumbnailGenerator` and/or provide your own custom solution.
@@ -509,7 +509,7 @@ module.exports = {
 
 #### `theme`
 
-Light or dark theme for the Dashboard (`String`, default: `'light'`).
+Light or dark theme for the Dashboard (`string`, default: `'light'`).
 
 Uppy Dashboard supports “Dark Mode”. You can try it live on [the Dashboard example page](https://uppy.io/examples/dashboard/).
 
@@ -521,14 +521,14 @@ It supports the following values:
 
 #### `autoOpenFileEditor`
 
-Automatically open file editor (see [`@uppy/image-editor`](/docs/user-interfaces/elements/image-editor/)) for the first file in a batch (`Boolean`, default: `false`).
+Automatically open file editor (see [`@uppy/image-editor`](/docs/user-interfaces/elements/image-editor/)) for the first file in a batch (`boolean`, default: `false`).
 
 If one file is added, editor opens for that file, if 10 files are added — editor opens for the first file.
 Use case: user adds an image — Uppy opens Image Editor right away — user crops / adjusts the image — upload.
 
 #### `disabled`
 
-Enabling this option makes the Dashboard grayed-out and non-interactive (`Boolean`, default: `false`).
+Enabling this option makes the Dashboard grayed-out and non-interactive (`boolean`, default: `false`).
 
 Users won’t be able to click on buttons or drop files.
 Useful when you need to conditionally enable/disable file uploading or manipulation, based on a condition in your app. Can be set on init or via API:
@@ -544,7 +544,7 @@ userNameInput.addEventListener('change', () => {
 
 #### `disableLocalFiles`
 
-Disable local files (`Boolean`, default: `false`).
+Disable local files (`boolean`, default: `false`).
 
 Enabling this option will disable drag & drop, hide the “browse” and “My Device” button,
 allowing only uploads from plugins, such as Webcam, Screen Capture, Google Drive, Instagram.
