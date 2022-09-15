@@ -4,7 +4,7 @@ sidebar_position: 1
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import Admonition from '@theme/Admonition';
+import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Transloadit
 
@@ -50,28 +50,12 @@ All with minimal effort.
   </TabItem>
 
   <TabItem value="cdn" label="CDN">
-  <Admonition type="caution">
-    <p>
-      The bundle consists of most Uppy plugins, so this method is not recommended for production,
-      as your users will have to download all plugins when you are likely using only a few.
-    </p>
-  </Admonition>
-
-  ```html
-    <!-- 1. Add CSS to `<head>` -->
-    <link href="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.css" rel="stylesheet">
-
-    <!-- 2. Add JS before the closing `</body>` -->
-    <script src="https://releases.transloadit.com/uppy/v2.9.0/uppy.min.js"></script>
-
-    <!-- 3. Initialize -->
-    <div id="uppy"></div>
-    <script>
-      var uppy = new Uppy.Core()
-      uppy.use(Uppy.Transloadit, { /* see options below */ })
-    </script>
-  ```
-
+    <UppyCdnExample>
+      {`
+        import { Uppy, Transloadit } from "{{UPPY_JS_URL}}"
+        new Uppy().use(Transloadit, { /* see options */ })
+      `}
+    </UppyCdnExample>
   </TabItem>
 </Tabs>
 
