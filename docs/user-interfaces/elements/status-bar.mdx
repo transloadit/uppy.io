@@ -45,8 +45,9 @@ You can still use it without it but it may need some (CSS) tweaking for your use
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
-      var uppy = new Uppy.Core()
-      uppy.use(Uppy.StatusBar, { target: '#status-bar' })
+        import { Uppy, StatusBar } from "{{UPPY_JS_URL}}"
+        const uppy = new Uppy()
+        uppy.use(StatusBar, { target: '#status-bar' })
       `}
     </UppyCdnExample>
   </TabItem>
