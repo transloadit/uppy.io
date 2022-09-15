@@ -41,8 +41,9 @@ You can self-host Companion or get a hosted version with any [Transloadit plan](
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
-        var uppy = new Uppy.Core()
-        uppy.use(Uppy.Dropbox, {
+        import { Uppy, Dropbox } from "{{UPPY_JS_URL}}"
+        const uppy = new Uppy()
+        uppy.use(Dropbox, {
           // Options
         })
       `}

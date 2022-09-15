@@ -54,8 +54,9 @@ export * from "@uppy/core";
 
 <UppyCdnExample uppyJsName="uppy.legacy.min.js">
   {`
-  var uppy = new Uppy.Core()
-  uppy.use(Uppy.DragDrop, { target: "#uppy" })
-  uppy.use(Uppy.Tus, { endpoint: "//tusd.tusdemo.net/files/" })
+    import { Uppy, DragDrop, Tus } from "{{UPPY_JS_URL}}"
+    const uppy = new Uppy()
+    uppy.use(DragDrop, { target: '#uppy' })
+    uppy.use(Tus, { endpoint: '//tusd.tusdemo.net/files/' })
   `}
 </UppyCdnExample>
