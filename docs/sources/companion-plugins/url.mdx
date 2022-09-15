@@ -45,8 +45,9 @@ so you don’t have to worry about the security implications of arbitrary URLs.
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
-        var uppy = new Uppy.Core()
-        uppy.use(Uppy.Url, {
+        import { Uppy, Url } from "{{UPPY_JS_URL}}"
+        const uppy = new Uppy()
+        uppy.use(Url, {
           // Options
         })
       `}
