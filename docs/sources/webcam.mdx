@@ -100,15 +100,15 @@ new Uppy
 
 #### `id`
 
-A unique identifier for this plugin (`String`, default: `'Webcam'`).
+A unique identifier for this plugin (`string`, default: `'Webcam'`).
 
 #### `target`
 
-DOM element, CSS selector, or plugin to place the drag and drop area into (`String` or `Element`, default: `null`).
+DOM element, CSS selector, or plugin to place the drag and drop area into (`string` or `Element`, default: `null`).
 
 #### `countdown`
 
-When taking a picture: the amount of seconds to wait before actually taking a snapshot (`Boolean`, default: `false`).
+When taking a picture: the amount of seconds to wait before actually taking a snapshot (`boolean`, default: `false`).
 
 If set to `false` or 0, the snapshot is taken right away.
 This also shows a `Smile!` message through the [Informer](/docs/informer) before the picture is taken.
@@ -133,7 +133,7 @@ By default, all modes are allowed, and the Webcam plugin will show controls for 
 
 #### `mirror`
 
-Configures whether to mirror preview image from the camera (`Boolean`, default: `true`).
+Configures whether to mirror preview image from the camera (`boolean`, default: `true`).
 
 This option is useful when taking a selfie with a front camera: when you wave your right hand,
 you will see your hand on the right on the preview screen, like in the mirror.
@@ -166,17 +166,17 @@ For a full list of available properties, check out MDN documentation for [`Media
 
 #### `showVideoSourceDropdown`
 
-Configures whether to show a dropdown which enables to choose the video device to use (`Boolean`, default: `false`).
+Configures whether to show a dropdown which enables to choose the video device to use (`boolean`, default: `false`).
 
 This option will have priority over `facingMode` if enabled.
 
 #### `showRecordingLength`
 
-Configures whether to show the length of the recording while the recording is in progress (`Boolean`, default: `false`).
+Configures whether to show the length of the recording while the recording is in progress (`boolean`, default: `false`).
  
 #### `preferredVideoMimeType`
 
-Set the preferred mime type for video recordings, for example `'video/webm'` (`String`, default: `null`).
+Set the preferred mime type for video recordings, for example `'video/webm'` (`string`, default: `null`).
 
 If the browser supports the given mime type, the video will be recorded in this format.
 If the browser does not support it, it will use the browser default.
@@ -184,7 +184,7 @@ If no preferred video mime type is given, the Webcam plugin will prefer types li
 
 #### `preferredImageMimeType`
 
-Set the preferred mime type for images, for example `'image/png'` (`String`, default: `image/jpeg`). 
+Set the preferred mime type for images, for example `'image/png'` (`string`, default: `image/jpeg`). 
 
 If the browser supports rendering the given mime type, the image will be stored in this format.
 Else `image/jpeg` is used by default.

@@ -93,21 +93,21 @@ uppy.use(StatusBar, {
 
 #### `id`
 
-A unique identifier for this Status Bar (`String`, default: `'StatusBar'`). 
+A unique identifier for this Status Bar (`string`, default: `'StatusBar'`). 
 
 Use this if you need to add several StatusBar instances.
 
 #### `target`
 
-DOM element, CSS selector, or plugin to mount the Status Bar into (`Element`, `String`, `UIPlugin`, default: `'body'`).
+DOM element, CSS selector, or plugin to mount the Status Bar into (`Element`, `string`, `UIPlugin`, default: `'body'`).
 
 #### `hideAfterFinish`
 
-Hide the Status Bar after the upload is complete (`Boolean`, default: `true`).
+Hide the Status Bar after the upload is complete (`boolean`, default: `true`).
 
 #### `showProgressDetails`
 
-Display remaining upload size and estimated time (`Boolean`, default: `false`)
+Display remaining upload size and estimated time (`boolean`, default: `false`)
 
 :::note
 `false`: Uploading: 45%
@@ -117,25 +117,25 @@ Display remaining upload size and estimated time (`Boolean`, default: `false`)
 
 #### `hideUploadButton`
 
-Hide the upload button (`Boolean`, default: `false`).
+Hide the upload button (`boolean`, default: `false`).
 
 Use this if you are providing a custom upload button somewhere, and using the `uppy.upload()` API.
 
 #### `hideRetryButton`
 
-Hide the retry button (`Boolean`, default: `false`).
+Hide the retry button (`boolean`, default: `false`).
 
 Use this if you are providing a custom retry button somewhere, and using the `uppy.retryAll()` or `uppy.retryUpload(fileID)` API.
 
 #### `hidePauseResumeButton`
 
-Hide pause/resume buttons (for resumable uploads, via [tus](http://tus.io), for example) (`Boolean`, default: `false`).
+Hide pause/resume buttons (for resumable uploads, via [tus](http://tus.io), for example) (`boolean`, default: `false`).
 
 Use this if you are providing custom cancel or pause/resume buttons somewhere, and using the `uppy.pauseResume(fileID)` or `uppy.removeFile(fileID)` API.
 
 #### `hideCancelButton`
 
-Hide the cancel button (`Boolean`, default: `false`).
+Hide the cancel button (`boolean`, default: `false`).
 
 Use this if you are providing a custom retry button somewhere, and using the `uppy.cancelAll()` API.
 

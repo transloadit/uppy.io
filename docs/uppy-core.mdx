@@ -207,7 +207,7 @@ If you are integrating with an existing HTML form, this option gives the closest
 
 #### `debug`
 
-Whether to send debugging and warning logs (`Boolean`, default: `false`).
+Whether to send debugging and warning logs (`boolean`, default: `false`).
 
 Setting this to `true` sets the [`logger`](#logger) to [`debugLogger`](#debuglogger).
 
@@ -242,11 +242,11 @@ Conditions for restricting an upload (`Object`, default: `{}`).
 
 | Property             | Value           | Description                                                                                                                      |
 | -------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `maxFileSize`        | `Number`        | maximum file size in bytes for each individual file                                                                              |
-| `minFileSize`        | `Number`        | minimum file size in bytes for each individual file                                                                              |
-| `maxTotalFileSize`   | `Number`        | maximum file size in bytes for all the files that can be selected for upload                                                     |
-| `maxNumberOfFiles`   | `Number`        | total number of files that can be selected                                                                                       |
-| `minNumberOfFiles`   | `Number`        | minimum number of files that must be selected before the upload                                                                  |
+| `maxFileSize`        | `number`        | maximum file size in bytes for each individual file                                                                              |
+| `minFileSize`        | `number`        | minimum file size in bytes for each individual file                                                                              |
+| `maxTotalFileSize`   | `number`        | maximum file size in bytes for all the files that can be selected for upload                                                     |
+| `maxNumberOfFiles`   | `number`        | total number of files that can be selected                                                                                       |
+| `minNumberOfFiles`   | `number`        | minimum number of files that must be selected before the upload                                                                  |
 | `allowedFileTypes`   | `Array`         | wildcards `image/*`, or exact mime types `image/jpeg`, or file extensions `.jpg`: `['image/*', '.jpg', '.jpeg', '.png', '.gif']` |
 | `requiredMetaFields` | `Array<string>` | make keys from the `meta` object in every file required before uploading                                                         |
 
@@ -508,7 +508,7 @@ This option can be used to plug Uppy state into an external state management lib
 
 #### `infoTimeout`
 
-How long an [Informer](/docs/user-interfaces/elements/informer) notification will be visible (`Number`, default: `5000`).
+How long an [Informer](/docs/user-interfaces/elements/informer) notification will be visible (`number`, default: `5000`).
 
 ### Methods
 
@@ -772,8 +772,8 @@ Useful, for example, after your users log out of their account in your app
 
 | Argument  | Type      | Description                 |
 | --------- | --------- | --------------------------- |
-| `message` | `String`  | message to log              |
-| `type`    | `String?` | `debug`, `warn`, or `error` |
+| `message` | `string`  | message to log              |
+| `type`    | `string?` | `debug`, `warn`, or `error` |
 
 See [`logger`](#logger) docs for details.
 
@@ -788,9 +788,9 @@ It’s using the [Informer](/docs/interfaces/elements/informer/) plugin, include
 
 | Argument   | Type               | Description                                                                       |
 | ---------- | ------------------ | --------------------------------------------------------------------------------- |
-| `message`  | `String`, `Object` | `'info message'` or `{ message: 'Oh no!', details: 'File couldn’t be uploaded' }` |
-| `type`     | `String?`          | `'info'`, `'warning'`, `'success'` or `'error'`                                   |
-| `duration` | `Number?`          | in milliseconds                                                                   |
+| `message`  | `string`, `Object` | `'info message'` or `{ message: 'Oh no!', details: 'File couldn’t be uploaded' }` |
+| `type`     | `string?`          | `'info'`, `'warning'`, `'success'` or `'error'`                                   |
+| `duration` | `number?`          | in milliseconds                                                                   |
 
 `info-visible` and `info-hidden` events are emitted when this info message should be visible or hidden.
 
