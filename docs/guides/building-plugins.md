@@ -221,7 +221,7 @@ See the Preact [Getting Started Guide](https://preactjs.com/guide/getting-starte
 
 <!-- eslint-disable jsdoc/check-tag-names -->
 
-```js
+```jsx
 /** @jsx h */
 import { UIPlugin } from '@uppy/core'
 import { h } from 'preact'
