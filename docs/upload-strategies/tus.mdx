@@ -20,7 +20,11 @@ Not sure which upload strategy is best for you? Read “[Choosing the upload str
 This means accidentally closing your tab or losing connection let’s you continue, for instance, your 10GB upload
 instead of starting all over.
 
-Tus supports any language, any platform, and any network. It requires a client and server integration to work. You can checkout the client and server [implementations](https://tus.io/implementations.html) to find the server in your preferred language. You can store files on the Tus server itself, but you can also use service integrations (such as S3) to store files externally. If you don't want to host your own server, see “[Are there hosted Tus servers?](#are-there-hosted-tus-servers)”.
+Tus supports any language, any platform, and any network.
+It requires a client and server integration to work.
+You can checkout the client and server [implementations][] to find the server in your preferred language.
+You can store files on the Tus server itself, but you can also use service integrations (such as S3) to store files externally.
+If you don’t want to host your own server, see “[Are there hosted Tus servers?](#are-there-hosted-tus-servers)”.
 
 If you want reliable, resumable uploads: use `@uppy/tus` to connect to your Tus server in a few lines of code.
 
@@ -236,7 +240,7 @@ and [tus-node-server](https://github.com/tus/tus-node-server) has [events](https
 ### Which server do you recommend?
 
 [Transloadit](https://transloadit.com) runs [tusd][] in production, where it serves millions of requests globally.
-Therefor we recommend tusd as battle-tested from our side, but other companies have had success with other implementations so it depends on your needs.
+Therefor we recommend tusd as battle-tested from our side, but other companies have had success with other [implementations][] so it depends on your needs.
 
 ### Are there hosted Tus servers?
 
@@ -245,6 +249,8 @@ You don’t have to do anything to leverage it, using [`@uppy/transloadit`](/doc
 uses Tus under the hood.
 
 ### Why Tus instead of directly uploading to AWS S3?
+
+<!--retext-simplify ignore first-and-foremost-->
 
 First and foremost: reliable, resumable uploads. 
 This means accidentally closing your tab or losing connection let’s you continue, for instance, your 10GB upload
@@ -261,3 +267,5 @@ as more requests are needed for the flow to work.
 [tus]: https://tus.io/
 
 [tusd]: https://github.com/tus/tusd
+
+[implementations]: https://tus.io/implementations.html
