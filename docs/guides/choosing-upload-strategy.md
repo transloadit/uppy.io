@@ -89,8 +89,4 @@ If you want to send regular file uploads to your own server you can use [`@uppy/
 
 [tus]: https://tus.io/
 
-<<<<<<< Updated upstream
-[tus-gh]: https://github.com/tus
-=======
 [tus-implementations]: https://tus.io/implementations.html
->>>>>>> Stashed changes
