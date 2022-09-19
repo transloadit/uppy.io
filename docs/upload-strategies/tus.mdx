@@ -75,7 +75,7 @@ const uppy = new Uppy
 ### Options
 
 :::info
-All options are passed to `tus-js-client` and we document the ones here that we added or changed.
+All options are passed to `tus-js-client` and we document the ones here that are required, added, or changed.
 This means you can also pass functions like [`onAfterResponse`](https://github.com/tus/tus-js-client/blob/master/docs/api.md#onafterresponse).
 
 We recommended taking a look at the [API reference](https://github.com/tus/tus-js-client/blob/master/docs/api.md) from `tus-js-client` to know what is supported.
@@ -129,14 +129,6 @@ The two valid reasons are described in the [tus-js-client docs](https://github.c
 Configure the requests to send Cookies using the [`xhr.withCredentials`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials) property (`boolean`, default: `false`).
 
 The remote server must accept CORS and credentials.
-
-#### `overridePatchMethod`
-
-Whether the `POST` method should be used instead of `PATCH` for transfering file chunks (`boolean`, default: `false`).
-
-This may be necessary if a browser or the server does not support latter one.
-In this case, a POST request will be made with the `X-HTTP-Method-Override: PATCH` header.
-The server must be able to detect it, and then handle the request as if PATCH would have been the method.
 
 #### `retryDelays`
 
