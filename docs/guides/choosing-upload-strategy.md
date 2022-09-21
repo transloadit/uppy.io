@@ -45,22 +45,24 @@ Meaning if your server (or proxy) returns HTTP 429 because it’s being overload
 find the ideal sweet spot to keep uploading without overloading.
 :::
 
-### I want to upload to AWS S3 directly
+### I want to upload to AWS S3 (or S3-compatible storage) directly
 
-If you don’t want to host your own server or use Transloadit services you can also upload to AWS S3 directly.
+When you prefer a _client-to-storage_ over a _client-to-server-to-storage_ (such as [Transloadit](/docs/upload-strategies/transloadit) or [Tus](/docs/upload-strategies/tus)) setup.
+This may in some cases be preferable, for instance, to reduce costs or the complexity of running a server and load balancer with [Tus](/docs/upload-strategies/tus).
+
 Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and [`@uppy/aws-s3-multipart`][].
 
 #### Which one should I pick?
 
-If your users are planning to mostly upload small files or a lot of files, it’s better to use [`@uppy/aws-s3`][].
+If your users are planning to mostly upload small files and/or a lot of files, it’s better to use [`@uppy/aws-s3`][].
 
-[`@uppy/aws-s3-multipart`][] starts to become valuable for bigger files (10MB+) as it uses chunking.
-This means if one part fails, only a single part needs to be retried, which can save a lot on a 20GB upload for instance.
+[`@uppy/aws-s3-multipart`][] starts to become valuable for bigger files (100MB+) as it uploads a single object as a set of parts.
+This has some benefits, such as improved throughput (uploading parts in parallel) and quick recovery from network issues (only the failed parts need to be retried).
 The downside is request overhead, as it needs to do setup, signing, and completion besides the upload requests.
 For example, if you are uploading files that are only a couple KB with a 100ms roundtrip latency,
 you are spending 400ms on overhead and only a couple milliseconds on uploading. 
 
-If you are uploading big files, we recommend [`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
+If you are uploading big files (100MB+), we recommend [`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
 
 :::info
 You can also save files in S3 with the [`/s3/store`][s3-robot] robot while still
