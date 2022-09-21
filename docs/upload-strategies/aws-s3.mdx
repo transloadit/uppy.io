@@ -246,7 +246,7 @@ Pass an array of field names to limit the metadata fields that will be added to 
 When using [Companion][companion docs] to sign S3 uploads, do not define this option.
 :::
 
-A function that returns upload parameters for a file (`Promise<Object>`, default: `null`).
+A function that returns upload parameters for a file (`Promise`, default: `null`).
 
 Parameters should be returned as an object, or as a `Promise` that fulfills with an object, with keys `{ method, url, fields, headers }`.
 
