@@ -9,9 +9,6 @@ In this guide we will explain the different plugins, their strategies, and when 
 
 ## Use cases
 
-Below are some of the common use cases. They are not necessarily at odds with each other.
-The uploading plugins are flexible enough to create new use cases, or have similar benefits.
-
 ### I want worry-free, plug-and-play uploads with Transloadit services
 
 Transloadit’s strength is versatility.
@@ -56,22 +53,22 @@ Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and [`@uppy/aws-s3-m
 
 If your users are planning to mostly upload small files and/or a lot of files, it’s better to use [`@uppy/aws-s3`][].
 
-[`@uppy/aws-s3-multipart`][] starts to become valuable for larger files (100 MB+) as it uploads a single object as a set of parts.
+[`@uppy/aws-s3-multipart`][] starts to become valuable for larger files (100&nbsp;MB+) as it uploads a single object as a set of parts.
 This has certain benefits, such as improved throughput (uploading parts in parallel) and quick recovery from network issues (only the failed parts need to be retried).
 The downside is request overhead, as it needs to do creation, signing, and completion requests besides the upload requests.
 For example, if you are uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
 you are spending 400ms on overhead and only a few milliseconds on uploading. 
 
-If you are uploading large files (100 MB+), we recommend [`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
+If you are uploading large files (100&nbsp;MB+), we recommend [`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
 
 :::info
 You can also save files in S3 with the [`/s3/store`][s3-robot] robot while still
 using the powers of Transloadit services.
 :::
 
-### I want to send HTML multipart uploads to my own server
+### I want to send regular HTTP uploads to my own server
 
-If you want to send regular file uploads to your own server you can use [`@uppy/xhr`][].
+[`@uppy/xhr-upload`][] handles classic HTML multipart form uploads as well as uploads using the HTTP `PUT` method.
 
 [s3-robot]: https://transloadit.com/services/file-exporting/s3-store/
 
@@ -87,7 +84,7 @@ If you want to send regular file uploads to your own server you can use [`@uppy/
 
 [`@uppy/aws-s3`]: /docs/upload-strategies/aws-s3
 
-[`@uppy/xhr`]: /docs/upload-strategies/xhr
+[`@uppy/xhr-upload`]: /docs/upload-strategies/xhr
 
 [tus]: https://tus.io/
 
