@@ -56,13 +56,13 @@ Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and [`@uppy/aws-s3-m
 
 If your users are planning to mostly upload small files and/or a lot of files, it’s better to use [`@uppy/aws-s3`][].
 
-[`@uppy/aws-s3-multipart`][] starts to become valuable for bigger files (100MB+) as it uploads a single object as a set of parts.
-This has some benefits, such as improved throughput (uploading parts in parallel) and quick recovery from network issues (only the failed parts need to be retried).
-The downside is request overhead, as it needs to do setup, signing, and completion besides the upload requests.
-For example, if you are uploading files that are only a couple KB with a 100ms roundtrip latency,
-you are spending 400ms on overhead and only a couple milliseconds on uploading. 
+[`@uppy/aws-s3-multipart`][] starts to become valuable for larger files (100 MB+) as it uploads a single object as a set of parts.
+This has certain benefits, such as improved throughput (uploading parts in parallel) and quick recovery from network issues (only the failed parts need to be retried).
+The downside is request overhead, as it needs to do creation, signing, and completion requests besides the upload requests.
+For example, if you are uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
+you are spending 400ms on overhead and only a few milliseconds on uploading. 
 
-If you are uploading big files (100MB+), we recommend [`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
+If you are uploading large files (100 MB+), we recommend [`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
 
 :::info
 You can also save files in S3 with the [`/s3/store`][s3-robot] robot while still
@@ -79,15 +79,15 @@ If you want to send regular file uploads to your own server you can use [`@uppy/
 
 [transloadit-concepts]: https://transloadit.com/docs/getting-started/concepts/
 
-[`@uppy/transloadit`]: /docs/uploaders/transloadit
+[`@uppy/transloadit`]: /docs/upload-strategies/transloadit
 
-[`@uppy/tus`]: /docs/uploaders/tus
+[`@uppy/tus`]: /docs/upload-strategies/tus
 
-[`@uppy/aws-s3-multipart`]: /docs/uploaders/aws-s3-multipart
+[`@uppy/aws-s3-multipart`]: /docs/upload-strategies/aws-s3-multipart
 
-[`@uppy/aws-s3`]: /docs/uploaders/aws-s3
+[`@uppy/aws-s3`]: /docs/upload-strategies/aws-s3
 
-[`@uppy/xhr`]: /docs/uploaders/xhr
+[`@uppy/xhr`]: /docs/upload-strategies/xhr
 
 [tus]: https://tus.io/
 

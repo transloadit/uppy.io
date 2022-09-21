@@ -16,6 +16,8 @@ Uploads can be signed using either [Companion][companion docs] or a custom signi
 
 :::tip
 Not sure which upload strategy is best for you? Read “[Choosing the upload strategy you need](/docs/guides/choosing-upload-strategy)”.
+
+Wondering if you need this plugin or [`@uppy/aws-s3-multipart`](docs/upload-strategies/aws-s3-multipart)? See “[Which one should I pick](/docs/guides/choosing-upload-strategy#which-one-should-i-pick)”.
 :::
 
 You can use this plugin when you prefer a _client-to-storage_ over a _client-to-server-to-storage_ (such as [Transloadit](/docs/upload-strategies/transloadit) or [Tus](/docs/upload-strategies/tus)) setup.
@@ -23,10 +25,10 @@ This may in some cases be preferable, for instance, to reduce costs or the compl
 
 This plugin can be used with AWS S3, DigitalOcean Spaces, Google Cloud Storage, or any S3-compatible provider.
 Although all S3-compatible providers are supported, we don’t test against them, this plugin was developed against S3
-so there is a small risk involved in using the others.
+so a small risk is involved in using the others.
 
 `@uppy/aws-s3` is best suited for small files and/or lots of files.
-If you are planning to upload mostly big files (100MB+), consider using [`@uppy/aws-s3-multipart`](/docs/upload-strategies/aws-s3-multipart).
+If you are planning to upload mostly large files (100 MB+), consider using [`@uppy/aws-s3-multipart`](/docs/upload-strategies/aws-s3-multipart).
 
 ## Install
 
