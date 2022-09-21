@@ -234,7 +234,7 @@ Custom headers that should be sent along to [Companion](/docs/companion) on ever
 
 #### `allowedMetaFields`
 
-Pass an array of field names to limit the metadata fields that will be added to upload as query parameters (`array`, default: `null`).
+Pass an array of field names to limit the metadata fields that will be added to upload as query parameters (`Array`, default: `null`).
 
 *   Set this to `['name']` to only send the `name` field.
 *   Set this to `null` (the default) to send _all_ metadata fields.
@@ -248,7 +248,7 @@ When using [Companion][companion docs] to sign S3 uploads, do not define this op
 
 A function that returns upload parameters for a file (`Promise<Object>`, default: `null`).
 
-Parameters should be returned as an object, or a Promise for an object, with keys `{ method, url, fields, headers }`.
+Parameters should be returned as an object, or as a `Promise` that fulfills with an object, with keys `{ method, url, fields, headers }`.
 
 * The `method` field is the HTTP method to be used for the upload.
   This should be one of either `PUT` or `POST`, depending on the type of upload used.
@@ -300,7 +300,7 @@ export default  {
 
 ### How can I generate a presigned URL server-side?
 
-The `getUploadParameters` function can return a Promise, so upload parameters can be prepared server-side.
+The `getUploadParameters` function can return a `Promise`, so upload parameters can be prepared server-side.
 That way, no private keys to the S3 bucket need to be shared on the client.
 For example, there could be a PHP server endpoint that prepares a presigned URL for a file:
 
