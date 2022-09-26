@@ -53,7 +53,7 @@ Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and [`@uppy/aws-s3-m
 
 If your users are planning to mostly upload small files and/or a lot of files, it’s better to use [`@uppy/aws-s3`][].
 
-[`@uppy/aws-s3-multipart`][] starts to become valuable for larger files (100&nbsp;MB+) as it uploads a single object as a set of parts.
+[`@uppy/aws-s3-multipart`][] is valuable for larger files (100&nbsp;MB+) as it uploads a single object as a set of parts.
 This has certain benefits, such as improved throughput (uploading parts in parallel) and quick recovery from network issues (only the failed parts need to be retried).
 The downside is request overhead, as it needs to do creation, signing, and completion requests besides the upload requests.
 For example, if you are uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
