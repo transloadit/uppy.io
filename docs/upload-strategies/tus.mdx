@@ -8,7 +8,7 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Tus
 
-The `@uppy/tus` plugin brings resumable file uploading with [Tus](http://tus.io) to Uppy by wrapping the [tus-js-client][].
+The `@uppy/tus` plugin brings resumable file uploading with [Tus](http://tus.io) to Uppy by wrapping the [`tus-js-client`][].
 
 ## When should I use it?
 
@@ -125,7 +125,7 @@ A number indicating the maximum size of a `PATCH` request body in bytes (`number
 
 :::caution
 Do not set this value unless you are forced to.
-The two valid reasons are described in the [tus-js-client docs](https://github.com/tus/tus-js-client/blob/master/docs/api.md#chunksize).
+The two valid reasons are described in the [`tus-js-client` docs](https://github.com/tus/tus-js-client/blob/master/docs/api.md#chunksize).
 :::
 
 #### `withCredentials`
@@ -234,17 +234,17 @@ If you want to send extra headers with the request, use [`headers`](#headers) or
 ### How do I change (or move) files after sending them?
 
 If you want to preserve files names, extract meta data, or move files to a different place you generally can with hooks or events.
-It depends on the Tus server you use how it’s done exactly. [tusd][], for instance, exposes [hooks](https://github.com/tus/tusd/blob/master/docs/hooks.md)
-and [tus-node-server](https://github.com/tus/tus-node-server) has [events](https://github.com/tus/tus-node-server#events).
+It depends on the Tus server you use how it’s done exactly. [`tusd`][], for instance, exposes [hooks](https://github.com/tus/tusd/blob/master/docs/hooks.md)
+and [`tus-node-server`](https://github.com/tus/tus-node-server) has [events](https://github.com/tus/tus-node-server#events).
 
 ### Which server do you recommend?
 
-[Transloadit](https://transloadit.com) runs [tusd][] in production, where it serves millions of requests globally.
-Therefor we recommend tusd as battle-tested from our side, but other companies have had success with other [implementations][] so it depends on your needs.
+[Transloadit](https://transloadit.com) runs [`tusd`][] in production, where it serves millions of requests globally.
+Therefor we recommend `tusd` as battle-tested from our side, but other companies have had success with other [implementations][] so it depends on your needs.
 
 ### Are there hosted Tus servers?
 
-All [Transloadit plans](https://transloadit.com/pricing) come with a hosted [tusd][] server.
+All [Transloadit plans](https://transloadit.com/pricing) come with a hosted [`tusd`][] server.
 You don’t have to do anything to leverage it, using [`@uppy/transloadit`](/docs/upload-strategies/transloadit) automatically
 uses Tus under the hood.
 
@@ -260,12 +260,12 @@ Tus is also efficient with lots of files (such as 8K) and large files.
 Uploading to AWS S3 directly from the client also introduces quite a bit of overhead,
 as more requests are needed for the flow to work.
 
-[tus-js-client]: https://github.com/tus/tus-js-client
+[`tus-js-client`]: https://github.com/tus/tus-js-client
 
 [Uppy file]: /docs/uppy-core#working-with-uppy-files
 
 [tus]: https://tus.io/
 
-[tusd]: https://github.com/tus/tusd
+[`tusd`]: https://github.com/tus/tusd
 
 [implementations]: https://tus.io/implementations.html
