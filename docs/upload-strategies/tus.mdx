@@ -136,7 +136,7 @@ The remote server must accept CORS and credentials.
 
 #### `retryDelays`
 
-When uploading a chunk fails, automatically try again after the defined millisecond intervals (`array<number>`, default: `[0, 1000, 3000, 5000]`).
+When uploading a chunk fails, automatically try again after the defined millisecond intervals (`Array<number>`, default: `[0, 1000, 3000, 5000]`).
 
 By default, we first retry instantly; if that fails, we retry after 1 second; if that fails, we retry after 3 seconds, etc.
 
@@ -180,7 +180,7 @@ new Uppy().use(Tus, {
 
 #### `allowedMetaFields`
 
-Pass an array of field names to limit the metadata fields that will be added to uploads as [Tus Metadata](https://tus.io/protocols/resumable-upload.html#upload-metadata) (`array`, default: `null`).
+Pass an array of field names to limit the metadata fields that will be added to uploads as [Tus Metadata](https://tus.io/protocols/resumable-upload.html#upload-metadata) (`Array`, default: `null`).
 *   Set this to `['name']` to only send the `name` field.
 *   Set this to `null` (the default) to send _all_ metadata fields.
 *   Set this to an empty array `[]` to not send any fields.
