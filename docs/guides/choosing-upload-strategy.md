@@ -9,20 +9,17 @@ In this guide we will explain the different plugins, their strategies, and when 
 
 ## Use cases
 
-Below are some of the common use cases. They are not necessarily at odds with each other.
-The uploading plugins are flexible enough to create new use cases, or have similar benefits.
-
 ### I want worry-free, plug-and-play uploads with Transloadit services
 
 Transloadit’s strength is versatility.
 By doing video, audio, images, documents, and more,
 you only need one vendor for [all your file processing needs][transloadit-services].
-The **[@uppy/transloadit][]** plugin directly uploads to Transloadit
+The [`@uppy/transloadit`][] plugin directly uploads to Transloadit
 so you only have to worry about creating a [template][transloadit-concepts].
 It uses [Tus](#i-want-reliable-resumable-uploads) under the hood so you don’t have to
 sacrifice reliable, resumable uploads for convenience.
 
-You should use **[@uppy/transloadit][]** if you don’t want to host your own server,
+You should use [`@uppy/transloadit`][] if you don’t want to host your own server,
 (optionally) need file processing, and store it in the service (such as S3 or GCS) of your liking.
 All with minimal effort.
 
@@ -32,41 +29,46 @@ All with minimal effort.
 This means accidentally closing your tab or losing connection let’s you continue, for instance, your 10GB upload
 instead of starting all over.
 
-It supports any language, any platform, and any network. You can checkout the [implementations](https://tus.io/implementations.html) to
-find the implementation in your favorite language. You can store files on your self-hosted Tus server, but also use service integrations (such as S3) to store files
-externally.
+Tus supports any language, any platform, and any network.
+It requires a client and server integration to work.
+You can checkout the client and server [implementations][tus-implementations] to find the server in your preferred language.
+You can store files on the Tus server itself, but you can also use service integrations (such as S3) to store files externally.
 
-If you want reliable, resumable uploads: use **[@uppy/tus][]** to connect to your Tus server in a few lines of code.
+If you want reliable, resumable uploads: use [`@uppy/tus`][] to connect to your Tus server in a few lines of code.
 
 :::tip
-If you plan to let people upload _a lot_ of files, **[@uppy/tus][]** has exponential backoff built-in.
-Meaning if your server (or proxy) returns HTTP 429 because it’s being overloaded, **[@uppy/tus][]** will
+If you plan to let people upload _a lot_ of files, [`@uppy/tus`][] has exponential backoff built-in.
+Meaning if your server (or proxy) returns HTTP 429 because it’s being overloaded, [`@uppy/tus`][] will
 find the ideal sweet spot to keep uploading without overloading.
 :::
 
-### I want to upload to AWS S3 directly
+### I want to upload to AWS S3 (or S3-compatible storage) directly
 
-<!--- TODO: describe the differences here and refer and link to this in the S3 plugin docs? -->
+When you prefer a _client-to-storage_ over a _client-to-server-to-storage_ (such as [Transloadit](/docs/upload-strategies/transloadit) or [Tus](/docs/upload-strategies/tus)) setup.
+This may in some cases be preferable, for instance, to reduce costs or the complexity of running a server and load balancer with [Tus](/docs/upload-strategies/tus).
 
-If you don’t want to host your own server or use Transloadit services you can also upload to AWS S3 directly.
-Uploading to S3 from a browser can be done in two ways.
-A server can generate a pre-signed URL for a PUT upload, or a server can generate form data for a POST upload.
-You can read more about that in the **[@uppy/aws-s3][]** docs.
+Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and [`@uppy/aws-s3-multipart`][].
 
-<!--- TODO: describe "regular uploads" better -->
+#### Which one should I pick?
 
-Uppy provides two strategies to upload to S3. **[@uppy/aws-s3][]** uses regular uploads and
-**[@uppy/aws-s3-multipart][]** uses S3’s multipart upload strategy. If you are dealing with bigger files (20MB+)
-then the multipart uploads are better.
+If your users are planning to mostly upload small files and/or a lot of files, it’s better to use [`@uppy/aws-s3`][].
+
+[`@uppy/aws-s3-multipart`][] is valuable for larger files (100&nbsp;MB+) as it uploads a single object as a set of parts.
+This has certain benefits, such as improved throughput (uploading parts in parallel) and quick recovery from network issues (only the failed parts need to be retried).
+The downside is request overhead, as it needs to do creation, signing, and completion requests besides the upload requests.
+For example, if you are uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
+you are spending 400ms on overhead and only a few milliseconds on uploading. 
+
+If you are uploading large files (100&nbsp;MB+), we recommend [`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
 
 :::info
-You can also save files in S3 with the **[/s3/store][s3-robot]** robot while still
+You can also save files in S3 with the [`/s3/store`][s3-robot] robot while still
 using the powers of Transloadit services.
 :::
 
-### I want to send HTML multipart uploads to my own server
+### I want to send regular HTTP uploads to my own server
 
-If you want to send regular file uploads to your own server you can use **[@uppy/xhr][]**.
+[`@uppy/xhr-upload`][] handles classic HTML multipart form uploads as well as uploads using the HTTP `PUT` method.
 
 [s3-robot]: https://transloadit.com/services/file-exporting/s3-store/
 
@@ -74,14 +76,16 @@ If you want to send regular file uploads to your own server you can use **[@uppy
 
 [transloadit-concepts]: https://transloadit.com/docs/getting-started/concepts/
 
-[@uppy/transloadit]: /docs/uploaders/transloadit
+[`@uppy/transloadit`]: /docs/upload-strategies/transloadit
 
-[@uppy/tus]: /docs/uploaders/tus
+[`@uppy/tus`]: /docs/upload-strategies/tus
 
-[@uppy/aws-s3-multipart]: /docs/uploaders/aws-s3-multipart
+[`@uppy/aws-s3-multipart`]: /docs/upload-strategies/aws-s3-multipart
 
-[@uppy/aws-s3]: /docs/uploaders/aws-s3
+[`@uppy/aws-s3`]: /docs/upload-strategies/aws-s3
 
-[@uppy/xhr]: /docs/uploaders/xhr
+[`@uppy/xhr-upload`]: /docs/upload-strategies/xhr
 
 [tus]: https://tus.io/
+
+[tus-implementations]: https://tus.io/implementations.html
