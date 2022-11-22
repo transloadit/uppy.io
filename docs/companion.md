@@ -4,13 +4,15 @@ sidebar_position: 4
 
 # Companion
 
-Companion is a hosted, standalone, or middleware server to **take away the complexity of authentication
+Companion is an open source server application which **takes away the complexity of authentication
 and the cost of downloading files from remote sources**, such as Instagram, Google Drive, and others.
-Clients request remote files from Companion, which it will download and simultaneously upload to your Tus server,
-AWS bucket, or any server that supports multipart.
-Companion is a server-to-server orchestrator, the files are not stored in Companion.
+Companion is a server-to-server orchestrator that streams files from a source to a destination, and files are never stored in Companion.
+Companion can run either as a standalone (self-hosted) application, [Transloadit-hosted](#hosted), or plugged in as an Express middleware
+into an existing application.
+The Uppy client requests remote files from Companion, which it will download and simultaneously upload to your [Tus server](/docs/upload-strategies/tus),
+[AWS bucket](/docs/upload-strategies/aws-s3), or any server that supports [PUT, POST or Multipart uploads](/docs/upload-strategies/xhr).
 
-This means a 5GB video isn’t eating into your users’ data plans and you don’t have to worry about OAuth.
+This means a user uploading a 5GB video from Google Drive from their phone isn’t eating into their data plans and you don’t have to worry about implementing OAuth.
 
 ## When should I use it?
 
@@ -18,7 +20,7 @@ If you want to let users download files from [Box][], [Dropbox][], [Facebook][],
 [OneDrive][], [Unsplash][], [Import from URL][Url], or [Zoom][] — you need Companion.
 
 Companion supports the same [uploaders](/docs/guides/choosing-upload-strategy) as Uppy:
-Tus, AWS S3, and regular multipart. But instead of manually setting a plugin,
+[Tus](/docs/upload-strategies/tus), [AWS S3](/docs/upload-strategies/aws-s3), and [regular multipart](/docs/upload-strategies/tus). But instead of manually setting a plugin,
 Uppy sends along a header with the uploader and Companion will use the same on the server.
 This means if you are using [Tus](/docs/uploaders/tus) for your local uploads, you can send your remote uploads
 to the same Tus server (and likewise for your AWS S3 bucket).
@@ -37,7 +39,7 @@ It’s not possible to rent a Companion server without a Transloadit plan.
 :::tip
 Choosing Transloadit for your file services also comes with credentials for all remote providers.
 This means you don’t have to waste time going through the approval process of every app.
-However you can still add your own credentials in the Transloadit admin page if you want. 
+However you can still add your own credentials in the Transloadit admin page if you want.
 :::
 
 :::info
@@ -48,9 +50,9 @@ it’s a way for files to arrive at Transloadit servers, much like Uppy.
 
 [**Sign-up for a (free) plan**](https://transloadit.com/pricing/).
 
-## Installation
+## Installation & use
 
-If you want to host your own Companion server start by installing it:
+Companion is installed from npm. Depending on how you want to run Companion, the install process is slightly different. Companion can be integrated as middleware into your [Express](https://expressjs.com/) app or as a standalone server.
 
 ```bash
 npm install @uppy/companion
@@ -64,14 +66,17 @@ Windows is not a supported platform right now.
 It may work, and we’re happy to accept improvements in this area, but we can’t provide support.
 :::
 
-## Use
-
-Companion can be integrated as middleware into your [Express](https://expressjs.com/) app or as a standalone server.
 
 ### Express middleware
 
+First install it into your Node.js project with your favorite package manger:
+
+```bash
+npm install @uppy/companion
+```
+
 To plug Companion into an existing server, call its `.app` method,
-passing in an [options](#Options) object as a parameter.
+passing in an [options](#options) object as a parameter.
 This returns a server instance that you can mount on a route in your Express app.
 
 ```js
@@ -126,8 +131,13 @@ If WebSockets fail for some reason Uppy and Companion will fallback to HTTP poll
 
 You can use the standalone version if you want to run Companion as it’s own Node process.
 It is a configured Express server with sessions, logging, and security best practices.
+First you'll typically want to install it globally:
 
-Standalone Companion will always run as HTTP and expects a reverse proxy with SSL termination in front of it when running in production. See [`COMPANION_PROTOCOL`](#server) for more information.
+```bash
+npm install -g @uppy/companion
+```
+
+Standalone Companion will always serve HTTP (not HTTPS) and expects a reverse proxy with SSL termination in front of it when running in production. See [`COMPANION_PROTOCOL`](#server) for more information.
 
 Companion ships with an excecutable file (`bin/companion`) which is the standalone server.
 Unlike the middleware version, options are set via environment variables.
@@ -155,6 +165,8 @@ You can also pass in the path to your JSON config file, like so:
 ```bash
 companion --config /path/to/companion.json
 ```
+
+You may also want to run Companion in a process manager like [PM2](https://pm2.keymetrics.io/) to make sure it gets restarted on upon crashing as well as allowing scaling to multiple instances.
 
 ## API
 
@@ -246,6 +258,11 @@ using the above `crypto` string. But when integrating with Express you must prov
 This is an essential security measure.
 :::
 
+#### `preAuthSecret` `COMPANION_PREAUTH_SECRET`
+
+If you are using the [Transloadit](/docs/upload-strategies/transloadit) `companionKeysParams` feature (Transloadit-hosted Companion using your own custom OAuth credentials),
+set this variable to a strong randomly generated secret. See also `COMPANION_SECRET` (but do not use the same secret!)
+
 #### `uploadUrls` `COMPANION_UPLOAD_URLS`
 
 An allowlist (array) of strings (exact URLs) or regular expressions. Companion will only accept uploads to these URLs. This ensures that your Companion instance is only allowed to upload to your trusted servers and prevents [SSRF](https://en.wikipedia.org/wiki/Server-side_request_forgery) attacks. 
@@ -256,12 +273,7 @@ The port on which to start the standalone server, defaults to 3020.
 
 #### `redisUrl` `COMPANION_REDIS_URL`
 
-TODO: needs a great explanation if it actually works, so let's figure out if it works
-
-URL to running Redis server.
-If this is set, the state of uploads would be stored temporarily.
-This helps for resumed uploads after a browser crash from the client.
-The stored upload would be sent back to the client on reconnection.
+URL to running Redis server. This can be used to scale Companion horizontally using many instances. See [How to scale Companion](#how-to-scale-companion).
 
 #### `redisOptions`
 
@@ -277,7 +289,7 @@ Setting this option will prefix all events with the name provided and a colon.
 
 Configuation options for the underlying server.
 
-| Key / Env var                            | Value             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Key / Environment variable               | Value             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | ---------------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `protocol` `COMPANION_PROTOCOL`          | `http` or `https` | Used to build a URL to reference the Companion instance itself, which is used for headers and cookies. Companion itself always runs as a HTTP server, so locally you should use `http`. You must to set this to `https` once you enabled SSL/HTTPS for your domain in production by running a reverse https-proxy in front of Companion, or with a built-in HTTPS feature of your hosting service.                                     |
 | `host` `COMPANION_DOMAIN`                | `String`          | Your server’s publically facing hostname (for example `example.com`).                                                                                                                                                                                                                                                                                                                                                                        |
@@ -413,25 +425,17 @@ Set a [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.
 This option enables you to add custom providers along with the already supported providers.
 See [adding custom providers](#how-to-add-custom-providers) for more information.
 
-#### `debug` `COMPANION_DEBUG`
-
-A boolean flag to tell Companion whether to log useful debug information while running.
-
 #### `logClientVersion`
 
 A boolean flag to tell Companion whether to log its version upon startup.
 
 #### `metrics` `COMPANION_HIDE_METRICS`
  
-A boolean flag to tell Companion whether to provide an endpoint `/metrics` with Prometheus metrics.
+A boolean flag to tell Companion whether to provide an endpoint `/metrics` with Prometheus metrics (by default metrics are enabled.)
 
 #### `streamingUpload` `COMPANION_STREAMING_UPLOAD`
 
 A boolean flag to tell Companion whether to enable streaming uploads. If enabled, it will lead to _faster uploads_ because companion will start uploading at the same time as downloading using `stream.pipe`. If `false`, files will be fully downloaded first, then uploaded. Defaults to `false`, but we recommended enabling it, especially if you're expecting to upload large files. In future versions the default might change to `true`.
-
-:::caution
-Do not set it to `true` if you have a [custom Companion provider](#how-to-add-custom-providers) that does not use the new async/stream API.
-:::
 
 #### `maxFileSize` `COMPANION_MAX_FILE_SIZE`
 
@@ -452,7 +456,7 @@ A `JSON.stringify`-able JavaScript Object that will be sent as part of the JSON 
 
 #### `allowLocalUrls` `COMPANION_ALLOW_LOCAL_URLS`
 
-A boolean flag to tell Companion whether to allow requesting local URLs.
+A boolean flag to tell Companion whether to allow requesting local URLs (non-internet IPs).
 
 :::caution
 Only enable this in development. **Enabling it in production is a security risk.**
@@ -472,12 +476,13 @@ Specifying a secret file will override a directly set [secret](#secret).
 Disables the welcome page.
 
 #### `COMPANION_CLIENT_ORIGINS_REGEX`
+
 Like COMPANION_CLIENT_ORIGINS, but allows a single regex instead.
 `COMPANION_CLIENT_ORIGINS` will be ignored if this is used.
 
-#### `COMPANION_CHUNK_SIZE`
+#### `chunkSize` `COMPANION_CHUNK_SIZE`
 
-Chunk size?
+Controls how big the uploaded chunks are for AWS S3 Multipart and Tus. Smaller values lead to more overhead, but larger values lead to slower retries in case of bad network connections. Passed to tus-js-client [`chunkSize`](https://github.com/tus/tus-js-client/blob/master/docs/api.md#chunksize) as well as [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html) `partSize`.
 
 ### Events
 
@@ -551,7 +556,28 @@ Please see [Supported Providers](https://uppy.io/docs/companion/#Supported-provi
 
 ### How to scale Companion?
 
-...
+Two ways of running many concurrent Companion instances.
+
+In our experience Companion will saturate network interface cards before other resources on commodity virtual servers (`c5d.2xlarge` for instance). Yet we recommend running at least two instances in production, so that if the Node.js event loop gets blocked by one or more requests (due to a bug or spike in traffic), it doesn’t also block or slow down all other requests as well (due to Node.js single threaded nature.) As an example for scale, one OSS enterprise customer of Transloadit that self-hosts Companion to power an education service that is deployed by virtually all universities globally, deploys 7 Companion instances, their earlier solution ran on 35 instances.
+
+But as always it depends and your mileage may vary, so we recommend to add observability. You can let Prometheus crawl the `/metrics` endpoint and graph that with Grafana for instance.
+
+#### Separate endpoints
+
+One option is to run many instances with each instance having its own unique HTTP endpoint. This could be on separate ports, (sub)domain names, or IPs. With this setup, you can either
+1. implement your own logic that will direct each upload to a specific Companion endpoint by setting the `companionUrl` option
+2. or by setting the Companion option `COMPANION_SELF_ENDPOINT`. This option will make Companion to respond with a special `i-am` HTTP header containing the value from `COMPANION_SELF_ENDPOINT`. When Uppy’s Companion client sees this header, it will pin all following requests for the upload to this endpoint.
+
+In either case, you would then also typically configure a single Companion instance (one endpoint) to handle all OAuth authentication requests, so that you only need to specify a single OAuth callback URL. See also `oauthDomain` and `validHosts`.
+
+#### Behind a load balancer
+
+The other option is to set up a load balancer in front of many Companion instances. Then Uppy’s companion client will only see a single endpoint and send all requests to the associated load balancer, which will then distribute them between Companion instances. The companion instances will then coordinate their messages and events over Redis so that any instance can serve the client’s requests. Note that sticky sessions are **not** needed with this setup. Here are some requirements for this setup:
+
+* The instances need to be connected to the same Redis server.
+* You need to set `COMPANION_SECRET` to the same value on both servers.
+* if you use the `companionKeysParams` feature (Transloadit), you also need `COMPANION_PREAUTH_SECRET` to be the same on each instance.
+* All other configuration needs to be the same, except if you’re running many instances on the same machine, then `COMPANION_PORT` should be different for each instance.
 
 ### How to use Companion with Kubernetes?
 
