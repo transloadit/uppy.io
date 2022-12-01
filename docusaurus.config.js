@@ -7,8 +7,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: 'Uppy',
-	tagline: 'Dinosaurs are cool',
-	url: 'https://your-docusaurus-test-site.com',
+	tagline: 'Modular open source file uploader',
+	url: 'https://uppy.io',
 	baseUrl: '/',
 	onBrokenLinks: 'warn',
 	onBrokenMarkdownLinks: 'warn',
@@ -41,7 +41,7 @@ const config = {
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
 			docs: { sidebar: { autoCollapseCategories: true } },
-			colorMode: { disableSwitch: true },
+			// colorMode: { disableSwitch: true },
 			navbar: {
 				title: 'Uppy',
 				logo: {
@@ -86,15 +86,11 @@ const config = {
 						items: [
 							{
 								label: 'Stack Overflow',
-								href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-							},
-							{
-								label: 'Discord',
-								href: 'https://discordapp.com/invite/docusaurus',
+								href: 'https://stackoverflow.com/questions/tagged/uppy',
 							},
 							{
 								label: 'Twitter',
-								href: 'https://twitter.com/docusaurus',
+								href: 'https://twitter.com/uppy.io',
 							},
 						],
 					},
@@ -107,12 +103,12 @@ const config = {
 							},
 							{
 								label: 'GitHub',
-								href: 'https://github.com/facebook/docusaurus',
+								href: 'https://github.com/transloadit/uppy',
 							},
 						],
 					},
 				],
-				copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+				copyright: `Copyright © ${new Date().getFullYear()} Transloadit`,
 			},
 			prism: {
 				theme: lightCodeTheme,
