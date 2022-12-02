@@ -3,6 +3,7 @@ title: "Adding Custom Providers: Step by Step Tutorial to add Custom Providers"
 date: 2020-06-08
 author: ife
 published: false
+slug: "2020/03/custom/providers"
 ---
 
 In this post we will be going through a step by step tutorial on how to develop, and add custom [providers](https://uppy.io/docs/providers/) to Uppy and Companion. For the purpose of this tutorial we will be building a custom provider for [Unsplash](https://unsplash.com/).

@@ -4,6 +4,7 @@ date: 2017-07-31
 author: arturi
 image: "http://uppy.io/img/blog/golden-retriever/uppy-team-kong.jpg"
 published: true
+slug: "2017/07/golden/retriever"
 ---
 
 **TL;DR:** We're on a mission to improve file uploading on the web. We released [tus](https://tus.io): the open protocol for resumable file uploads, as well as Uppy: the next open source file uploader for web browsers. Uppy uses tus, which makes it resilient to poor network conditions and crashing servers. Today we’re launching an Uppy feature that also makes it resilient to browser crashes, which we believe is an industry first. We’re sharing a quick [demo](/blog/2017/07/golden-retriever/#demo) video, a bit of [background](/blog/2017/07/golden-retriever/#uppy), [how](/blog/2017/07/golden-retriever/#how) exactly we achieved this, and how you can [try](/blog/2017/07/golden-retriever/#try) it yourself.
