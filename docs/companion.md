@@ -36,10 +36,12 @@ Using [Transloadit][] services comes with a hosted version of Companion so you d
 Whether you are on a free or paid Transloadit [plan](https://transloadit.com/pricing/), you can use Companion.
 It’s not possible to rent a Companion server without a Transloadit plan.
 
+[**Sign-up for a (free) plan**](https://transloadit.com/pricing/).
+
 :::tip
 Choosing Transloadit for your file services also comes with credentials for all remote providers.
 This means you don’t have to waste time going through the approval process of every app.
-However you can still add your own credentials in the Transloadit admin page if you want.
+You can still add your own credentials in the Transloadit admin page if you want.
 :::
 
 :::info
@@ -47,8 +49,6 @@ Downloading and uploading files through Companion doesn’t count towards
 your [monthly quota](https://transloadit.com/docs/faq/1gb-worth/),
 it’s a way for files to arrive at Transloadit servers, much like Uppy.
 :::
-
-[**Sign-up for a (free) plan**](https://transloadit.com/pricing/).
 
 ## Installation & use
 
@@ -115,7 +115,7 @@ app.use('/companion', companion.app(options))
 ```
 
 Companion uses WebSockets to communicate progress, errors, and successes to the client.
-This is what Uppy listens to to update it’s internal state and UI, if there is one.
+This is what Uppy listens to to update it’s internal state and UI.
 
 Add the Companion WebSocket server using the `companion.socket` function:
 
@@ -130,8 +130,8 @@ If WebSockets fail for some reason Uppy and Companion will fallback to HTTP poll
 ### Standalone
 
 You can use the standalone version if you want to run Companion as it’s own Node process.
-It is a configured Express server with sessions, logging, and security best practices.
-First you'll typically want to install it globally:
+It’s a configured Express server with sessions, logging, and security best practices.
+First you’ll typically want to install it globally:
 
 ```bash
 npm install -g @uppy/companion
@@ -166,66 +166,76 @@ You can also pass in the path to your JSON config file, like so:
 companion --config /path/to/companion.json
 ```
 
-You may also want to run Companion in a process manager like [PM2](https://pm2.keymetrics.io/) to make sure it gets restarted on upon crashing as well as allowing scaling to multiple instances.
+You may also want to run Companion in a process manager like [PM2](https://pm2.keymetrics.io/) to make sure it gets restarted on upon crashing as well as allowing scaling to many instances.
+
+### Running many instances
+
+We recommend running at least two instances in production,
+so that if the Node.js event loop gets blocked by one or more requests (due to a bug or spike in traffic),
+it doesn’t also block or slow down all other requests as well (as Node.js is single threaded).
+
+As an example for scale, one enterprise customer of Transloadit,
+who self-hosts Companion to power an education service that is used by many universities globally, deploys 7 Companion instances.
+Their earlier solution ran on 35 instances.
+In our general experience Companion will saturate network interface cards before other resources on commodity virtual servers (`c5d.2xlarge` for instance).
+
+Your mileage may vary, so we recommend to add observability.
+You can let Prometheus crawl the `/metrics` endpoint and graph that with Grafana for instance.
+
+#### Using unique endpoints
+
+One option is to run many instances with each instance having its own unique endpoint.
+This could be on separate ports, (sub)domain names, or IPs. With this setup, you can either:
+
+1. Implement your own logic that will direct each upload to a specific Companion endpoint by setting the `companionUrl` option
+2. Setting the Companion option `COMPANION_SELF_ENDPOINT`.
+   This option will cause Companion to respond with a `i-am` HTTP header containing the value from `COMPANION_SELF_ENDPOINT`.
+   When Uppy’s sees this header, it will pin all requests for the upload to this endpoint.
+
+In either case, you would then also typically configure a single Companion instance (one endpoint)
+to handle all OAuth authentication requests, so that you only need to specify a single OAuth callback URL.
+See also `oauthDomain` and `validHosts`.
+
+#### Using a load balancer
+
+The other option is to set up a load balancer in front of many Companion instances.
+Then Uppy will only see a single endpoint and send all requests to the associated load balancer,
+which will then distribute them between Companion instances.
+The companion instances coordinate their messages and events over Redis so that any instance can serve the client’s requests.
+Note that sticky sessions are **not** needed with this setup. Here are the requirements for this setup:
+
+* The instances need to be connected to the same Redis server.
+* You need to set `COMPANION_SECRET` to the same value on both servers.
+* if you use the `companionKeysParams` feature (Transloadit), you also need `COMPANION_PREAUTH_SECRET` to be the same on each instance.
+* All other configuration needs to be the same, except if you’re running many instances on the same machine, then `COMPANION_PORT` should be different for each instance.
 
 ## API
 
 ### Options
 
 <details>
-  <summary>Example configuration</summary>
+  <summary>Default configuration</summary>
 
 ```javascript
 const options = {
-  providerOptions: {
-    drive: {
-      key: '***',
-      secret: '***',
-    },
-    dropbox: {
-      key: '***',
-      secret: '***',
-    },
-    instagram: {
-      key: '***',
-      secret: '***',
-    },
-    facebook: {
-      key: '***',
-      secret: '***',
-    },
-    onedrive: {
-      key: '***',
-      secret: '***',
-    },
-    s3: {
-      getKey: (req, filename, metadata) => filename,
-      key: '***',
-      secret: '***',
-      bucket: 'bucket-name',
-      region: 'us-east-1',
-      useAccelerateEndpoint: false, // default: false,
-      expires: 3600, // default: 300 (5 minutes)
-      acl: 'private', // default: public-read
-    },
-  },
   server: {
-    host: 'localhost:3020', // or yourdomain.com
     protocol: 'http',
+    path: '',
   },
-  filePath: 'path/to/download/folder',
-  sendSelfEndpoint: 'localhost:3020',
-  secret: 'mysecret',
-  uploadUrls: ['https://myuploadurl.com', /^http:\/\/myuploadurl2.com\//],
-  debug: true,
-  metrics: false,
-  streamingUpload: true,
+  providerOptions: {},
+  s3: {
+    endpoint: 'https://{service}.{region}.amazonaws.com',
+    conditions: [],
+    useAccelerateEndpoint: false,
+    getKey: (req, filename) => `${crypto.randomUUID()}-${filename}`,
+    expires: 800, // seconds
+  },
   allowLocalUrls: false,
-  maxFileSize: 100000000,
+  logClientVersion: true,
   periodicPingUrls: [],
-  periodicPingInterval: 60000,
-  periodicPingStaticPayload: { static: 'payload' },
-  corsOrigins: true,
+  streamingUpload: false,
+  clientSocketConnectTimeout: 60000,
+  metrics: true,
 }
 ```
 
@@ -319,17 +329,17 @@ providerOptions: {
 When using the standalone version you use the corresponding environment variables
 or point to a secret file (such as `COMPANION_GOOGLE_SECRET_FILE`).
 
-| Service | Key | Environment variables |
-| ------- | --- | -------------------- |
-| Box | `box` | `COMPANION_BOX_KEY`, `COMPANION_BOX_SECRET`, `COMPANION_BOX_SECRET_FILE`
-| Dropbox | `dropbox` | `COMPANION_DROPBOX_KEY`, `COMPANION_DROPBOX_SECRET`, `COMPANION_DROPBOX_SECRET_FILE`
-| Facebook | `facebook` | `COMPANION_FACEBOOK_KEY`, `COMPANION_FACEBOOK_SECRET`, `COMPANION_FACEBOOK_SECRET_FILE`
-| Google Drive | `drive` | `COMPANION_GOOGLE_KEY`, `COMPANION_GOOGLE_SECRET`, `COMPANION_GOOGLE_SECRET_FILE`
-| Instagram | `instagram` | `COMPANION_INSTAGRAM_KEY`, `COMPANION_INSTAGRAM_SECRET`, `COMPANION_INSTAGRAM_SECRET_FILE`
-| OneDrive | `onedrive` | `COMPANION_ONEDRIVE_KEY`, `COMPANION_ONEDRIVE_SECRET`, `COMPANION_ONEDRIVE_SECRET_FILE`
-| Zoom | `zoom` | `COMPANION_ZOOM_KEY`, `COMPANION_ZOOM_SECRET`, `COMPANION_ZOOM_SECRET_FILE`
+| Service      | Key         | Environment variables                                                                      |
+| ------------ | ----------- | ------------------------------------------------------------------------------------------ |
+| Box          | `box`       | `COMPANION_BOX_KEY`, `COMPANION_BOX_SECRET`, `COMPANION_BOX_SECRET_FILE`                   |
+| Dropbox      | `dropbox`   | `COMPANION_DROPBOX_KEY`, `COMPANION_DROPBOX_SECRET`, `COMPANION_DROPBOX_SECRET_FILE`       |
+| Facebook     | `facebook`  | `COMPANION_FACEBOOK_KEY`, `COMPANION_FACEBOOK_SECRET`, `COMPANION_FACEBOOK_SECRET_FILE`    |
+| Google Drive | `drive`     | `COMPANION_GOOGLE_KEY`, `COMPANION_GOOGLE_SECRET`, `COMPANION_GOOGLE_SECRET_FILE`          |
+| Instagram    | `instagram` | `COMPANION_INSTAGRAM_KEY`, `COMPANION_INSTAGRAM_SECRET`, `COMPANION_INSTAGRAM_SECRET_FILE` |
+| OneDrive     | `onedrive`  | `COMPANION_ONEDRIVE_KEY`, `COMPANION_ONEDRIVE_SECRET`, `COMPANION_ONEDRIVE_SECRET_FILE`    |
+| Zoom         | `zoom`      | `COMPANION_ZOOM_KEY`, `COMPANION_ZOOM_SECRET`, `COMPANION_ZOOM_SECRET_FILE`                |
 
-#### `providerOptions.s3`
+#### `s3`
 
 Companion comes with signature endpoints for AWS S3.
 These can be used by the Uppy client to sign requests to upload files directly to S3, without exposing secret S3 keys in the browser.
@@ -406,7 +416,7 @@ app.use(uppy.app({
 #### `COMPANION_AWS_SECRET_FILE`
 
 Using a secret file instead of [`s3.secret`](#s3secret-companion_aws_secret).
-A secret file is a file that only contains the secret.
+A secret file is a file that only has the secret.
  
 #### `COMPANION_AWS_USE_ACCELERATE_ENDPOINT`
 
@@ -435,11 +445,16 @@ A boolean flag to tell Companion whether to provide an endpoint `/metrics` with 
 
 #### `streamingUpload` `COMPANION_STREAMING_UPLOAD`
 
-A boolean flag to tell Companion whether to enable streaming uploads. If enabled, it will lead to _faster uploads_ because companion will start uploading at the same time as downloading using `stream.pipe`. If `false`, files will be fully downloaded first, then uploaded. Defaults to `false`, but we recommended enabling it, especially if you're expecting to upload large files. In future versions the default might change to `true`.
+A boolean flag to tell Companion whether to enable streaming uploads.
+If enabled, it will lead to _faster uploads_ because companion will start uploading at the same time as downloading using `stream.pipe`.
+If `false`, files will be fully downloaded first, then uploaded. Defaults to `false`,
+but we recommended enabling it, especially if you’re expecting to upload large files.
+In future versions the default might change to `true`.
 
 #### `maxFileSize` `COMPANION_MAX_FILE_SIZE`
 
-If this value is set, companion will limit the maximum file size to process. If unset, it will process files without any size limit (this is the default).
+If this value is set, companion will limit the maximum file size to process.
+If unset, it will process files without any size limit (this is the default).
 
 #### `periodicPingUrls` `COMPANION_PERIODIC_PING_URLS`
 
@@ -482,7 +497,9 @@ Like COMPANION_CLIENT_ORIGINS, but allows a single regex instead.
 
 #### `chunkSize` `COMPANION_CHUNK_SIZE`
 
-Controls how big the uploaded chunks are for AWS S3 Multipart and Tus. Smaller values lead to more overhead, but larger values lead to slower retries in case of bad network connections. Passed to tus-js-client [`chunkSize`](https://github.com/tus/tus-js-client/blob/master/docs/api.md#chunksize) as well as [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html) `partSize`.
+Controls how big the uploaded chunks are for AWS S3 Multipart and Tus.
+Smaller values lead to more overhead, but larger values lead to slower retries in case of bad network connections.
+Passed to tus-js-client [`chunkSize`](https://github.com/tus/tus-js-client/blob/master/docs/api.md#chunksize) as well as [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html) `partSize`.
 
 ### Events
 
@@ -518,11 +535,13 @@ emitter.on('upload-start', ({ token }) => {
 })
 ```
 
+<!--retext-simplify ignore frequently-->
+
 ## Frequently asked questions
 
 ### Do you have a live example?
 
-An example server is running at <https://companion.uppy.io>, which is deployed with [Kubernetes](https://github.com/transloadit/uppy/blob/main/packages/%40uppy/companion/KUBERNETES.md)
+An example server is running at <https://companion.uppy.io>.
 
 ### How does the Authentication and Token mechanism work?
 
@@ -553,31 +572,6 @@ For example, if your Companion server is hosted on `https://my.companion.server.
 `https://my.companion.server.com/onedrive/redirect`
 
 Please see [Supported Providers](https://uppy.io/docs/companion/#Supported-providers) for a list of all Providers and their corresponding names.
-
-### How to scale Companion?
-
-Two ways of running many concurrent Companion instances.
-
-In our experience Companion will saturate network interface cards before other resources on commodity virtual servers (`c5d.2xlarge` for instance). Yet we recommend running at least two instances in production, so that if the Node.js event loop gets blocked by one or more requests (due to a bug or spike in traffic), it doesn’t also block or slow down all other requests as well (due to Node.js single threaded nature.) As an example for scale, one OSS enterprise customer of Transloadit that self-hosts Companion to power an education service that is deployed by virtually all universities globally, deploys 7 Companion instances, their earlier solution ran on 35 instances.
-
-But as always it depends and your mileage may vary, so we recommend to add observability. You can let Prometheus crawl the `/metrics` endpoint and graph that with Grafana for instance.
-
-#### Separate endpoints
-
-One option is to run many instances with each instance having its own unique HTTP endpoint. This could be on separate ports, (sub)domain names, or IPs. With this setup, you can either
-1. implement your own logic that will direct each upload to a specific Companion endpoint by setting the `companionUrl` option
-2. or by setting the Companion option `COMPANION_SELF_ENDPOINT`. This option will make Companion to respond with a special `i-am` HTTP header containing the value from `COMPANION_SELF_ENDPOINT`. When Uppy’s Companion client sees this header, it will pin all following requests for the upload to this endpoint.
-
-In either case, you would then also typically configure a single Companion instance (one endpoint) to handle all OAuth authentication requests, so that you only need to specify a single OAuth callback URL. See also `oauthDomain` and `validHosts`.
-
-#### Behind a load balancer
-
-The other option is to set up a load balancer in front of many Companion instances. Then Uppy’s companion client will only see a single endpoint and send all requests to the associated load balancer, which will then distribute them between Companion instances. The companion instances will then coordinate their messages and events over Redis so that any instance can serve the client’s requests. Note that sticky sessions are **not** needed with this setup. Here are some requirements for this setup:
-
-* The instances need to be connected to the same Redis server.
-* You need to set `COMPANION_SECRET` to the same value on both servers.
-* if you use the `companionKeysParams` feature (Transloadit), you also need `COMPANION_PREAUTH_SECRET` to be the same on each instance.
-* All other configuration needs to be the same, except if you’re running many instances on the same machine, then `COMPANION_PORT` should be different for each instance.
 
 ### How to use Companion with Kubernetes?
 
