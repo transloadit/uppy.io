@@ -74,7 +74,7 @@ export default {
     remarkGfm, // GitHub Flavored Markdown
     remarkDirective, // Admonitions
     remarkPresetLintConsistent,
-    remarkPresetLintRecommended,
+    // remarkPresetLintRecommended,
     retextPreset,
     messageControlPreset,
   ],
