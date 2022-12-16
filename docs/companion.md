@@ -413,11 +413,6 @@ app.use(uppy.app({
 }))
 ```
 
-#### `COMPANION_AWS_SECRET_FILE`
-
-Using a secret file instead of [`s3.secret`](#s3secret-companion_aws_secret).
-A secret file is a file that only has the secret.
- 
 #### `COMPANION_AWS_USE_ACCELERATE_ENDPOINT`
 
 Enable S3 [Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html).
@@ -482,10 +477,6 @@ Only enable this in development. **Enabling it in production is a security risk.
 Allowed CORS Origins (default `true`). 
 Passed as the `origin` option in [cors](https://github.com/expressjs/cors#configuration-options))
 
-#### `COMPANION_SECRET_FILE`
-
-Specifying a secret file will override a directly set [secret](#secret).
-
 #### `COMPANION_HIDE_WELCOME`
 
 Disables the welcome page.
@@ -500,6 +491,12 @@ Like COMPANION_CLIENT_ORIGINS, but allows a single regex instead.
 Controls how big the uploaded chunks are for AWS S3 Multipart and Tus.
 Smaller values lead to more overhead, but larger values lead to slower retries in case of bad network connections.
 Passed to tus-js-client [`chunkSize`](https://github.com/tus/tus-js-client/blob/master/docs/api.md#chunksize) as well as [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html) `partSize`.
+
+### Options `_FILE` suffix
+
+Many environment variables can alternatively be specified using a `_FILE` suffix. In this case the secret will be loaded from a file instead of being specified directly on the command line. This can be useful to prevent accidentally leaking secrets.
+
+Here is a list of the suffixed options: `COMPANION_GOOGLE_SECRET_FILE`, `COMPANION_DROPBOX_SECRET_FILE`, `COMPANION_BOX_SECRET_FILE`, `COMPANION_INSTAGRAM_SECRET_FILE`, `COMPANION_FACEBOOK_SECRET_FILE`, `COMPANION_ONEDRIVE_SECRET_FILE`, `COMPANION_ZOOM_SECRET_FILE`, `COMPANION_ZOOM_VERIFICATION_TOKEN`, `COMPANION_AWS_SECRET_FILE`, `COMPANION_SECRET_FILE`, `COMPANION_PREAUTH_SECRET_FILE`
 
 ### Events
 
