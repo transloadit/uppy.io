@@ -213,6 +213,8 @@ Note that sticky sessions are **not** needed with this setup. Here are the requi
 
 ### Options
 
+These options apply both to [standalone mode](#standalone) and the [Express middleware](#express-middleware).
+
 <details>
   <summary>Default configuration</summary>
 
@@ -477,10 +479,6 @@ Only enable this in development. **Enabling it in production is a security risk.
 Allowed CORS Origins (default `true`). 
 Passed as the `origin` option in [cors](https://github.com/expressjs/cors#configuration-options))
 
-#### `COMPANION_HIDE_WELCOME`
-
-Disables the welcome page.
-
 #### `COMPANION_CLIENT_ORIGINS_REGEX`
 
 Like COMPANION_CLIENT_ORIGINS, but allows a single regex instead.
@@ -491,6 +489,22 @@ Like COMPANION_CLIENT_ORIGINS, but allows a single regex instead.
 Controls how big the uploaded chunks are for AWS S3 Multipart and Tus.
 Smaller values lead to more overhead, but larger values lead to slower retries in case of bad network connections.
 Passed to tus-js-client [`chunkSize`](https://github.com/tus/tus-js-client/blob/master/docs/api.md#chunksize) as well as [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html) `partSize`.
+
+### Standalone only options
+
+These environment variables apply only to Companion running in [standalone mode](#standalone).
+
+#### `COMPANION_COOKIE_DOMAIN`
+
+Allows you to customize the domain of the cookies created for Express sessions.
+
+#### `COMPANION_ONEDRIVE_DOMAIN_VALIDATION`
+
+Settings this variable to `true` enables a route that can be used to validate your app with OneDrive. Only set this if you are sure that you are also setting the correct value for `COMPANION_ONEDRIVE_KEY` (i.e application ID - **not** the secret!)
+
+#### `COMPANION_HIDE_WELCOME`
+
+Setting this to `true` disables the welcome message shown at `/`.
 
 ### Options `_FILE` suffix
 
