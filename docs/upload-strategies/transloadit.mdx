@@ -82,11 +82,11 @@ const uppy = new Uppy
     },
   })
   // Optionally listen to events
-  uppy.on('transloadit:assembly-created', (assembly, fileIDs) => {}
-  uppy.on('transloadit:upload', (file, assembly) => {}
-  uppy.on('transloadit:assembly-executing', (assembly) => {}
-  uppy.on('transloadit:assembly-result', (stepName, result, assembly) => {}
-  uppy.on('transloadit:assembly-complete', (assembly) => {}
+  uppy.on('transloadit:assembly-created', (assembly, fileIDs) => {})
+  uppy.on('transloadit:upload', (file, assembly) => {})
+  uppy.on('transloadit:assembly-executing', (assembly) => {})
+  uppy.on('transloadit:result', (stepName, result, assembly) => {})
+  uppy.on('transloadit:complete', (assembly) => {})
 ```
 
 ### Use with Companion

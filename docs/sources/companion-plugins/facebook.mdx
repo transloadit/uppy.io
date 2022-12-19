@@ -92,6 +92,9 @@ https://$YOUR_COMPANION_HOST_NAME/facebook/redirect
 You can only use the integration with your own account initially.
 Make sure to apply for production status on the app page before you publish your app, or your users will not be able to sign in!
 
+You need to set up OAuth in your Facebook app for Companion to be able to connect to users’ Facebook accounts. You have to enable “Advanced Access” for the `user_photos` permission. A precondition of that is “Business Verification” which involves setting up a Meta Business Account and submitting documents to prove business ownership.
+
+
 Configure the Facebook key and secret. With the standalone Companion server, specify environment variables:
 
 ```shell
