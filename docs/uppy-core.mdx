@@ -360,6 +360,7 @@ for debugging purposes via [`uppy.log()`](#logmessage-type).
     },
   })
   ```
+
 </details>
 
 #### `onBeforeUpload(files)`
@@ -422,6 +423,7 @@ for debugging purposes via [`uppy.log()`](#logmessage-type).
     },
   })
   ```
+
 </details>
 
 #### `locale`
@@ -870,7 +872,7 @@ Fired each time a file is added.
 
 *   `file` - The [Uppy file](#working-with-uppy-files) that was added.
 
-```javascript
+```js
 uppy.on('file-added', (file) => {
   console.log('Added file', file)
 })
@@ -897,7 +899,7 @@ Fired each time a file is removed.
 
 **Example**
 
-```javascript
+```js
 uppy.on('file-removed', (file, reason) => {
   console.log('Removed file', file)
 })
@@ -917,7 +919,7 @@ uppy.on('file-removed', (file, reason) => {
 
 Fired when the upload starts.
 
-```javascript
+```js
 uppy.on('upload', (data) => {
   // data object consists of `id` with upload ID and `fileIDs` array
   // with file IDs in current upload
@@ -951,7 +953,7 @@ Fired each time the total upload progress is updated:
 
 **Example**
 
-```javascript
+```js
 uppy.on('progress', (progress) => {
   // progress: integer (total progress percentage)
   console.log(progress)
@@ -969,7 +971,7 @@ Fired each time an individual file upload progress is available:
 
 **Example**
 
-```javascript
+```js
 uppy.on('upload-progress', (file, progress) => {
   // file: { id, name, type, ... }
   // progress: { uploader, bytesUploaded, bytesTotal }
@@ -1078,7 +1080,7 @@ For `@uppy/xhr-upload`, the shape is:
 
 **Example**
 
-```javascript
+```js
 uppy.on('upload-error', (file, error, response) => {
   console.log('error with file:', file.id)
   console.log('error message:', error)
@@ -1089,7 +1091,7 @@ If the error is related to network conditions — endpoint unreachable due to fi
 for instance — the error will have `error.isNetworkError` property set to `true`.
 Here’s how you can check for network errors:
 
-```javascript
+```js
 uppy.on('upload-error', (file, error, response) => {
   if (error.isNetworkError) {
     // Let your users know that file upload could have failed
@@ -1156,7 +1158,7 @@ uppy.on('upload-retry', (fileIDs) => {
 
 Fired when “info” message should be visible in the UI. By default, `Informer` plugin is displaying these messages (enabled by default in `Dashboard` plugin). You can use this event to show messages in your custom UI:
 
-```javascript
+```js
 uppy.on('info-visible', () => {
   const { info } = uppy.getState()
   // info: {
@@ -1182,7 +1184,7 @@ Fired when `cancelAll()` is called, all uploads are canceled, files removed and 
 Fired when a file violates certain restrictions when added.
 This event is providing another choice for those who want to customize the behavior of file upload restrictions.
 
-```javascript
+```js
 uppy.on('restriction-failed', (file, error) => {
   // do some customized logic like showing system notice to users
 })
@@ -1192,7 +1194,7 @@ uppy.on('restriction-failed', (file, error) => {
 
 Fired when `resetProgress()` is called, each file has its upload progress reset to zero.
 
-```javascript
+```js
 uppy.on('reset-progress', () => {
   // progress was reset
 })
