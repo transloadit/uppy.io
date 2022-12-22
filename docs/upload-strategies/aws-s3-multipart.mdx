@@ -8,13 +8,17 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # AWS S3 Multipart
 
-The `@uppy/aws-s3-multipart` plugin can be used to upload files directly to an S3 bucket (or S3-compatible provider) using S3’s Multipart upload strategy.
+The `@uppy/aws-s3-multipart` plugin can be used to upload files directly to an S3 bucket (or S3-compatible provider)
+using S3’s Multipart upload strategy.
 
 ## When should I use it?
 
 :::tip
 Not sure which upload strategy is best for you? Read “[Choosing the upload strategy you need](/docs/guides/choosing-upload-strategy)”.
 :::
+
+You can use this plugin when you prefer a _client-to-storage_ over a _client-to-server-to-storage_ (such as [Transloadit](/docs/upload-strategies/transloadit) or [Tus](/docs/upload-strategies/tus)) setup.
+This may in some cases be preferable, for instance, to reduce costs or the complexity of running a server and load balancer with [Tus](/docs/upload-strategies/tus).
 
 `@uppy/aws-s3-multipart` starts to become valuable for larger files (100&nbsp;MB+) as it uploads a single object as a set of parts.
 This has certain benefits, such as improved throughput (uploading parts in parallel) and quick recovery from network issues (only the failed parts need to be retried).
@@ -55,7 +59,43 @@ If you are uploading large files (100&nbsp;MB+), we recommend `@uppy/aws-s3-mult
 
 ## Use
 
-A quick overview of the complete API.
+### Use with your own server
+
+The recommended approach is to integrate `@uppy/aws-s3-multipart` with your own server.
+You will need to do the following things:
+
+- [Setup up a S3 bucket](#setting-up-your-s3-bucket)
+- Create endpoints in your server (can be any route, below is an example)
+  - `POST` > `/uppy/s3`: create the multipart upload
+  - `GET` > `/uppy/s3/:id`: get the uploaded parts
+  - `GET` > `/uppy/s3/:id/:partNumber`: sign the part and return a pre-signed URL
+  - `POST` > `/uppy/s3/:id/complete`: complete the multipart upload
+  - `DELETE` > `/uppy/s3/:id`: abort the multipart upload
+- Setup Uppy
+
+```js {10} showLineNumbers
+import Uppy from '@uppy/core'
+import Dashboard from '@uppy/dashboard'
+import AwsS3Multipart from '@uppy/aws-s3-multipart'
+
+import '@uppy/core/dist/style.min.css'
+import '@uppy/dashboard/dist/style.min.css'
+
+const uppy = new Uppy
+  .use(Dashboard, { inline: true, target: 'body' })
+  // TODO
+```
+
+### Use with Companion
+
+[Companion](/docs/companion) has S3 routes built-in for a plug-and-play experience with Uppy.
+
+:::caution
+Generally it’s better for access control, observability, and scaling to integrate `@uppy/aws-s3-multipart`
+with your own server. You may want to use [Companion](/docs/companion) for creating, signing,
+and completing your S3 uploads if you already need Companion for remote files (such as from Google Drive).
+Otherwise it’s not worth the hosting effort.
+:::
 
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core'
@@ -70,7 +110,7 @@ const uppy = new Uppy
   .use(AwsS3Multipart, { companionUrl: 'http://companion.uppy.io' })
 ```
 
-### Use with AWS S3
+### Setting up your S3 bucket
 
 To use this plugin with S3 we need to setup a bucket with the right permissions and CORS settings.
 
@@ -119,11 +159,19 @@ In-depth documentation about CORS rules is available on the [AWS documentation s
 
 #### `limit`
 
+.....TODO
+
 The maximum amount of chunks to upload simultaneously (`number`, default: `5`).
 
-This affects [`prepareUploadParts()`](#prepareUploadParts-file-partData) as well; after the initial batch of `limit` parts is presigned, a minimum of `limit / 2` rounded up will be presigned at a time. You should set the limit carefully. Setting it to a value too high could cause issues where the presigned URLs begin to expire before the chunks they are for start uploading. Too low and you will end up with a lot of extra round trips to your server (or Companion) than necessary to presign URLs. If the default chunk size of 5MB is used, a `limit` between 5 and 15 is recommended.
+This affects [`prepareUploadParts()`](#prepareUploadParts-file-partData) as well;
+after the initial batch of `limit` parts is presigned, a minimum of `limit / 2` rounded up will be presigned at a time.
+You should set the limit carefully.
+Setting it to a value too high could cause issues where the presigned URLs begin to expire before the chunks they are for start uploading.
+Too low and you will end up with a lot of extra round trips to your server (or Companion) than necessary to presign URLs.
+If the default chunk size of 5MB is used, a `limit` between 5 and 15 is recommended.
 
-For example, with a 50MB file and a `limit` of 5 we end up with 10 chunks. 5 of these are presigned in one batch, then 3, then 2, for a total of 3 round trips to the server via [`prepareUploadParts()`](#prepareUploadParts-file-partData) and 10 requests sent to AWS via the presigned URLs generated.
+For example, with a 50MB file and a `limit` of 5 we end up with 10 chunks.
+5 of these are presigned in one batch, then 3, then 2, for a total of 3 round trips to the server via [`prepareUploadParts()`](#prepareUploadParts-file-partData) and 10 requests sent to AWS via the presigned URLs generated.
 
 #### `companionUrl`
 
