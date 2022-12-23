@@ -57,24 +57,10 @@ If you are planning to upload mostly large files (100&nbsp;MB+), consider using 
   </TabItem>
 </Tabs>
 
+
 ## Use
 
-A quick overview of the complete API.
-
-```js {10} showLineNumbers
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import AwsS3 from '@uppy/aws-s3'
-
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
-
-const uppy = new Uppy
-  .use(Dashboard, { inline: true, target: 'body' })
-  .use(AwsS3, { companionUrl: 'http://companion.uppy.io' })
-```
-
-### Use with AWS S3
+### With a AWS S3 bucket
 
 To use this plugin with S3 we need to setup a bucket with the right permissions and CORS settings.
 
@@ -116,7 +102,7 @@ The example above **makes files publically viewable**. You can change it accordi
 If you are using an IAM policy to allow access to the S3 bucket, the policy must have at least the `s3:PutObject` and `s3:PutObjectAcl` permissions scoped to the bucket in question.
 In-depth documentation about CORS rules is available on the [AWS documentation site](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
 
-### Use with DigitalOcean Spaces
+### With a DigitalOcean Spaces bucket
 
 :::tip
 Checkout the [DigitalOcean Spaces example](https://github.com/transloadit/uppy/tree/main/examples/digitalocean-spaces) in the Uppy repository
@@ -152,7 +138,7 @@ const options = {
 }
 ```
 
-### Use with Google Cloud Storage
+### With a Google Cloud Storage bucket
 
 For the `@uppy/aws-s3` plugin to be able to upload to a GCS bucket, it needs the Interoperability setting enabled.
 You can enable the Interoperability setting and [generate interoperable storage access keys](https://cloud.google.com/storage/docs/migrating#keys)
@@ -213,6 +199,41 @@ Otherwise, you can manually apply it through the OAuth playground:
     3.  Content-Type: application/json (should be the default)
     4.  Press `Enter request body` and input your CORS configuration
 6.  Press `Send the request`.
+
+### Use with your own server
+
+The recommended approach is to integrate `@uppy/aws-s3-multipart` with your own server.
+You will need to do the following things:
+
+1. Setup a bucket
+2. Create endpoints in your server. You can create them as edge functions (such as AWS Lambdas),
+   inside Next.js as an API route, or wherever your server runs
+    - `POST` > `/uppy/s3`: get upload parameters
+3. [Setup Uppy](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/public/index.html)
+
+### Use with Companion 
+
+[Companion](/docs/companion) has S3 routes built-in for a plug-and-play experience with Uppy.
+
+:::caution
+Generally it’s better for access control, observability, and scaling to integrate `@uppy/aws-s3`
+with your own server. You may want to use [Companion](/docs/companion) for creating, signing,
+and completing your S3 uploads if you already need Companion for remote files (such as from Google Drive).
+Otherwise it’s not worth the hosting effort.
+:::
+
+```js {10} showLineNumbers
+import Uppy from '@uppy/core'
+import Dashboard from '@uppy/dashboard'
+import AwsS3 from '@uppy/aws-s3'
+
+import '@uppy/core/dist/style.min.css'
+import '@uppy/dashboard/dist/style.min.css'
+
+const uppy = new Uppy
+  .use(Dashboard, { inline: true, target: 'body' })
+  .use(AwsS3, { companionUrl: 'http://companion.uppy.io' })
+```
 
 ## Options
 
