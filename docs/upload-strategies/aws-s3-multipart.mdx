@@ -181,7 +181,7 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 `retryDelays` are the intervals in milliseconds used to retry a failed chunk (`array`, default: `[0, 1000, 3000, 5000]`).
 
-This is also used for [`prepareUploadParts()`](#prepareuploadpartsfile-partdata).
+This is also used for [`signPart()`](#signpartfile-partdata).
 Set to `null` to disable automatic retries, and fail instantly if any chunk fails to upload.
 
 #### `getChunkSize(file)`
@@ -189,7 +189,7 @@ Set to `null` to disable automatic retries, and fail instantly if any chunk fail
 A function that returns the minimum chunk size to use when uploading the given file.
 
 The S3 Multipart plugin uploads files in chunks.
-Chunks are sent in batches to have presigned URLs generated with [`prepareUploadParts()`](#prepareuploadpartsfile-partdata).
+Chunks are sent in batches to have presigned URLs generated with [`signPart()`](#signpartfile-partdata).
 To reduce the amount of requests for large files, you can choose a larger chunk size, at the cost of having to re-upload more data if one chunk fails to upload.
 
 S3 requires a minimum chunk size of 5MB, and supports at most 10,000 chunks per multipart upload.
