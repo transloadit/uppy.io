@@ -213,7 +213,12 @@ Note that sticky sessions are **not** needed with this setup. Here are the requi
 
 ### Options
 
-These options apply both to [standalone mode](#standalone) and the [Express middleware](#express-middleware).
+:::tip
+The headings display the JS and environment variable options (`option` `ENV_OPTION`).
+When integrating Companion into your own server, you pass the options to `companion.app()`.
+If you are using the standalone version, you configure Companion using environment variables.
+Some options only exist as environment variables or only as a JS option.
+:::
 
 <details>
   <summary>Default configuration</summary>
@@ -243,11 +248,6 @@ const options = {
 
 </details>
 
-:::tip
-The headings display the JS and environment variable options (`option` `ENV_OPTION`).
-When integrating Companion into your own server, you pass the options to `companion.app()`.
-If you are using the standalone version, you configure Companion using environment variables.
-:::
 
 #### `filePath` `COMPANION_DATADIR`
 
@@ -282,6 +282,14 @@ An allowlist (array) of strings (exact URLs) or regular expressions. Companion w
 #### `COMPANION_PORT`
 
 The port on which to start the standalone server, defaults to 3020.
+
+#### `COMPANION_COOKIE_DOMAIN`
+
+Allows you to customize the domain of the cookies created for Express sessions.
+
+#### `COMPANION_HIDE_WELCOME`
+
+Setting this to `true` disables the welcome message shown at `/`.
 
 #### `redisUrl` `COMPANION_REDIS_URL`
 
@@ -331,6 +339,10 @@ providerOptions: {
 When using the standalone version you use the corresponding environment variables
 or point to a secret file (such as `COMPANION_GOOGLE_SECRET_FILE`).
 
+:::note
+Secret files need an absolute path to a file with any extension which only has the secret, nothing else.
+:::
+
 | Service      | Key         | Environment variables                                                                      |
 | ------------ | ----------- | ------------------------------------------------------------------------------------------ |
 | Box          | `box`       | `COMPANION_BOX_KEY`, `COMPANION_BOX_SECRET`, `COMPANION_BOX_SECRET_FILE`                   |
@@ -338,7 +350,7 @@ or point to a secret file (such as `COMPANION_GOOGLE_SECRET_FILE`).
 | Facebook     | `facebook`  | `COMPANION_FACEBOOK_KEY`, `COMPANION_FACEBOOK_SECRET`, `COMPANION_FACEBOOK_SECRET_FILE`    |
 | Google Drive | `drive`     | `COMPANION_GOOGLE_KEY`, `COMPANION_GOOGLE_SECRET`, `COMPANION_GOOGLE_SECRET_FILE`          |
 | Instagram    | `instagram` | `COMPANION_INSTAGRAM_KEY`, `COMPANION_INSTAGRAM_SECRET`, `COMPANION_INSTAGRAM_SECRET_FILE` |
-| OneDrive     | `onedrive`  | `COMPANION_ONEDRIVE_KEY`, `COMPANION_ONEDRIVE_SECRET`, `COMPANION_ONEDRIVE_SECRET_FILE`    |
+| OneDrive     | `onedrive`  | `COMPANION_ONEDRIVE_KEY`, `COMPANION_ONEDRIVE_SECRET`, `COMPANION_ONEDRIVE_SECRET_FILE`, `COMPANION_ONEDRIVE_DOMAIN_VALIDATION` (Settings this variable to `true` enables a route that can be used to validate your app with OneDrive) |
 | Zoom         | `zoom`      | `COMPANION_ZOOM_KEY`, `COMPANION_ZOOM_SECRET`, `COMPANION_ZOOM_SECRET_FILE`                |
 
 #### `s3`
@@ -490,28 +502,6 @@ Controls how big the uploaded chunks are for AWS S3 Multipart and Tus.
 Smaller values lead to more overhead, but larger values lead to slower retries in case of bad network connections.
 Passed to tus-js-client [`chunkSize`](https://github.com/tus/tus-js-client/blob/master/docs/api.md#chunksize) as well as [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html) `partSize`.
 
-### Standalone only options
-
-These environment variables apply only to Companion running in [standalone mode](#standalone).
-
-#### `COMPANION_COOKIE_DOMAIN`
-
-Allows you to customize the domain of the cookies created for Express sessions.
-
-#### `COMPANION_ONEDRIVE_DOMAIN_VALIDATION`
-
-Settings this variable to `true` enables a route that can be used to validate your app with OneDrive. Only set this if you are sure that you are also setting the correct value for `COMPANION_ONEDRIVE_KEY` (i.e application ID - **not** the secret!)
-
-#### `COMPANION_HIDE_WELCOME`
-
-Setting this to `true` disables the welcome message shown at `/`.
-
-### Options `_FILE` suffix
-
-Many environment variables can alternatively be specified using a `_FILE` suffix. In this case the secret will be loaded from a file instead of being specified directly on the command line. This can be useful to prevent accidentally leaking secrets.
-
-Here is a list of the suffixed options: `COMPANION_GOOGLE_SECRET_FILE`, `COMPANION_DROPBOX_SECRET_FILE`, `COMPANION_BOX_SECRET_FILE`, `COMPANION_INSTAGRAM_SECRET_FILE`, `COMPANION_FACEBOOK_SECRET_FILE`, `COMPANION_ONEDRIVE_SECRET_FILE`, `COMPANION_ZOOM_SECRET_FILE`, `COMPANION_ZOOM_VERIFICATION_TOKEN`, `COMPANION_AWS_SECRET_FILE`, `COMPANION_SECRET_FILE`, `COMPANION_PREAUTH_SECRET_FILE`
-
 ### Events
 
 The object returned by `companion.app()` also has a property `companionEmitter` which is an `EventEmitter` 
@@ -586,7 +576,7 @@ Please see [Supported Providers](https://uppy.io/docs/companion/#Supported-provi
 
 ### How to use Companion with Kubernetes?
 
-We have [a detailed guide on running Companion in Kubernetes](https://github.com/transloadit/uppy/blob/main/packages/%40uppy/companion/KUBERNETES.md) for you, that’s how we run our example server at <https://companion.uppy.io>.
+We have a detailed [guide](https://github.com/transloadit/uppy/blob/main/packages/%40uppy/companion/KUBERNETES.md) on running Companion in Kubernetes.
 
 ### How to add custom providers?
 
