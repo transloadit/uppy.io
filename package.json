@@ -7,7 +7,6 @@
 		"clear": "docusaurus clear",
 		"deploy": "docusaurus deploy",
 		"dev": "docusaurus start",
-		"docusaurus": "docusaurus",
 		"lint:js": "eslint . --cache && prettier -c .",
 		"lint:md": "run-s --continue-on-error remark:md remark:mdx prettier:docs",
 		"lint": "run-s --continue-on-error lint:js lint:md",
@@ -18,7 +17,7 @@
 		"remark:mdx": "remark . -e mdx -u mdx -qf",
 		"serve": "docusaurus serve",
 		"swizzle": "docusaurus swizzle",
-		"typecheck": "tsc",
+		"typecheck": "tsc --noEmit",
 		"write-heading-ids": "docusaurus write-heading-ids",
 		"write-translations": "docusaurus write-translations"
 	},
