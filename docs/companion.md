@@ -253,7 +253,7 @@ const options = {
 
 Full path to the directory to which provider files will be downloaded temporarily.
 
-#### `secret` `COMPANION_SECRET`
+#### `secret` `COMPANION_SECRET` `COMPANION_SECRET_FILE`
 
 A secret string which Companion uses to generate authorization tokens.
 You should generate a long random string for this. For example:
@@ -268,6 +268,11 @@ const secret = crypto.randomBytes(64).toString('hex')
 Omitting the `secret` in the standalone version will generate a secret for you,
 using the above `crypto` string. But when integrating with Express you must provide it yourself.
 This is an essential security measure.
+:::
+
+:::note
+Using a secret file means passing an absolute path to a file with any extension,
+which has only the secret, nothing else.
 :::
 
 #### `preAuthSecret` `COMPANION_PREAUTH_SECRET`
@@ -363,9 +368,14 @@ Companion also supports uploading files from providers like Dropbox and Instagra
 
 The S3 access key ID.
 
-##### `s3.secret` `COMPANION_AWS_SECRET`
+##### `s3.secret` `COMPANION_AWS_SECRET` `COMPANION_AWS_SECRET_FILE`
 
 The S3 secret access key.
+
+:::note
+Using a secret file means passing an absolute path to a file with any extension,
+which has only the secret, nothing else.
+:::
 
 ##### `s3.bucket` `COMPANION_AWS_BUCKET`
 
