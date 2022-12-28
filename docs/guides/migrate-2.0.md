@@ -8,27 +8,27 @@ sidebar_position: 5
 
 With 2.0, following in the footsteps of Microsoft, we are dropping support for IE11. As a result, we are able to remove all built-in polyfills, and the new bundle size is **25% smaller**! If you want your app to still support older browsers (such as IE11), you may need to add the following polyfills to your bundle:
 
-*   [abortcontroller-polyfill](https://github.com/mo/abortcontroller-polyfill)
-*   [core-js](https://github.com/zloirock/core-js)
-*   [md-gum-polyfill](https://github.com/mozdevs/mediaDevices-getUserMedia-polyfill)
-*   [resize-observer-polyfill](https://github.com/que-etc/resize-observer-polyfill)
-*   [whatwg-fetch](https://github.com/github/fetch)
+- [abortcontroller-polyfill](https://github.com/mo/abortcontroller-polyfill)
+- [core-js](https://github.com/zloirock/core-js)
+- [md-gum-polyfill](https://github.com/mozdevs/mediaDevices-getUserMedia-polyfill)
+- [resize-observer-polyfill](https://github.com/que-etc/resize-observer-polyfill)
+- [whatwg-fetch](https://github.com/github/fetch)
 
 If you’re using a bundler, you need import these before Uppy:
 
 ```js
-import 'core-js'
-import 'whatwg-fetch'
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
+import 'core-js';
+import 'whatwg-fetch';
+import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 // Order matters here: AbortController needs fetch, which needs Promise (provided by core-js).
 
-import 'md-gum-polyfill'
-import ResizeObserver from 'resize-observer-polyfill'
+import 'md-gum-polyfill';
+import ResizeObserver from 'resize-observer-polyfill';
 
-window.ResizeObserver ??= ResizeObserver
+window.ResizeObserver ??= ResizeObserver;
 
-export { default } from '@uppy/core'
-export * from '@uppy/core'
+export { default } from '@uppy/core';
+export * from '@uppy/core';
 ```
 
 If you’re using Uppy from a CDN, we now provide two bundles: one for up-to-date browsers that do not include polyfills and use modern syntax, and one for legacy browsers. When migrating, be mindful about the types of browsers you want to support:
@@ -38,8 +38,13 @@ If you’re using Uppy from a CDN, we now provide two bundles: one for up-to-dat
 <script src="https://releases.transloadit.com/uppy/v2.9.1/uppy.min.js"></script>
 
 <!-- Legacy browsers (IE11+) -->
-<script nomodule src="https://releases.transloadit.com/uppy/v2.9.1/uppy.legacy.min.js"></script>
-<script type="module">import "https://releases.transloadit.com/uppy/v2.9.1/uppy.min.js";</script>
+<script
+	nomodule
+	src="https://releases.transloadit.com/uppy/v2.9.1/uppy.legacy.min.js"
+></script>
+<script type="module">
+	import 'https://releases.transloadit.com/uppy/v2.9.1/uppy.min.js';
+</script>
 ```
 
 Please note that while you may be able to get 2.0 to work in IE11 this way, we do not officially support it anymore.
@@ -53,14 +58,14 @@ Please note that while you may be able to get 2.0 to work in IE11 this way, we d
 You can import them from [`@uppy/core`][core]:
 
 ```js
-import { BasePlugin, UIPlugin } from '@uppy/core'
+import { BasePlugin, UIPlugin } from '@uppy/core';
 ```
 
 **Note:** some bundlers will include `UIPlugin` (and thus Preact) if you import from `@uppy/core`. To make sure this does not happen, you can import `Uppy` and `BasePlugin` directly:
 
 ```js
-import Uppy from '@uppy/core/lib/Uppy.js'
-import BasePlugin from '@uppy/core/lib/BasePlugin.js'
+import Uppy from '@uppy/core/lib/Uppy.js';
+import BasePlugin from '@uppy/core/lib/BasePlugin.js';
 ```
 
 ### Use the latest Preact for your Uppy plugins
@@ -74,25 +79,25 @@ Titles for plugins used to be set with the `title` property in the plugin option
 Before
 
 ```js
-import Webcam from '@uppy/webcam'
+import Webcam from '@uppy/webcam';
 
 uppy.use(Webcam, {
-  title: 'Some title',
-})
+	title: 'Some title',
+});
 ```
 
 After
 
 ```js
-import Webcam from '@uppy/webcam'
+import Webcam from '@uppy/webcam';
 
 uppy.use(Webcam, {
-  locale: {
-    strings: {
-      title: 'Some title',
-    },
-  },
-})
+	locale: {
+		strings: {
+			title: 'Some title',
+		},
+	},
+});
 ```
 
 ### Initialize Uppy with the `new` keyword
@@ -100,11 +105,11 @@ uppy.use(Webcam, {
 The default export `Uppy` is no longer callable as a function. This means you construct the `Uppy` instance using the `new` keyword.
 
 ```js
-import Uppy from '@uppy/core'
+import Uppy from '@uppy/core';
 
-const uppy = new Uppy() // correct.
+const uppy = new Uppy(); // correct.
 
-const otherUppy = Uppy() // incorrect, will throw.
+const otherUppy = Uppy(); // incorrect, will throw.
 ```
 
 ### Rename `allowMultipleUploads` to `allowMultipleUploadBatches`
@@ -117,8 +122,8 @@ We have renamed this to be more intention revealing that this is about uploads, 
 
 ```js
 const uppy = new Uppy({
-  allowMultipleUploadBatches: true,
-})
+	allowMultipleUploadBatches: true,
+});
 ```
 
 ### New default limits for [`@uppy/xhr-upload`][xhr] and [`@uppy/tus`][tus]
@@ -129,16 +134,16 @@ You can change the limit on the Tus and XHR plugin options.
 
 ```js
 uppy.use(Tus, {
-  // ...
-  limit: 10,
-})
+	// ...
+	limit: 10,
+});
 ```
 
 ```js
 uppy.use(XHRUpload, {
-  // ...
-  limit: 10,
-})
+	// ...
+	limit: 10,
+});
 ```
 
 ### TypeScript changes
@@ -146,14 +151,14 @@ uppy.use(XHRUpload, {
 Uppy used to have loose types by default and strict types as an opt-in. The default export was a function that returned the `Uppy` class, and the types came bundled with the default export (`Uppy.SomeType`).
 
 ```ts
-import Uppy from '@uppy/core'
-import Tus from '@uppy/tus'
+import Uppy from '@uppy/core';
+import Tus from '@uppy/tus';
 
-const uppy = Uppy<Uppy.StrictTypes>()
+const uppy = Uppy<Uppy.StrictTypes>();
 
 uppy.use(Tus, {
-  invalidOption: null, // this will make the compilation fail!
-})
+	invalidOption: null, // this will make the compilation fail!
+});
 ```
 
 Uppy is now strictly typed by default and loose types have been removed.
@@ -161,11 +166,11 @@ Uppy is now strictly typed by default and loose types have been removed.
 ```ts
 // ...
 
-const uppy = new Uppy()
+const uppy = new Uppy();
 
 uppy.use(Tus, {
-  invalidOption: null, // this will make the compilation fail!
-})
+	invalidOption: null, // this will make the compilation fail!
+});
 ```
 
 Uppy types are now individual exports and should be imported separately.
@@ -173,7 +178,7 @@ Uppy types are now individual exports and should be imported separately.
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
 
 ```ts
-import type { PluginOptions, UIPlugin, PluginTarget } from '@uppy/core'
+import type { PluginOptions, UIPlugin, PluginTarget } from '@uppy/core';
 ```
 
 #### Event types
@@ -185,28 +190,28 @@ import type { PluginOptions, UIPlugin, PluginTarget } from '@uppy/core'
 ```ts
 // Before:
 
-type Meta = { myCustomMetadata: string }
+type Meta = { myCustomMetadata: string };
 
 // Invalid event
 uppy.on<Meta>('upload-errrOOOoooOOOOOrrrr', () => {
-  // ...
-})
+	// ...
+});
 
 // After:
 
 // Normal event signature
 uppy.on('complete', (result) => {
-  const successResults = result.successful
-})
+	const successResults = result.successful;
+});
 
 // Custom signature
-type Meta = { myCustomMetadata: string }
+type Meta = { myCustomMetadata: string };
 
 // Notice how the custom type has now become the second argument
 uppy.on<'complete', Meta>('complete', (result) => {
-  // The passed type is now merged into the `meta` types.
-  const meta = result.successful[0].meta.myCustomMetadata
-})
+	// The passed type is now merged into the `meta` types.
+	const meta = result.successful[0].meta.myCustomMetadata;
+});
 ```
 
 Plugins that add their own events can merge with existing ones in `@uppy/core` with `declare module '@uppy/core' { ... }`. This is a TypeScript pattern called [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation). For instance, when using [`@uppy/dashboard`][dashboard]:
@@ -215,8 +220,8 @@ Plugins that add their own events can merge with existing ones in `@uppy/core` w
 
 ```ts
 uppy.on('dashboard:file-edit-state', (file) => {
-  const fileName = file.name
-})
+	const fileName = file.name;
+});
 ```
 
 ### Changes to pre-signing URLs for [`@uppy/aws-s3-multipart`][aws-s3-multipart]
@@ -279,11 +284,7 @@ to:
 <!-- definitions -->
 
 [core]: /docs/uppy/
-
 [xhr]: /docs/xhr-upload/
-
 [dashboard]: /docs/dashboard/
-
 [aws-s3-multipart]: /docs/aws-s3-multipart/
-
 [tus]: /docs/tus/

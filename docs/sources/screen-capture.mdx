@@ -59,36 +59,35 @@ To use the screen capture plugin in a Chromium-based browser, [your site must be
 ## Use
 
 ```js
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import Webcam from '@uppy/webcam'
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import Webcam from '@uppy/webcam';
 
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
-import '@uppy/screen-capture/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/screen-capture/dist/style.min.css';
 
-new Uppy
-  .use(Dashboard, { inline: true, target: 'body' })
-  // Example of setting all the options to their defaults.
-  // Not passing anything to `ScreenCapture` is therefor the same as the example below.
-  .use(ScreenCapture, {
-    displayMediaConstraints: {
-      video: {
-        width: 1280,
-        height: 720,
-        frameRate: {
-          ideal: 3,
-          max: 5,
-        },
-        cursor: 'motion',
-        displaySurface: 'monitor',
-      },
-    },
-    userMediaConstraints: {
-      audio: true,
-    },
-    preferredVideoMimeType: 'video/webm',
-  })
+new Uppy.use(Dashboard, { inline: true, target: 'body' })
+	// Example of setting all the options to their defaults.
+	// Not passing anything to `ScreenCapture` is therefor the same as the example below.
+	.use(ScreenCapture, {
+		displayMediaConstraints: {
+			video: {
+				width: 1280,
+				height: 720,
+				frameRate: {
+					ideal: 3,
+					max: 5,
+				},
+				cursor: 'motion',
+				displaySurface: 'monitor',
+			},
+		},
+		userMediaConstraints: {
+			audio: true,
+		},
+		preferredVideoMimeType: 'video/webm',
+	});
 ```
 
 ### API
@@ -132,14 +131,14 @@ If no preferred video mime type is given, the ScreenCapture plugin will prefer t
 
 ```js
 export default {
-  strings: {
-    startCapturing: 'Begin screen capturing',
-    stopCapturing: 'Stop screen capturing',
-    submitRecordedFile: 'Submit recorded file',
-    streamActive: 'Stream active',
-    streamPassive: 'Stream passive',
-    micDisabled: 'Microphone access denied by user',
-    recording: 'Recording',
-  },
-}
+	strings: {
+		startCapturing: 'Begin screen capturing',
+		stopCapturing: 'Stop screen capturing',
+		submitRecordedFile: 'Submit recorded file',
+		streamActive: 'Stream active',
+		streamPassive: 'Stream passive',
+		micDisabled: 'Microphone access denied by user',
+		recording: 'Recording',
+	},
+};
 ```
