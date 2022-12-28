@@ -104,6 +104,7 @@ export default {
 		remarkLintNoBlockquoteWithoutMarker,
 		remarkLintNoLiteralUrls,
 		[remarkLintOrderedListMarkerStyle, '.'],
+
 		// Mistakes.
 		remarkLintHardBreakSpaces,
 		remarkLintNoDuplicateDefinitions,
