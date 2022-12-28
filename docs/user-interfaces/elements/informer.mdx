@@ -51,20 +51,20 @@ You can technically use it without it, but it’s not officially supported.
 ## Use
 
 ```js
-import Uppy from '@uppy/core'
-import Informer from '@uppy/informer'
+import Uppy from '@uppy/core';
+import Informer from '@uppy/informer';
 
 // The `@uppy/informer` plugin includes some basic styles.
 // You can also choose not to use it and provide your own styles instead.
-import '@uppy/core/dist/style.min.css'
-import '@uppy/informer/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/informer/dist/style.min.css';
 
 // Example of setting all the options to their defaults.
 // Not passing anything to `Informer` is therefor the same as the example below.
 new Uppy().use(Informer, {
-  id: 'Informer',
-  target: null,
-})
+	id: 'Informer',
+	target: null,
+});
 ```
 
 Informer gets its data from `uppy.state.info`,
@@ -73,8 +73,8 @@ which is updated by various plugins via [`uppy.info`](/docs/uppy-core#infomessag
 In the [compressor](/docs/compressor) plugin we use it like this for instance:
 
 ```js
-const size = prettierBytes(totalCompressedSize)
-this.uppy.info(this.i18n('compressedX', { size }), 'info')
+const size = prettierBytes(totalCompressedSize);
+this.uppy.info(this.i18n('compressedX', { size }), 'info');
 ```
 
 When calling `uppy.info`, [Uppy](/docs/uppy-core) emits [`info-visible`](/docs/uppy-core#info-visible)
@@ -86,11 +86,10 @@ and will emit [`info-hidden`](/docs/uppy-core#info-hidden) after the timeout.
 
 ### `id`
 
-A unique identifier for this plugin (`string`, default: `'Informer'`). 
+A unique identifier for this plugin (`string`, default: `'Informer'`).
 
 Use this if you need several `Informer` instances.
 
 ### `target`
 
 DOM element, CSS selector, or plugin to mount the Informer into (`string` or `Element`, default: `null`).
-
