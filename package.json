@@ -14,8 +14,8 @@
 		"prepare": "husky install",
 		"prettier:docs": "prettier -c docs",
 		"prettier:fix": "prettier -w .",
-		"remark:md": "remark docs -qf",
-		"remark:mdx": "remark docs -e mdx -u mdx -qf",
+		"remark:md": "remark . -qf",
+		"remark:mdx": "remark . -e mdx -u mdx -qf",
 		"serve": "docusaurus serve",
 		"swizzle": "docusaurus swizzle",
 		"typecheck": "tsc",
@@ -23,19 +23,19 @@
 		"write-translations": "docusaurus write-translations"
 	},
 	"lint-staged": {
-		"*.js": [
+		"*.{js,jsx,ts,tsx}": [
 			"eslint --fix --cache",
 			"prettier --write"
 		],
-		"docs/*.md": [
+		"*.md": [
 			"remark -qf --",
 			"prettier --write"
 		],
-		"docs/*.mdx": [
+		"*.mdx": [
 			"remark -u mdx -qf --",
 			"prettier --write"
 		],
-		"*.{css,html,json,js,jsx,ts,tsx,yml}": "prettier --write"
+		"*.{css,html,json,yml}": "prettier --write"
 	},
 	"browserslist": {
 		"production": [
