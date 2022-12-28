@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkuppy_io=self.webpackChunkuppy_io||[]).push([[9240],{9478:p=>{p.exports=JSON.parse('{"label":"docusaurus","permalink":"/uppy.io/pr-preview/pr-46/blog/tags/docusaurus","allTagsPath":"/uppy.io/pr-preview/pr-46/blog/tags","count":4}')}}]);
