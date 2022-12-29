@@ -18,7 +18,7 @@ permissions:
   contents: read
 
 jobs:
-  lint-js-and-md:
+  yarn-run-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
