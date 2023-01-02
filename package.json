@@ -6,31 +6,35 @@
 		"build": "docusaurus build",
 		"clear": "docusaurus clear",
 		"deploy": "docusaurus deploy",
-		"docusaurus": "docusaurus",
-		"lint:js": "eslint . --cache ",
-		"lint": "run-s --continue-on-error lint:js lint:md",
-		"prepare": "husky install",
-		"lint:md": "run-s --continue-on-error remark:md remark:mdx",
-		"remark:md": "remark docs -qf",
-		"remark:mdx": "remark docs -e mdx -u mdx -qf",
-		"serve": "docusaurus serve",
 		"dev": "docusaurus start",
+		"lint:js": "eslint . --cache",
+		"lint:md": "run-s --continue-on-error remark:md remark:mdx",
+		"lint": "run-s --continue-on-error lint:js lint:md prettier:check",
+		"prepare": "husky install",
+		"prettier:check": "prettier -c .",
+		"prettier:fix": "prettier -w .",
+		"remark:md": "remark . -qf",
+		"remark:mdx": "remark . -e mdx -u mdx -qf",
+		"serve": "docusaurus serve",
 		"swizzle": "docusaurus swizzle",
-		"typecheck": "tsc",
+		"typecheck": "tsc --noEmit",
 		"write-heading-ids": "docusaurus write-heading-ids",
 		"write-translations": "docusaurus write-translations"
 	},
 	"lint-staged": {
-		"*.js": "eslint --fix --cache",
-		"*.{css,html,json,js,jsx,ts,tsx,yml}": [
+		"*.{js,jsx,ts,tsx}": [
+			"eslint --fix --cache",
 			"prettier --write"
 		],
-		"docs/*.md": [
-			"remark -qf --"
+		"*.md": [
+			"remark -qf --",
+			"prettier --write"
 		],
-		"docs/*.mdx": [
-			"remark -u mdx -qf --"
-		]
+		"*.mdx": [
+			"remark -u mdx -qf --",
+			"prettier --write"
+		],
+		"*.{css,html,json,yml}": "prettier --write"
 	},
 	"browserslist": {
 		"production": [
