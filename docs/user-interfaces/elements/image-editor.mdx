@@ -13,7 +13,7 @@ Image editor. Designed to be used with the Dashboard UI.
 
 <div style={{ maxWidth: 500 }}>
 
-  ![Screenshot of the Image Editor plugin UI in Dashboard](https://user-images.githubusercontent.com/1199054/87208710-654db400-c307-11ea-9471-6e3c6582d2a5.png)
+![Screenshot of the Image Editor plugin UI in Dashboard](https://user-images.githubusercontent.com/1199054/87208710-654db400-c307-11ea-9471-6e3c6582d2a5.png)
 
 </div>
 
@@ -26,17 +26,17 @@ When you want to allow users to crop, rotate, zoom and flip images that are adde
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install @uppy/core @uppy/dashboard @uppy/image-editor
-  ```
+```shell
+npm install @uppy/core @uppy/dashboard @uppy/image-editor
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add @uppy/core @uppy/dashboard @uppy/image-editor
-  ```
+```shell
+yarn add @uppy/core @uppy/dashboard @uppy/image-editor
+```
 
   </TabItem>
 
@@ -62,41 +62,41 @@ see the [`autoOpenFileEditor`](/docs/user-interfaces/dashboard#autoOpenFileEdito
 :::
 
 ```js
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import ImageEditor from '@uppy/image-editor'
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import ImageEditor from '@uppy/image-editor';
 
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
-import '@uppy/image-editor/dist/style.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/image-editor/dist/style.css';
 
 new Uppy()
-  .use(Dashboard, { inline: true })
-  // Example of setting all the options to their defaults.
-  // Not passing anything to `ImageEditor` is therefor the same as the example below.
-  .use(ImageEditor, {
-    id: 'ImageEditor',
-    target: null,
-    quality: 0.8,
-    cropperOptions: {
-      viewMode: 1,
-      background: false,
-      autoCropArea: 1,
-      responsive: true,
-      croppedCanvasOptions: {},
-    },
-    actions: {
-      revert: true,
-      rotate: true,
-      granularRotate: true,
-      flip: true,
-      zoomIn: true,
-      zoomOut: true,
-      cropSquare: true,
-      cropWidescreen: true,
-      cropWidescreenVertical: true,
-    },
-  })
+	.use(Dashboard, { inline: true })
+	// Example of setting all the options to their defaults.
+	// Not passing anything to `ImageEditor` is therefor the same as the example below.
+	.use(ImageEditor, {
+		id: 'ImageEditor',
+		target: null,
+		quality: 0.8,
+		cropperOptions: {
+			viewMode: 1,
+			background: false,
+			autoCropArea: 1,
+			responsive: true,
+			croppedCanvasOptions: {},
+		},
+		actions: {
+			revert: true,
+			rotate: true,
+			granularRotate: true,
+			flip: true,
+			zoomIn: true,
+			zoomOut: true,
+			cropSquare: true,
+			cropWidescreen: true,
+			cropWidescreenVertical: true,
+		},
+	});
 ```
 
 #### `id`
@@ -139,17 +139,17 @@ Or enable/disable them individually:
 
 ```js
 export default {
-  strings: {
-    revert: 'Revert',
-    rotate: 'Rotate',
-    zoomIn: 'Zoom in',
-    zoomOut: 'Zoom out',
-    flipHorizontal: 'Flip horizontal',
-    aspectRatioSquare: 'Crop square',
-    aspectRatioLandscape: 'Crop landscape (16:9)',
-    aspectRatioPortrait: 'Crop portrait (9:16)',
-  },
-}
+	strings: {
+		revert: 'Revert',
+		rotate: 'Rotate',
+		zoomIn: 'Zoom in',
+		zoomOut: 'Zoom out',
+		flipHorizontal: 'Flip horizontal',
+		aspectRatioSquare: 'Crop square',
+		aspectRatioLandscape: 'Crop landscape (16:9)',
+		aspectRatioPortrait: 'Crop portrait (9:16)',
+	},
+};
 ```
 
 ### Events
@@ -164,8 +164,8 @@ Emitted when `selectFile(file)` is called.
 
 ```js
 uppy.on('file-editor:start', (file) => {
-  console.log(file)
-})
+	console.log(file);
+});
 ```
 
 #### `file-editor:complete`
@@ -174,8 +174,8 @@ Emitted after `save(blob)` is called.
 
 ```js
 uppy.on('file-editor:complete', (updatedFile) => {
-  console.log(updatedFile)
-})
+	console.log(updatedFile);
+});
 ```
 
 #### `file-editor:cancel`
@@ -184,6 +184,6 @@ Emitted when `uninstall` is called or when the current image editing changes are
 
 ```js
 uppy.on('file-editor:cancel', (file) => {
-  console.log(file)
-})
+	console.log(file);
+});
 ```
