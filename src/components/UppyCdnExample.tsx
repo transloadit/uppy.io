@@ -46,6 +46,10 @@ ${linesProcessed.replace(/{{UPPY_JS_URL}}/g, uppyJsUrl)}
 					recommended for production, as your users will have to download all
 					plugins when you are likely using only a few.
 				</p>
+				<p>
+					It can be useful to speed up your development environment, so don't
+					hesitate to use it to get you started.
+				</p>
 			</Admonition>
 			<CodeBlock language="html">{html}</CodeBlock>
 		</>
