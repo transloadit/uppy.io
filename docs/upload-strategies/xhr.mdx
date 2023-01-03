@@ -24,16 +24,20 @@ For instance, if you have a Node.js server (or server-side framework like Next.j
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
-    ```shell
-    npm install @uppy/xhr-upload
-    ```
+
+```shell
+npm install @uppy/xhr-upload
+```
+
   </TabItem>
 
-{' '}
+  <TabItem value="yarn" label="Yarn">
 
-<TabItem value="yarn" label="Yarn">
-	```shell yarn add @uppy/xhr-upload ```
-</TabItem>
+```shell
+yarn add @uppy/xhr-upload
+```
+
+  </TabItem>
 
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
@@ -57,10 +61,9 @@ import XHR from '@uppy/xhr-upload';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
-const uppy = new Uppy.use(Dashboard, { inline: true, target: 'body' }).use(
-	XHR,
-	{ endpoint: 'https://your-domain.com/upload' },
-);
+new Uppy()
+	.use(Dashboard, { inline: true, target: 'body' })
+	.use(XHR, { endpoint: 'https://your-domain.com/upload' });
 ```
 
 ## API
