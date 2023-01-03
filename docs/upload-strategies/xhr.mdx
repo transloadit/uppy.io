@@ -24,19 +24,15 @@ For instance, if you have a Node.js server (or server-side framework like Next.j
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
-
-  ```shell
-  npm install @uppy/xhr-upload
-  ```
-
+    ```shell
+    npm install @uppy/xhr-upload
+    ```
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
-
-  ```shell
-  yarn add @uppy/xhr-upload
-  ```
-
+    ```shell
+    yarn add @uppy/xhr-upload
+    ```
   </TabItem>
 
   <TabItem value="cdn" label="CDN">
@@ -142,9 +138,10 @@ All files will be appended to the provided `fieldName` field in the request.
 
 :::caution
 When `bundle` is set to `true`:
-- [`formData`](#formData-true) must also be set to `true`.
-- Uppy won’t be able to bundle remote files (such as Google Drive) and will throw an error in this case.
-- Only [global uppy metadata](/docs/uppy-core/#meta) is sent to the endpoint. Individual per-file metadata is ignored.
+
+* [`formData`](#formData-true) must also be set to `true`.
+* Uppy won’t be able to bundle remote files (such as Google Drive) and will throw an error in this case.
+* Only [global uppy metadata](/docs/uppy-core/#meta) is sent to the endpoint. Individual per-file metadata is ignored.
 :::
 
 To upload files on different fields, use [`uppy.setFileState()`](/docs/uppy#uppy-setFileState-fileID-state) to set
@@ -160,15 +157,15 @@ uppy.setFileState(fileID, {
 
 Check if the response was successful (`function`, default: `(status, responseText, response) => boolean`).
 
-- By default, responses with a 2xx HTTP status code are considered successful.
-- When `true`, [`getResponseData()`](#getResponseData-responseText-response) will be called and the upload will be marked as successful.
-- When `false`, both [`getResponseData()`](#getResponseData-responseText-response) and [`getResponseError()`](#getResponseError-responseText-response) will be called and the upload will be marked as unsuccessful.
+* By default, responses with a 2xx HTTP status code are considered successful.
+* When `true`, [`getResponseData()`](#getResponseData-responseText-response) will be called and the upload will be marked as successful.
+* When `false`, both [`getResponseData()`](#getResponseData-responseText-response) and [`getResponseError()`](#getResponseError-responseText-response) will be called and the upload will be marked as unsuccessful.
 
 ##### Parameters
 
-- The `statusCode` is the numeric HTTP status code returned by the endpoint.
-- The `responseText` is the XHR endpoint response as a string.
-- `response` is the [XMLHttpRequest][] object.
+* The `statusCode` is the numeric HTTP status code returned by the endpoint.
+* The `responseText` is the XHR endpoint response as a string.
+* `response` is the [XMLHttpRequest][] object.
 
 :::note
 This option is only used for **local** uploads.
@@ -179,8 +176,8 @@ Uploads from remote providers like Google Drive or Instagram do not support this
 
 Extract the response data from the successful upload (`function`, default: `(responseText, response) => void`).
 
-- `responseText` is the XHR endpoint response as a string.
-- `response` is the [XMLHttpRequest][] object.
+* `responseText` is the XHR endpoint response as a string.
+* `response` is the [XMLHttpRequest][] object.
 
 JSON is handled automatically, so you should only use this if the endpoint responds with a different format.
 For example, an endpoint that responds with an XML document:
@@ -238,7 +235,7 @@ The maximum amount of files to upload in parallel (`number`, default: `5`).
 The response type expected from the server, determining how the `xhr.response` property should be filled (`string`, default: `'text'`).
 
 The `xhr.response` property can be accessed in a custom [`getResponseData()`](#getResponseData-responseText-response) callback.
-This option sets the [`XMLHttpRequest.responseType`][XHR.responseType] property. 
+This option sets the [`XMLHttpRequest.responseType`][XHR.responseType] property.
 Only `''`, `'text'`, `'arraybuffer'`, `'blob'` and `'document'` are widely supported by browsers,
 so it’s recommended to use one of those.
 
@@ -256,8 +253,6 @@ export default {
   },
 }
 ```
-
-<!--retext-simplify ignore frequently-->
 
 ## Frequently Asked Questions
 
@@ -296,8 +291,6 @@ uppy.use(XHRUpload, {
 The XHRUpload plugin works similarly to a `<form>` upload.
 You can use the `$_FILES` variable on the server to work with uploaded files.
 See the PHP documentation on [Handling file uploads][PHP.file-upload].
-
-<!--retext-simplify ignore multiple-->
 
 The default form field for file uploads is `files[]`, which means you have to access the `$_FILES` array as described in [Uploading multiple files][PHP.multiple]:
 
