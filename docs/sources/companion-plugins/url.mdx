@@ -28,17 +28,17 @@ so you don’t have to worry about the security implications of arbitrary URLs.
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install @uppy/url
-  ```
+```shell
+npm install @uppy/url
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add @uppy/url
-  ```
+```shell
+yarn add @uppy/url
+```
 
   </TabItem>
 
@@ -62,25 +62,24 @@ Using `@uppy/url` only requires setup in Uppy.
 ### Use in Uppy
 
 ```js {12-19} showLineNumbers
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import Url from '@uppy/url'
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import Url from '@uppy/url';
 
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
-new Uppy
-  .use(Dashboard, { inline: true, target: 'body' })
-  // Example of setting all the options to their defaults.
-  // Not passing anything to `Url` is therefor the same as the example below.
-  .use(Url, {
-    id: 'Url',
-    title: 'Url',
-    target: null,
-    companionUrl: null,
-    companionHeaders: null,
-    companionAllowedHosts: null,
-  })
+new Uppy.use(Dashboard, { inline: true, target: 'body' })
+	// Example of setting all the options to their defaults.
+	// Not passing anything to `Url` is therefor the same as the example below.
+	.use(Url, {
+		id: 'Url',
+		title: 'Url',
+		target: null,
+		companionUrl: null,
+		companionHeaders: null,
+		companionAllowedHosts: null,
+	});
 ```
 
 ### Use in Companion
@@ -128,8 +127,8 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 ```js
 export default {
-  strings: {
-    pluginNameUrl: 'Url',
-  },
-}
+	strings: {
+		pluginNameUrl: 'Url',
+	},
+};
 ```

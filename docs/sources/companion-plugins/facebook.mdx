@@ -24,17 +24,17 @@ You can self-host Companion or get a hosted version with any [Transloadit plan](
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install @uppy/facebook
-  ```
+```shell
+npm install @uppy/facebook
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add @uppy/facebook
-  ```
+```shell
+yarn add @uppy/facebook
+```
 
   </TabItem>
 
@@ -58,25 +58,24 @@ Using Facebook requires setup in both Uppy and Companion.
 ### Use in Uppy
 
 ```js {12-19} showLineNumbers
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import Facebook from '@uppy/facebook'
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import Facebook from '@uppy/facebook';
 
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
-new Uppy
-  .use(Dashboard, { inline: true, target: 'body' })
-  // Example of setting all the options to their defaults.
-  // Not passing anything to `Facebook` is therefor the same as the example below.
-  .use(Facebook, {
-    id: 'Facebook',
-    title: 'Facebook',
-    target: null,
-    companionUrl: null,
-    companionHeaders: null,
-    companionAllowedHosts: null,
-  })
+new Uppy.use(Dashboard, { inline: true, target: 'body' })
+	// Example of setting all the options to their defaults.
+	// Not passing anything to `Facebook` is therefor the same as the example below.
+	.use(Facebook, {
+		id: 'Facebook',
+		title: 'Facebook',
+		target: null,
+		companionUrl: null,
+		companionHeaders: null,
+		companionAllowedHosts: null,
+	});
 ```
 
 ### Use in Companion
@@ -94,7 +93,6 @@ Make sure to apply for production status on the app page before you publish your
 
 You need to set up OAuth in your Facebook app for Companion to be able to connect to users’ Facebook accounts. You have to enable “Advanced Access” for the `user_photos` permission. A precondition of that is “Business Verification” which involves setting up a Meta Business Account and submitting documents to prove business ownership.
 
-
 Configure the Facebook key and secret. With the standalone Companion server, specify environment variables:
 
 ```shell
@@ -106,13 +104,13 @@ When using the Companion Node.js API, configure these options:
 
 ```js
 companion.app({
-  providerOptions: {
-    facebook: {
-      key: 'Facebook API key',
-      secret: 'Facebook API secret',
-    },
-  },
-})
+	providerOptions: {
+		facebook: {
+			key: 'Facebook API key',
+			secret: 'Facebook API secret',
+		},
+	},
+});
 ```
 
 ## API
@@ -156,8 +154,8 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 ```js
 export default {
-  strings: {
-    pluginNameFacebook: 'Facebook',
-  },
-}
+	strings: {
+		pluginNameFacebook: 'Facebook',
+	},
+};
 ```
