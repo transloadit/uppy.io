@@ -146,7 +146,8 @@ When `bundle` is set to `true`:
 - [`formData`](#formData-true) must also be set to `true`.
 - Uppy won’t be able to bundle remote files (such as Google Drive) and will throw an error in this case.
 - Only [global uppy metadata](/docs/uppy-core/#meta) is sent to the endpoint. Individual per-file metadata is ignored.
-  :::
+
+:::
 
 To upload files on different fields, use [`uppy.setFileState()`](/docs/uppy#uppy-setFileState-fileID-state) to set
 the `xhrUpload.fieldName` property on the file:
