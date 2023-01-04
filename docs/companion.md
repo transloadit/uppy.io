@@ -335,12 +335,12 @@ The major reason for this attribute is that, when set, it adds the value as the 
 
 Object to enable providers with their keys and secrets. For example:
 
-```js
-providerOptions: {
-  drive: {
-    key: '***',
-    secret: '***',
-  },
+```json
+{
+	"drive": {
+		"key": "***",
+		"secret": "***"
+	}
 }
 ```
 
