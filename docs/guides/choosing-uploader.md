@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Choosing the upload strategy you need
+# Choosing the uploader you need
 
 Versatile, reliable uploading is at the heart of Uppy. It has many configurable plugins to suit your needs.
 In this guide we will explain the different plugins, their strategies, and when to use them based on use cases.
