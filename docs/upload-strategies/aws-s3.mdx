@@ -70,8 +70,8 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 const uppy = new Uppy()
-  .use(Dashboard, { inline: true, target: 'body' })
-  .use(AwsS3, { companionUrl: 'http://companion.uppy.io' });
+	.use(Dashboard, { inline: true, target: 'body' })
+	.use(AwsS3, { companionUrl: 'http://companion.uppy.io' });
 ```
 
 ### With a AWS S3 bucket
@@ -222,10 +222,10 @@ You will need to do the following things:
 1. Setup a bucket
 2. Create endpoints in your server. You can create them as edge functions (such as AWS Lambdas),
    inside Next.js as an API route, or wherever your server runs
-    - `POST` > `/uppy/s3`: get upload parameters
+   - `POST` > `/uppy/s3`: get upload parameters
 3. [Setup Uppy](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/public/index.html)
 
-### Use with Companion 
+### Use with Companion
 
 [Companion](/docs/companion) has S3 routes built-in for a plug-and-play experience with Uppy.
 
@@ -237,16 +237,17 @@ Otherwise it’s not worth the hosting effort.
 :::
 
 ```js {10} showLineNumbers
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import AwsS3 from '@uppy/aws-s3'
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import AwsS3 from '@uppy/aws-s3';
 
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
-const uppy = new Uppy
-  .use(Dashboard, { inline: true, target: 'body' })
-  .use(AwsS3, { companionUrl: 'http://companion.uppy.io' })
+const uppy = new Uppy.use(Dashboard, { inline: true, target: 'body' }).use(
+	AwsS3,
+	{ companionUrl: 'http://companion.uppy.io' },
+);
 ```
 
 ## Options
