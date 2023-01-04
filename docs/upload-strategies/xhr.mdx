@@ -189,20 +189,23 @@ For example, an endpoint that responds with an XML document:
 
 ```js
 function getResponseData(responseText, response) {
+	const parser = new DOMParser();
+	const xmlDoc = parser.parseFromString(responseText, "text/xml");
 	return {
-		url: responseText.match(/<Location>(.*?)<\/Location>/)[1],
+		url: xmlDoc.querySelector('Location').textContent,
 	};
 }
 ```
 
 :::note
-This response data will be available on the file’s `.response` property and will be emitted in the [`upload-success`][uppy.upload-success] event:
+This response data will be available on the file’s `.response` property and will be
+emitted in the [`upload-success`][uppy.upload-success] event.
 :::
 
 :::note
 When uploading files from remote providers such as Dropbox or Instagram, Companion sends upload response data to the client.
 This is made available in the `getResponseData()` function as well.
-The `response` object from Companion has some properties named after their [XMLHttpRequest][] counterparts:
+The `response` object from Companion has some properties named after their [XMLHttpRequest][] counterparts.
 :::
 
 #### `getResponseError`
