@@ -26,17 +26,17 @@ By default it doesn’t show that a file has been added nor is there a progress 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install @uppy/core @uppy/drag-drop
-  ```
+```shell
+npm install @uppy/core @uppy/drag-drop
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add @uppy/core @uppy/drag-drop
-  ```
+```shell
+yarn add @uppy/core @uppy/drag-drop
+```
 
   </TabItem>
 
@@ -62,26 +62,26 @@ and `allowedFileTypes: ['video/*', '.gif']` means only videos or gifs (files wit
 ### Options
 
 ```js
-import Uppy from '@uppy/core'
-import DragDrop from '@uppy/drag-drop'
+import Uppy from '@uppy/core';
+import DragDrop from '@uppy/drag-drop';
 
 // The `@uppy/drag-drop` plugin includes some basic styles.
 // You can also choose not to use it and provide your own styles instead.
-import '@uppy/core/dist/style.min.css'
-import '@uppy/drag-drop/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/drag-drop/dist/style.min.css';
 
 // Example of setting all the options to their defaults.
 // Not passing anything to `DragDrop` is therefor the same as the example below.
 new Uppy().use(DragDrop, {
-  id: 'DragDrop',
-  target: null,
-  width: '100%',
-  height: '100%',
-  note: null,
-  locale: {
-    strings: { dropHereOr: 'Drop here or %{browse}', browse: 'browse' },
-  },
-})
+	id: 'DragDrop',
+	target: null,
+	width: '100%',
+	height: '100%',
+	note: null,
+	locale: {
+		strings: { dropHereOr: 'Drop here or %{browse}', browse: 'browse' },
+	},
+});
 ```
 
 #### `id`
@@ -116,14 +116,14 @@ This is a place to explain any `restrictions` that are put in place. For example
 
 ```js
 export default {
-  strings: {
-    // Text to show on the droppable area.
-    // `%{browse}` is replaced with a link that opens the system file selection dialog.
-    dropHereOr: 'Drop here or %{browse}',
-    // Used as the label for the link that opens the system file selection dialog.
-    browse: 'browse',
-  },
-}
+	strings: {
+		// Text to show on the droppable area.
+		// `%{browse}` is replaced with a link that opens the system file selection dialog.
+		dropHereOr: 'Drop here or %{browse}',
+		// Used as the label for the link that opens the system file selection dialog.
+		browse: 'browse',
+	},
+};
 ```
 
 #### `onDragOver(event)`
@@ -139,7 +139,5 @@ Callback for the [`ondragleave`][ondragleave] event handler.
 Callback for the [`ondrop`][ondrop] event handler.
 
 [ondragover]: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondragover
-
 [ondragleave]: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondragleave
-
 [ondrop]: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondrop
