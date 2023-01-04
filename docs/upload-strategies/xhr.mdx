@@ -190,7 +190,7 @@ For example, an endpoint that responds with an XML document:
 ```js
 function getResponseData(responseText, response) {
 	const parser = new DOMParser();
-	const xmlDoc = parser.parseFromString(responseText, "text/xml");
+	const xmlDoc = parser.parseFromString(responseText, 'text/xml');
 	return {
 		url: xmlDoc.querySelector('Location').textContent,
 	};
