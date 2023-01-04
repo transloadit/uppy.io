@@ -24,17 +24,17 @@ You can self-host Companion or get a hosted version with any [Transloadit plan](
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install @uppy/onedrive
-  ```
+```shell
+npm install @uppy/onedrive
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add @uppy/onedrive
-  ```
+```shell
+yarn add @uppy/onedrive
+```
 
   </TabItem>
 
@@ -58,25 +58,24 @@ Using OneDrive requires setup in both Uppy and Companion.
 ### Use in Uppy
 
 ```js {12-19} showLineNumbers
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import OneDrive from '@uppy/onedrive'
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import OneDrive from '@uppy/onedrive';
 
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
-new Uppy
-  .use(Dashboard, { inline: true, target: 'body' })
-  // Example of setting all the options to their defaults.
-  // Not passing anything to `OneDrive` is therefor the same as the example below.
-  .use(OneDrive, {
-    id: 'OneDrive',
-    title: 'OneDrive',
-    target: null,
-    companionUrl: null,
-    companionHeaders: null,
-    companionAllowedHosts: null,
-  })
+new Uppy.use(Dashboard, { inline: true, target: 'body' })
+	// Example of setting all the options to their defaults.
+	// Not passing anything to `OneDrive` is therefor the same as the example below.
+	.use(OneDrive, {
+		id: 'OneDrive',
+		title: 'OneDrive',
+		target: null,
+		companionUrl: null,
+		companionHeaders: null,
+		companionAllowedHosts: null,
+	});
 ```
 
 ### Use in Companion
@@ -85,8 +84,8 @@ To sign up for API keys, go to the [OneDrive Platform from Meta](https://develop
 
 Create a project for your app if you don’t have one yet.
 
-*   Enable the OneDrive API.
-*   Use this for an authorized redirect URI: `https://$YOUR\_COMPANION\_HOST\_NAME/onedrive/redirect`
+- Enable the OneDrive API.
+- Use this for an authorized redirect URI: `https://$YOUR\_COMPANION\_HOST\_NAME/onedrive/redirect`
 
 Meta will give you an OAuth client ID and client secret.
 
@@ -102,13 +101,13 @@ When using the Companion Node.js API, configure these options:
 
 ```js
 companion.app({
-  providerOptions: {
-    drive: {
-      key: 'OneDrive OAuth client ID',
-      secret: 'OneDrive OAuth client secret',
-    },
-  },
-})
+	providerOptions: {
+		drive: {
+			key: 'OneDrive OAuth client ID',
+			secret: 'OneDrive OAuth client secret',
+		},
+	},
+});
 ```
 
 ## API
@@ -152,8 +151,8 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 ```js
 export default {
-  strings: {
-    pluginNameOneDrive: 'OneDrive',
-  },
-}
+	strings: {
+		pluginNameOneDrive: 'OneDrive',
+	},
+};
 ```

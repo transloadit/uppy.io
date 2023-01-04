@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Choosing the upload strategy you need
+# Choosing the uploader you need
 
 Versatile, reliable uploading is at the heart of Uppy. It has many configurable plugins to suit your needs.
 In this guide we will explain the different plugins, their strategies, and when to use them based on use cases.
@@ -57,7 +57,7 @@ If your users are planning to mostly upload small files and/or a lot of files, i
 This has certain benefits, such as improved throughput (uploading parts in parallel) and quick recovery from network issues (only the failed parts need to be retried).
 The downside is request overhead, as it needs to do creation, signing, and completion requests besides the upload requests.
 For example, if you are uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
-you are spending 400ms on overhead and only a few milliseconds on uploading. 
+you are spending 400ms on overhead and only a few milliseconds on uploading.
 
 If you are uploading large files (100&nbsp;MB+), we recommend [`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
 
@@ -71,21 +71,12 @@ using the powers of Transloadit services.
 [`@uppy/xhr-upload`][] handles classic HTML multipart form uploads as well as uploads using the HTTP `PUT` method.
 
 [s3-robot]: https://transloadit.com/services/file-exporting/s3-store/
-
 [transloadit-services]: https://transloadit.com/services/
-
 [transloadit-concepts]: https://transloadit.com/docs/getting-started/concepts/
-
 [`@uppy/transloadit`]: /docs/upload-strategies/transloadit
-
 [`@uppy/tus`]: /docs/upload-strategies/tus
-
 [`@uppy/aws-s3-multipart`]: /docs/upload-strategies/aws-s3-multipart
-
 [`@uppy/aws-s3`]: /docs/upload-strategies/aws-s3
-
 [`@uppy/xhr-upload`]: /docs/upload-strategies/xhr
-
 [tus]: https://tus.io/
-
 [tus-implementations]: https://tus.io/implementations.html

@@ -15,9 +15,7 @@ Uploads can be signed using either [Companion][companion docs] or a custom signi
 ## When should I use it?
 
 :::tip
-Not sure which upload strategy is best for you? Read “[Choosing the upload strategy you need](/docs/guides/choosing-upload-strategy)”.
-
-Wondering if you need this plugin or [`@uppy/aws-s3-multipart`](docs/upload-strategies/aws-s3-multipart)? See “[Which one should I pick](/docs/guides/choosing-upload-strategy#which-one-should-i-pick)”.
+Not sure which uploader is best for you? Read “[Choosing the uploader you need](/docs/guides/choosing-uploader)”.
 :::
 
 You can use this plugin when you prefer a _client-to-storage_ over a _client-to-server-to-storage_ (such as [Transloadit](/docs/upload-strategies/transloadit) or [Tus](/docs/upload-strategies/tus)) setup.
@@ -35,17 +33,17 @@ If you are planning to upload mostly large files (100&nbsp;MB+), consider using 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install @uppy/aws-s3
-  ```
+```shell
+npm install @uppy/aws-s3
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add @uppy/aws-s3
-  ```
+```shell
+yarn add @uppy/aws-s3
+```
 
   </TabItem>
 
@@ -64,19 +62,19 @@ If you are planning to upload mostly large files (100&nbsp;MB+), consider using 
 A quick overview of the complete API.
 
 ```js {10} showLineNumbers
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import AwsS3 from '@uppy/aws-s3'
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import AwsS3 from '@uppy/aws-s3';
 
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
-const uppy = new Uppy
-  .use(Dashboard, { inline: true, target: 'body' })
-  .use(AwsS3, { companionUrl: 'http://companion.uppy.io' })
+const uppy = new Uppy()
+	.use(Dashboard, { inline: true, target: 'body' })
+	.use(AwsS3, { companionUrl: 'http://companion.uppy.io' });
 ```
 
-### Use with AWS S3
+### With a AWS S3 bucket
 
 To use this plugin with S3 we need to setup a bucket with the right permissions and CORS settings.
 
@@ -92,22 +90,22 @@ The configuration required for Uppy and Companion is this:
 
 ```json
 [
-  {
-    "AllowedOrigins": ["https://my-app.com"],
-    "AllowedMethods": ["GET", "POST"],
-    "MaxAgeSeconds": 3000,
-    "AllowedHeaders": [
-      "Authorization",
-      "x-amz-date",
-      "x-amz-content-sha256",
-      "content-type"
-    ]
-  },
-  {
-    "AllowedOrigins": ["*"],
-    "AllowedMethods": ["GET"],
-    "MaxAgeSeconds": 3000
-  }
+	{
+		"AllowedOrigins": ["https://my-app.com"],
+		"AllowedMethods": ["GET", "POST"],
+		"MaxAgeSeconds": 3000,
+		"AllowedHeaders": [
+			"Authorization",
+			"x-amz-date",
+			"x-amz-content-sha256",
+			"content-type"
+		]
+	},
+	{
+		"AllowedOrigins": ["*"],
+		"AllowedMethods": ["GET"],
+		"MaxAgeSeconds": 3000
+	}
 ]
 ```
 
@@ -118,7 +116,7 @@ The example above **makes files publically viewable**. You can change it accordi
 If you are using an IAM policy to allow access to the S3 bucket, the policy must have at least the `s3:PutObject` and `s3:PutObjectAcl` permissions scoped to the bucket in question.
 In-depth documentation about CORS rules is available on the [AWS documentation site](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
 
-### Use with DigitalOcean Spaces
+### With a DigitalOcean Spaces bucket
 
 :::tip
 Checkout the [DigitalOcean Spaces example](https://github.com/transloadit/uppy/tree/main/examples/digitalocean-spaces) in the Uppy repository
@@ -144,17 +142,17 @@ When using [Companion](/docs/companion) as an Express integration, configure the
 
 ```js
 const options = {
-  s3: {
-    key: 'xxx',
-    secret: 'xxx',
-    bucket: 'my-space-name',
-    region: 'us-east-1',
-    endpoint: 'https://{region}.digitaloceanspaces.com',
-  }
-}
+	s3: {
+		key: 'xxx',
+		secret: 'xxx',
+		bucket: 'my-space-name',
+		region: 'us-east-1',
+		endpoint: 'https://{region}.digitaloceanspaces.com',
+	},
+};
 ```
 
-### Use with Google Cloud Storage
+### With a Google Cloud Storage bucket
 
 For the `@uppy/aws-s3` plugin to be able to upload to a GCS bucket, it needs the Interoperability setting enabled.
 You can enable the Interoperability setting and [generate interoperable storage access keys](https://cloud.google.com/storage/docs/migrating#keys)
@@ -179,18 +177,18 @@ For instance:
 
 ```json
 {
-  "cors": [
-    {
-      "origin": ["https://my-app.com"],
-      "method": ["GET", "POST"],
-      "maxAgeSeconds": 3000
-    },
-    {
-      "origin": ["*"],
-      "method": ["GET"],
-      "maxAgeSeconds": 3000
-    }
-  ]
+	"cors": [
+		{
+			"origin": ["https://my-app.com"],
+			"method": ["GET", "POST"],
+			"maxAgeSeconds": 3000
+		},
+		{
+			"origin": ["*"],
+			"method": ["GET"],
+			"maxAgeSeconds": 3000
+		}
+	]
 }
 ```
 
@@ -216,6 +214,42 @@ Otherwise, you can manually apply it through the OAuth playground:
     4.  Press `Enter request body` and input your CORS configuration
 6.  Press `Send the request`.
 
+### Use with your own server
+
+The recommended approach is to integrate `@uppy/aws-s3-multipart` with your own server.
+You will need to do the following things:
+
+1. Setup a bucket
+2. Create endpoints in your server. You can create them as edge functions (such as AWS Lambdas),
+   inside Next.js as an API route, or wherever your server runs
+   - `POST` > `/uppy/s3`: get upload parameters
+3. [Setup Uppy](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/public/index.html)
+
+### Use with Companion
+
+[Companion](/docs/companion) has S3 routes built-in for a plug-and-play experience with Uppy.
+
+:::caution
+Generally it’s better for access control, observability, and scaling to integrate `@uppy/aws-s3`
+with your own server. You may want to use [Companion](/docs/companion) for creating, signing,
+and completing your S3 uploads if you already need Companion for remote files (such as from Google Drive).
+Otherwise it’s not worth the hosting effort.
+:::
+
+```js {10} showLineNumbers
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import AwsS3 from '@uppy/aws-s3';
+
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+
+const uppy = new Uppy.use(Dashboard, { inline: true, target: 'body' }).use(
+	AwsS3,
+	{ companionUrl: 'http://companion.uppy.io' },
+);
+```
+
 ## Options
 
 The `@uppy/aws-s3` plugin has the following configurable options:
@@ -236,9 +270,9 @@ Custom headers that should be sent along to [Companion](/docs/companion) on ever
 
 Pass an array of field names to limit the metadata fields that will be added to upload as query parameters (`Array`, default: `null`).
 
-*   Set this to `['name']` to only send the `name` field.
-*   Set this to `null` (the default) to send _all_ metadata fields.
-*   Set this to an empty array `[]` to not send any fields.
+- Set this to `['name']` to only send the `name` field.
+- Set this to `null` (the default) to send _all_ metadata fields.
+- Set this to an empty array `[]` to not send any fields.
 
 #### `getUploadParameters(file)`
 
@@ -250,14 +284,14 @@ A function that returns upload parameters for a file (`Promise`, default: `null`
 
 Parameters should be returned as an object, or as a `Promise` that fulfills with an object, with keys `{ method, url, fields, headers }`.
 
-* The `method` field is the HTTP method to be used for the upload.
+- The `method` field is the HTTP method to be used for the upload.
   This should be one of either `PUT` or `POST`, depending on the type of upload used.
-* The `url` field is the URL to which the upload request will be sent.
+- The `url` field is the URL to which the upload request will be sent.
   When using a presigned PUT upload, this should be the URL to the S3 object with signing parameters included in the query string.
   When using a POST upload with a policy document, this should be the root URL of the bucket.
-* The `fields` field is an object with form fields to send along with the upload request.
+- The `fields` field is an object with form fields to send along with the upload request.
   For presigned PUT uploads, this should be left empty.
-* The `headers` field is an object with request headers to send along with the upload request.
+- The `headers` field is an object with request headers to send along with the upload request.
   When using a presigned PUT upload, it’s a good idea to provide `headers['content-type']`. That will make sure that the request uses the same content-type that was used to generate the signature. Without it, the browser may decide on a different content-type instead, causing S3 to reject the upload.
 
 #### `timeout`
@@ -289,11 +323,11 @@ but with something else such as JSON.
 #### `locale: {}`
 
 ```js
-export default  {
-  strings: {
-    timedOut: 'Upload stalled for %{seconds} seconds, aborting.',
-  },
-}
+export default {
+	strings: {
+		timedOut: 'Upload stalled for %{seconds} seconds, aborting.',
+	},
+};
 ```
 
 ## Frequently Asked Questions
@@ -306,36 +340,38 @@ For example, there could be a PHP server endpoint that prepares a presigned URL 
 
 ```js
 uppy.use(AwsS3, {
-  getUploadParameters (file) {
-    // Send a request to our PHP signing endpoint.
-    return fetch('/s3-sign.php', {
-      method: 'post',
-      // Send and receive JSON.
-      headers: {
-        accept: 'application/json',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        filename: file.name,
-        contentType: file.type,
-      }),
-    }).then((response) => {
-      // Parse the JSON response.
-      return response.json()
-    }).then((data) => {
-      // Return an object in the correct shape.
-      return {
-        method: data.method,
-        url: data.url,
-        fields: data.fields,
-        // Provide content type header required by S3
-        headers: {
-          'Content-Type': file.type,
-        },
-      }
-    })
-  },
-})
+	getUploadParameters(file) {
+		// Send a request to our PHP signing endpoint.
+		return fetch('/s3-sign.php', {
+			method: 'post',
+			// Send and receive JSON.
+			headers: {
+				accept: 'application/json',
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify({
+				filename: file.name,
+				contentType: file.type,
+			}),
+		})
+			.then((response) => {
+				// Parse the JSON response.
+				return response.json();
+			})
+			.then((data) => {
+				// Return an object in the correct shape.
+				return {
+					method: data.method,
+					url: data.url,
+					fields: data.fields,
+					// Provide content type header required by S3
+					headers: {
+						'Content-Type': file.type,
+					},
+				};
+			});
+	},
+});
 ```
 
 See the [aws-presigned-url example in the uppy repository](https://github.com/transloadit/uppy/tree/main/examples/aws-presigned-url) for a small example that implements both the server-side and the client-side.
@@ -347,9 +383,8 @@ generated in `getUploadParameters(file)` via the `file.meta` field:
 
 ```js
 uppy.on('upload-success', (file, data) => {
-  const s3Key = file.meta['key'] // the S3 object key of the uploaded file
-})
+	const s3Key = file.meta['key']; // the S3 object key of the uploaded file
+});
 ```
-
 
 [companion docs]: /docs/companion

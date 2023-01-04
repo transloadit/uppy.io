@@ -15,7 +15,7 @@ const html = `
   </body>
 </html>
 </code>
-`
+`;
 
 const js = `
 import Uppy from '@uppy/core'
@@ -28,12 +28,16 @@ const uppy = new Uppy()
   .on('complete', (result) => {
     console.log('Upload result:', result)
   })
-`
-export default function BoilerPlate () {
-  return (
-    <>
-      <CodeBlock language="js" title="index.js">{js}</CodeBlock>
-      <CodeBlock language="html" title="index.html">{html}</CodeBlock>
-    </>
-  )
+`;
+export default function BoilerPlate() {
+	return (
+		<>
+			<CodeBlock language="js" title="index.js">
+				{js}
+			</CodeBlock>
+			<CodeBlock language="html" title="index.html">
+				{html}
+			</CodeBlock>
+		</>
+	);
 }
