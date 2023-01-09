@@ -55,41 +55,19 @@ yarn add @uppy/status-bar
 
 ## Use
 
-```js
+```js showLineNumbers
 import Uppy from '@uppy/core';
 import StatusBar from '@uppy/status-bar';
 
-// The `@uppy/status-bar` plugin includes some basic styles.
-// You can also choose not to use it and provide your own styles instead.
 import '@uppy/core/dist/style.min.css';
 import '@uppy/status-bar/dist/style.min.css';
 
-// Example of setting all the options to their defaults.
-// Not passing anything to `StatusBar` is therefor the same as the example below.
-new Uppy().use(StatusBar, {
-	id: 'StatusBar',
-	target: null,
-});
+new Uppy().use(StatusBar, { target: '#status-bar' });
 ```
 
 ## API
 
 ### Options
-
-```js
-uppy.use(StatusBar, {
-	id: 'StatusBar',
-	target: 'body',
-	hideAfterFinish: true,
-	showProgressDetails: false,
-	hideUploadButton: false,
-	hideRetryButton: false,
-	hidePauseResumeButton: false,
-	hideCancelButton: false,
-	doneButtonHandler: null,
-	locale: {},
-});
-```
 
 #### `id`
 

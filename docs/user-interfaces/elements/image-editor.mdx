@@ -52,6 +52,22 @@ yarn add @uppy/core @uppy/dashboard @uppy/image-editor
   </TabItem>
 </Tabs>
 
+## Use
+
+```js {3,7,11} showLineNumbers
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import ImageEditor from '@uppy/image-editor';
+
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/image-editor/dist/style.min.css';
+
+new Uppy()
+	.use(Dashboard, { inline: true, target: '#dashboard' })
+	.use(ImageEditor, { target: Dashboard });
+```
+
 ## API
 
 ### Options
@@ -60,44 +76,6 @@ yarn add @uppy/core @uppy/dashboard @uppy/image-editor
 If you automatically want to open the image editor when an image is added,
 see the [`autoOpenFileEditor`](/docs/user-interfaces/dashboard#autoOpenFileEditor) Dashboard option.
 :::
-
-```js
-import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
-import ImageEditor from '@uppy/image-editor';
-
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
-import '@uppy/image-editor/dist/style.css';
-
-new Uppy()
-	.use(Dashboard, { inline: true })
-	// Example of setting all the options to their defaults.
-	// Not passing anything to `ImageEditor` is therefor the same as the example below.
-	.use(ImageEditor, {
-		id: 'ImageEditor',
-		target: null,
-		quality: 0.8,
-		cropperOptions: {
-			viewMode: 1,
-			background: false,
-			autoCropArea: 1,
-			responsive: true,
-			croppedCanvasOptions: {},
-		},
-		actions: {
-			revert: true,
-			rotate: true,
-			granularRotate: true,
-			flip: true,
-			zoomIn: true,
-			zoomOut: true,
-			cropSquare: true,
-			cropWidescreen: true,
-			cropWidescreenVertical: true,
-		},
-	});
-```
 
 #### `id`
 

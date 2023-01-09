@@ -59,12 +59,7 @@ import Informer from '@uppy/informer';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/informer/dist/style.min.css';
 
-// Example of setting all the options to their defaults.
-// Not passing anything to `Informer` is therefor the same as the example below.
-new Uppy().use(Informer, {
-	id: 'Informer',
-	target: null,
-});
+new Uppy().use(Informer, { target: '#informer' });
 ```
 
 Informer gets its data from `uppy.state.info`,

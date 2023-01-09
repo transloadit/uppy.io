@@ -57,7 +57,7 @@ Using Facebook requires setup in both Uppy and Companion.
 
 ### Use in Uppy
 
-```js {12-19} showLineNumbers
+```js {10-13} showLineNumbers
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import Facebook from '@uppy/facebook';
@@ -66,16 +66,10 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 new Uppy()
-	.use(Dashboard, { inline: true, target: 'body' })
-	// Example of setting all the options to their defaults.
-	// Not passing anything to `Facebook` is therefor the same as the example below.
+	.use(Dashboard, { inline: true, target: '#dashboard' })
 	.use(Facebook, {
-		id: 'Facebook',
-		title: 'Facebook',
-		target: null,
-		companionUrl: null,
-		companionHeaders: null,
-		companionAllowedHosts: null,
+		target: Dashboard,
+		companionUrl: 'https://your-companion.com',
 	});
 ```
 

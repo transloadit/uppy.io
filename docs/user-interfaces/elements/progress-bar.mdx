@@ -54,31 +54,15 @@ yarn add @uppy/progress-bar
 import Uppy from '@uppy/core';
 import ProgressBar from '@uppy/progress-bar';
 
-// The `@uppy/progress-bar` plugin includes some basic styles.
-// You can also choose not to use it and provide your own styles instead.
 import '@uppy/core/dist/style.min.css';
 import '@uppy/progress-bar/dist/style.min.css';
 
-// Example of setting all the options to their defaults.
-// Not passing anything to `ProgressBar` is therefor the same as the example below.
-new Uppy().use(ProgressBar, {
-	id: 'ProgressBar',
-	target: null,
-});
+new Uppy().use(ProgressBar, { target: '#progres-bar' });
 ```
 
 ## API
 
 ### Options
-
-```js
-uppy.use(ProgressBar, {
-	id: 'ProgressBar',
-	target: '#progress-bar',
-	fixed: false,
-	hideAfterFinish: true,
-});
-```
 
 #### `id`
 

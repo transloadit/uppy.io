@@ -136,37 +136,13 @@ Depending on server configuration it may not be accessible or correct.
 
 ## `new Uppy(options?)`
 
-### Options
-
 ```js
 import Uppy from '@uppy/core';
-// ...
 
-// Example of setting all the options to their defaults.
-// Not passing anything to `Uppy` is therefor the same as the example below.
-const uppy = new Uppy({
-	id: 'uppy',
-	autoProceed: false,
-	allowMultipleUploadBatches: true,
-	debug: false,
-	restrictions: {
-		maxFileSize: null,
-		minFileSize: null,
-		maxTotalFileSize: null,
-		maxNumberOfFiles: null,
-		minNumberOfFiles: null,
-		allowedFileTypes: null,
-		requiredMetaFields: [],
-	},
-	meta: {},
-	onBeforeFileAdded: (currentFile, files) => currentFile,
-	onBeforeUpload: (files) => {},
-	locale: {},
-	store: new DefaultStore(),
-	logger: justErrorsLogger,
-	infoTimeout: 5000,
-});
+const uppy = new Uppy();
 ```
+
+### Options
 
 #### `id`
 

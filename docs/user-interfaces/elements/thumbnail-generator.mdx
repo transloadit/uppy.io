@@ -56,22 +56,13 @@ yarn add @uppy/thumbnail-generator
 If you use the [Dashboard](/docs/user-interfaces/dashboard) then it’s already installed.
 If you want to use it programatically for your own UI:
 
-```js
+```js showLineNumbers
 import Uppy from '@uppy/core';
 import ThumbnailGenerator from '@uppy/thumbnail-generator';
 
 const uppy = new Uppy();
 
-// Example of setting all the options to their defaults.
-// Not passing anything to `ThumbnailGenerator` is therefor the same as the example below.
-uppy.use(ThumbnailGenerator, {
-	id: 'ThumbnailGenerator',
-	thumbnailWidth: 200,
-	thumbnailHeight: 200,
-	thumbnailType: 'image/jpeg',
-	waitForThumbnailsBeforeUpload: false,
-});
-
+uppy.use(ThumbnailGenerator);
 uppy.on('thumbnail:generated', (file, preview) => doSomething(file, preview));
 ```
 

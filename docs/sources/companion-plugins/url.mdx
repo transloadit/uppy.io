@@ -61,7 +61,7 @@ Using `@uppy/url` only requires setup in Uppy.
 
 ### Use in Uppy
 
-```js {12-19} showLineNumbers
+```js {10-13} showLineNumbers
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import Url from '@uppy/url';
@@ -69,18 +69,10 @@ import Url from '@uppy/url';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
-new Uppy()
-	.use(Dashboard, { inline: true, target: 'body' })
-	// Example of setting all the options to their defaults.
-	// Not passing anything to `Url` is therefor the same as the example below.
-	.use(Url, {
-		id: 'Url',
-		title: 'Url',
-		target: null,
-		companionUrl: null,
-		companionHeaders: null,
-		companionAllowedHosts: null,
-	});
+new Uppy().use(Dashboard, { inline: true, target: '#dashboard' }).use(Url, {
+	target: Dashboard,
+	companionUrl: 'https://your-companion.com',
+});
 ```
 
 ### Use in Companion

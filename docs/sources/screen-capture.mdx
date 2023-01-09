@@ -58,10 +58,10 @@ yarn add @uppy/screen-capture
 
 ## Use
 
-```js
+```js {3,7,11} showLineNumbers
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
-import Webcam from '@uppy/webcam';
+import ScreenCapture from '@uppy/screen-capture';
 
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
@@ -69,26 +69,7 @@ import '@uppy/screen-capture/dist/style.min.css';
 
 new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
-	// Example of setting all the options to their defaults.
-	// Not passing anything to `ScreenCapture` is therefor the same as the example below.
-	.use(ScreenCapture, {
-		displayMediaConstraints: {
-			video: {
-				width: 1280,
-				height: 720,
-				frameRate: {
-					ideal: 3,
-					max: 5,
-				},
-				cursor: 'motion',
-				displaySurface: 'monitor',
-			},
-		},
-		userMediaConstraints: {
-			audio: true,
-		},
-		preferredVideoMimeType: 'video/webm',
-	});
+	.use(ScreenCapture, { target: Dashboard });
 ```
 
 ### API

@@ -58,7 +58,7 @@ yarn add @uppy/webcam
 To use the Webcam plugin in Chrome, [your site must be served over https](https://developers.google.com/web/updates/2015/10/chrome-47-webrtc#public_service_announcements). This restriction does not apply on `localhost`, so you don’t have to jump through many hoops during development.
 :::
 
-```js
+```js {3,7,11} showLineNumbers
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import Webcam from '@uppy/webcam';
@@ -69,24 +69,7 @@ import '@uppy/webcam/dist/style.min.css';
 
 new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
-	// Example of setting all the options to their defaults.
-	// Not passing anything to `Webcam` is therefor the same as the example below.
-	.use(Webcam, {
-		onBeforeSnapshot: () => Promise.resolve(),
-		countdown: false,
-		modes: ['video-audio', 'video-only', 'audio-only', 'picture'],
-		mirror: true,
-		videoConstraints: {
-			facingMode: 'user',
-			width: { min: 720, ideal: 1280, max: 1920 },
-			height: { min: 480, ideal: 800, max: 1080 },
-		},
-		showRecordingLength: false,
-		preferredVideoMimeType: null,
-		preferredImageMimeType: null,
-		mobileNativeCamera: isMobile(),
-		locale: {},
-	});
+	.use(Webcam, { target: Dashboard });
 ```
 
 ## API
