@@ -69,10 +69,9 @@ import Tus from '@uppy/tus';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
-const uppy = new Uppy.use(Dashboard, { inline: true, target: 'body' }).use(
-	Tus,
-	{ endpoint: 'https://tusd.tusdemo.net/files/' },
-);
+new Uppy()
+	.use(Dashboard, { inline: true, target: 'body' })
+	.use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' });
 ```
 
 ## API

@@ -65,7 +65,8 @@ import Dropbox from '@uppy/dropbox';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
-new Uppy.use(Dashboard, { inline: true, target: 'body' })
+new Uppy()
+	.use(Dashboard, { inline: true, target: 'body' })
 	// Example of setting all the options to their defaults.
 	// Not passing anything to `Dropbox` is therefor the same as the example below.
 	.use(Dropbox, {

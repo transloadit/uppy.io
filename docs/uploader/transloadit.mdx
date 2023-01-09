@@ -71,17 +71,16 @@ import Transloadit from '@uppy/transloadit';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
-const uppy = new Uppy.use(Dashboard, { inline: true, target: 'body' }).use(
-	Transloadit,
-	{
+const uppy = new Uppy()
+	.use(Dashboard, { inline: true, target: 'body' })
+	.use(Transloadit, {
 		assemblyOptions: {
 			params: {
 				auth: { key: 'your-transloadit-key' },
 				template_id: 'your-template-id',
 			},
 		},
-	},
-);
+	});
 // Optionally listen to events
 uppy.on('transloadit:assembly-created', (assembly, fileIDs) => {});
 uppy.on('transloadit:upload', (file, assembly) => {});
@@ -194,14 +193,6 @@ The object you can pass or return from a function has this structure:
   Refer to “[Signature Authentication”](https://transloadit.com/docs/topics/signature-authentication/) for more information.
 - `fields` _(optional)_ can be used to to send along key/value pairs, which can be [used dynamically in your template](https://transloadit.com/docs/topics/assembly-instructions/#form-fields-in-instructions).
 
-:::caution
-When you go to production always make sure to set the `signature`.
-**Not using [Signature Authentication](https://transloadit.com/docs/topics/signature-authentication/) can be a security risk**.
-Signature Authentication is a security measure that can prevent outsiders from tampering with your Assembly Instructions.
-While Signature Authentication is not implemented (yet),
-we recommend to enable `allow_steps_override` in your Templates to avoid outsiders being able to pass in any Instructions and storage targets on your behalf.
-:::
-
 <details>
   <summary>Examples</summary>
 
@@ -273,6 +264,14 @@ uppy.use(Transloadit, {
 ```
 
 </details>
+
+:::caution
+When you go to production always make sure to set the `signature`.
+**Not using [Signature Authentication](https://transloadit.com/docs/topics/signature-authentication/) can be a security risk**.
+Signature Authentication is a security measure that can prevent outsiders from tampering with your Assembly Instructions.
+While Signature Authentication is not implemented (yet),
+we recommend to disable `allow_steps_override` in your Templates to avoid outsiders being able to pass in any Instructions and storage targets on your behalf.
+:::
 
 #### `waitForEncoding`
 
