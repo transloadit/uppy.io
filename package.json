@@ -61,6 +61,8 @@
 		"@docusaurus/eslint-plugin": "^2.0.1",
 		"@docusaurus/module-type-aliases": "^2.0.1",
 		"@tsconfig/docusaurus": "^1.0.4",
+		"@typescript-eslint/eslint-plugin": "^5.48.1",
+		"@typescript-eslint/parser": "^5.48.1",
 		"eslint": "^8.19.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-markdown": "^3.0.0",
