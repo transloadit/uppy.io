@@ -15,20 +15,6 @@ const config = {
 	favicon: 'img/logo.svg',
 	organizationName: 'transloadit', // Usually your GitHub org/user name.
 	projectName: 'uppy.io', // Usually your repo name.
-	plugins: [
-		async function myPlugin() {
-			return {
-				name: 'docusaurus-tailwindcss',
-				configurePostCss(postcssOptions) {
-					// Appends TailwindCSS and AutoPrefixer.
-					postcssOptions.plugins.push(require('tailwindcss'));
-					postcssOptions.plugins.push(require('autoprefixer'));
-					return postcssOptions;
-				},
-			};
-		},
-	],
-
 	presets: [
 		[
 			'classic',
