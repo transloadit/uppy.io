@@ -540,28 +540,24 @@ uppy.addFile({
 });
 ```
 
-:::::note
+:::note
 If you try to add a file that already exists, `addFile` will throw an error.
 Unless that duplicate file was dropped with a folder — duplicate files from different folders are allowed,
 when selected with that folder. This is because we add `file.meta.relativePath` to the `file.id`.
+:::
 
-::::note
 :::info
 Checkout [working with Uppy files](#working-with-uppy-files).
 :::
-::::
-:::::
 
-:::::info
+:::info
 If `uppy.opts.autoProceed === true`, Uppy will begin uploading automatically when files are added.
+:::
 
-::::info
 :::info
 Sometimes you might need to add a remote file to Uppy.
 This can be achieved by [fetching the file, then creating a Blob object, or using the Url plugin with Companion](https://github.com/transloadit/uppy/issues/1006#issuecomment-413495493).
 :::
-::::
-:::::
 
 :::info
 Sometimes you might need to mark some files as “already uploaded”,
@@ -671,12 +667,11 @@ Updating state:
 uppy.setState({ smth: true });
 ```
 
-:::::note
+:::note
 State in Uppy is considered to be immutable.
 When updating values, make sure not mutate them, but instead create copies.
 See [Redux docs](http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html) for more info on this.
-
-::::note
+:::
 
 #### `getState()`
 
@@ -802,8 +797,6 @@ Add a preprocessing function.
 :::info
 To change file data and such, use Uppy state updates, for example using [`setFileState`](#setfilestatefileid-state).
 :::
-::::
-:::::
 
 #### `addUploader(fn)`
 
