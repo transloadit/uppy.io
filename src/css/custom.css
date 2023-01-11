@@ -4,9 +4,6 @@
  * work well for content-centric websites.
  */
 
-@tailwind components;
-@tailwind utilities;
-
 @font-face {
 	font-family: 'IBM Plex Mono';
 	font-style: normal;
