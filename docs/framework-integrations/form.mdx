@@ -1,0 +1,112 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+import UppyCdnExample from '/src/components/UppyCdnExample';
+
+# Form
+
+The `@uppy/form` plugin does two things:
+
+1. Extracts meta data from an existing HTML `<form>` on the page, right before Uppy begins uploading/processing files. 
+2. Appends upload results back to the `<form>` as a hidden field. The appended result is a stringified version of a result returned from `uppy.upload()` or `complete` event.
+
+## When should I use this?
+
+When you have an existing HTML form on the page and you want to integrate Uppy uploads into it.
+
+## Install
+
+<Tabs>
+  <TabItem value="npm" label="NPM" default>
+
+  ```shell
+  npm install @uppy/form
+  ```
+
+  </TabItem>
+
+  <TabItem value="yarn" label="Yarn">
+
+  ```shell
+  yarn add @uppy/form
+  ```
+
+  </TabItem>
+
+  <TabItem value="cdn" label="CDN">
+    <UppyCdnExample>
+      {`
+        import { Uppy, Form } from "{{UPPY_JS_URL}}"
+        const uppy = new Uppy()
+        uppy.use(Form, {
+          // Options
+        })
+      `}
+    </UppyCdnExample>
+  </TabItem>
+</Tabs>
+
+## Use
+
+```js showLineNumbers
+import Uppy from '@uppy/core';
+import Form from '@uppy/form';
+
+new Uppy().use(Form, { 
+  target: '#my-form' 
+});
+```
+
+By default the code above will:
+
+1. Extract meta data from the form `#my-form` and send it with the Uppy upload.
+2. When Uppy completes upload/processing, it will add an `<input type="hidden" name="uppyResult"` with the upload result back to the form.
+
+:::note
+You can disable both of these features, see options below.
+:::
+
+:::tip
+`@uppy/form` can also start Uppy upload automatically once the form is submitted, and even submit the form after the upload is complete. This is off by default. See `triggerUploadOnSubmit` and `submitOnSuccess` options below for details.
+:::
+
+## API
+
+### Options
+
+#### `id: 'Form'`
+
+A unique identifier for this plugin (`string`, default: `'Form'`).
+
+#### `target`
+
+DOM element or CSS selector for the form element (`string` or `Element`, default: `null`) 
+
+This is required for the plugin to work.
+
+#### `resultName`
+
+The `name` attribute for the `<input type="hidden">` where the result will be added (`string`, default: `uppyResult`)
+
+#### `getMetaFromForm`
+
+Configures whether to extract metadata from the form (`boolean`, default: `true`)
+
+ When set to true, the `Form` plugin will extract all fields from a `<form>` element before upload begins. Those fields will then be added to Uppy meta data state (`uppy.state.meta`) and each file’s meta, and appended as (meta)data to the upload in an object with `[file input name attribute]` -> `[file input value]` key/values.
+
+#### `addResultToForm`
+
+Configures whether to add upload/encoding results back to the form in an `<input name="uppyResult" type="hidden">` element (`boolean`, default: `true`)
+
+#### `triggerUploadOnSubmit`
+
+Configures whether to start the upload when the form is submitted (`boolean`, default: `false`)
+
+When the user presses a submit button, this will prevent form submission, and instead upload files. You can then:
+
+* Set `submitOnSuccess: true` if you need the form to _actually_ be submitted once all files have been uploaded.
+* Listen for `uppy.on('complete')` event to do something else if the file uploads are all you need. For example, if the form is used for file metadata only.
+
+#### `submitOnSuccess: false`
+
+Configures whether to submit the form after Uppy finishes uploading/encoding (`boolean`, default: `false`)
