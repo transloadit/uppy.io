@@ -7,12 +7,16 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 The `@uppy/form` plugin does two things:
 
-1. Extracts meta data from an existing HTML `<form>` on the page, right before Uppy begins uploading/processing files.
-2. Appends upload results back to the `<form>` as a hidden field. The appended result is a stringified version of a result returned from `uppy.upload()` or `complete` event.
+1. Extracts meta data from an existing HTML `<form>` on the page, right before Uppy begins uploading/processing files. This is useful if you want to associate the data from the form (for example, name, location, id) with the uploaded file, so you can process it on the backend.
+2. Appends upload results back to the `<form>` as a hidden field. This is useful if you want the form to be submitted with the urls/data from the Uppy upload. The appended result is a stringified version of a result returned from calling `uppy.upload()` or listening to `complete` event.
 
 ## When should I use this?
 
 When you have an existing HTML form on the page and you want to integrate Uppy uploads into it.
+
+:::note
+If you are using a UI framework or library like React, Vue or Svelte, you’ll most likely handle form data there as well, and thus won’t need this plugin. Instead, pass meta data to Uppy via [`uppy.setMeta()`](/docs/uppy-core#setmetadata) and listen to [`uppy.on('complete')`](/docs/uppy-core#complete) to get the upload result back.
+:::
 
 ## Install
 
@@ -48,7 +52,7 @@ yarn add @uppy/form
 
 ## Use
 
-```js showLineNumbers
+```js
 import Uppy from '@uppy/core';
 import Form from '@uppy/form';
 
@@ -57,17 +61,24 @@ new Uppy().use(Form, {
 });
 ```
 
+```html
+<form id="my-form">
+  <input type="text" name="name" />
+  <input type="date" name="dob" />
+</form>
+```
+
 By default the code above will:
 
-1. Extract meta data from the form `#my-form` and send it with the Uppy upload.
-2. When Uppy completes upload/processing, it will add an `<input type="hidden" name="uppyResult"` with the upload result back to the form.
+1. Extract meta data from the form `#my-form` and send it with the Uppy upload. Those fields will then be added to Uppy meta data state (`uppy.state.meta`) and each file’s meta, and appended as (meta)data to the upload in an object with `[file input name attribute]` -> `[file input value]` key/values.
+2. When Uppy completes upload/processing, it will add an `<input type="hidden" name="uppyResult">` with the stringified upload result object back to the form.
 
 :::note
 You can disable both of these features, see options below.
 :::
 
 :::tip
-`@uppy/form` can also start Uppy upload automatically once the form is submitted, and even submit the form after the upload is complete. This is off by default. See `triggerUploadOnSubmit` and `submitOnSuccess` options below for details.
+`@uppy/form` can also start Uppy upload automatically once the form is submitted, and even submit the form after the upload is complete. This is off by default. See [`triggerUploadOnSubmit`](#triggerUploadOnSubmit) and [`submitOnSuccess`](#submitOnSuccess) options below for details.
 :::
 
 ## API
