@@ -5,10 +5,14 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Import from URL
 
-The `@uppy/url` plugin allows users to import files from the internet. Paste any URL and it will be added!
+The `@uppy/url` plugin allows users to import files from the internet. Paste any
+URL and it will be added!
 
 :::tip
-[Try out the live example](/examples) or take it for a spin in [CodeSandbox](https://codesandbox.io/s/uppy-dashboard-xpxuhd).
+
+[Try out the live example](/examples) or take it for a spin in
+[CodeSandbox](https://codesandbox.io/s/uppy-dashboard-xpxuhd).
+
 :::
 
 ## When should I use this?
@@ -16,13 +20,19 @@ The `@uppy/url` plugin allows users to import files from the internet. Paste any
 When you want to let users import files any URL.
 
 A [Companion](/docs/companion) instance is required for the URL plugin to work.
-This saves the user bandwidth, especially helpful if they are on a mobile connection.
+This saves the user bandwidth, especially helpful if they are on a mobile
+connection.
 
-You can self-host Companion or get a hosted version with any [Transloadit plan](https://transloadit.com/pricing/).
+You can self-host Companion or get a hosted version with any
+[Transloadit plan](https://transloadit.com/pricing/).
 
 :::note
-Companion has [Server Side Request Forgery](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery) (SSRF) protections build-in
-so you don’t have to worry about the security implications of arbitrary URLs.
+
+Companion has
+[Server Side Request Forgery](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery)
+(SSRF) protections build-in so you don’t have to worry about the security
+implications of arbitrary URLs.
+
 :::
 
 <Tabs>
@@ -77,7 +87,8 @@ new Uppy().use(Dashboard, { inline: true, target: '#dashboard' }).use(Url, {
 
 ### Use in Companion
 
-Companion supports this plugin out-of-the-box so integration is required on this side.
+Companion supports this plugin out-of-the-box so integration is required on this
+side.
 
 ## API
 
@@ -89,11 +100,13 @@ A unique identifier for this plugin (`string`, default: `'Url'`).
 
 #### `title`
 
-Title / name shown in the UI, such as Dashboard tabs (`string`, default: `'Url'`).
+Title / name shown in the UI, such as Dashboard tabs (`string`, default:
+`'Url'`).
 
 #### `target`
 
-DOM element, CSS selector, or plugin to place the drag and drop area into (`string` or `Element`, default: `null`).
+DOM element, CSS selector, or plugin to place the drag and drop area into
+(`string` or `Element`, default: `null`).
 
 #### `companionUrl`
 
@@ -101,18 +114,23 @@ URL to a [Companion](/docs/companion) instance (`string`, default: `null`).
 
 #### `companionHeaders`
 
-Custom headers that should be sent along to [Companion](/docs/companion) on every request (`Object`, default: `{}`).
+Custom headers that should be sent along to [Companion](/docs/companion) on
+every request (`Object`, default: `{}`).
 
 #### `companionAllowedHosts`
 
-The valid and authorised URL(s) from which OAuth responses should be accepted (`string` or `RegExp` or `Array`, default: `companionUrl`).
+The valid and authorised URL(s) from which OAuth responses should be accepted
+(`string` or `RegExp` or `Array`, default: `companionUrl`).
 
-This value can be a `string`, a `RegExp` pattern, or an `Array` of both.
-This is useful when you have your [Companion](/docs/companion) running on several hosts. Otherwise, the default value should do fine.
+This value can be a `string`, a `RegExp` pattern, or an `Array` of both. This is
+useful when you have your [Companion](/docs/companion) running on several hosts.
+Otherwise, the default value should do fine.
 
 #### `companionCookiesRule`
 
-This option correlates to the [RequestCredentials value](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) (`string`, default: `'same-origin'`).
+This option correlates to the
+[RequestCredentials value](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials)
+(`string`, default: `'same-origin'`).
 
 This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
