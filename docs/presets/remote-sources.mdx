@@ -20,19 +20,13 @@ it.
 
 :::
 
-```js
-import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
-import RemoteSources from '@uppy/remote-sources';
+## When should I use it?
 
-const uppy = new Uppy();
-uppy.use(Dashboard);
-uppy.use(RemoteSources, {
-	companionUrl: 'https://your-companion-url',
-});
-```
+`@uppy/remote-sources` aims to simplify the setup for adding Companion plugins,
+when you want to share the configuration between plugins. If you want your user
+to upload files from any remote source, this plugin is recommended.
 
-## Installation
+## Install
 
 This plugin is published as the `@uppy/remote-sources` package on the npm
 registry.
@@ -67,6 +61,21 @@ yarn add @uppy/remote-sources
 ## Use
 
 This module has one default export: the `RemoteSources` plugin class.
+
+```js {10-13} showLineNumbers
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import RemoteSources from '@uppy/remote-sources';
+
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+
+const uppy = new Uppy();
+uppy.use(Dashboard);
+uppy.use(RemoteSources, {
+	companionUrl: 'https://your-companion-url',
+});
+```
 
 ## Options
 
@@ -117,4 +126,10 @@ This option correlates to the [`Request.credentials` value][], which tells the
 plugin whether to send cookies to [Companion](/docs/companion) (`string`,
 default: `same-origin`).
 
-[`request.credentials` value]: https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials
+### `target`
+
+DOM element, CSS selector, or plugin to place the drag and drop area into
+(`string`, `Element`, `Function`, or `UIPlugin`, default: `Dashboard`).
+
+[`request.credentials` value]:
+	https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials
