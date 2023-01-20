@@ -52,19 +52,28 @@ yarn add @uppy/form
 
 ## Use
 
-```js
+```js title="app.js"
 import Uppy from '@uppy/core';
 import Form from '@uppy/form';
+import DragDrop from '@uppy/drag-drop';
+
+import '@uppy/core/dist/style.min.css';
+import '@uppy/drag-drop/dist/style.min.css'; 
 
 new Uppy().use(Form, {
 	target: '#my-form',
 });
 ```
 
-```html
-<form id="my-form">
-	<input type="text" name="name" />
+```html title="index.html"
+<form id="my-form" action="/submit" method="get">
+  <label for="name">Enter your name: </label>
+	<input type="text" name="name" required />
+
+  <label for="dob">Date of birth: </label>
 	<input type="date" name="dob" />
+
+  <input type="submit" value="Save" />
 </form>
 ```
 
