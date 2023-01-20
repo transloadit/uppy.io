@@ -19,13 +19,22 @@ The Golden Retriever uses three methods of browser data storage:
   _quite_ temporary though, and doesn’t persist across browser crashes or
   restarts. It works well, however, for accidental refreshes or closed tabs.
 
-Upon restore, the plugin first restores state from `LocalStorage` and then checks both file storages — `IndexedDB` and `ServiceWorker` — merging the results.
+Upon restore, the plugin first restores state from `LocalStorage` and then
+checks both file storages — `IndexedDB` and `ServiceWorker` — merging the
+results.
 
-If restore is unsuccessful for certain files, they will be marked as “ghosts” in the Dashboard UI, and a message + button offering to re-select those files will be displayed.
+If restore is unsuccessful for certain files, they will be marked as “ghosts” in
+the Dashboard UI, and a message + button offering to re-select those files will
+be displayed.
 
 ## When should I use this?
 
-When you want extra insurance for the user-selected files. If you feel like users might spend some time picking files, tweaking descriptions etc, and will not appreciate having to do it over again if something crashes. Another use case might be when you think user might want to pick a few files, navigate away to do something else in your app or otherwise, and then come back to the same selection.
+When you want extra insurance for the user-selected files. If you feel like
+users might spend some time picking files, tweaking descriptions etc, and will
+not appreciate having to do it over again if something crashes. Another use case
+might be when you think user might want to pick a few files, navigate away to do
+something else in your app or otherwise, and then come back to the same
+selection.
 
 ## Install
 
@@ -67,17 +76,19 @@ import GoldenRetriever from '@uppy/golden-retriever';
 new Uppy().use(Dashboard).use(Tus).use(GoldenRetriever);
 ```
 
-By default, Golden Retriever will only use the `IndexedDB` storage, which is good enough for files up to 5 megabytes (configurable). Service Worker is optional and requires additional setup.
+By default, Golden Retriever will only use the `IndexedDB` storage, which is
+good enough for files up to 5 megabytes (configurable). Service Worker is
+optional and requires additional setup.
 
 ### Enabling Service Worker
 
-With the Service Worker storage, Golden Retriever will be able to temporary store references to large files.
+With the Service Worker storage, Golden Retriever will be able to temporary
+store references to large files.
 
 1\. Bundle your own service worker `sw.js` file with Uppy GoldenRetriever’s
 service worker.
 
-:::tip
-For Webpack, check out
+:::tip For Webpack, check out
 [serviceworker-webpack-plugin](https://github.com/oliviertassinari/serviceworker-webpack-plugin).
 :::
 
@@ -120,7 +131,8 @@ A unique identifier for this plugin (`string`, default: `'GoldenRetriever'`)
 
 #### `expires`
 
-How long to store metadata and files for. Used for `LocalStorage` and `IndexedDB` (`number`, default: `24 * 60 * 60 * 1000` // 24 hours)
+How long to store metadata and files for. Used for `LocalStorage` and
+`IndexedDB` (`number`, default: `24 * 60 * 60 * 1000` // 24 hours)
 
 #### `serviceWorker`
 
