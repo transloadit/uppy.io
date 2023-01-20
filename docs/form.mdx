@@ -5,17 +5,16 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Form
 
-The `@uppy/form` plugin does two things:
-
-1. Extracts meta data from an existing HTML `<form>` on the page, right before Uppy begins uploading/processing files. This is useful if you want to associate the data from the form (for example, name, location, id) with the uploaded file, so you can process it on the backend.
-2. Appends upload results back to the `<form>` as a hidden field. This is useful if you want the form to be submitted with the urls/data from the Uppy upload. The appended result is a stringified version of a result returned from calling `uppy.upload()` or listening to `complete` event.
+The `@uppy/form` plugin integrates with an existing HTML `<form>` to extract input data from the it, and send along with the Uppy upload. It then appends the upload result back to the form via a hidden input.
 
 ## When should I use this?
 
-When you have an existing HTML form on the page and you want to integrate Uppy uploads into it.
+1. When you want to attach the form input values to the files. This is useful if you want to associate meta data from the form (for example, name, location, id) with the uploaded file, so you can process it on the backend. `@uppy/form` extracts the input values before uploading/processing files and adds them to Uppy meta data state (`uppy.state.meta`), as well as and each file’s meta, and appends to the upload in an object with `[file input name attribute]` -> `[file input value]` key/values.
+2. When you want to first upload the files and put the Uppy response (such as the file URLs) into a hidden field (`<input type="hidden" name="uppyResult">`) to then POST and handle the form yourself. The appended result is a stringified version of a result returned from calling `uppy.upload()` or listening to `complete` event.
+3. When you want to automatically start the file upload on submit or submit the form after Uppy has successfully uploaded. This is off by default. See [`submitOnSuccess`](#submitOnSuccess) and [`triggerUploadOnSubmit`](#triggerUploadOnSubmit) options respectively for details.
 
 :::note
-If you are using a UI framework or library like React, Vue or Svelte, you’ll most likely handle form data there as well, and thus won’t need this plugin. Instead, pass meta data to Uppy via [`uppy.setMeta()`](/docs/uppy-core#setmetadata) and listen to [`uppy.on('complete')`](/docs/uppy-core#complete) to get the upload result back.
+If you are using a UI framework or library like React, Vue or Svelte, you’ll most likely handle form data there as well, and thus won’t need this plugin. Instead, pass meta data to Uppy via [`uppy.setMeta()`](/docs/uppy-core#setmetadata) and listen to [`uppy.on('complete')`](/docs/uppy-core#complete) to get the upload results back.
 :::
 
 ## Install
