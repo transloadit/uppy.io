@@ -29,14 +29,14 @@ upload result back to the form via a hidden input.
    [`triggerUploadOnSubmit`](#triggerUploadOnSubmit) options respectively for
    details.
 
-:::note 
+:::note
 
-If you are using a UI framework or library like React, Vue or Svelte,
-you’ll most likely handle form data there as well, and thus won’t need this
-plugin. Instead, pass meta data to Uppy via
+If you are using a UI framework or library like React, Vue or Svelte, you’ll
+most likely handle form data there as well, and thus won’t need this plugin.
+Instead, pass meta data to Uppy via
 [`uppy.setMeta()`](/docs/uppy-core#setmetadata) and listen to
 [`uppy.on('complete')`](/docs/uppy-core#complete) to get the upload results
-back. 
+back.
 
 :::
 
@@ -109,18 +109,18 @@ By default the code above will:
    `<input type="hidden" name="uppyResult">` with the stringified upload result
    object back to the form.
 
-:::note 
+:::note
 
-You can disable both of these features, see options below. 
+You can disable both of these features, see options below.
 
 :::
 
-:::tip 
+:::tip
 
 `@uppy/form` can also start Uppy upload automatically once the form is
 submitted, and even submit the form after the upload is complete. This is off by
 default. See [`triggerUploadOnSubmit`](#triggerUploadOnSubmit) and
-[`submitOnSuccess`](#submitOnSuccess) options below for details. 
+[`submitOnSuccess`](#submitOnSuccess) options below for details.
 
 :::
 
