@@ -9,7 +9,8 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 ## When should I use it?
 
-When you are using the Angular framework and you wouldl like to use on of the UI components.
+When you are using the Angular framework and you wouldl like to use on of the UI
+components.
 
 ## Install
 
@@ -44,20 +45,27 @@ yarn add @uppy/angular
 </Tabs>
 
 :::note
-You also need to install the UI plugin you want to use.
-For instance, `@uppy/dashboard`.
+
+You also need to install the UI plugin you want to use. For instance,
+`@uppy/dashboard`.
+
 :::
 
 ## Use
 
-Instead of adding a UI plugin to an Uppy instance with `.use()`, the Uppy instance can be passed into components as a `props` prop.
+Instead of adding a UI plugin to an Uppy instance with `.use()`, the Uppy
+instance can be passed into components as a `props` prop.
 
 The following plugins are available as Angular component wrappers:
 
-- `<uppy-dashboard />` renders [`@uppy/dashboard`](/docs/user-interfaces/dashboard)
-- `<uppy-drag-drop />` renders [`@uppy/drag-drop`](/docs/user-interfaces/drag-drop)
-- `<uppy-progress-bar />` renders [`@uppy/progress-bar`](/docs/user-interfaces/progress-bar)
-- `<uppy-status-bar />` renders [`@uppy/status-bar`](/docs/user-interfaces/status-bar)
+- `<uppy-dashboard />` renders
+  [`@uppy/dashboard`](/docs/user-interfaces/dashboard)
+- `<uppy-drag-drop />` renders
+  [`@uppy/drag-drop`](/docs/user-interfaces/drag-drop)
+- `<uppy-progress-bar />` renders
+  [`@uppy/progress-bar`](/docs/user-interfaces/progress-bar)
+- `<uppy-status-bar />` renders
+  [`@uppy/status-bar`](/docs/user-interfaces/status-bar)
 
 Each component takes a `props` prop that will be passed to the UI Plugin.
 
@@ -97,9 +105,9 @@ export class AppComponent {
 
 ### CSS
 
-All components have their own styling and should be added to your component decorator.
-You can find the CSS import statements in the docs of the UI plugin you want to use.
-For instance, for `@uppy/dashboard`:
+All components have their own styling and should be added to your component
+decorator. You can find the CSS import statements in the docs of the UI plugin
+you want to use. For instance, for `@uppy/dashboard`:
 
 ```typescript
 @Component({
