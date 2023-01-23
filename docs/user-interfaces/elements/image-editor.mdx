@@ -19,7 +19,8 @@ Image editor. Designed to be used with the Dashboard UI.
 
 ## When should I use this?
 
-When you want to allow users to crop, rotate, zoom and flip images that are added to Uppy.
+When you want to allow users to crop, rotate, zoom and flip images that are
+added to Uppy.
 
 ## Install
 
@@ -52,52 +53,33 @@ yarn add @uppy/core @uppy/dashboard @uppy/image-editor
   </TabItem>
 </Tabs>
 
-## API
+## Use
 
-### Options
-
-:::info
-If you automatically want to open the image editor when an image is added,
-see the [`autoOpenFileEditor`](/docs/user-interfaces/dashboard#autoOpenFileEditor) Dashboard option.
-:::
-
-```js
+```js {3,7,11} showLineNumbers
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import ImageEditor from '@uppy/image-editor';
 
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
-import '@uppy/image-editor/dist/style.css';
+import '@uppy/image-editor/dist/style.min.css';
 
 new Uppy()
-	.use(Dashboard, { inline: true })
-	// Example of setting all the options to their defaults.
-	// Not passing anything to `ImageEditor` is therefor the same as the example below.
-	.use(ImageEditor, {
-		id: 'ImageEditor',
-		target: null,
-		quality: 0.8,
-		cropperOptions: {
-			viewMode: 1,
-			background: false,
-			autoCropArea: 1,
-			responsive: true,
-			croppedCanvasOptions: {},
-		},
-		actions: {
-			revert: true,
-			rotate: true,
-			granularRotate: true,
-			flip: true,
-			zoomIn: true,
-			zoomOut: true,
-			cropSquare: true,
-			cropWidescreen: true,
-			cropWidescreenVertical: true,
-		},
-	});
+	.use(Dashboard, { inline: true, target: '#dashboard' })
+	.use(ImageEditor, { target: Dashboard });
 ```
+
+## API
+
+### Options
+
+:::info
+
+If you automatically want to open the image editor when an image is added, see
+the [`autoOpenFileEditor`](/docs/user-interfaces/dashboard#autoOpenFileEditor)
+Dashboard option.
+
+:::
 
 #### `id`
 
@@ -105,21 +87,25 @@ A unique identifier for this plugin (`string`, default: `'ImageEditor'`).
 
 #### `quality`
 
-Quality Of the resulting blob that will be saved in Uppy after editing/cropping (`number`, default: `0.8`).
+Quality Of the resulting blob that will be saved in Uppy after editing/cropping
+(`number`, default: `0.8`).
 
 #### `cropperOptions`
 
-Image Editor is using the excellent [Cropper.js](https://fengyuanchen.github.io/cropperjs/).
-`cropperOptions` will be directly passed to `Cropper` and therefor can expect the same values as documented
-in their [README](https://github.com/fengyuanchen/cropperjs/blob/HEAD/README.md#options),
-with the addition of `croppedCanvasOptions`, which will be passed to [`getCroppedCanvas`](https://github.com/fengyuanchen/cropperjs/blob/HEAD/README.md#getcroppedcanvasoptions).
+Image Editor is using the excellent
+[Cropper.js](https://fengyuanchen.github.io/cropperjs/). `cropperOptions` will
+be directly passed to `Cropper` and therefor can expect the same values as
+documented in their
+[README](https://github.com/fengyuanchen/cropperjs/blob/HEAD/README.md#options),
+with the addition of `croppedCanvasOptions`, which will be passed to
+[`getCroppedCanvas`](https://github.com/fengyuanchen/cropperjs/blob/HEAD/README.md#getcroppedcanvasoptions).
 
 #### `actions`
 
 Shown action buttons (`Object` or `boolean`).
 
-If you you’d like to hide all actions, pass `false` to it. By default all the actions are visible.
-Or enable/disable them individually:
+If you you’d like to hide all actions, pass `false` to it. By default all the
+actions are visible. Or enable/disable them individually:
 
 ```js
 {
@@ -155,7 +141,10 @@ export default {
 ### Events
 
 :::info
-You can use [`on`](/docs/uppy-core#onevent-action) and [`once`](/docs/uppy-core#onceevent-action) to listen to these events.
+
+You can use [`on`](/docs/uppy-core#onevent-action) and
+[`once`](/docs/uppy-core#onceevent-action) to listen to these events.
+
 :::
 
 #### `file-editor:start`
@@ -180,7 +169,8 @@ uppy.on('file-editor:complete', (updatedFile) => {
 
 #### `file-editor:cancel`
 
-Emitted when `uninstall` is called or when the current image editing changes are discarded.
+Emitted when `uninstall` is called or when the current image editing changes are
+discarded.
 
 ```js
 uppy.on('file-editor:cancel', (file) => {
