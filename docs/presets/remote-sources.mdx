@@ -9,9 +9,9 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Remote sources
 
-`@uppy/remote-sources` is a preset plugin (meaning it bundles and sets up other plugins) to add all the available remote
-sources, such Instagram, Google Drive, Dropbox, and others to Uppy Dashboard in
-one package.
+`@uppy/remote-sources` is a preset plugin (meaning it bundles and sets up other
+plugins) to add all the available remote sources, such Instagram, Google Drive,
+Dropbox, and others to Uppy Dashboard in one package.
 
 :::note
 
@@ -24,19 +24,19 @@ it.
 
 `@uppy/remote-sources` aims to simplify the setup for adding Companion plugins,
 when you want to share the configuration between plugins. If you want your users
-to upload files from any of the remote sources that Uppy offers, this plugin is recommended.
+to upload files from any of the remote sources that Uppy offers, this plugin is
+recommended.
 
-A [Companion](/docs/companion) instance is required for the Remote Sources plugin to
-work. Companion handles authentication with the remote services (such as Facebook, Dropbox, etc.), downloads the files, and
-uploads them to the destination. This saves the user bandwidth, especially
-helpful if they are on a mobile connection.
+A [Companion](/docs/companion) instance is required for the Remote Sources
+plugin to work. Companion handles authentication with the remote services (such
+as Facebook, Dropbox, etc.), downloads the files, and uploads them to the
+destination. This saves the user bandwidth, especially helpful if they are on a
+mobile connection.
 
 You can self-host Companion or get a hosted version with any
 [Transloadit plan](https://transloadit.com/pricing/).
 
 ## Install
-
-registry.
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
@@ -66,7 +66,6 @@ yarn add @uppy/remote-sources
 </Tabs>
 
 ## Use
-
 
 ```js {10-13} showLineNumbers
 import Uppy from '@uppy/core';
