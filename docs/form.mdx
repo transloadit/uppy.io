@@ -101,11 +101,12 @@ new Uppy().use(Form, {
 
 By default the code above will:
 
-1. Extract meta data from the form `#my-form` and send it with the Uppy upload.
-   Those fields will then be added to Uppy meta data state (`uppy.state.meta`)
+1. Extract meta data from the form `#my-form`.
+2. Send it with the Uppy upload.
+3. Those fields will then be added to Uppy meta data state (`uppy.state.meta`)
    and each file’s meta, and appended as (meta)data to the upload in an object
    with `[file input name attribute]` -> `[file input value]` key/values.
-2. When Uppy completes upload/processing, it will add an
+4. When Uppy completes upload/processing, it will add an
    `<input type="hidden" name="uppyResult">` with the stringified upload result
    object back to the form.
 
