@@ -74,9 +74,10 @@ import Uppy from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import { Dashboard } from '@uppy/react';
 
-// Don't forget the CSS
+// Don't forget the CSS: core and the UI components + plugins you are using
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/webcam/dist/style.min.css';
 
 // Don’t forget to keep the Uppy instance outside of your component / render()
 const uppy = new Uppy().use(Webcam);
@@ -84,6 +85,16 @@ const uppy = new Uppy().use(Webcam);
 function Component() {
 	return <Dashboard uppy={uppy} plugins={['Webcam']} />;
 }
+```
+
+### CSS
+
+Components and plugins have their own styling and should be imported / bundled with your app. You can find the CSS import statements in the docs of the UI plugin you want to use. For instance, for `@uppy/dashboard` with `@uppy/image-editor`:
+
+```js
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/image-editor/dist/style.min.css';
 ```
 
 [react]: https://facebook.github.io/react
