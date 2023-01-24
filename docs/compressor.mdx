@@ -6,7 +6,7 @@ sidebar_position: 11
 
 The `@uppy/compressor` plugin optimizes images (JPEG, PNG) before upload, saving
 up to 60% in size (roughly 18 MB for 10 images). It uses
-[Compressor.js](https://github.com/fengyuanchen/compressorjs) library under the
+[Compressor.js][] library under the
 hood.
 
 ## When should I use it?
@@ -63,9 +63,13 @@ bytes, and then begin the upload as usual.
 
 ### Options
 
-:::tip You can also pass any of the
-[Compressor.js options](https://github.com/fengyuanchen/compressorjs#options)
-here as well. :::
+:::tip 
+
+You can also pass any of the
+[Compressor.js options][]
+here as well. 
+
+:::
 
 ### `id`
 
@@ -74,19 +78,22 @@ A unique identifier for this plugin (`string`, default: `'Compressor'`).
 ### `quality`
 
 The quality of the output image passed to
-[Compressor.js](https://github.com/fengyuanchen/compressorjs) (`number`,
-default: `0.6`)
+[Compressor.js][] (`number`,
+default: `0.6`).
 
 It must be a number between `0` and `1`. Be careful to use `1` as it may make
 the size of the output image become larger. In most cases, going with the
 default value is best.
 
-:::note This option is only available for `image/jpeg` and `image/webp` images.
+:::note 
+
+This option is only available for `image/jpeg` and `image/webp` images.
+
 :::
 
 ### `limit`
 
-Number of images that will be compressed in parallel (`number`, default: `10`)
+Number of images that will be compressed in parallel (`number`, default: `10`).
 
 You likely don’t need to change this, unless you are experiencing performance
 issues.
@@ -109,3 +116,6 @@ export default {
 
 The event is emitted when all files are compressed. You can use it for side
 effects or custom UI notifications.
+
+[Compressor.js]: https://github.com/fengyuanchen/compressorjs
+[Compressor.js options]: https://github.com/fengyuanchen/compressorjs#options
