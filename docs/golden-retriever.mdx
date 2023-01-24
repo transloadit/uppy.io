@@ -85,18 +85,19 @@ optional and requires setup.
 With the Service Worker storage, Golden Retriever will be able to temporary
 store references to large files.
 
-1\. Bundle your own service worker `sw.js` file with Uppy GoldenRetriever’s
-service worker.
+1. Bundle your own service worker `sw.js` file with Uppy GoldenRetriever’s
+   service worker.
 
-:::tip For Webpack, check out
-[serviceworker-webpack-plugin](https://github.com/oliviertassinari/serviceworker-webpack-plugin).
-:::
+   :::tip
 
-```js
-// sw.js
+   For Webpack, check out
+   [serviceworker-webpack-plugin](https://github.com/oliviertassinari/serviceworker-webpack-plugin).
 
-import('@uppy/golden-retriever/lib/ServiceWorker');
-```
+   :::
+
+   ```js title="sw.js"
+   import('@uppy/golden-retriever/lib/ServiceWorker');
+   ```
 
 2\. Register it in your app’s entry point:
 
