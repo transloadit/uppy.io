@@ -13,7 +13,7 @@ read more about it
 The Golden Retriever uses three methods of browser data storage:
 
 - `LocalStorage` to store file metadata and Uppy state only
-- `IndexedDB` for small files, usually under 5MB
+- `IndexedDB` for small files, usually under 5MiB.
 - `Service Worker` (_optional_) for _all_ files because, unlike `IndexedDB`,
   `Service Worker` can keep references to large files. Service Worker storage is
   _quite_ temporary though, and doesn’t persist across browser crashes or
