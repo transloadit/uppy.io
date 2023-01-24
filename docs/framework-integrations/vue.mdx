@@ -40,8 +40,10 @@ yarn add @uppy/vue
 </Tabs>
 
 :::note
-You also need to install the UI plugin you want to use.
-For instance, `@uppy/dashboard`.
+
+You also need to install the UI plugin you want to use. For instance,
+`@uppy/dashboard`.
+
 :::
 
 ## Use
@@ -50,11 +52,14 @@ The following plugins are available as React component wrappers:
 
 - `<Dashboard />` renders [`@uppy/dashboard`](/docs/user-interfaces/dashboard)
 - `<DragDrop />` renders [`@uppy/drag-drop`](/docs/user-interfaces/drag-drop)
-- `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/user-interfaces/progress-bar)
+- `<ProgressBar />` renders
+  [`@uppy/progress-bar`](/docs/user-interfaces/progress-bar)
 - `<StatusBar />` renders [`@uppy/status-bar`](/docs/user-interfaces/status-bar)
 
-Instead of adding a UI plugin to an Uppy instance with `.use()`, the Uppy instance can be passed into components as an `uppy` prop.
-Due to the way Vue handles reactivity, you can initialize Uppy the same way you would with vanilla JavaScript
+Instead of adding a UI plugin to an Uppy instance with `.use()`, the Uppy
+instance can be passed into components as an `uppy` prop. Due to the way Vue
+handles reactivity, you can initialize Uppy the same way you would with vanilla
+JavaScript.
 
 ```html
 <script>
@@ -65,7 +70,7 @@ Due to the way Vue handles reactivity, you can initialize Uppy the same way you 
 	// Don't forget the CSS: core and UI components + plugins you are using
 	import '@uppy/core/dist/style.css';
 	import '@uppy/dashboard/dist/style.css';
-  import '@uppy/webcam/dist/style.css';
+	import '@uppy/webcam/dist/style.css';
 
 	const uppy = new Uppy().use(Webcam);
 </script>
