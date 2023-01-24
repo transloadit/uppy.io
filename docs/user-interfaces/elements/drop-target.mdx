@@ -25,10 +25,10 @@ solution targeting any DOM element.
 ## When should I use this?
 
 When you want to allow users to drag and drop files in your own UI, rather than
-in the [`Dashboard`](../dashboard) UI, or catch dropped files from anywhere on the page.
+in the [`Dashboard`](../dashboard) UI, or catch dropped files from anywhere on
+the page.
 
 ## Install
-
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
@@ -78,15 +78,24 @@ uppy.use(DropTarget, {
 
 ### Options
 
-#### `onDragLeave(event)`
+#### `onDragLeave`
 
 Event listener for the [`dragleave` event][].
 
-#### `onDragOver(event)`
+```js {3-5} showLineNumbers
+uppy.use(DropTarget, {
+	target: document.body,
+	onDragLeave: (event) => {
+		event.stopPropagation();
+	},
+});
+```
+
+#### `onDragOver`
 
 Event listener for the [`dragover` event][].
 
-#### `onDrop(event)`
+#### `onDrop`
 
 Event listener for the [`drop` event][].
 
