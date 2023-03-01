@@ -2,6 +2,11 @@
 sidebar_position: 11
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+import UppyCdnExample from '/src/components/UppyCdnExample';
+
 # Compressor
 
 The `@uppy/compressor` plugin optimizes images (JPEG, PNG, and any other format
@@ -47,11 +52,14 @@ yarn add @uppy/compressor
 
 ## Use
 
-```js
+```js {7} showLineNumbers
 import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
 import Compressor from '@uppy/compressor';
 
-new Uppy().use(Compressor);
+new Uppy()
+  .use(Dashboard, {inline:true, target: '#dashboard')
+  .use(Compressor);
 ```
 
 No action is needed from the user — Uppy will automatically optimize images,
@@ -68,11 +76,11 @@ You can also pass any of the [Compressor.js options][] here as well.
 
 :::
 
-### `id`
+#### `id`
 
 A unique identifier for this plugin (`string`, default: `'Compressor'`).
 
-### `quality`
+#### `quality`
 
 The quality of the output image passed to [Compressor.js][] (`number`, default:
 `0.6`).
@@ -87,7 +95,7 @@ This option is only available for `image/jpeg` and `image/webp` images.
 
 :::
 
-### `limit`
+#### `limit`
 
 Number of images that will be compressed in parallel (`number`, default: `10`).
 
