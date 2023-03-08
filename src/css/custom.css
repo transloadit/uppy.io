@@ -104,6 +104,12 @@ code {
 	border: none;
 }
 
+@media screen and (max-width: 30rem) {
+	code {
+		font-size: 0.85rem !important; /* sorry not sorry */
+	}
+}
+
 p > code {
 	vertical-align: initial;
 	font-size: var(--ifm-font-size-base);

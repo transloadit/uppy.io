@@ -1,41 +1,315 @@
-import React from 'react';
-import clsx from 'clsx';
+import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import styles from './index.module.css';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/react/lib/Dashboard';
+import CodeBlock from '@theme/CodeBlock';
+import Webcam from '@uppy/webcam';
 
-function HomepageHeader() {
-	const { siteConfig } = useDocusaurusContext();
-	return (
-		<header className={clsx('hero hero--primary', styles.heroBanner)}>
-			<div className="container">
-				<h1 className="hero__title">{siteConfig.title}</h1>
-				<p className="hero__subtitle">{siteConfig.tagline}</p>
-				<div className={styles.buttons}>
-					<Link
-						className="button button--secondary button--lg"
-						to="/docs/intro"
-					>
-						Docusaurus Tutorial - 5min ⏱️
-					</Link>
-				</div>
-			</div>
-		</header>
-	);
+import IconReact from '../../static/img/react.svg';
+import IconVue from '../../static/img/vue.svg';
+import IconSvelte from '../../static/img/svelte.svg';
+import IconAngular from '../../static/img/angular.svg';
+import IconUpload from '../../static/img/upload.svg';
+import IconChat from '../../static/img/chat.svg';
+import IconLanguage from '../../static/img/language.svg';
+import IconSparkles from '../../static/img/sparkles.svg';
+import IconFolder from '../../static/img/folder.svg';
+import IconWrench from '../../static/img/wrench.svg';
+
+import styles from './index.module.css';
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+
+const uppy = new Uppy().use(Webcam);
+
+const dashboardCode = `
+import Uppy  from '@uppy/core'
+import Dashboard from '@uppy/dashboard'
+import RemoteSources from '@uppy/google-drive'
+import ImageEditor from '@uppy/image-editor'
+import Webcam from '@uppy/webcam'
+import Tus from '@uppy/tus'
+
+import "@uppy/core/dist/style.min.css"
+import "@uppy/dashboard/dist/style.min.css"
+import "@uppy/image-editor/dist/style.min.css"
+import "@uppy/webcam/dist/style.min.css"
+
+const COMPANION_URL = "http://companion.uppy.io"
+const COMPANION_ALLOWED_HOSTS = ['https://my-site.com']
+
+const uppy = new Uppy()
+  .use(Dashboard, { target: '.DashboardContainer', inline: true })
+  .use(RemoteSources, {
+    companionUrl: COMPANION_URL,
+    companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
+  })
+  .use(Webcam, { target: Dashboard })
+  .use(ImageEditor, { target: Dashboard })
+  .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+`;
+
+const reactCode = `
+import React, { useEffect } from 'react'
+import Uppy from '@uppy/core'
+import Webcam from '@uppy/webcam'
+import { Dashboard } from '@uppy/react'
+
+const uppy = new Uppy().use(Webcam)
+
+function Component () {
+  return <Dashboard uppy={uppy} plugins={['Webcam']} />
+} 
+`;
+
+const vueCode = `
+<template>
+  <div id="app">
+    <dashboard :uppy="uppy" :plugins="['Webcam']" :props="{theme: 'light'}" />
+  </div>
+</template>
+
+<script>
+import { Dashboard } from '@uppy/vue'
+
+import '@uppy/core/dist/style.css'
+import '@uppy/dashboard/dist/style.css'
+
+import Uppy from '@uppy/core'
+import Webcam from '@uppy/webcam'
+
+export default {
+  name: 'App',
+  components: {
+    Dashboard
+  },
+  computed: {
+    uppy: () => new Uppy().use(Webcam)
+  },
+  beforeDestroy () {
+    this.uppy.close({ reason: 'unmount' })
+  }
 }
+</script>
+`;
+
+const angularCode = `
+import { NgModule } from '@angular/core'
+import { UppyAngularDashboardModule } from '@uppy/angular'
+
+import { BrowserModule } from '@angular/platform-browser'
+import { AppComponent } from './app.component'
+
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    UppyAngularDashboardModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+class {}
+`;
+
+const svelteCode = `
+<main> 
+  <Dashboard 
+      uppy={uppy} 
+      plugins={["Webcam"]}
+  />
+</main>
+
+<script>
+import { Dashboard } from '@uppy/svelte'
+
+import Uppy from '@uppy/core'
+import Webcam from '@uppy/webcam'
+
+const uppy = new Uppy().use(Webcam);
+</script>
+`;
+
+const providersIcons = [
+	'box.svg',
+	'unsplash.svg',
+	'googledrive.svg',
+	'dropbox.svg',
+	'instagram.svg',
+	'facebook.svg',
+	'onedrive.svg',
+];
+
+const frameworks = [
+	{ name: 'React', Icon: IconReact, code: reactCode },
+	{ name: 'Vue', Icon: IconVue, code: vueCode },
+	{ name: 'Svelte', Icon: IconSvelte, code: svelteCode },
+	{ name: 'Angular', Icon: IconAngular, code: angularCode },
+];
 
 export default function Home(): JSX.Element {
-	const { siteConfig } = useDocusaurusContext();
+	const [framework, setFramework] = useState(frameworks[0].name);
+
 	return (
-		<Layout
-			title={`Hello from ${siteConfig.title}`}
-			description="Description will go into a meta tag in <head />"
-		>
-			<HomepageHeader />
-			<main>
-				<HomepageFeatures />
+		<Layout description="Description will go into a meta tag in <head />">
+			<header className={styles.header}>
+				<h1>Sleek, modular open source JavaScript file uploader</h1>
+
+				<p>
+					Uppy fetches files locally and from remote places like Dropbox or
+					Instagram. With its seamless integration, reliability and ease of use,
+					Uppy is truly your best friend in file uploading.
+				</p>
+
+				<Link className={styles.button} to="/docs/quick-start">
+					Getting started
+				</Link>
+
+				<figure className={styles.quote}>
+					<blockquote cite="https://stackshare.io/posts/top-developer-tools-2017">
+						<p>“Top 10 tools of the year”</p>
+					</blockquote>
+					<figcaption>
+						<a
+							href="https://stackshare.io/posts/top-developer-tools-2017"
+							rel="noopener"
+							target="_blank"
+						>
+							Stackshare
+						</a>
+					</figcaption>
+				</figure>
+
+				<figure className={styles.quote}>
+					<blockquote cite="https://books.producthunt.com/bestof2017">
+						<p>“The best product launches”</p>
+					</blockquote>
+					<figcaption>
+						<a
+							href="https://books.producthunt.com/bestof2017"
+							rel="noopener"
+							target="_blank"
+						>
+							Product Hunt
+						</a>
+					</figcaption>
+				</figure>
+
+				<figure className={styles.quote}>
+					<blockquote cite="https://twitter.com/smashingmag/status/1097870169043546112">
+						<p>“Soooo useful”</p>
+					</blockquote>
+					<figcaption>
+						<a
+							href="https://twitter.com/smashingmag/status/1097870169043546112"
+							rel="noopener"
+							target="_blank"
+						>
+							Smashing Magazine
+						</a>
+					</figcaption>
+				</figure>
+			</header>
+
+			<main className={styles.main}>
+				<section>
+					<h2>
+						The all you need Dashboard — powerful, responsive, and pluggable.
+					</h2>
+					<p>
+						Add files from remote sources, edit images, generate thumbnails, and
+						more.
+					</p>
+					<div className={styles.dashboard}>
+						<Dashboard uppy={uppy} height={300} plugins={['Webcam']} />
+						<CodeBlock language="js" showLineNumbers>
+							{dashboardCode}
+						</CodeBlock>
+					</div>
+				</section>
+
+				<section>
+					<div className={styles.companion}>
+						{providersIcons.map((file) => (
+							<div className={styles.provider} key={file}>
+								<img src={`img/${file}`} />
+							</div>
+						))}
+					</div>
+					<h2>Bring in the files from the cloud with Companion.</h2>
+					<p>
+						Companion is a hosted, standalone, or middleware server to{' '}
+						<strong>
+							take away the complexity of authentication and the cost of
+							downloading files
+						</strong>{' '}
+						from remote sources, such as Instagram, Google Drive, and others.
+					</p>
+					<p>
+						This means a 5GB video isn’t eating into your users’ data plans and
+						you don’t have to worry about OAuth.
+					</p>
+					<Link className={styles.button} to="/docs/companion">
+						Learn more
+					</Link>
+				</section>
+
+				<section className={styles.stack}>
+					<div>
+						<h2>Integrate Uppy into your existing stack.</h2>
+						<p>
+							Uppy can seamlessly integrate in your existing stack. Plug the pup
+							in the framework of your choosing.
+						</p>
+						<Link
+							className={styles.button}
+							to={`/docs/framework-integrations/${framework.toLowerCase()}`}
+						>
+							{framework} docs
+						</Link>
+					</div>
+					<div className={styles.frameworks}>
+						{frameworks.map(({ name, Icon }) => (
+							<>
+								<input
+									key={name}
+									type="radio"
+									id={name}
+									className={styles['framework-input']}
+									name="framework"
+									value={name}
+									checked={name === framework}
+									onChange={(event) => setFramework(event.target.value)}
+								/>
+								<label htmlFor={name}>
+									<Icon />
+									<span>{name}</span>
+								</label>
+							</>
+						))}
+					</div>
+					<CodeBlock language="js" showLineNumbers>
+						{frameworks.find((f) => f.name === framework).code}
+					</CodeBlock>
+				</section>
+
+				<section className={styles['much-more']}>
+					<h2>And much more</h2>
+					<ul>
+						<li>
+							<span>
+								<IconUpload />
+							</span>
+							<span>
+								Large uploads survive network hiccups thanks to resumable file
+								uploads via the open <a href="https://tus.io/">Tus</a> standard
+							</span>
+						</li>
+					</ul>
+				</section>
 			</main>
 		</Layout>
 	);
