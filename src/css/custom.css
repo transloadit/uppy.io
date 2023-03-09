@@ -88,6 +88,12 @@
 	--ifm-heading-font-family: 'IBM Plex Serif', sans-serif;
 	--ifm-heading-font-weight: 600;
 	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+	--ifm-footer-background-color: black;
+}
+
+.footer--dark {
+	margin-top: 2rem;
+	background-color: black;
 }
 
 h1 {
@@ -102,12 +108,6 @@ h1 {
 
 code {
 	border: none;
-}
-
-@media screen and (max-width: 30rem) {
-	code {
-		font-size: 0.85rem !important; /* sorry not sorry */
-	}
 }
 
 p > code {

@@ -7,8 +7,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: 'Uppy',
-	tagline: 'Dinosaurs are cool',
-	url: 'https://your-docusaurus-test-site.com',
+	tagline: 'Sleek, modular open source JavaScript file uploader',
+	url: 'https://uppy.io',
 	baseUrl: '/',
 	onBrokenLinks: 'warn',
 	onBrokenMarkdownLinks: 'warn',
@@ -73,28 +73,15 @@ const config = {
 				style: 'dark',
 				links: [
 					{
-						title: 'Docs',
-						items: [
-							{
-								label: 'Tutorial',
-								to: '/docs/quick-start',
-							},
-						],
-					},
-					{
 						title: 'Community',
 						items: [
 							{
-								label: 'Stack Overflow',
-								href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-							},
-							{
-								label: 'Discord',
-								href: 'https://discordapp.com/invite/docusaurus',
+								label: 'Forum',
+								href: 'https://community.transloadit.com',
 							},
 							{
 								label: 'Twitter',
-								href: 'https://twitter.com/docusaurus',
+								href: 'https://twitter.com/uppy_io',
 							},
 						],
 					},
@@ -112,7 +99,7 @@ const config = {
 						],
 					},
 				],
-				copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+				copyright: `Copyright © ${new Date().getFullYear()} Uppy.`,
 			},
 			prism: {
 				theme: lightCodeTheme,

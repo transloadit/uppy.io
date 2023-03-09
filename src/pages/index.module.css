@@ -6,10 +6,8 @@
 	--bg-blue: #e0f2fe;
 }
 
-.header {
-	margin: 1rem;
-	margin-top: 3rem;
-	text-align: center;
+code {
+	font-size: 0.85rem !important;
 }
 
 .main {
@@ -17,6 +15,8 @@
 }
 
 .main > section {
+	max-width: 30rem;
+	margin: 0 auto;
 	margin-top: 5rem;
 }
 
@@ -26,9 +26,25 @@
 	background-color: var(--bg-blue);
 	padding: 0.5rem;
 	border-radius: 5px;
+	transition: filter 150ms ease-in-out;
+}
+
+.button:hover,
+.button:focus {
+	text-decoration: none;
+	color: var(--blue);
+	filter: brightness(95%);
 }
 
 /* ----- Intro ------  */
+
+.header {
+	margin: 1rem auto;
+	padding: 0 1rem;
+	margin-top: 7rem;
+	text-align: center;
+	max-width: 30rem;
+}
 
 .quote:first-of-type {
 	margin-top: 2rem;
@@ -57,14 +73,13 @@
 	position: absolute;
 	content: '';
 	top: 0;
-	left: 0;
 	right: 0;
 	z-index: -1;
 	height: 100%;
 	width: 100%;
 	margin: 0 auto;
-	filter: blur(50px);
-	background: linear-gradient(90deg, rgb(255, 51, 119, 0.5), #fbcfe8);
+	filter: blur(60px);
+	background: linear-gradient(90deg, rgb(255, 51, 119, 0.4), #fbcfe8);
 	background-size: 200% 200%;
 	background-position: 100% 50%;
 }
@@ -78,8 +93,58 @@
 		display: block;
 	}
 }
+@media screen and (min-width: 50rem) {
+	/* .dashboard { */
+	/*   display: grid; */
+	/*   grid-template-columns: repeat(2, minmax(0, 1fr)); */
+	/*   align-items: center; */
+	/* } */
+	/* .dashboard::after { */
+	/*   width: 300px; */
+	/*   right: calc(50% - 300px / 2); */
+	/* } */
+}
+
+.upload {
+	position: absolute;
+	z-index: -10;
+	content: '';
+	top: 0;
+	right: 50px;
+	height: 130%;
+	width: 150px;
+	transform: rotate(5deg) translateY(30px);
+}
+
+.upload svg {
+	transform: rotate(7deg) translateY(55px) translateX(-10px);
+	width: 100%;
+}
+
+.upload div {
+	background: rgb(255, 255, 255);
+	background: linear-gradient(
+		0deg,
+		rgba(255, 255, 255, 0) 0%,
+		rgba(255, 51, 119, 0.15) 80%
+	);
+	width: 110px;
+	height: 100%;
+}
+
+@media screen and (min-width: 50rem) {
+	.upload {
+		right: calc(50% - 150px / 2);
+		height: 90%;
+	}
+}
 
 /* ----- Companion ------  */
+
+.section-companion {
+	max-width: 30rem;
+	margin: 0 auto;
+}
 
 .companion {
 	display: flex;
@@ -99,8 +164,8 @@
 
 .provider img {
 	margin: 0.7rem;
-	max-width: 2rem;
-	max-height: 2rem;
+	max-width: 1.5rem;
+	max-height: 1.5rem;
 }
 
 .companion .provider:nth-of-type(2) {
@@ -124,7 +189,7 @@
 .stack {
 	position: relative;
 	padding: 8rem 1rem;
-	margin: 1rem -1rem !important; /* Forgive me father for I have sinned */
+	padding-bottom: 0;
 	background-image: url('/img/grid-8.svg');
 	background-position: center;
 	background-repeat: repeat-y;
@@ -217,6 +282,17 @@
 	padding: 0;
 }
 
+.much-more ul + div {
+	display: flex;
+	justify-content: center;
+	margin: 4rem 0;
+}
+
+.much-more ul span:first-of-type {
+	display: flex;
+	align-items: center;
+}
+
 .much-more svg {
 	width: 2rem;
 	height: 2rem;
@@ -230,4 +306,5 @@
 	display: flex;
 	align-items: center;
 	gap: 1rem;
+	margin: 1rem 0;
 }

@@ -16,6 +16,7 @@ import IconLanguage from '../../static/img/language.svg';
 import IconSparkles from '../../static/img/sparkles.svg';
 import IconFolder from '../../static/img/folder.svg';
 import IconWrench from '../../static/img/wrench.svg';
+import IconUppy from '../../static/img/uppy.svg';
 
 import styles from './index.module.css';
 import '@uppy/core/dist/style.min.css';
@@ -31,20 +32,9 @@ import ImageEditor from '@uppy/image-editor'
 import Webcam from '@uppy/webcam'
 import Tus from '@uppy/tus'
 
-import "@uppy/core/dist/style.min.css"
-import "@uppy/dashboard/dist/style.min.css"
-import "@uppy/image-editor/dist/style.min.css"
-import "@uppy/webcam/dist/style.min.css"
-
-const COMPANION_URL = "http://companion.uppy.io"
-const COMPANION_ALLOWED_HOSTS = ['https://my-site.com']
-
 const uppy = new Uppy()
   .use(Dashboard, { target: '.DashboardContainer', inline: true })
-  .use(RemoteSources, {
-    companionUrl: COMPANION_URL,
-    companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
-  })
+  .use(RemoteSources, { companionUrl: "http://companion.uppy.io" })
   .use(Webcam, { target: Dashboard })
   .use(ImageEditor, { target: Dashboard })
   .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
@@ -165,7 +155,7 @@ export default function Home(): JSX.Element {
 				</p>
 
 				<Link className={styles.button} to="/docs/quick-start">
-					Getting started
+					Get started
 				</Link>
 
 				<figure className={styles.quote}>
@@ -229,9 +219,13 @@ export default function Home(): JSX.Element {
 							{dashboardCode}
 						</CodeBlock>
 					</div>
+					<div aria-hidden className={styles.upload}>
+						<IconUppy />
+						<div></div>
+					</div>
 				</section>
 
-				<section>
+				<section className={styles['section-companion']}>
 					<div className={styles.companion}>
 						{providersIcons.map((file) => (
 							<div className={styles.provider} key={file}>
@@ -308,7 +302,52 @@ export default function Home(): JSX.Element {
 								uploads via the open <a href="https://tus.io/">Tus</a> standard
 							</span>
 						</li>
+						<li>
+							<span>
+								<IconSparkles />
+							</span>
+							<span>
+								Works great with the file encoding and processing backend from{' '}
+								<a href="https://transloadit.com/">Transloadit</a>.
+							</span>
+						</li>
+						<li>
+							<span>
+								<IconChat />
+							</span>
+							<span>
+								Open source and driven by the community. We listen closely and
+								adjust the project based on your feedback
+							</span>
+						</li>
+						<li>
+							<span>
+								<IconFolder />
+							</span>
+							<span>
+								File recovery, such as after a browser crash or accidental
+								navigation, via{' '}
+								<Link to="/docs/golden-retriever">Golden Retriever</Link>
+							</span>
+						</li>
+						<li>
+							<span>
+								<IconLanguage />
+							</span>
+							<span>Speaks multiple languages (i18n)</span>
+						</li>
+						<li>
+							<span>
+								<IconWrench />
+							</span>
+							<span>Built with accessibility in mind</span>
+						</li>
 					</ul>
+					<div>
+						<Link className={styles.button} to="/docs/quick-start">
+							Get started
+						</Link>
+					</div>
 				</section>
 			</main>
 		</Layout>
