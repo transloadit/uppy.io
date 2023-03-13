@@ -205,7 +205,7 @@ export default function Home(): JSX.Element {
 			</header>
 
 			<main className={styles.main}>
-				<section>
+				<section className={styles['section-dashboard']}>
 					<h2>
 						The all you need Dashboard — powerful, responsive, and pluggable.
 					</h2>
@@ -219,8 +219,17 @@ export default function Home(): JSX.Element {
 							{dashboardCode}
 						</CodeBlock>
 					</div>
-					<div aria-hidden className={styles.upload}>
+					<div
+						aria-hidden
+						className={`${styles.upload} ${styles['upload-one']}`}
+					>
 						<IconUppy />
+						<div></div>
+					</div>
+					<div
+						aria-hidden
+						className={`${styles.upload} ${styles['upload-two']}`}
+					>
 						<div></div>
 					</div>
 				</section>
@@ -251,7 +260,7 @@ export default function Home(): JSX.Element {
 					</Link>
 				</section>
 
-				<section className={styles.stack}>
+				<section className={styles['section-stack']}>
 					<div>
 						<h2>Integrate Uppy into your existing stack.</h2>
 						<p>
@@ -265,32 +274,34 @@ export default function Home(): JSX.Element {
 							{framework} docs
 						</Link>
 					</div>
-					<div className={styles.frameworks}>
-						{frameworks.map(({ name, Icon }) => (
-							<>
-								<input
-									key={name}
-									type="radio"
-									id={name}
-									className={styles['framework-input']}
-									name="framework"
-									value={name}
-									checked={name === framework}
-									onChange={(event) => setFramework(event.target.value)}
-								/>
-								<label htmlFor={name}>
-									<Icon />
-									<span>{name}</span>
-								</label>
-							</>
-						))}
+					<div className={styles['frameworks-wrapper']}>
+						<div className={styles.frameworks}>
+							{frameworks.map(({ name, Icon }) => (
+								<>
+									<input
+										key={name}
+										type="radio"
+										id={name}
+										className={styles['framework-input']}
+										name="framework"
+										value={name}
+										checked={name === framework}
+										onChange={(event) => setFramework(event.target.value)}
+									/>
+									<label htmlFor={name}>
+										<Icon />
+										<span>{name}</span>
+									</label>
+								</>
+							))}
+						</div>
+						<CodeBlock language="js" showLineNumbers>
+							{frameworks.find((f) => f.name === framework).code}
+						</CodeBlock>
 					</div>
-					<CodeBlock language="js" showLineNumbers>
-						{frameworks.find((f) => f.name === framework).code}
-					</CodeBlock>
 				</section>
 
-				<section className={styles['much-more']}>
+				<section className={styles['section-much-more']}>
 					<h2>And much more</h2>
 					<ul>
 						<li>
