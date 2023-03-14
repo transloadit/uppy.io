@@ -2,11 +2,35 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://uppy.io/uppy.io/pr-preview/pr-40/blog</id>
     <title>Uppy Blog</title>
-    <updated>2022-09-13T00:00:00.000Z</updated>
+    <updated>2022-12-23T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://uppy.io/uppy.io/pr-preview/pr-40/blog"/>
     <subtitle>Uppy Blog</subtitle>
     <icon>https://uppy.io/uppy.io/pr-preview/pr-40/img/logo.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[🎄 Uppy 3.1-3.3: Improved AWS S3 Multipart, Single File Mode]]></title>
+        <id>2022/12/3.3</id>
+        <link href="https://uppy.io/uppy.io/pr-preview/pr-40/blog/2022/12/3.3"/>
+        <updated>2022-12-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[🎅🐶 Ho-ho-ho, we are about to wrap up another year for Uppy! Three minor releases ago we’ve introduced Uppy 3.0. It’s time to give you an update on what’s been cooking in the Uppy-Transloadit headquarters (besides cranberry sauce) for the past couple of months.]]></summary>
+        <content type="html"><![CDATA[<p><img loading="lazy" src="/uppy.io/pr-preview/pr-40/assets/images/dashboard-christmas-7bdeb276706cce5b1944c93b7680ccfa.jpg" width="1400" height="1097" class="img_ev3q"></p><p>🎅🐶 Ho-ho-ho, we are about to wrap up another year for Uppy! Three <code>minor</code> releases ago we’ve introduced Uppy 3.0. It’s time to give you an update on what’s been cooking in the Uppy-Transloadit headquarters (besides cranberry sauce) for the past couple of months.</p><p>In short: AWS S3 Multipart stability improvements, Single File Mode for the Dashboard, more tests and bugfixes, new locales.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="safer-aws-s3-multipart-uploads-on-slow-connections">Safer AWS S3 Multipart uploads on slow connections<a class="hash-link" href="#safer-aws-s3-multipart-uploads-on-slow-connections" title="Direct link to heading">​</a></h2><p><code>@uppy/aws-s3-multipart</code> has been serving well for people who prefer a <em>client-to<!-- -->_<!-- -->s3</em> setup with Uppy. However, some uploads could occasionally fail in poor network conditions. It turned out, simultaneously signing and uploading many chunks at once saturated the HTTP/1.1 connection limit, which lead to signatures expiring by the time Uppy started uploading the next chunk.</p><p>We’ve refactored our internal queue mechanism to sign chunks right before we begin uploading them to the remote server. When the upload is paused, the queue is emptied and re-populated again on resume. The default <code>limit</code> for this plugin has been set to <code>6</code> and the default S3 signature expiry has been lifted from <code>300</code> to <code>800</code> seconds.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="single-file-mode">Single File Mode<a class="hash-link" href="#single-file-mode" title="Direct link to heading">​</a></h2><p>Often times people only want to upload a single file (most commonly an image) via Uppy. But the Dashboard UI is tailored to handling many files at once, and it used to display the single image as a small, sad-looking block in the corner. This ends now! (Actually, it ended a few releases ago, figure of speech).</p><img loading="lazy" src="/img/blog/3.1-3.3/single-file-mode.jpg" class="border"><p>With only one file selected, we’ll display it large and centered, and make sure to re-generate the image preview so it’s <code>600px</code> wide, looking nice and sleek on modern displays.</p><p>See <a href="https://github.com/transloadit/uppy/pull/4188" target="_blank" rel="noopener noreferrer">PR #4188</a> for more screenshots.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="bug-fixes-and-upgrades">Bug fixes and Upgrades<a class="hash-link" href="#bug-fixes-and-upgrades" title="Direct link to heading">​</a></h2><p>We’ve upgraded Typescript to <code>v4.8</code> and Jest to <code>v29</code>, among other tools and packages.</p><p>We are now additionally testing that Uppy packages are correctly bundled with the latest Rollup, Webpack, Parcel, Vite, and ESBuild.</p><p>Notable bug fixes:</p><ul><li>XHR Upload: Queue requests for socket token for remote files</li><li>Core: Prevent crashes when a file is removed before the upload starts</li><li>Golden Retriever: Fixed upload retries</li><li>AWS S3 and XHR Upload: Fixed Cannot mark a queued request as done in MiniXHRUpload</li><li>Webcam: Set default videoConstraints</li><li>Image Editor: Fix controls in small Dashboard</li></ul><p>See the full list in the <a href="https://github.com/transloadit/uppy/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="companion">Companion<a class="hash-link" href="#companion" title="Direct link to heading">​</a></h2><p>And of course, this festive season we are not forgetting Companion under the tree:</p><ul><li>Throttle progress by time</li><li>Added workaround for S3 accelerated endpoints</li><li>Send expire info for non-multipart uploads</li><li>Send expiry time alongside S3 signed requests</li><li>Added support for AbortSignal</li><li>Prevent preflight race condition</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="locales">Locales<a class="hash-link" href="#locales" title="Direct link to heading">​</a></h2><p>Uzbek language pack was added, while Polish and Ukrainian language packs were updated.</p><hr><p>That’s it for our updates! Stay tuned for more in 2023 and happy holidays (if you are celebrating)! Cheers. In the meantime, we are driving home, driving home for Christmas. Yeah.</p><p><img loading="lazy" src="/uppy.io/pr-preview/pr-40/assets/images/driving-home-0b068883d13788971c4bd54faf9e66f6.gif" width="480" height="270" class="img_ev3q"></p>]]></content>
+        <author>
+            <name>Antoine du Hamel</name>
+            <email>antoine@transloadit.com</email>
+        </author>
+        <author>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
+        </author>
+        <author>
+            <name>Mikael Finstad</name>
+            <email>mikael@transloadit.com</email>
+        </author>
+        <author>
+            <name>Merlijn Vos</name>
+            <email>merlijn@transloadit.com</email>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Uppy 3.0: Future-proof, conveniently easy, stable as ever]]></title>
         <id>2022/09/3.0</id>

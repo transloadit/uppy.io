@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkuppy_io=self.webpackChunkuppy_io||[]).push([[5265],{2037:p=>{p.exports=JSON.parse('{"permalink":"/uppy.io/pr-preview/pr-40/blog","page":1,"postsPerPage":10,"totalPages":8,"totalCount":77,"nextPage":"/uppy.io/pr-preview/pr-40/blog/page/2","blogDescription":"Blog","blogTitle":"Blog"}')}}]);
