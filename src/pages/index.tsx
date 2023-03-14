@@ -5,6 +5,7 @@ import Uppy from '@uppy/core';
 import Dashboard from '@uppy/react/lib/Dashboard';
 import CodeBlock from '@theme/CodeBlock';
 import Webcam from '@uppy/webcam';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
 import IconReact from '../../static/img/react.svg';
 import IconVue from '../../static/img/vue.svg';
@@ -21,8 +22,6 @@ import IconUppy from '../../static/img/uppy.svg';
 import styles from './index.module.css';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
-
-const uppy = new Uppy().use(Webcam);
 
 const dashboardCode = `
 import Uppy  from '@uppy/core'
@@ -214,7 +213,14 @@ export default function Home(): JSX.Element {
 						more.
 					</p>
 					<div className={styles.dashboard}>
-						<Dashboard uppy={uppy} height={300} plugins={['Webcam']} />
+						<BrowserOnly>
+							{() => {
+								const uppy = new Uppy().use(Webcam);
+								return (
+									<Dashboard uppy={uppy} height={300} plugins={['Webcam']} />
+								);
+							}}
+						</BrowserOnly>
 						<CodeBlock language="js" showLineNumbers>
 							{dashboardCode}
 						</CodeBlock>
