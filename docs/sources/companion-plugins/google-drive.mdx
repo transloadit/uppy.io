@@ -5,36 +5,43 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Google Drive
 
-The `@uppy/google-drive` plugin lets users import files from their [Google Drive](https://www.drive.google.com) account.
+The `@uppy/google-drive` plugin lets users import files from their
+[Google Drive](https://www.drive.google.com) account.
 
 :::tip
-[Try out the live example](/examples) or take it for a spin in [CodeSandbox](https://codesandbox.io/s/uppy-dashboard-xpxuhd).
+
+[Try out the live example](/examples) or take it for a spin in
+[CodeSandbox](https://codesandbox.io/s/uppy-dashboard-xpxuhd).
+
 :::
 
 ## When should I use this?
 
-When you want to let users import files from their [Google Drive](https://www.drive.google.com) account.
+When you want to let users import files from their
+[Google Drive](https://www.drive.google.com) account.
 
-A [Companion](/docs/companion) instance is required for the Google Drive plugin to work.
-Companion handles authentication with Google Drive, downloads the files, and uploads them to the destination.
-This saves the user bandwidth, especially helpful if they are on a mobile connection.
+A [Companion](/docs/companion) instance is required for the Google Drive plugin
+to work. Companion handles authentication with Google Drive, downloads the
+files, and uploads them to the destination. This saves the user bandwidth,
+especially helpful if they are on a mobile connection.
 
-You can self-host Companion or get a hosted version with any [Transloadit plan](https://transloadit.com/pricing/).
+You can self-host Companion or get a hosted version with any
+[Transloadit plan](https://transloadit.com/pricing/).
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install @uppy/google-drive
-  ```
+```shell
+npm install @uppy/google-drive
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add @uppy/google-drive
-  ```
+```shell
+yarn add @uppy/google-drive
+```
 
   </TabItem>
 
@@ -57,42 +64,39 @@ Using Google Drive requires setup in both Uppy and Companion.
 
 ### Use in Uppy
 
-```js {12-19} showLineNumbers
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import GoogleDrive from '@uppy/google-drive'
+```js {10-13} showLineNumbers
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import GoogleDrive from '@uppy/google-drive';
 
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
-new Uppy
-  .use(Dashboard, { inline: true, target: 'body' })
-  // Example of setting all the options to their defaults.
-  // Not passing anything to `GoogleDrive` is therefor the same as the example below.
-  .use(GoogleDrive, {
-    id: 'GoogleDrive',
-    title: 'GoogleDrive',
-    target: null,
-    companionUrl: null,
-    companionHeaders: null,
-    companionAllowedHosts: null,
-  })
+new Uppy()
+	.use(Dashboard, { inline: true, target: '#dashboard' })
+	.use(GoogleDrive, {
+		target: Dashboard,
+		companionUrl: 'https://your-companion.com',
+	});
 ```
 
 ### Use in Companion
 
-To sign up for API keys, go to the [Google Developer Console](https://console.developers.google.com/).
+To sign up for API keys, go to the
+[Google Developer Console](https://console.developers.google.com/).
 
 Create a project for your app if you don’t have one yet.
 
-* On the project’s dashboard, [enable the Google Drive API](https://developers.google.com/drive/api/v3/enable-drive-api).
-* [Set up OAuth authorization](https://developers.google.com/drive/api/v3/about-auth). Use this for an authorized redirect URI:
-  https://$YOUR\_COMPANION\_HOST\_NAME/drive/redirect
+- On the project’s dashboard,
+  [enable the Google Drive API](https://developers.google.com/drive/api/v3/enable-drive-api).
+- [Set up OAuth authorization](https://developers.google.com/drive/api/v3/about-auth).
+  Use this for an authorized redirect URI:
+  https://$YOUR_COMPANION_HOST_NAME/drive/redirect
 
 Google will give you an OAuth client ID and client secret.
 
-Configure the Google Drive key and secret in Companion.
-With the standalone Companion server, specify environment variables:
+Configure the Google Drive key and secret in Companion. With the standalone
+Companion server, specify environment variables:
 
 ```shell
 export COMPANION_GOOGLE_KEY="Google Drive OAuth client ID"
@@ -103,13 +107,13 @@ When using the Companion Node.js API, configure these options:
 
 ```js
 companion.app({
-  providerOptions: {
-    drive: {
-      key: 'Google Drive OAuth client ID',
-      secret: 'Google Drive OAuth client secret',
-    },
-  },
-})
+	providerOptions: {
+		drive: {
+			key: 'Google Drive OAuth client ID',
+			secret: 'Google Drive OAuth client secret',
+		},
+	},
+});
 ```
 
 ## API
@@ -122,11 +126,13 @@ A unique identifier for this plugin (`string`, default: `'GoogleDrive'`).
 
 #### `title`
 
-Title / name shown in the UI, such as Dashboard tabs (`string`, default: `'GoogleDrive'`).
+Title / name shown in the UI, such as Dashboard tabs (`string`, default:
+`'GoogleDrive'`).
 
 #### `target`
 
-DOM element, CSS selector, or plugin to place the drag and drop area into (`string` or `Element`, default: `null`).
+DOM element, CSS selector, or plugin to place the drag and drop area into
+(`string` or `Element`, default: `null`).
 
 #### `companionUrl`
 
@@ -134,18 +140,23 @@ URL to a [Companion](/docs/companion) instance (`string`, default: `null`).
 
 #### `companionHeaders`
 
-Custom headers that should be sent along to [Companion](/docs/companion) on every request (`Object`, default: `{}`).
+Custom headers that should be sent along to [Companion](/docs/companion) on
+every request (`Object`, default: `{}`).
 
 #### `companionAllowedHosts`
 
-The valid and authorised URL(s) from which OAuth responses should be accepted (`string` or `RegExp` or `Array`, default: `companionUrl`).
+The valid and authorised URL(s) from which OAuth responses should be accepted
+(`string` or `RegExp` or `Array`, default: `companionUrl`).
 
-This value can be a `string`, a `RegExp` pattern, or an `Array` of both.
-This is useful when you have your [Companion](/docs/companion) running on several hosts. Otherwise, the default value should do fine.
+This value can be a `string`, a `RegExp` pattern, or an `Array` of both. This is
+useful when you have your [Companion](/docs/companion) running on several hosts.
+Otherwise, the default value should do fine.
 
 #### `companionCookiesRule`
 
-This option correlates to the [RequestCredentials value](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) (`string`, default: `'same-origin'`).
+This option correlates to the
+[RequestCredentials value](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials)
+(`string`, default: `'same-origin'`).
 
 This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
@@ -153,8 +164,8 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 ```js
 export default {
-  strings: {
-    pluginNameGoogleDrive: 'GoogleDrive',
-  },
-}
+	strings: {
+		pluginNameGoogleDrive: 'GoogleDrive',
+	},
+};
 ```

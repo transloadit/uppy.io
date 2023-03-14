@@ -9,31 +9,35 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Progress bar
 
-`@uppy/progress-bar` is a minimalist plugin that shows the current upload progress in a thin bar element,
-like the ones used by YouTube and GitHub when navigating between pages.
+`@uppy/progress-bar` is a minimalist plugin that shows the current upload
+progress in a thin bar element, like the ones used by YouTube and GitHub when
+navigating between pages.
 
 ## When should I use it?
 
-When you need a minimalistec progress indicator and you’re [building your own UI](/docs/guides/building-your-own-ui-with-uppy).
-For most cases, [Dashboard](/docs/user-interfaces/dashboard) or [Drag & Drop](/docs/user-interfaces/drag-drop)
-(with [Status Bar](/docs/user-interfaces/elements/status-bar)) is more likely what you need.
+When you need a minimalistec progress indicator and you’re
+[building your own UI](/docs/guides/building-your-own-ui-with-uppy). For most
+cases, [Dashboard](/docs/user-interfaces/dashboard) or
+[Drag & Drop](/docs/user-interfaces/drag-drop) (with
+[Status Bar](/docs/user-interfaces/elements/status-bar)) is more likely what you
+need.
 
 ## Install
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
-  ```shell
-  npm install @uppy/progress-bar
-  ```
+```shell
+npm install @uppy/progress-bar
+```
 
   </TabItem>
 
   <TabItem value="yarn" label="Yarn">
 
-  ```shell
-  yarn add @uppy/progress-bar
-  ```
+```shell
+yarn add @uppy/progress-bar
+```
 
   </TabItem>
 
@@ -51,51 +55,38 @@ For most cases, [Dashboard](/docs/user-interfaces/dashboard) or [Drag & Drop](/d
 ## Use
 
 ```js
-import Uppy from '@uppy/core'
-import ProgressBar from '@uppy/progress-bar'
+import Uppy from '@uppy/core';
+import ProgressBar from '@uppy/progress-bar';
 
-// The `@uppy/progress-bar` plugin includes some basic styles.
-// You can also choose not to use it and provide your own styles instead.
-import '@uppy/core/dist/style.min.css'
-import '@uppy/progress-bar/dist/style.min.css'
+import '@uppy/core/dist/style.min.css';
+import '@uppy/progress-bar/dist/style.min.css';
 
-// Example of setting all the options to their defaults.
-// Not passing anything to `ProgressBar` is therefor the same as the example below.
-new Uppy().use(ProgressBar, {
-  id: 'ProgressBar',
-  target: null,
-})
+new Uppy().use(ProgressBar, { target: '#progres-bar' });
 ```
 
 ## API
 
 ### Options
 
-```js
-uppy.use(ProgressBar, {
-  id: 'ProgressBar',
-  target: '#progress-bar',
-  fixed: false,
-  hideAfterFinish: true,
-})
-```
-
 #### `id`
 
-A unique identifier for this Status Bar (`string`, default: `'ProgressBar'`). 
+A unique identifier for this Status Bar (`string`, default: `'ProgressBar'`).
 
 Use this if you need to add several ProgressBar instances.
 
 #### `target`
 
-DOM element, CSS selector, or plugin to mount the Status Bar into (`Element`, `string`, default: `null`).
+DOM element, CSS selector, or plugin to mount the Status Bar into (`Element`,
+`string`, default: `null`).
 
 #### `fixed`
 
-Show the progress bar at the top of the page with `position: fixed` (`boolean`, default: `false`).
+Show the progress bar at the top of the page with `position: fixed` (`boolean`,
+default: `false`).
 
 When set to false, show the progress bar inline wherever it’s mounted.
 
 #### `hideAfterFinish`
 
-Hides the progress bar after the upload has finished (`boolean`, default: `true`).
+Hides the progress bar after the upload has finished (`boolean`, default:
+`true`).
