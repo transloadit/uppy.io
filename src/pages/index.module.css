@@ -327,6 +327,9 @@
 .framework-input:checked + label {
 	border: 2px solid var(--blue);
 }
+.framework-input:not(:first-child):checked + label {
+	margin-left: -2px;
+}
 .framework-input:not(:checked) + label {
 	color: lightgray;
 }
