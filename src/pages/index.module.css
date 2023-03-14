@@ -314,6 +314,7 @@
 	font-weight: 600;
 	font-family: var(--ifm-font-family-monospace);
 	font-size: 0.85rem;
+	cursor: pointer;
 }
 .framework-input:not(:first-of-type) + label {
 	border-left: none;
@@ -331,7 +332,10 @@
 	margin-left: -2px;
 }
 .framework-input:not(:checked) + label {
-	color: lightgray;
+	color: darkgray;
+}
+.framework-input:not(:checked) + label:hover {
+	color: gray;
 }
 .framework-input:checked + label span {
 	color: black;
