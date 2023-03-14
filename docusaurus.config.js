@@ -8,14 +8,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const config = {
 	title: 'Uppy',
 	tagline: 'Dinosaurs are cool',
-	url: 'https://your-docusaurus-test-site.com',
+	url: 'https://uppy.io',
 	baseUrl: '/',
 	onBrokenLinks: 'warn',
 	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/logo.svg',
 	organizationName: 'transloadit', // Usually your GitHub org/user name.
 	projectName: 'uppy.io', // Usually your repo name.
-
 	presets: [
 		[
 			'classic',
