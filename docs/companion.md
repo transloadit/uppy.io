@@ -457,7 +457,7 @@ The name of the bucket to store uploaded files in.
 
 The datacenter region where the target bucket is located.
 
-##### `s3.region` `COMPANION_AWS_PREFIX`
+##### `COMPANION_AWS_PREFIX`
 
 An optional prefix for all uploaded keys.
 
