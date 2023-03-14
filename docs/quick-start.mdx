@@ -4,58 +4,45 @@ sidebar_position: 1
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import QuickStartBoilerPlate from '@site/src/components/QuickStartBoilerPlate';
 import UppyCdnExample from '/src/components/UppyCdnExample';
-import { QuickStartLinks } from '/src/components/QuickStartLinks/QuickStartLinks.tsx';
+import { QuickStartLinks } from '../src/components/QuickStartLinks/QuickStartLinks.tsx';
 
 # Quick start
 
-Uppy is an uploader and (optionally) an user interface, tied together by the
-[core library][core], with lots of plugins to gradually add more functionality.
+Uppy is a sleek, modular JavaScript file uploader that integrates seamlessly
+with any application. It’s fast, has a comprehensible API and lets you worry
+about more important problems than building a file uploader.
 
-In this quick start we will build a small yet powerful example with
-[@uppy/dashboard][] and [@uppy/tus][].
+- **Fetch** files from local disk, remote URLs, Google Drive, Dropbox, Box,
+  Instagram or snap and record selfies with a camera
+- **Preview** and edit metadata with a nice interface
+- **Upload** to the final destination, optionally process/encode
+
+## Features
+
+- Lightweight, modular plugin-based architecture, light on dependencies :zap:
+- Resumable file uploads via the open [tus](https://tus.io/) standard, so large
+  uploads survive network hiccups
+- Supports picking files from: Webcam, Dropbox, Box, Google Drive, Instagram,
+  bypassing the user’s device where possible, syncing between servers directly
+  via [@uppy/companion](/docs/companion)
+- Works great with file encoding and processing backends, such as
+  [Transloadit](https://transloadit.com), works great without (all you need is
+  to roll your own Apache/Nginx/Node/FFmpeg/etc backend)
+- Sleek user interface :sparkles:
+- Optional file recovery (after a browser crash) with
+  [Golden Retriever](/docs/golden-retriever/)
+- Speaks several languages (i18n) :earth_africa:
+- Built with accessibility in mind
+- Free for the world, forever (as in beer 🍺, pizza 🍕, and liberty 🗽)
+- Cute as a puppy, also accepts cat pictures :dog:
 
 :::tip
 
-You can take Uppy for a walk with the **[Stackblitz](#)** or
-**[CodeSandbox](#)** examples. Both examples can also be cloned with Git for a
-kickstart locally.
+You can take Uppy for a walk inside
+[CodeSandbox](https://codesandbox.io/s/uppy-dashboard-xpxuhd).
 
 :::
-
-<Tabs>
-  <TabItem value="npm" label="NPM" default>
-
-```shell
-npm install @uppy/core @uppy/dashboard @uppy/tus
-```
-
-  <QuickStartBoilerPlate />
-  </TabItem>
-
-  <TabItem value="yarn" label="Yarn">
-
-```shell
-yarn add @uppy/core @uppy/dashboard @uppy/tus
-```
-
-  <QuickStartBoilerPlate />
-  </TabItem>
-
-  <TabItem value="cdn" label="CDN">
-    <UppyCdnExample>
-      {`
-        import { Uppy, DragDrop, Tus } from "{{UPPY_JS_URL}}"
-        const uppy = new Uppy()
-        uppy.use(DragDrop, { target: '#uppy' })
-        uppy.use(Tus, { endpoint: '//tusd.tusdemo.net/files/' })
-      `}
-    </UppyCdnExample>
-  </TabItem>
-</Tabs>
-
-## Next steps
 
 <QuickStartLinks
 	items={[
@@ -81,7 +68,3 @@ yarn add @uppy/core @uppy/dashboard @uppy/tus
 		},
 	]}
 />
-
-[core]: /docs/uppy-core
-[@uppy/dashboard]: /docs/user-interfaces/dashboard
-[@uppy/tus]: /docs/uploaders/tus
