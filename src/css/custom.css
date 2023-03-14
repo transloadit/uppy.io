@@ -144,8 +144,23 @@ div[class*=' admonitionHeading'] {
 
 /* Blog */
 
+/* .avatar__name {
+	font: 500 var(--ifm-h4-font-size)/var(--ifm-heading-line-height) var(--ifm-font-family-base);
+} */
+
 .avatar__name {
-	font: 700 var(--ifm-h4-font-size)/var(--ifm-heading-line-height) var(--ifm-font-family-base);
+	font-size: 0.75rem;
+	font-weight: 500;
+}
+
+h1[itemprop="headline"] {
+	font-size: 1.8rem;
+	margin-bottom: 0.6rem;
+}
+
+h2[itemprop="headline"] {
+	font-size: 1.5rem;
+	margin-bottom: 0.6rem;
 }
 
 /* Content Body */
@@ -153,5 +168,14 @@ div[class*=' admonitionHeading'] {
 .markdown video,
 .markdown img {
 	max-width: 100%;
+}
+
+.markdown > h2 {
+	--ifm-h2-font-size: 1.75rem;
+}
+
+.markdown img.border {
+	border: 1px solid rgba(165, 165, 165, 0.3);
+  max-width: none;
 }
 
