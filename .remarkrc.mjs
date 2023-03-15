@@ -39,7 +39,14 @@ const retextPreset = [
 	unified()
 		.use(retextEnglish)
 		.use(retextEquality, {
-			ignore: ['disabled', 'host', 'hosts', 'invalid', 'whitespace', 'of course'],
+			ignore: [
+				'disabled',
+				'host',
+				'hosts',
+				'invalid',
+				'whitespace',
+				'of course',
+			],
 		})
 		.use(retextProfanities, { sureness: 1 })
 		.use(retextQuotes)
