@@ -39,7 +39,7 @@ const retextPreset = [
 	unified()
 		.use(retextEnglish)
 		.use(retextEquality, {
-			ignore: ['disabled', 'host', 'hosts', 'invalid', 'whitespace'],
+			ignore: ['disabled', 'host', 'hosts', 'invalid', 'whitespace', 'of course'],
 		})
 		.use(retextProfanities, { sureness: 1 })
 		.use(retextQuotes)
@@ -68,6 +68,8 @@ const retextPreset = [
 				'submit',
 				'type',
 				'validate',
+				'however',
+				'of-course',
 			],
 		})
 		.use(retextSyntaxMentions),
