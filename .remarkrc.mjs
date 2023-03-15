@@ -69,7 +69,6 @@ const retextPreset = [
 				'type',
 				'validate',
 				'however',
-				'of-course',
 			],
 		})
 		.use(retextSyntaxMentions),
