@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 
 import Layout from '@theme/Layout';
+import Admonition from '@theme/Admonition';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import Dashboard from '@uppy/react/lib/Dashboard';
 import Uppy from '@uppy/core';
@@ -266,10 +267,17 @@ export default function Examples() {
 						}}
 					</BrowserOnly>
 				</section>
-				<p className={styles.notice}>
-					Files from the examples are uploaded to our test servers and deleted
-					every 24-72 hours.
-				</p>
+				<Admonition type="note">
+					Checkout our{' '}
+					<a
+						href="https://github.com/transloadit/uppy/tree/main/examples"
+						target="_blank"
+						rel="noopener"
+					>
+						GitHub examples
+					</a>{' '}
+					folder for many more examples.
+				</Admonition>
 			</main>
 		</Layout>
 	);
