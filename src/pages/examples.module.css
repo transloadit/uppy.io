@@ -1,17 +1,10 @@
 .main {
 	max-width: 54rem;
-	margin: 5rem auto;
+	margin: 4rem auto;
 }
 
 .main h1 {
-	font-size: 5rem;
-}
-
-.main h2 {
-	font-size: 2.5rem;
-	position: absolute;
-	right: 0;
-	top: -4.8rem;
+	font-size: 3rem;
 }
 
 .main h3 {
@@ -39,6 +32,12 @@
 	color: black;
 }
 
+.header {
+	display: flex;
+	align-items: baseline;
+	gap: 1rem;
+}
+
 .options {
 	z-index: 10;
 	display: grid;
@@ -56,7 +55,7 @@
 	margin: 0.25rem 0;
 }
 
-@media screen and (min-width: 50rem) {
+@media screen and (min-width: 60rem) {
 	.options {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 0.5rem;

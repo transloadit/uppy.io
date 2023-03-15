@@ -15,7 +15,14 @@ import Box from '@uppy/box';
 import Audio from '@uppy/audio';
 import ScreenCapture from '@uppy/screen-capture';
 
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/audio/dist/style.min.css';
+import '@uppy/screen-capture/dist/style.min.css';
+// import "@uppy/image-editor/dist/style.css";
+
 import styles from './examples.module.css';
+import Link from '@docusaurus/Link';
 
 const restrictions = {
 	maxFileSize: 1000000,
@@ -164,8 +171,20 @@ export default function Examples() {
 			<main className={styles.main}>
 				<h1>Examples</h1>
 
-				<section>
+				<div className={styles.header}>
 					<h2>Dashboard</h2>
+					<p>
+						<Link to="/docs/user-interfaces/dashboard">Docs</Link> •{' '}
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://codesandbox.io/s/uppy-dashboard-xpxuhd"
+						>
+							CodeSandbox
+						</a>
+					</p>
+				</div>
+				<section>
 					<div className={styles.options}>
 						{options.map((section) => {
 							return (
