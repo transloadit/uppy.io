@@ -1,7 +1,7 @@
 ---
 title: 'Uppy: let’s teach an old dog some new tricks'
 date: 2016-07-15
-author: arturi
+authors: ['arturi']
 slug: '2016/06/uppy/begins'
 ---
 

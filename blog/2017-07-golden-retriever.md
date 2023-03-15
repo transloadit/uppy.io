@@ -1,7 +1,7 @@
 ---
 title: 'The Golden Retriever: Making uploads survive browser crashes'
 date: 2017-07-31
-author: arturi
+authors: ['arturi']
 image: 'http://uppy.io/img/blog/golden-retriever/uppy-team-kong.jpg'
 published: true
 slug: '2017/07/golden/retriever'
