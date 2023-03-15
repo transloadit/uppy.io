@@ -36,6 +36,11 @@ const config = {
 		],
 	],
 
+	scripts: [
+		{src: 'https://analytics.transloadit.com/js/plausible.js', async: true, defer: true, 'data-domain': 'uppy.io'},
+		{src: 'https://buttons.github.io/buttons.js', async: true, defer: true},
+	],
+
 	themeConfig:
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
