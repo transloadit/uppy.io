@@ -32,7 +32,7 @@ export default function BlogPostItemFooter() {
 				<div className="col margin-top--sm">
 					<ul className="blog__post-footer__follow">
 						<li>
-							<a href="https://twitter.com/uppy_io">Follow us on Twitter</a>
+							<a href="https://twitter.com/uppy_io">Follow us on Twitter</a> or grab the <a href="https://uppy.io/blog/atom.xml">RSS feed</a>
 						</li>
 						<li>
 							<a
@@ -50,11 +50,11 @@ export default function BlogPostItemFooter() {
 				</div>
 			)}
 
-			{isBlogPostPage && editUrl && (
+			{/* {isBlogPostPage && editUrl && (
 				<div className="col margin-top--sm">
 					<EditThisPage editUrl={editUrl} />
 				</div>
-			)}
+			)} */}
 
 			{truncatedPost && (
 				<div

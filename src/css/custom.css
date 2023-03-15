@@ -151,6 +151,7 @@ div[class*=' admonitionHeading'] {
 .avatar__name {
 	font-size: 0.75rem;
 	font-weight: 500;
+
 }
 
 h1[itemprop='headline'] {
@@ -176,9 +177,8 @@ h2[itemprop='headline'] {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	display: flex;
-	flex-direction: row;
-	font-size: 0.85rem;
+	font-size: 0.9rem;
+	text-align: center;
 }
 
 .blog__post-footer__follow li {
