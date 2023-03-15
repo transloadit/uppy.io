@@ -457,7 +457,8 @@ shortcuts – you will see them alongside your usual files and folders.</p><p><i
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md#1300" target="_blank" rel="noopener noreferrer">changelog</a>
 for more details.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="download">Download<a class="hash-link" href="#download" title="Direct link to heading">​</a></h2><a href="https://releases.transloadit.com/uppy/v1.29.1/uppy-v1.30.0.zip" target="_blank" rel="noopener noreferrer" class="TryButton">Download Uppy 1.30 Bundle</a><small>Or [include from CDN](https://uppy.io/docs/). Note that it’s highly recommended to [pick and choose specific Uppy plugins](https://uppy.io/docs/plugins/#package-list) that you need, and install them with `npm` or `yarn`. This is because the bundle includes all Uppy plugins at once.</small>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -492,7 +493,8 @@ Google Drive, Instagram, Dropbox, etc.</p><p><a href="https://uppy.io/docs/uppy/
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md#1291" target="_blank" rel="noopener noreferrer">changelog</a>
 for details.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="download">Download<a class="hash-link" href="#download" title="Direct link to heading">​</a></h2><a href="https://releases.transloadit.com/uppy/v1.29.1/uppy-v1.29.1.zip" target="_blank" rel="noopener noreferrer" class="TryButton">Download Uppy 1.29.1</a><small>Or [include from CDN](https://uppy.io/docs/). Note that it’s highly recommended to [pick and choose specific Uppy plugins](https://uppy.io/docs/plugins/#package-list) that you need, and install them with `npm` or `yarn`. This is because the bundle includes all Uppy plugins at once.</small>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -528,7 +530,8 @@ when getting tracks from the media stream (#2810 / @dominiceden)</li><li>website
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md#1270" target="_blank" rel="noopener noreferrer">changelog</a>
 for details.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="download">Download<a class="hash-link" href="#download" title="Direct link to heading">​</a></h2><a href="https://releases.transloadit.com/uppy/v1.27.0/uppy-v1.27.0.zip" target="_blank" rel="noopener noreferrer" class="TryButton">Download Uppy 1.27.0</a><small>Or [include from CDN](https://uppy.io/docs/). Note that it’s highly recommended to [pick and choose specific Uppy plugins](https://uppy.io/docs/plugins/#package-list) that you need, and install them with `npm` or `yarn`. This is because the bundle includes all Uppy plugins at once.</small>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -552,7 +555,8 @@ using audio/mp4 MIME type which isn't currently recognised by Uppy (#2753 /
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md#1260" target="_blank" rel="noopener noreferrer">changelog</a>
 for details.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -587,7 +591,8 @@ events</li><li>@uppy/box: added Box to Uppy CDN</li></ul><p>See
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md#1250" target="_blank" rel="noopener noreferrer">changelog</a>
 for details.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -656,7 +661,8 @@ in not mutated anywhere by accident (#2607 / @arturi)</li><li>build: switched fr
 as future plans, in our
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -681,7 +687,8 @@ York” or “Harry Potter” images and upload them where needed:</p><p><img lo
 as future plans, in our
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -733,7 +740,8 @@ too. Check out
 <a href="https://uppy.io/docs/image-editor" target="_blank" rel="noopener noreferrer">the docs for up to date options and events</a>.</p><p>Please leave your feedback
 <a href="https://mobile.twitter.com/uppy_io/status/1285532376249110528" target="_blank" rel="noopener noreferrer">on Twitter</a>.</p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">🖼 One of the most-requested Uppy features, the Image Editor, for cropping, resizing, rotating, flipping and zooming your images is live now! <br><br>Check it out: <a href="https://t.co/dDXRoW0HGj" target="_blank" rel="noopener noreferrer">https://t.co/dDXRoW0HGj</a> <a href="https://t.co/IhYo0gwtvP" target="_blank" rel="noopener noreferrer">pic.twitter.com/IhYo0gwtvP</a></p>— Uppy (@uppy_io) <a href="https://twitter.com/uppy_io/status/1285532376249110528?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">July 21, 2020</a></blockquote> <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -832,7 +840,8 @@ during upload instantiation (#2168 / @ifedapoolarewaju)</li></ul><p>As always, y
 as future plans, in our
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -911,7 +920,8 @@ Uppy? We’ve got you covered:</p><div class="codeBlockContainer_Ckt0 theme-code
 as future plans, in our
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -981,7 +991,8 @@ pausing and letting them expire (@ifedapoolarewaju, #1909)</li><li>build: Update
 as future plans, in our
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -1215,7 +1226,8 @@ dropped/selected. It is <code>null</code> for non-foldered files
 as future plans, in our
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -1351,7 +1363,8 @@ the difference. Thank you so much! And if you could leave a comment on
 <a href="https://www.reddit.com/r/javascript/comments/bhkx5k/uppy_10_your_best_friend_in_file_uploading/" target="_blank" rel="noopener noreferrer">Reddit</a>
 and give us your brutal opinion, that would mean the world to us!</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -2434,7 +2447,8 @@ use (@goto-bus-stop, @arturi)</li><li>@uppy/react: Allow Dashboard props width a
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md#0290" target="_blank" rel="noopener noreferrer">full changelog (0.29)</a>
 for more details.</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -2665,7 +2679,8 @@ will then send the token to the server via headers (not via cookies anymore).</p
 each Uppy plugin / module will get its own NPM package. Pretty excited about
 that one! (but also please refrain from sending us big PRs in the meantime :)</p><p>See you in the next one!</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -2743,7 +2758,8 @@ complex implementations shared between Google Drive and Instagram, for
 example.</li></ul><p>Finally, we’ve added a Transloadit example to the website,
 <a href="https://uppy.io/examples/transloadit/" target="_blank" rel="noopener noreferrer">check it out</a>.</p><p>Have fun,</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -2852,7 +2868,8 @@ uploads (#552 / @richardwillars)</li><li>xhrupload: Refactor response and error 
 / @ogtfaber)</li><li>XHRUpload: Fix progress with <code>limit</code>ed XHRUploads (#505 / @goto-bus-stop)</li><li>core: fix error when <code>file.type === null</code>, shouldn’t pass that to match
 (@arturi)</li><li>dashboard: input hidden="true" should not be focusable too (@arturi)</li><li>webcam: Font styling for Webcam option (#509 / @muhammadInam)</li><li>docs: fix reference to incorrect width/height options (#475 / @xhocquet)</li><li>docs: Documentation fixes and improvements (#463 / @janko-m)</li><li>docs: Fixed several typos in docs/server and docs/uppy (#484 / @martiuslim)</li></ul><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -2944,7 +2961,8 @@ solution) for all Uppy state management, instead of proxy-only (#426 /
 <a href="https://github.com/transloadit/uppy/issues" target="_blank" rel="noopener noreferrer">GitHub issues</a>, or on
 <a href="https://www.producthunt.com/posts/uppy-io" target="_blank" rel="noopener noreferrer">Product Hunt</a>.</p><p>Happy Holidays,</p><p>The Uppy Team</p><center><iframe src="https://ghbtns.com/github-btn.html?user=transloadit&amp;repo=uppy&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe></center>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3009,7 +3027,8 @@ finishes, or fails. (#390 / @goto-bus-stop)</li><li>docs: fix <code>getMetaFromF
 @goto-bus-stop)</li><li>goldenretriever: don't crash when required server-side (#384 / @goto-bus-stop)</li><li>redux: add plugin for syncing uppy state with a Redux store (#376 /
 @richardwillars)</li></ul><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3105,7 +3124,8 @@ example using multiple Uppy instances with GoldenRetriever (#333 /
 / @goto-bus-stop)</li><li>core: switch to Jest tests, add more tests for Core and Utils (#310 /
 @richardwillars)</li><li>website: Minify bundle for <code>disc</code> (#332 / @goto-bus-stop)</li><li>transloadit: remove <code>this.state</code> getter (#331 / @goto-bus-stop)</li><li>server: option to define valid upload urls (@ifedapoolarewaju)</li><li>server: more automated tests (@ifedapoolarewaju)</li></ul><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3157,7 +3177,8 @@ download (@ifedapoolarewaju)</li><li>server: make uppy client whitelisting optio
 #248)</li><li>website: live example on the homepage, “try me” button, improve /examples
 (@arturi)</li></ul><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3255,7 +3276,8 @@ last command from above. The app entry point is in
 give your feedback in the <a href="https://github.com/transloadit/uppy/pull/268" target="_blank" rel="noopener noreferrer">#268</a>
 PR 🎉</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3331,7 +3353,8 @@ their input files (@goto-bus-stop / #207)</li><li>transloadit: moved user-facing
 <a href="https://github.com/transloadit/uppy/commit/87a22e7ee37b6fa3754fa34868516a6700306b60" target="_blank" rel="noopener noreferrer">https://github.com/transloadit/uppy/commit/87a22e7ee37b6fa3754fa34868516a6700306b60</a>)</li><li>webcam: mute audio in realtime playback (@goto-bus-stop / #196)</li><li>temporarily downgrade yo-yoify, until shama/yo-yoify#45 is resolved (@arturi /
 <a href="https://github.com/transloadit/uppy/commit/6292b96" target="_blank" rel="noopener noreferrer">https://github.com/transloadit/uppy/commit/6292b96</a>)</li></ul><p>Enjoy!</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3471,7 +3494,8 @@ container width to be 0 (@arturi)</li><li>multipart: treat all 2xx responses as 
 calculation for progress circles on FileItem (@arturi)</li><li>dashboard: don’t show per-file detailed progress by default — too much noise
 (@arturi)</li><li>website: blog post and images cleanup (@arturi)</li></ul><p>Enjoy!</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3548,7 +3572,8 @@ left, no page reloads (@ifedapoolarewaju)</li><li>tus: fix upload progress from 
 <a href="https://github.com/transloadit/uppy/issues/" target="_blank" rel="noopener noreferrer">comment on GitHub</a>, send a PR, and
 hit us on <a href="https://twitter.com/uppy_io" target="_blank" rel="noopener noreferrer">twitter</a>.</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3590,7 +3615,8 @@ examples (@arturi)</li><li>core: api — consider
 come up with follow up questions (@arturi)</li><li>dashboard: local mode — no acquire plugins / external services, just DnD.
 ActionBrowseTagline component (@arturi)</li><li>dashboard: only show pause/resume when tus is used (@arturi)</li><li>dashboard: cancel uploads button for multipart (@arturi)</li><li>dashboard: responsive design — stage 1 (@arturi)</li><li>meta: write 0.11 release blog post (@arturi)</li></ul><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3634,7 +3660,8 @@ notifications (@arturi, @kvz, @hedgerh)</li><li>website: update guide, API docs 
 API (@arturi)</li><li>uppy-server: Make uppy server have dynamic controllers (@hedgerh)</li></ul><p>We hope you'll enjoy this latest release. We have got a lot more in store for
 Uppy and we won't wait too long with throwing you a bone again!</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3707,7 +3734,8 @@ upload speed and ETA (@arturi)</li><li>dashboard: show total upload speed and ET
 @account)</li><li>meta: update readme docs, add unpkg CDN links
 (<a href="https://unpkg.com/uppy/dist/uppy.min.css" target="_blank" rel="noopener noreferrer">https://unpkg.com/uppy/dist/uppy.min.css</a>) (@arturi)</li><li>meta: write 0.10 release blog post (@arturi)</li></ul><p>We’ll see you in about a month!</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3809,7 +3837,8 @@ packages we use can be safely updated (<a href="https://github.com/arturi" targe
 takes up the whole dashboard screen (<a href="https://github.com/arturi" target="_blank" rel="noopener noreferrer">@arturi</a>)</li><li>modal: merge modal and dashboard (<a href="https://github.com/arturi" target="_blank" rel="noopener noreferrer">@arturi</a>)</li></ul><p>We hope you will enjoy this latest release. Uppy is still improving every day
 and we hope to bring you more news about our progress soon!</p><p>The Uppy Team</p>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
     <entry>
@@ -3868,7 +3897,8 @@ we’ll keep you informed about the development process on
 and <a href="https://www.producthunt.com/posts/uppy" target="_blank" rel="noopener noreferrer">Product Hunt</a> frontpages.
 Comments welcome there.</p></blockquote>]]></content>
         <author>
-            <name>arturi</name>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
         </author>
     </entry>
 </feed>
