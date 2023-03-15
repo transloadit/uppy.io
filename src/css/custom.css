@@ -163,6 +163,28 @@ h2[itemprop='headline'] {
 	margin-bottom: 0.6rem;
 }
 
+.theme-edit-this-page {
+	font-size: 0.75rem;
+}
+
+.theme-edit-this-page svg {
+	width: 13px;
+	height: 13px;
+}
+
+.blog__post-footer__follow {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: row;
+	font-size: 0.85rem;
+}
+
+.blog__post-footer__follow li {
+	margin-right: 15px;
+}
+
 /* Content Body */
 
 .markdown video,
