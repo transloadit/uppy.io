@@ -23,8 +23,7 @@ import styles from './index.module.css';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
-const dashboardCode = `
-import Uppy  from '@uppy/core'
+const dashboardCode = `import Uppy  from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
 import RemoteSources from '@uppy/google-drive'
 import ImageEditor from '@uppy/image-editor'
@@ -39,8 +38,7 @@ const uppy = new Uppy()
   .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
 `;
 
-const reactCode = `
-import React, { useEffect } from 'react'
+const reactCode = `import React, { useEffect } from 'react'
 import Uppy from '@uppy/core'
 import Webcam from '@uppy/webcam'
 import { Dashboard } from '@uppy/react'
@@ -52,8 +50,7 @@ function Component () {
 } 
 `;
 
-const vueCode = `
-<template>
+const vueCode = `<template>
   <div id="app">
     <dashboard :uppy="uppy" :plugins="['Webcam']" :props="{theme: 'light'}" />
   </div>
@@ -83,8 +80,7 @@ export default {
 </script>
 `;
 
-const angularCode = `
-import { NgModule } from '@angular/core'
+const angularCode = `import { NgModule } from '@angular/core'
 import { UppyAngularDashboardModule } from '@uppy/angular'
 
 import { BrowserModule } from '@angular/platform-browser'
@@ -104,8 +100,7 @@ import { AppComponent } from './app.component'
 class {}
 `;
 
-const svelteCode = `
-<main> 
+const svelteCode = `<main> 
   <Dashboard 
       uppy={uppy} 
       plugins={["Webcam"]}
@@ -221,7 +216,7 @@ export default function Home(): JSX.Element {
 								);
 							}}
 						</BrowserOnly>
-						<CodeBlock language="js" showLineNumbers>
+						<CodeBlock language="js">
 							{dashboardCode}
 						</CodeBlock>
 					</div>
@@ -301,7 +296,7 @@ export default function Home(): JSX.Element {
 								</>
 							))}
 						</div>
-						<CodeBlock language="js" showLineNumbers>
+						<CodeBlock language="js">
 							{frameworks.find((f) => f.name === framework).code}
 						</CodeBlock>
 					</div>

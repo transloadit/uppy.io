@@ -7,7 +7,7 @@
 }
 
 .main code {
-	font-size: 0.85rem !important;
+	font-size: 0.8rem !important;
 }
 
 .main {
@@ -29,7 +29,7 @@
 	color: var(--blue);
 	font-weight: 600;
 	background-color: var(--bg-blue);
-	padding: 0.5rem;
+	padding: 0.5rem 1rem;
 	border-radius: 5px;
 	transition: filter 150ms ease-in-out;
 }
