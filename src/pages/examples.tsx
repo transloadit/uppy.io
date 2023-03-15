@@ -1,0 +1,242 @@
+import React, { useReducer } from 'react';
+
+import Layout from '@theme/Layout';
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import Dashboard from '@uppy/react/lib/Dashboard';
+import Uppy from '@uppy/core';
+import Webcam from '@uppy/webcam';
+import GoogleDrive from '@uppy/google-drive';
+import Instagram from '@uppy/instagram';
+import Dropbox from '@uppy/dropbox';
+import OneDrive from '@uppy/onedrive';
+import Unsplash from '@uppy/unsplash';
+import Url from '@uppy/url';
+import Box from '@uppy/box';
+import Audio from '@uppy/audio';
+import ScreenCapture from '@uppy/screen-capture';
+
+import styles from './examples.module.css';
+
+const restrictions = {
+	maxFileSize: 1000000,
+	maxNumberOfFiles: 3,
+	minNumberOfFiles: 2,
+	allowedFileTypes: ['image/*', 'video/*'],
+	requiredMetaFields: ['caption'],
+};
+
+type Action = { type: string; checked: boolean; value: string };
+type State = {
+	width?: number;
+	height: number;
+	restrictions?: typeof restrictions;
+	disabled: boolean;
+	theme: 'light' | 'dark' | 'auto';
+	plugins: string[];
+};
+
+const initialState: State = {
+	height: 500,
+	restrictions: null,
+	disabled: false,
+	theme: 'auto',
+	plugins: [
+		'Webcam',
+		'GoogleDrive',
+		'Dropbox',
+		'Instagram',
+		'Url',
+		'OneDrive',
+		'Unsplash',
+		'Box',
+	],
+};
+
+function reducer(state: State, action: Action) {
+	switch (action.type) {
+		case 'small':
+			if (action.checked) {
+				return { ...state, width: 400, height: 400 };
+			}
+			return { ...state, width: undefined, height: 500 };
+		case 'theme':
+			return { ...state, theme: action.checked ? 'dark' : 'light' };
+		case 'disabled':
+			return { ...state, disabled: action.checked };
+		case 'restrictions':
+			return {
+				...state,
+				restrictions: action.checked ? restrictions : undefined,
+			};
+		case 'plugins':
+			if (action.checked) {
+				return { ...state, plugins: [...state.plugins, action.value] };
+			}
+			return {
+				...state,
+				plugins: state.plugins.filter((p) => p !== action.value),
+			};
+		default:
+			return state;
+	}
+}
+
+const options = [
+	{
+		heading: 'Remote sources',
+		options: [
+			{
+				label: 'Google Drive',
+				value: 'GoogleDrive',
+				type: 'plugins',
+				defaultChecked: true,
+			},
+			{
+				label: 'Dropbox',
+				value: 'Dropbox',
+				type: 'plugins',
+				defaultChecked: true,
+			},
+			{
+				label: 'Instagram',
+				value: 'Instagram',
+				type: 'plugins',
+				defaultChecked: true,
+			},
+			{ label: 'Url', value: 'Url', type: 'plugins', defaultChecked: true },
+			{
+				label: 'OneDrive',
+				value: 'OneDrive',
+				type: 'plugins',
+				defaultChecked: true,
+			},
+			{
+				label: 'Unsplash',
+				value: 'Unsplash',
+				type: 'plugins',
+				defaultChecked: true,
+			},
+			{ label: 'Box', value: 'Box', type: 'plugins', defaultChecked: true },
+		],
+	},
+	{
+		heading: 'Local sources',
+		options: [
+			{
+				label: 'Webcam',
+				value: 'Webcam',
+				type: 'plugins',
+				defaultChecked: true,
+			},
+			{
+				label: 'Audio',
+				value: 'Audio',
+				type: 'plugins',
+				defaultChecked: false,
+			},
+			{
+				label: 'Screencast',
+				value: 'ScreenCapture',
+				type: 'plugins',
+				defaultChecked: false,
+			},
+		],
+	},
+	{
+		heading: 'Dashboard',
+		options: [
+			{ label: 'Small', type: 'small' },
+			{ label: 'Disabled', type: 'disabled' },
+			{ label: 'Dark mode', type: 'theme' },
+		],
+	},
+	{
+		heading: 'Uppy',
+		options: [{ label: 'Restrictions', type: 'restrictions' }],
+	},
+];
+
+export default function Examples() {
+	const [state, dispatch] = useReducer(reducer, initialState);
+
+	return (
+		<Layout>
+			<main className={styles.main}>
+				<h1>Examples</h1>
+
+				<section>
+					<h2>Dashboard</h2>
+					<div className={styles.options}>
+						{options.map((section) => {
+							return (
+								<div key={section.heading}>
+									<h3>{section.heading}</h3>
+									<div
+										wrapper-for={section.heading}
+										className={styles['options-wrapper']}
+									>
+										{section.options.map(
+											({ label, value, type, defaultChecked }) => (
+												<div key={label}>
+													<input
+														type="checkbox"
+														id={label}
+														className={styles['framework-input']}
+														name="framework"
+														value={type}
+														defaultChecked={defaultChecked}
+														onChange={(event) =>
+															dispatch({
+																type: type,
+																checked: event.target.checked,
+																value,
+															})
+														}
+													/>
+													<label htmlFor={label}>{label}</label>
+												</div>
+											),
+										)}
+									</div>
+								</div>
+							);
+						})}
+					</div>
+					<BrowserOnly>
+						{() => {
+							const uppy = new Uppy({ restrictions: state.restrictions })
+								.use(Webcam)
+								.use(ScreenCapture)
+								.use(Audio)
+								.use(GoogleDrive, { companionUrl: 'http://companion.uppy.io' })
+								.use(Dropbox, { companionUrl: 'http://companion.uppy.io' })
+								.use(Instagram, { companionUrl: 'http://companion.uppy.io' })
+								.use(Url, { companionUrl: 'http://companion.uppy.io' })
+								.use(OneDrive, { companionUrl: 'http://companion.uppy.io' })
+								.use(Unsplash, { companionUrl: 'http://companion.uppy.io' })
+								.use(Box, { companionUrl: 'http://companion.uppy.io' });
+
+							return (
+								<div className={styles['uppy-wrapper']}>
+									<Dashboard
+										uppy={uppy}
+										width={state.width}
+										height={state.height}
+										plugins={state.plugins}
+										theme={state.theme}
+										disabled={state.disabled}
+										note={
+											state.restrictions
+												? 'Images and video only, 2–3 files, up to 1 MB'
+												: null
+										}
+									/>
+								</div>
+							);
+						}}
+					</BrowserOnly>
+				</section>
+			</main>
+		</Layout>
+	);
+}
