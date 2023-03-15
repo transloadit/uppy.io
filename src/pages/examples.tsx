@@ -14,12 +14,15 @@ import Url from '@uppy/url';
 import Box from '@uppy/box';
 import Audio from '@uppy/audio';
 import ScreenCapture from '@uppy/screen-capture';
+import ImageEditor from '@uppy/image-editor';
+import Tus from '@uppy/tus';
 
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/audio/dist/style.min.css';
 import '@uppy/screen-capture/dist/style.min.css';
-// import "@uppy/image-editor/dist/style.css";
+import '@uppy/image-editor/dist/style.min.css';
+import '@uppy/webcam/dist/style.min.css';
 
 import styles from './examples.module.css';
 import Link from '@docusaurus/Link';
@@ -56,6 +59,7 @@ const initialState: State = {
 		'OneDrive',
 		'Unsplash',
 		'Box',
+		'ImageEditor',
 	],
 };
 
@@ -184,6 +188,11 @@ export default function Examples() {
 						</a>
 					</p>
 				</div>
+				<p>
+					Dashboard is the full-featured UI for Uppy that shows nice file
+					previews and upload progress, lets you edit metadata, and unites
+					acquire plugins, such as Google Drive and Webcam, under one roof.
+				</p>
 				<section>
 					<div className={styles.options}>
 						{options.map((section) => {
@@ -227,6 +236,8 @@ export default function Examples() {
 								.use(Webcam)
 								.use(ScreenCapture)
 								.use(Audio)
+								.use(ImageEditor, {})
+								.use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
 								.use(GoogleDrive, { companionUrl: 'http://companion.uppy.io' })
 								.use(Dropbox, { companionUrl: 'http://companion.uppy.io' })
 								.use(Instagram, { companionUrl: 'http://companion.uppy.io' })
@@ -255,6 +266,10 @@ export default function Examples() {
 						}}
 					</BrowserOnly>
 				</section>
+				<p className={styles.notice}>
+					Files from the examples are uploaded to our test servers and deleted
+					every 24-72 hours.
+				</p>
 			</main>
 		</Layout>
 	);

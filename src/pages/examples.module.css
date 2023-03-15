@@ -38,6 +38,11 @@
 	gap: 1rem;
 }
 
+.header h2,
+.header p {
+	margin-bottom: 0.5rem;
+}
+
 .options {
 	z-index: 10;
 	display: grid;
@@ -72,4 +77,10 @@
 		display: grid;
 		grid-template-columns: 1fr 2fr;
 	}
+}
+
+.notice {
+	margin-top: 1rem;
+	color: #d1d5db;
+	font-size: 0.8rem;
 }
