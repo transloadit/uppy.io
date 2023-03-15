@@ -24,10 +24,10 @@ module.exports = {
 				node: true,
 			},
 		},
-		// {
-		// 	files: ['**/*.md', '*.md'],
-		// 	processor: 'markdown/markdown',
-		// },
+		{
+			files: ['**/*.md', '*.md'],
+			processor: 'markdown/markdown',
+		},
 		{
 			files: ['**/*.mdx', '*.mdx'],
 			extends: 'plugin:mdx/recommended',
