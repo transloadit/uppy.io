@@ -36,11 +36,21 @@ const config = {
 		],
 	],
 
+	scripts: [
+		{
+			src: 'https://analytics.transloadit.com/js/plausible.js',
+			async: true,
+			defer: true,
+			'data-domain': 'uppy.io',
+		},
+		{ src: 'https://buttons.github.io/buttons.js', async: true, defer: true },
+	],
+
 	themeConfig:
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
 			docs: { sidebar: { autoCollapseCategories: true } },
-			colorMode: { disableSwitch: true },
+			// colorMode: { disableSwitch: true },
 			navbar: {
 				title: 'Uppy',
 				logo: {
@@ -63,42 +73,15 @@ const config = {
 					},
 					{
 						href: 'https://community.transloadit.com/',
-						label: 'Community Support Forum',
+						label: 'Forum',
+						position: 'left',
+					},
+					{
+						href: 'https://transloadit.com/open-source/support/',
+						label: 'Support',
 						position: 'left',
 					},
 				],
-			},
-			footer: {
-				style: 'dark',
-				links: [
-					{
-						title: 'Community',
-						items: [
-							{
-								label: 'Forum',
-								href: 'https://community.transloadit.com',
-							},
-							{
-								label: 'Twitter',
-								href: 'https://twitter.com/uppy_io',
-							},
-						],
-					},
-					{
-						title: 'More',
-						items: [
-							{
-								label: 'Blog',
-								to: '/blog',
-							},
-							{
-								label: 'GitHub',
-								href: 'https://github.com/facebook/docusaurus',
-							},
-						],
-					},
-				],
-				copyright: `Copyright © ${new Date().getFullYear()} Uppy.`,
 			},
 			prism: {
 				theme: lightCodeTheme,
