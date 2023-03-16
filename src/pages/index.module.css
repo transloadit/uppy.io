@@ -80,6 +80,10 @@
 	position: relative;
 }
 
+.main .section-dashboard {
+	max-width: 65rem;
+}
+
 .dashboard::after {
 	position: absolute;
 	content: '';

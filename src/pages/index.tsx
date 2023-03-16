@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import Uppy from '@uppy/core';
 import Dashboard from '@uppy/react/lib/Dashboard';
-import CodeBlock from '@theme/CodeBlock';
+import Uppy from '@uppy/core';
 import Webcam from '@uppy/webcam';
+import GoogleDrive from '@uppy/google-drive';
+import Instagram from '@uppy/instagram';
+import Dropbox from '@uppy/dropbox';
+import OneDrive from '@uppy/onedrive';
+import Unsplash from '@uppy/unsplash';
+import Url from '@uppy/url';
+import Box from '@uppy/box';
+import Audio from '@uppy/audio';
+import ScreenCapture from '@uppy/screen-capture';
+import ImageEditor from '@uppy/image-editor';
+import Tus from '@uppy/tus';
+import CodeBlock from '@theme/CodeBlock';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 
 import IconReact from '../../static/img/react.svg';
@@ -210,15 +221,42 @@ export default function Home(): JSX.Element {
 					<div className={styles.dashboard}>
 						<BrowserOnly>
 							{() => {
-								const uppy = new Uppy().use(Webcam);
+								const uppy = new Uppy()
+									.use(Webcam)
+									.use(ScreenCapture)
+									.use(Audio)
+									.use(ImageEditor, {})
+									.use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+									.use(GoogleDrive, {
+										companionUrl: 'http://companion.uppy.io',
+									})
+									.use(Dropbox, { companionUrl: 'http://companion.uppy.io' })
+									.use(Instagram, { companionUrl: 'http://companion.uppy.io' })
+									.use(Url, { companionUrl: 'http://companion.uppy.io' })
+									.use(OneDrive, { companionUrl: 'http://companion.uppy.io' })
+									.use(Unsplash, { companionUrl: 'http://companion.uppy.io' })
+									.use(Box, { companionUrl: 'http://companion.uppy.io' });
+
 								return (
-									<Dashboard uppy={uppy} height={300} plugins={['Webcam']} />
+									<Dashboard
+										uppy={uppy}
+										height={400}
+										plugins={[
+											'Webcam',
+											'GoogleDrive',
+											'Dropbox',
+											'Instagram',
+											'Url',
+											'OneDrive',
+											'Unsplash',
+											'Box',
+											'ImageEditor',
+										]}
+									/>
 								);
 							}}
 						</BrowserOnly>
-						<CodeBlock language="js">
-							{dashboardCode}
-						</CodeBlock>
+						<CodeBlock language="js">{dashboardCode}</CodeBlock>
 					</div>
 					<div
 						aria-hidden
