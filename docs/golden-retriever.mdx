@@ -2,6 +2,11 @@
 sidebar_position: 10
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+import UppyCdnExample from '/src/components/UppyCdnExample';
+
 # Golden Retriever
 
 The `@uppy/golden-retriever` plugin saves selected files in your browser cache,
@@ -67,13 +72,14 @@ yarn add @uppy/golden-retriever
 
 ## Use
 
-```js {9} showLineNumbers
+```js {7} showLineNumbers
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
-import Tus from '@uppy/tus';
 import GoldenRetriever from '@uppy/golden-retriever';
 
-new Uppy().use(Dashboard).use(Tus).use(GoldenRetriever);
+new Uppy()
+  .use(Dashboard, {inline:true, target: '#dashboard')
+  .use(GoldenRetriever);
 ```
 
 By default, Golden Retriever will only use the `IndexedDB` storage, which is
