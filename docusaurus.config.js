@@ -73,7 +73,12 @@ const config = {
 					},
 					{
 						href: 'https://community.transloadit.com/',
-						label: 'Community Support Forum',
+						label: 'Forum',
+						position: 'left',
+					},
+					{
+						href: 'https://transloadit.com/open-source/support/',
+						label: 'Support',
 						position: 'left',
 					},
 				],
