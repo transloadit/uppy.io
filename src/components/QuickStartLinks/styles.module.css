@@ -1,0 +1,31 @@
+.section {
+	display: grid;
+	grid-gap: 1em;
+}
+
+@media screen and (min-width: 40em) {
+	.section {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+section a:hover {
+	text-decoration: none;
+}
+
+.item {
+	position: relative;
+	padding: 1em;
+	border: 1px solid var(--ifm-color-emphasis-300);
+	border-radius: var(--ifm-pagination-nav-border-radius);
+	transition: border-color var(--ifm-transition-fast)
+		var(--ifm-transition-timing-default);
+}
+
+.item:hover {
+	border-color: var(--ifm-color-primary);
+}
+
+.item p {
+	color: var(--ifm-font-color-base);
+}
