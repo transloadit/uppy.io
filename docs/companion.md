@@ -457,6 +457,11 @@ The name of the bucket to store uploaded files in.
 
 The datacenter region where the target bucket is located.
 
+##### `COMPANION_AWS_PREFIX`
+
+An optional prefix for all uploaded keys. This is a standalone-only option. The
+same can be achieved by the `getKey` option when using the express middleware.
+
 ##### `s3.awsClientOptions`
 
 You can supply any
