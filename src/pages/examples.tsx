@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 
 import Layout from '@theme/Layout';
 import Admonition from '@theme/Admonition';
@@ -18,6 +18,8 @@ import ScreenCapture from '@uppy/screen-capture';
 import ImageEditor from '@uppy/image-editor';
 import Tus from '@uppy/tus';
 
+import locales from '../locales.js';
+
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/audio/dist/style.min.css';
@@ -36,7 +38,7 @@ const restrictions = {
 	requiredMetaFields: ['caption'],
 };
 
-type Action = { type: string; checked: boolean; value: string };
+type Action = { type: string; checked?: boolean; value: string };
 type State = {
 	width?: number;
 	height: number;
@@ -168,8 +170,12 @@ const options = [
 	},
 ];
 
+const companionUrl = 'https://companion.uppy.io';
+const endpoint = 'https://tusd.tusdemo.net/files/';
+
 export default function Examples() {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const [locale, setLocale] = useState(null);
 
 	return (
 		<Layout>
@@ -230,22 +236,43 @@ export default function Examples() {
 								</div>
 							);
 						})}
+
+						<select
+							name="locale"
+							onChange={(e) => {
+								setLocale(
+									locales.find((locale) => locale.name === e.target.value)
+										.locale,
+								);
+							}}
+						>
+							{locales.map(({ name }) => {
+								return (
+									<option key={name} value={name}>
+										{name}
+									</option>
+								);
+							})}
+						</select>
 					</div>
 					<BrowserOnly>
 						{() => {
-							const uppy = new Uppy({ restrictions: state.restrictions })
+							const uppy = new Uppy({
+								restrictions: state.restrictions,
+								locale,
+							})
 								.use(Webcam)
 								.use(ScreenCapture)
 								.use(Audio)
 								.use(ImageEditor, {})
-								.use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
-								.use(GoogleDrive, { companionUrl: 'http://companion.uppy.io' })
-								.use(Dropbox, { companionUrl: 'http://companion.uppy.io' })
-								.use(Instagram, { companionUrl: 'http://companion.uppy.io' })
-								.use(Url, { companionUrl: 'http://companion.uppy.io' })
-								.use(OneDrive, { companionUrl: 'http://companion.uppy.io' })
-								.use(Unsplash, { companionUrl: 'http://companion.uppy.io' })
-								.use(Box, { companionUrl: 'http://companion.uppy.io' });
+								.use(Tus, { endpoint })
+								.use(GoogleDrive, { companionUrl })
+								.use(Dropbox, { companionUrl })
+								.use(Instagram, { companionUrl })
+								.use(Url, { companionUrl })
+								.use(OneDrive, { companionUrl })
+								.use(Unsplash, { companionUrl })
+								.use(Box, { companionUrl });
 
 							return (
 								<div className={styles['uppy-wrapper']}>

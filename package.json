@@ -62,6 +62,7 @@
 		"@uppy/google-drive": "latest",
 		"@uppy/image-editor": "latest",
 		"@uppy/instagram": "latest",
+		"@uppy/locales": "latest",
 		"@uppy/onedrive": "latest",
 		"@uppy/react": "latest",
 		"@uppy/remote-sources": "latest",
