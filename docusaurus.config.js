@@ -50,7 +50,7 @@ const config = {
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
 			docs: { sidebar: { autoCollapseCategories: true } },
-			// colorMode: { disableSwitch: true },
+			colorMode: { disableSwitch: true },
 			navbar: {
 				title: 'Uppy',
 				logo: {
