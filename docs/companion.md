@@ -328,10 +328,10 @@ which has only the secret, nothing else.
 
 #### `preAuthSecret` `COMPANION_PREAUTH_SECRET` `COMPANION_PREAUTH_SECRET_FILE`
 
-If you are using the [Transloadit](/docs/upload-strategies/transloadit)
-`companionKeysParams` feature (Transloadit-hosted Companion using your own
-custom OAuth credentials), set this variable to a strong randomly generated
-secret. See also `COMPANION_SECRET` (but do not use the same secret!)
+If you are using the [Transloadit](/docs/transloadit) `companionKeysParams`
+feature (Transloadit-hosted Companion using your own custom OAuth credentials),
+set this variable to a strong randomly generated secret. See also
+`COMPANION_SECRET` (but do not use the same secret!)
 
 :::note
 

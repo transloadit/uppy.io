@@ -51,10 +51,10 @@ keep uploading without overloading.
 ### I want to upload to AWS S3 (or S3-compatible storage) directly
 
 When you prefer a _client-to-storage_ over a _client-to-server-to-storage_ (such
-as [Transloadit](/docs/upload-strategies/transloadit) or
-[Tus](/docs/upload-strategies/tus)) setup. This may in some cases be preferable,
-for instance, to reduce costs or the complexity of running a server and load
-balancer with [Tus](/docs/upload-strategies/tus).
+as [Transloadit](/docs/transloadit) or [Tus](/docs/upload-strategies/tus))
+setup. This may in some cases be preferable, for instance, to reduce costs or
+the complexity of running a server and load balancer with
+[Tus](/docs/upload-strategies/tus).
 
 Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and
 [`@uppy/aws-s3-multipart`][].
@@ -91,7 +91,7 @@ uploads using the HTTP `PUT` method.
 [s3-robot]: https://transloadit.com/services/file-exporting/s3-store/
 [transloadit-services]: https://transloadit.com/services/
 [transloadit-concepts]: https://transloadit.com/docs/getting-started/concepts/
-[`@uppy/transloadit`]: /docs/upload-strategies/transloadit
+[`@uppy/transloadit`]: /docs/transloadit
 [`@uppy/tus`]: /docs/upload-strategies/tus
 [`@uppy/aws-s3-multipart`]: /docs/upload-strategies/aws-s3-multipart
 [`@uppy/aws-s3`]: /docs/upload-strategies/aws-s3
