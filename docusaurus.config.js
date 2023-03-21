@@ -50,7 +50,7 @@ const config = {
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
 			image: 'img/og_image.jpg',
-			meta: [
+			metadata: [
 				{ property: 'og:url', content: 'https://uppy.io' },
 				{ property: 'og:type', content: 'website' },
 				{ property: 'og:title', content: 'Uppy' },
