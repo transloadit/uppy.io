@@ -13,7 +13,6 @@
 }
 
 .main section {
-	z-index: 999999;
 	position: relative;
 	border-radius: 5px;
 	margin-bottom: 1rem;
@@ -47,7 +46,6 @@
 }
 
 .options {
-	z-index: 10;
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 1rem;
