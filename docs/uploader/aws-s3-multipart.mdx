@@ -155,11 +155,11 @@ Drive). Otherwise it’s not worth the hosting effort.
 
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@up/docs/dashboard';
+import Dashboard from '@uppy/dashboard';
 import AwsS3Multipart from '@uppy/aws-s3-multipart';
 
 import '@uppy/core/dist/style.min.css';
-import '@up/docs/dashboard/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
 const uppy = new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })

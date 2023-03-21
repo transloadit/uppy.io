@@ -43,7 +43,7 @@ could be:
   <TabItem value="npm" label="NPM" default>
 
 ```shell
-npm install @uppy/core @up/docs/dashboard
+npm install @uppy/core @uppy/dashboard
 ```
 
   </TabItem>
@@ -51,7 +51,7 @@ npm install @uppy/core @up/docs/dashboard
   <TabItem value="yarn" label="Yarn">
 
 ```shell
-yarn add @uppy/core @up/docs/dashboard
+yarn add @uppy/core @uppy/dashboard
 ```
 
   </TabItem>
@@ -71,22 +71,22 @@ yarn add @uppy/core @up/docs/dashboard
 
 ```js showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@up/docs/dashboard';
+import Dashboard from '@uppy/dashboard';
 
 import '@uppy/core/dist/style.min.css';
-import '@up/docs/dashboard/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
 new Uppy().use(Dashboard, { inline: true, target: '#uppy-dashboard' });
 ```
 
 :::note
 
-The `@up/docs/dashboard` plugin includes CSS for the Dashboard itself, and the
+The `@uppy/dashboard` plugin includes CSS for the Dashboard itself, and the
 various plugins used by the Dashboard, such as
 ([`@uppy/status-bar`](/docs/status-bar) and [`@uppy/informer`](/docs/informer)).
 If you also use the `@uppy/status-bar` or `@uppy/informer` plugin directly, you
 should not include their CSS files, but instead only use the one from the
-`@up/docs/dashboard` plugin.
+`@uppy/dashboard` plugin.
 
 :::
 

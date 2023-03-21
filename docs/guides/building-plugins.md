@@ -90,7 +90,7 @@ Called after every state update with a debounce, after everything has mounted.
 #### `addTarget()`
 
 Use this to add your plugin to another plugin’s target. This is what
-`@up/docs/dashboard` uses to add other plugins to its UI.
+`@uppy/dashboard` uses to add other plugins to its UI.
 
 ### `UIPlugin`
 

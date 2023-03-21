@@ -32,7 +32,7 @@ yarn add @uppy/react
 :::note
 
 You also need to install the UI plugin you want to use. For instance,
-`@up/docs/dashboard`.
+`@uppy/dashboard`.
 
 :::
 
@@ -44,7 +44,7 @@ API-compatible alternatives such as [Preact][].
 
 The following plugins are available as React component wrappers:
 
-- `<Dashboard />` renders [`@up/docs/dashboard`](/docs/dashboard)
+- `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
 - `<DragDrop />` renders [`@uppy/drag-drop`](/docs/drag-drop)
 - `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/progress-bar)
 - `<StatusBar />` renders [`@uppy/status-bar`](/docs/status-bar)
@@ -76,7 +76,7 @@ import { Dashboard } from '@uppy/react';
 
 // Don't forget the CSS: core and the UI components + plugins you are using.
 import '@uppy/core/dist/style.min.css';
-import '@up/docs/dashboard/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/webcam/dist/style.min.css';
 
 // Don’t forget to keep the Uppy instance outside of your component.

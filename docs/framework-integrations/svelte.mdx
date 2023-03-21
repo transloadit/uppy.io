@@ -32,7 +32,7 @@ yarn add @uppy/svelte
 :::note
 
 You also need to install the UI plugin you want to use. For instance,
-`@up/docs/dashboard`.
+`@uppy/dashboard`.
 
 :::
 
@@ -40,7 +40,7 @@ You also need to install the UI plugin you want to use. For instance,
 
 The following plugins are available as React component wrappers:
 
-- `<Dashboard />` renders [`@up/docs/dashboard`](/docs/dashboard)
+- `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
 - `<DragDrop />` renders [`@uppy/drag-drop`](/docs/drag-drop)
 - `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/progress-bar)
 - `<StatusBar />` renders [`@uppy/status-bar`](/docs/status-bar)
@@ -58,7 +58,7 @@ JavaScript.
 
 	// Don't forget the CSS: core and UI components + plugins you are using
 	import '@uppy/core/dist/style.css';
-	import '@up/docs/dashboard/dist/style.css';
+	import '@uppy/dashboard/dist/style.css';
 	import '@uppy/webcam/dist/style.css';
 
 	const uppy = new Uppy().use(Webcam);

@@ -73,11 +73,11 @@ A quick overview of the complete API.
 
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@up/docs/dashboard';
+import Dashboard from '@uppy/dashboard';
 import AwsS3 from '@uppy/aws-s3';
 
 import '@uppy/core/dist/style.min.css';
-import '@up/docs/dashboard/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
 const uppy = new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
@@ -277,11 +277,11 @@ Drive). Otherwise it’s not worth the hosting effort.
 
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@up/docs/dashboard';
+import Dashboard from '@uppy/dashboard';
 import AwsS3 from '@uppy/aws-s3';
 
 import '@uppy/core/dist/style.min.css';
-import '@up/docs/dashboard/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
 
 const uppy = new Uppy.use(Dashboard, { inline: true, target: 'body' }).use(
 	AwsS3,

@@ -247,7 +247,7 @@ uppy.on<'complete', Meta>('complete', (result) => {
 Plugins that add their own events can merge with existing ones in `@uppy/core`
 with `declare module '@uppy/core' { ... }`. This is a TypeScript pattern called
 [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
-For instance, when using [`@up/docs/dashboard`][dashboard]:
+For instance, when using [`@uppy/dashboard`][dashboard]:
 
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
 

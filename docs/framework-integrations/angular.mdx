@@ -37,7 +37,7 @@ yarn add @uppy/angular
 :::note
 
 You also need to install the UI plugin you want to use. For instance,
-`@up/docs/dashboard`.
+`@uppy/dashboard`.
 
 :::
 
@@ -48,7 +48,7 @@ instance can be passed into components as a `props` prop.
 
 The following plugins are available as Angular component wrappers:
 
-- `<uppy-dashboard />` renders [`@up/docs/dashboard`](/docs/dashboard)
+- `<uppy-dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
 - `<uppy-drag-drop />` renders [`@uppy/drag-drop`](/docs/drag-drop)
 - `<uppy-progress-bar />` renders [`@uppy/progress-bar`](/docs/progress-bar)
 - `<uppy-status-bar />` renders [`@uppy/status-bar`](/docs/status-bar)
@@ -93,14 +93,14 @@ export class AppComponent {
 
 All components have their own styling and should be added to your component
 decorator. You can find the CSS import statements in the docs of the UI plugin
-you want to use. For instance, for `@up/docs/dashboard`:
+you want to use. For instance, for `@uppy/dashboard`:
 
 ```typescript
 @Component({
   // ...
   styleUrls: [
     '../node_modules/@uppy/core/dist/style.css',
-    '../node_modules/@up/docs/dashboard/dist/style.css',
+    '../node_modules/@uppy/dashboard/dist/style.css',
   ],
 })
 ```
