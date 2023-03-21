@@ -58,7 +58,7 @@ const uppy = new Uppy().use(Webcam)
 
 function Component () {
   return <Dashboard uppy={uppy} plugins={['Webcam']} />
-}
+} 
 `;
 
 const vueCode = `<template>
@@ -111,9 +111,9 @@ import { AppComponent } from './app.component'
 class {}
 `;
 
-const svelteCode = `<main>
-  <Dashboard
-      uppy={uppy}
+const svelteCode = `<main> 
+  <Dashboard 
+      uppy={uppy} 
       plugins={["Webcam"]}
   />
 </main>
