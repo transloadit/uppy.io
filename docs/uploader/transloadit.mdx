@@ -72,11 +72,11 @@ A quick overview of the complete API.
 
 ```js {10-17} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
+import Dashboard from '@up/docs/dashboard';
 import Transloadit from '@uppy/transloadit';
 
 import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@up/docs/dashboard/dist/style.min.css';
 
 const uppy = new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
@@ -663,7 +663,7 @@ uppy.on('error', (error) => {
 
 ### Assembly behavior when Uppy is closed
 
-When integrating `@uppy/transloadit` with `@uppy/dashboard`, closing the
+When integrating `@uppy/transloadit` with `@up/docs/dashboard`, closing the
 dashboard will result in continuing assemblies on the server. When the user
 manually cancels the upload any running assemblies will be cancelled.
 

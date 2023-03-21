@@ -92,8 +92,8 @@ uploads using the HTTP `PUT` method.
 [transloadit-concepts]: https://transloadit.com/docs/getting-started/concepts/
 [`@uppy/transloadit`]: /docs/transloadit
 [`@uppy/tus`]: /docs/tus
-[`@uppy/aws-s3-multipart`]: /docs/upload-strategies/aws-s3-multipart
-[`@uppy/aws-s3`]: /docs/upload-strategies/aws-s3
-[`@uppy/xhr-upload`]: /docs/upload-strategies/xhr
+[`@uppy/aws-s3-multipart`]: /docs/aws-s3-multipart
+[`@uppy/aws-s3`]: /docs/aws-s3
+[`@uppy/xhr-upload`]: /docs/xhr-upload
 [tus]: https://tus.io/
 [tus-implementations]: https://tus.io/implementations.html

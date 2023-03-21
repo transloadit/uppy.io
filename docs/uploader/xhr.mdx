@@ -61,11 +61,11 @@ A quick overview of the complete API.
 
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
+import Dashboard from '@up/docs/dashboard';
 import XHR from '@uppy/xhr-upload';
 
 import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@up/docs/dashboard/dist/style.min.css';
 
 new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
@@ -161,7 +161,7 @@ When `bundle` is set to `true`:
 - [`formData`](#formData-true) must also be set to `true`.
 - Uppy won’t be able to bundle remote files (such as Google Drive) and will
   throw an error in this case.
-- Only [global uppy metadata](/docs/uppy-core/#meta) is sent to the endpoint.
+- Only [global uppy metadata](/docs/uppy/#meta) is sent to the endpoint.
   Individual per-file metadata is ignored.
 
 :::
@@ -391,7 +391,7 @@ move_uploaded_file($file_path, $_SERVER['DOCUMENT_ROOT'] . '/img/' . basename($f
 [xhr.responsetype]:
 	https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType
 [uppy.upload-success]: /docs/uppy/#upload-success
-[uppy file]: /docs/uppy-core#working-with-uppy-files
+[uppy file]: /docs/uppy#working-with-uppy-files
 [php.file-upload]: https://secure.php.net/manual/en/features.file-upload.php
 [php.multiple]:
 	https://secure.php.net/manual/en/features.file-upload.multiple.php

@@ -36,7 +36,7 @@ small risk is involved in using the others.
 
 `@uppy/aws-s3` is best suited for small files and/or lots of files. If you are
 planning to upload mostly large files (100&nbsp;MB+), consider using
-[`@uppy/aws-s3-multipart`](/docs/upload-strategies/aws-s3-multipart).
+[`@uppy/aws-s3-multipart`](/docs/aws-s3-multipart).
 
 ## Install
 
@@ -73,11 +73,11 @@ A quick overview of the complete API.
 
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
+import Dashboard from '@up/docs/dashboard';
 import AwsS3 from '@uppy/aws-s3';
 
 import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@up/docs/dashboard/dist/style.min.css';
 
 const uppy = new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
@@ -277,11 +277,11 @@ Drive). Otherwise it’s not worth the hosting effort.
 
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
+import Dashboard from '@up/docs/dashboard';
 import AwsS3 from '@uppy/aws-s3';
 
 import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@up/docs/dashboard/dist/style.min.css';
 
 const uppy = new Uppy.use(Dashboard, { inline: true, target: 'body' }).use(
 	AwsS3,
@@ -351,7 +351,7 @@ When no upload progress events have been received for this amount of
 milliseconds, assume the connection has an issue and abort the upload (`number`,
 default: `30_000`).
 
-This is passed through to [XHRUpload](/docs/xhrupload#timeout-30-1000); see its
+This is passed through to [XHRUpload](/docs/xhr-upload#timeout-30-1000); see its
 documentation page for details. Set to `0` to disable this check.
 
 #### `limit`

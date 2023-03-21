@@ -77,11 +77,11 @@ Using `@uppy/url` only requires setup in Uppy.
 
 ```js {10-13} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
+import Dashboard from '@up/docs/dashboard';
 import Url from '@uppy/url';
 
 import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@up/docs/dashboard/dist/style.min.css';
 
 new Uppy().use(Dashboard, { inline: true, target: '#dashboard' }).use(Url, {
 	target: Dashboard,

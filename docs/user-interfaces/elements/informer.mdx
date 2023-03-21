@@ -65,7 +65,7 @@ new Uppy().use(Informer, { target: '#informer' });
 ```
 
 Informer gets its data from `uppy.state.info`, which is updated by various
-plugins via [`uppy.info`](/docs/uppy-core#infomessage-type-duration) method.
+plugins via [`uppy.info`](/docs/uppy#infomessage-type-duration) method.
 
 In the [compressor](/docs/compressor) plugin we use it like this for instance:
 
@@ -74,9 +74,9 @@ const size = prettierBytes(totalCompressedSize);
 this.uppy.info(this.i18n('compressedX', { size }), 'info');
 ```
 
-When calling `uppy.info`, [Uppy](/docs/uppy-core) emits
-[`info-visible`](/docs/uppy-core#info-visible) and will emit
-[`info-hidden`](/docs/uppy-core#info-hidden) after the timeout.
+When calling `uppy.info`, [Uppy](/docs/uppy) emits
+[`info-visible`](/docs/uppy#info-visible) and will emit
+[`info-hidden`](/docs/uppy#info-hidden) after the timeout.
 
 ## API
 

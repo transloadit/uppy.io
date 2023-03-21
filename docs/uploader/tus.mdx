@@ -70,11 +70,11 @@ A quick overview of the complete API.
 
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
+import Dashboard from '@up/docs/dashboard';
 import Tus from '@uppy/tus';
 
 import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@up/docs/dashboard/dist/style.min.css';
 
 new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
@@ -262,7 +262,7 @@ the original file name and other meta data:
 ### How do I change files before sending them?
 
 If you want to change the file names, you want to do that in
-[`onBeforeFileAdded`](/docs/uppy-core#onbeforefileaddedfile-files).
+[`onBeforeFileAdded`](/docs/uppy#onbeforefileaddedfile-files).
 
 If you want to send extra headers with the request, use [`headers`](#headers) or
 [`onBeforeRequest`](#onbeforerequestreq-file).
@@ -300,7 +300,7 @@ to AWS S3 directly from the client also introduces quite a bit of overhead, as
 more requests are needed for the flow to work.
 
 [`tus-js-client`]: https://github.com/tus/tus-js-client
-[uppy file]: /docs/uppy-core#working-with-uppy-files
+[uppy file]: /docs/uppy#working-with-uppy-files
 [tus]: https://tus.io/
 [`tusd`]: https://github.com/tus/tusd
 [implementations]: https://tus.io/implementations.html

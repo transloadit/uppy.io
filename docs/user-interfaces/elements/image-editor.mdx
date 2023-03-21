@@ -29,7 +29,7 @@ added to Uppy.
   <TabItem value="npm" label="NPM" default>
 
 ```shell
-npm install @uppy/core @uppy/dashboard @uppy/image-editor
+npm install @uppy/core @up/docs/dashboard @uppy/image-editor
 ```
 
   </TabItem>
@@ -37,7 +37,7 @@ npm install @uppy/core @uppy/dashboard @uppy/image-editor
   <TabItem value="yarn" label="Yarn">
 
 ```shell
-yarn add @uppy/core @uppy/dashboard @uppy/image-editor
+yarn add @uppy/core @up/docs/dashboard @uppy/image-editor
 ```
 
   </TabItem>
@@ -58,11 +58,11 @@ yarn add @uppy/core @uppy/dashboard @uppy/image-editor
 
 ```js {3,7,11} showLineNumbers
 import Uppy from '@uppy/core';
-import Dashboard from '@uppy/dashboard';
+import Dashboard from '@up/docs/dashboard';
 import ImageEditor from '@uppy/image-editor';
 
 import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@up/docs/dashboard/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
 
 new Uppy()
@@ -142,8 +142,8 @@ export default {
 
 :::info
 
-You can use [`on`](/docs/uppy-core#onevent-action) and
-[`once`](/docs/uppy-core#onceevent-action) to listen to these events.
+You can use [`on`](/docs/uppy#onevent-action) and
+[`once`](/docs/uppy#onceevent-action) to listen to these events.
 
 :::
 

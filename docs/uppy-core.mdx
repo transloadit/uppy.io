@@ -24,9 +24,8 @@ starts with installing this plugin.
 
 You can use `@uppy/core` and
 [build your own UI](/docs/guides/building-your-own-ui-with-uppy) or go for the
-[Dashboard](/docs/interfaces/dashboard) integration. For an uploading plugin,
-you can refer to
-[choosing the uploader you need](/docs/guides/choosing-uploader).
+[Dashboard](/docs/dashboard) integration. For an uploading plugin, you can refer
+to [choosing the uploader you need](/docs/guides/choosing-uploader).
 
 If you want to see how it all comes together, checkout the
 [examples](/examples).
@@ -293,8 +292,8 @@ Key/value pairs to add to each file’s `metadata` (`Object`, default: `{}`).
 
 :::note
 
-Metadata from each file is then attached to uploads in the
-[Tus](/docs/uploaders/tus) and [XHR](/docs/uploaders/xhr) plugins.
+Metadata from each file is then attached to uploads in the [Tus](/docs/tus) and
+[XHR](/docs/xhr-upload) plugins.
 
 :::
 
@@ -550,17 +549,17 @@ module.exports = {
 #### `store`
 
 The store that is used to keep track of internal state (`Object`, default:
-[`DefaultStore`](/docs/custom-stores/default-store)).
+[`DefaultStore`](/docs/guides/custom-stores)).
 
 This option can be used to plug Uppy state into an external state management
-library, such as [Redux](/docs/custom-stores/redux-store).
+library, such as [Redux](/docs/guides/custom-stores).
 
 {/* TODO document store API */}
 
 #### `infoTimeout`
 
-How long an [Informer](/docs/user-interfaces/elements/informer) notification
-will be visible (`number`, default: `5000`).
+How long an [Informer](/docs/informer) notification will be visible (`number`,
+default: `5000`).
 
 ### Methods
 
@@ -702,17 +701,17 @@ uppy.upload().then((result) => {
 #### `pauseResume(fileID)`
 
 Toggle pause/resume on an upload. Will only work if resumable upload plugin,
-such as [Tus](/docs/uploaders/tus/), is used.
+such as [Tus](/docs/tus/), is used.
 
 #### `pauseAll()`
 
 Pause all uploads. Will only work if a resumable upload plugin, such as
-[Tus](/docs/uploaders/tus/), is used.
+[Tus](/docs/tus/), is used.
 
 #### `resumeAll()`
 
 Resume all uploads. Will only work if resumable upload plugin, such as
-[Tus](/docs/uploaders/tus/), is used.
+[Tus](/docs/tus/), is used.
 
 #### `retryUpload(fileID)`
 
@@ -861,9 +860,8 @@ uppy.log('[Dashboard] adding files...');
 #### `info(message, type, duration)`
 
 Sets a message in state, with optional details, that can be shown by
-notification UI plugins. It’s using the
-[Informer](/docs/interfaces/elements/informer/) plugin, included by default in
-Dashboard.
+notification UI plugins. It’s using the [Informer](/docs/informer) plugin,
+included by default in Dashboard.
 
 | Argument   | Type               | Description                                                                       |
 | ---------- | ------------------ | --------------------------------------------------------------------------------- |
@@ -1425,7 +1423,7 @@ initialize [internationalisation](/docs/guides/using-locales).
 #### `addTarget`
 
 You can use this method to make your plugin a `target` for other plugins. This
-is what `@uppy/dashboard` uses to add other plugins to its UI.
+is what `@up/docs/dashboard` uses to add other plugins to its UI.
 
 #### `update`
 
