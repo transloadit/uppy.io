@@ -49,8 +49,26 @@ const config = {
 	themeConfig:
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
+			image: 'img/og_image.jpg',
+			metadata: [
+				{ property: 'og:url', content: 'https://uppy.io' },
+				{ property: 'og:type', content: 'website' },
+				{ property: 'og:title', content: 'Uppy' },
+				{
+					property: 'og:description',
+					content: 'Sleek, modular open source JavaScript file uploader',
+				},
+				{ name: 'twitter:card', content: 'img/og_image.jpg' },
+				{ name: 'twitter:domain', content: 'uppy.io' },
+				{ name: 'twitter:url', content: 'https://uppy.io' },
+				{ name: 'twitter:title', content: 'Uppy' },
+				{
+					name: 'twitter:description',
+					content: 'Sleek, modular open source JavaScript file uploader',
+				},
+			],
 			docs: { sidebar: { autoCollapseCategories: true } },
-			// colorMode: { disableSwitch: true },
+			colorMode: { disableSwitch: true },
 			navbar: {
 				title: 'Uppy',
 				logo: {

@@ -1,9 +1,9 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Vue
+# Svelte
 
-[Vue][] components for the Uppy UI plugins.
+[Svelte][] components for the Uppy UI plugins.
 
 ## Install
 
@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
   <TabItem value="npm" label="NPM" default>
 
 ```shell
-npm install @uppy/vue
+npm install @uppy/svelte
 ```
 
   </TabItem>
@@ -19,7 +19,7 @@ npm install @uppy/vue
   <TabItem value="yarn" label="Yarn">
 
 ```shell
-yarn add @uppy/vue
+yarn add @uppy/svelte
 ```
 
   </TabItem>
@@ -43,13 +43,13 @@ The following plugins are available as React component wrappers:
 - `<StatusBar />` renders [`@uppy/status-bar`](/docs/user-interfaces/status-bar)
 
 Instead of adding a UI plugin to an Uppy instance with `.use()`, the Uppy
-instance can be passed into components as an `uppy` prop. Due to the way Vue
+instance can be passed into components as an `uppy` prop. Due to the way Svelte
 handles reactivity, you can initialize Uppy the same way you would with vanilla
 JavaScript.
 
 ```html
 <script>
-	import { Dashboard } from '@uppy/vue';
+	import { Dashboard } from '@uppy/svelte';
 	import Uppy from '@uppy/core';
 	import Webcam from '@uppy/webcam';
 
@@ -64,4 +64,4 @@ JavaScript.
 <main><Dashboard uppy={uppy} plugins={["Webcam"]} /></main>
 ```
 
-[vue]: https://vuejs.org
+[svelte]: https://svelte.dev
