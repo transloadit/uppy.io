@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: 'Uppy',
-	tagline: 'Modular, open source file uploader',
+	tagline: 'Sleek, modular open source JavaScript file uploader',
 	url: 'https://uppy.io',
 	baseUrl: '/',
 	onBrokenLinks: 'warn',
@@ -100,47 +100,6 @@ const config = {
 						position: 'left',
 					},
 				],
-			},
-			footer: {
-				style: 'dark',
-				links: [
-					{
-						title: 'Docs',
-						items: [
-							{
-								label: 'Tutorial',
-								to: '/docs/quick-start',
-							},
-						],
-					},
-					{
-						title: 'Community',
-						items: [
-							{
-								label: 'Stack Overflow',
-								href: 'https://stackoverflow.com/questions/tagged/uppy',
-							},
-							{
-								label: 'Twitter',
-								href: 'https://twitter.com/uppy.io',
-							},
-						],
-					},
-					{
-						title: 'More',
-						items: [
-							{
-								label: 'Blog',
-								to: '/blog',
-							},
-							{
-								label: 'GitHub',
-								href: 'https://github.com/transloadit/uppy',
-							},
-						],
-					},
-				],
-				copyright: `Copyright © ${new Date().getFullYear()} Transloadit`,
 			},
 			prism: {
 				theme: lightCodeTheme,
