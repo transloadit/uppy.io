@@ -35,7 +35,26 @@ const config = {
 			}),
 		],
 	],
-
+	plugins: [
+		[
+			'@docusaurus/plugin-client-redirects',
+			{
+				redirects: [
+					{
+						to: '/docs/react',
+						from: [
+							'/docs/react/status-bar',
+							'/docs/react/drag-drop',
+							'/docs/react/file-input',
+							'/docs/react/progress-bar',
+							'/docs/react/dashboard',
+							'/docs/react/dashboard-modal',
+						],
+					},
+				],
+			},
+		],
+	],
 	scripts: [
 		{
 			src: 'https://analytics.transloadit.com/js/plausible.js',
@@ -82,47 +101,6 @@ const config = {
 						position: 'left',
 					},
 				],
-			},
-			footer: {
-				style: 'dark',
-				links: [
-					{
-						title: 'Docs',
-						items: [
-							{
-								label: 'Tutorial',
-								to: '/docs/quick-start',
-							},
-						],
-					},
-					{
-						title: 'Community',
-						items: [
-							{
-								label: 'Stack Overflow',
-								href: 'https://stackoverflow.com/questions/tagged/uppy',
-							},
-							{
-								label: 'Twitter',
-								href: 'https://twitter.com/uppy.io',
-							},
-						],
-					},
-					{
-						title: 'More',
-						items: [
-							{
-								label: 'Blog',
-								to: '/blog',
-							},
-							{
-								label: 'GitHub',
-								href: 'https://github.com/transloadit/uppy',
-							},
-						],
-					},
-				],
-				copyright: `Copyright © ${new Date().getFullYear()} Transloadit`,
 			},
 			prism: {
 				theme: lightCodeTheme,
