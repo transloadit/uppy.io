@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: 'Uppy',
-	tagline: 'Dinosaurs are cool',
+	tagline: 'Modular open source file uploader',
 	url: 'https://uppy.io',
 	baseUrl: '/',
 	onBrokenLinks: 'warn',
@@ -34,6 +34,16 @@ const config = {
 				},
 			}),
 		],
+	],
+
+	scripts: [
+		{
+			src: 'https://analytics.transloadit.com/js/plausible.js',
+			async: true,
+			defer: true,
+			'data-domain': 'uppy.io',
+		},
+		{ src: 'https://buttons.github.io/buttons.js', async: true, defer: true },
 	],
 
 	themeConfig:
@@ -63,7 +73,12 @@ const config = {
 					},
 					{
 						href: 'https://community.transloadit.com/',
-						label: 'Community Support Forum',
+						label: 'Forum',
+						position: 'left',
+					},
+					{
+						href: 'https://transloadit.com/open-source/support/',
+						label: 'Support',
 						position: 'left',
 					},
 				],
@@ -85,15 +100,11 @@ const config = {
 						items: [
 							{
 								label: 'Stack Overflow',
-								href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-							},
-							{
-								label: 'Discord',
-								href: 'https://discordapp.com/invite/docusaurus',
+								href: 'https://stackoverflow.com/questions/tagged/uppy',
 							},
 							{
 								label: 'Twitter',
-								href: 'https://twitter.com/docusaurus',
+								href: 'https://twitter.com/uppy.io',
 							},
 						],
 					},
@@ -106,12 +117,12 @@ const config = {
 							},
 							{
 								label: 'GitHub',
-								href: 'https://github.com/facebook/docusaurus',
+								href: 'https://github.com/transloadit/uppy',
 							},
 						],
 					},
 				],
-				copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+				copyright: `Copyright © ${new Date().getFullYear()} Transloadit`,
 			},
 			prism: {
 				theme: lightCodeTheme,
