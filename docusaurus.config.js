@@ -15,6 +15,7 @@ const config = {
 	favicon: 'img/logo.svg',
 	organizationName: 'transloadit', // Usually your GitHub org/user name.
 	projectName: 'uppy.io', // Usually your repo name.
+	trailingSlash: false,
 	presets: [
 		[
 			'classic',
