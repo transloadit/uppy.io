@@ -3529,6 +3529,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uppy/locales@npm:latest":
+  version: 3.0.7
+  resolution: "@uppy/locales@npm:3.0.7"
+  checksum: d5bd43212fe4e501ecc4f40bfb1957e1e60d9588d694596998f62f0fc50e304cc51b4b6b0e0aadacef09c5371cc22d796a704b570d689513b1c944791840c713
+  languageName: node
+  linkType: hard
+
 "@uppy/onedrive@npm:^3.0.1, @uppy/onedrive@npm:latest":
   version: 3.1.0
   resolution: "@uppy/onedrive@npm:3.1.0"
@@ -14882,6 +14889,7 @@ __metadata:
     "@uppy/google-drive": latest
     "@uppy/image-editor": latest
     "@uppy/instagram": latest
+    "@uppy/locales": latest
     "@uppy/onedrive": latest
     "@uppy/react": latest
     "@uppy/remote-sources": latest
