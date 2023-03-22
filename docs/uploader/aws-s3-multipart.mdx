@@ -1,5 +1,6 @@
 ---
 sidebar_position: 4
+slug: /aws-s3-multipart
 ---
 
 import Tabs from '@theme/Tabs';
@@ -21,11 +22,10 @@ Not sure which uploader is best for you? Read
 :::
 
 You can use this plugin when you prefer a _client-to-storage_ over a
-_client-to-server-to-storage_ (such as
-[Transloadit](/docs/upload-strategies/transloadit) or
-[Tus](/docs/upload-strategies/tus)) setup. This may in some cases be preferable,
-for instance, to reduce costs or the complexity of running a server and load
-balancer with [Tus](/docs/upload-strategies/tus).
+_client-to-server-to-storage_ (such as [Transloadit](/docs/transloadit) or
+[Tus](/docs/tus)) setup. This may in some cases be preferable, for instance, to
+reduce costs or the complexity of running a server and load balancer with
+[Tus](/docs/tus).
 
 `@uppy/aws-s3-multipart` starts to become valuable for larger files
 (100&nbsp;MB+) as it uploads a single object as a set of parts. This has certain
@@ -390,4 +390,4 @@ or between `500` and `600`.
 
 </details>
 
-[`@uppy/aws-s3`]: /docs/upload-strategies/aws-s3
+[`@uppy/aws-s3`]: /docs/aws-s3

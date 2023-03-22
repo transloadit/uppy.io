@@ -308,7 +308,7 @@ export default function Home(): JSX.Element {
 						</p>
 						<Link
 							className={styles.button}
-							to={`/docs/framework-integrations/${framework.toLowerCase()}`}
+							to={`/docs/${framework.toLowerCase()}`}
 						>
 							{framework} docs
 						</Link>

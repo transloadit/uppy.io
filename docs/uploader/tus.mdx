@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+slug: /tus
 ---
 
 import Tabs from '@theme/Tabs';
@@ -261,7 +262,7 @@ the original file name and other meta data:
 ### How do I change files before sending them?
 
 If you want to change the file names, you want to do that in
-[`onBeforeFileAdded`](/docs/uppy-core#onbeforefileaddedfile-files).
+[`onBeforeFileAdded`](/docs/uppy#onbeforefileaddedfile-files).
 
 If you want to send extra headers with the request, use [`headers`](#headers) or
 [`onBeforeRequest`](#onbeforerequestreq-file).
@@ -286,8 +287,7 @@ battle-tested from our side, but other companies have had success with other
 
 All [Transloadit plans](https://transloadit.com/pricing) come with a hosted
 [`tusd`][] server. You don’t have to do anything to leverage it, using
-[`@uppy/transloadit`](/docs/upload-strategies/transloadit) automatically uses
-Tus under the hood.
+[`@uppy/transloadit`](/docs/transloadit) automatically uses Tus under the hood.
 
 ### Why Tus instead of directly uploading to AWS S3?
 
@@ -300,7 +300,7 @@ to AWS S3 directly from the client also introduces quite a bit of overhead, as
 more requests are needed for the flow to work.
 
 [`tus-js-client`]: https://github.com/tus/tus-js-client
-[uppy file]: /docs/uppy-core#working-with-uppy-files
+[uppy file]: /docs/uppy#working-with-uppy-files
 [tus]: https://tus.io/
 [`tusd`]: https://github.com/tus/tusd
 [implementations]: https://tus.io/implementations.html

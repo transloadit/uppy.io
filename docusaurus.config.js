@@ -35,7 +35,26 @@ const config = {
 			}),
 		],
 	],
-
+	plugins: [
+		[
+			'@docusaurus/plugin-client-redirects',
+			{
+				redirects: [
+					{
+						to: '/docs/react',
+						from: [
+							'/docs/react/status-bar',
+							'/docs/react/drag-drop',
+							'/docs/react/file-input',
+							'/docs/react/progress-bar',
+							'/docs/react/dashboard',
+							'/docs/react/dashboard-modal',
+						],
+					},
+				],
+			},
+		],
+	],
 	scripts: [
 		{
 			src: 'https://analytics.transloadit.com/js/plausible.js',

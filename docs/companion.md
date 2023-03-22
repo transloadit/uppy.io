@@ -12,9 +12,8 @@ never stored in Companion. Companion can run either as a standalone
 (self-hosted) application, [Transloadit-hosted](#hosted), or plugged in as an
 Express middleware into an existing application. The Uppy client requests remote
 files from Companion, which it will download and simultaneously upload to your
-[Tus server](/docs/upload-strategies/tus),
-[AWS bucket](/docs/upload-strategies/aws-s3), or any server that supports
-[PUT, POST or Multipart uploads](/docs/upload-strategies/xhr).
+[Tus server](/docs/tus), [AWS bucket](/docs/aws-s3), or any server that supports
+[PUT, POST or Multipart uploads](/docs/xhr-upload).
 
 This means a user uploading a 5GB video from Google Drive from their phone isn’t
 eating into their data plans and you don’t have to worry about implementing
@@ -26,14 +25,12 @@ If you want to let users download files from [Box][], [Dropbox][], [Facebook][],
 [Google Drive][googledrive], [Instagram][], [OneDrive][], [Unsplash][], [Import
 from URL][url], or [Zoom][] — you need Companion.
 
-Companion supports the same [uploaders](/docs/guides/choosing-upload-strategy)
-as Uppy: [Tus](/docs/upload-strategies/tus),
-[AWS S3](/docs/upload-strategies/aws-s3), and
-[regular multipart](/docs/upload-strategies/tus). But instead of manually
-setting a plugin, Uppy sends along a header with the uploader and Companion will
-use the same on the server. This means if you are using
-[Tus](/docs/uploaders/tus) for your local uploads, you can send your remote
-uploads to the same Tus server (and likewise for your AWS S3 bucket).
+Companion supports the same [uploaders](/docs/guides/choosing-uploader) as Uppy:
+[Tus](/docs/tus), [AWS S3](/docs/aws-s3), and [regular multipart](/docs/tus).
+But instead of manually setting a plugin, Uppy sends along a header with the
+uploader and Companion will use the same on the server. This means if you are
+using [Tus](/docs/tus) for your local uploads, you can send your remote uploads
+to the same Tus server (and likewise for your AWS S3 bucket).
 
 :::note
 
@@ -328,10 +325,10 @@ which has only the secret, nothing else.
 
 #### `preAuthSecret` `COMPANION_PREAUTH_SECRET` `COMPANION_PREAUTH_SECRET_FILE`
 
-If you are using the [Transloadit](/docs/upload-strategies/transloadit)
-`companionKeysParams` feature (Transloadit-hosted Companion using your own
-custom OAuth credentials), set this variable to a strong randomly generated
-secret. See also `COMPANION_SECRET` (but do not use the same secret!)
+If you are using the [Transloadit](/docs/transloadit) `companionKeysParams`
+feature (Transloadit-hosted Companion using your own custom OAuth credentials),
+set this variable to a strong randomly generated secret. See also
+`COMPANION_SECRET` (but do not use the same secret!)
 
 :::note
 
@@ -871,13 +868,13 @@ This would get the Companion instance running on `http://localhost:3020`. It
 uses [nodemon](https://github.com/remy/nodemon) so it will automatically restart
 when files are changed.
 
-[box]: /docs/sources/companion-plugins/box
-[dropbox]: /docs/sources/companion-plugins/dropbox
-[facebook]: /docs/sources/companion-plugins/facebook
-[googledrive]: /docs/sources/companion-plugins/google-drive
-[instagram]: /docs/sources/companion-plugins/instagram
-[onedrive]: /docs/sources/companion-plugins/onedrive
-[unsplash]: /docs/sources/companion-plugins/unsplash
-[url]: /docs/sources/companion-plugins/url
-[zoom]: /docs/sources/companion-plugins/zoom
+[box]: /docs/box
+[dropbox]: /docs/dropbox
+[facebook]: /docs/facebook
+[googledrive]: /docs/google-drive
+[instagram]: /docs/instagram
+[onedrive]: /docs/onedrive
+[unsplash]: /docs/unsplash
+[url]: /docs/url
+[zoom]: /docs/zoom
 [transloadit]: https://transloadit.com

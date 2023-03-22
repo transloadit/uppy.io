@@ -8,9 +8,9 @@ You can find already a few useful Uppy plugins out there, but there might come a
 time when you will want to build your own. Plugins can hook into the upload
 process or render a custom UI, typically to:
 
-- Render some custom UI element, such as [StatusBar](/docs/statusbar) or
+- Render some custom UI element, such as [StatusBar](/docs/status-bar) or
   [Dashboard](/docs/dashboard).
-- Do the actual uploading, such as [XHRUpload](/docs/xhrupload) or
+- Do the actual uploading, such as [XHRUpload](/docs/xhr-upload) or
   [Tus](/docs/tus).
 - Do work before the upload, like compressing an image or calling external API.
 - Interact with a third-party service to process uploads correctly, such as
@@ -140,10 +140,10 @@ across a CDN, to sending another request to relate some metadata to the file.
 Each hook is a function that receives an array containing the file IDs that are
 being uploaded, and returns a Promise to signal completion. Hooks are added and
 removed through `Uppy` methods:
-[`addPreProcessor`](/docs/uppy-core#addpreprocessorfn),
-[`addUploader`](/docs/uppy-core#adduploaderfn),
-[`addPostProcessor`](/docs/uppy-core#addpostprocessorfn), and their
-[`remove*`](/docs/uppy-core#removepreprocessorremoveuploaderremovepostprocessorfn)
+[`addPreProcessor`](/docs/uppy#addpreprocessorfn),
+[`addUploader`](/docs/uppy#adduploaderfn),
+[`addPostProcessor`](/docs/uppy#addpostprocessorfn), and their
+[`remove*`](/docs/uppy#removepreprocessorremoveuploaderremovepostprocessorfn)
 counterparts. Normally, hooks should be added during the plugin `install()`
 method, and removed during the `uninstall()` method.
 
@@ -220,9 +220,9 @@ encrypting a large file. In those situations, determinate progress is suitable.
 
 Here are the relevant events:
 
-- [`preprocess-progress`](/docs/uppy-core#preprocess-progress)
-- [`upload-progress`](/docs/uppy-core#upload-progress)
-- [`postprocess-progress`](/docs/uppy-core#postprocess-progress)
+- [`preprocess-progress`](/docs/uppy#preprocess-progress)
+- [`upload-progress`](/docs/uppy#upload-progress)
+- [`postprocess-progress`](/docs/uppy#postprocess-progress)
 
 ## JSX
 

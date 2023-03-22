@@ -1,3 +1,7 @@
+---
+slug: /vue
+---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -36,11 +40,10 @@ You also need to install the UI plugin you want to use. For instance,
 
 The following plugins are available as React component wrappers:
 
-- `<Dashboard />` renders [`@uppy/dashboard`](/docs/user-interfaces/dashboard)
-- `<DragDrop />` renders [`@uppy/drag-drop`](/docs/user-interfaces/drag-drop)
-- `<ProgressBar />` renders
-  [`@uppy/progress-bar`](/docs/user-interfaces/progress-bar)
-- `<StatusBar />` renders [`@uppy/status-bar`](/docs/user-interfaces/status-bar)
+- `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
+- `<DragDrop />` renders [`@uppy/drag-drop`](/docs/drag-drop)
+- `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/progress-bar)
+- `<StatusBar />` renders [`@uppy/status-bar`](/docs/status-bar)
 
 Instead of adding a UI plugin to an Uppy instance with `.use()`, the Uppy
 instance can be passed into components as an `uppy` prop. Due to the way Vue

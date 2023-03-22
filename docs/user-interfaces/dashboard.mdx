@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+slug: /dashboard
 ---
 
 import Tabs from '@theme/Tabs';
@@ -11,10 +12,8 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 The all you need Dashboard — powerful, responsive, and pluggable. Kickstart your
 uploading experience and gradually add more functionality. Add files from
-[remote sources](/docs/companion),
-[edit images](/docs/user-interface/elements/image-editor),
-[generate thumbnails](/docs/user-interface/elements/thumbnail-generator), and
-more.
+[remote sources](/docs/companion), [edit images](/docs/image-editor),
+[generate thumbnails](/docs/thumbnail-generator), and more.
 
 Checkout [integrations](#integrations) for the full list of plugins you can
 integrate.
@@ -33,12 +32,10 @@ could be:
 
 - when you need a battle tested plug-and-play uploading UI to save time.
 - when your users need to add files from [remote sources](/docs/companion), such
-  [Google Drive](/docs/sources/companion-plugins/google-drive),
-  [Dropbox](/docs/sources/companion-plugins/dropbox), and others.
+  [Google Drive](/docs/google-drive), [Dropbox](/docs/dropbox), and others.
 - when you need to collect [meta data](#metafields) from your users per file.
-- when your users want to take a picture with their
-  [webcam](/docs/sources/webcam) or
-  [capture their screen](/docs/sources/screen-capture).
+- when your users want to take a picture with their [webcam](/docs/webcam) or
+  [capture their screen](/docs/screen-capture).
 
 ## Install
 
@@ -86,11 +83,10 @@ new Uppy().use(Dashboard, { inline: true, target: '#uppy-dashboard' });
 
 The `@uppy/dashboard` plugin includes CSS for the Dashboard itself, and the
 various plugins used by the Dashboard, such as
-([`@uppy/status-bar`](/docs/user-interfaces/elements/status-bar) and
-[`@uppy/informer`](/docs/user-interfaces/elements/informer)). If you also use
-the `@uppy/status-bar` or `@uppy/informer` plugin directly, you should not
-include their CSS files, but instead only use the one from the `@uppy/dashboard`
-plugin.
+([`@uppy/status-bar`](/docs/status-bar) and [`@uppy/informer`](/docs/informer)).
+If you also use the `@uppy/status-bar` or `@uppy/informer` plugin directly, you
+should not include their CSS files, but instead only use the one from the
+`@uppy/dashboard` plugin.
 
 :::
 
@@ -289,7 +285,7 @@ The meta data will only be set on a file object if it’s entered by the user. I
 the user doesn’t edit a file’s metadata, it will not have default values;
 instead everything will be `undefined`. If you want to set a certain meta field
 to each file regardless of user actions, set
-[`meta` in the Uppy constructor options](/docs/uppy-core/#meta).
+[`meta` in the Uppy constructor options](/docs/uppy/#meta).
 
 :::
 
@@ -396,9 +392,8 @@ different set of files instead.
 :::info
 
 You can use this together with the
-[`allowMultipleUploads: false`](/docs/uppy-core/#allowmultipleuploads) option in
-Uppy Core to create a smooth experience when uploading a single (batch of)
-file(s).
+[`allowMultipleUploads: false`](/docs/uppy/#allowmultipleuploads) option in Uppy
+Core to create a smooth experience when uploading a single (batch of) file(s).
 
 This is recommended. With several upload batches, the auto-closing behavior can
 be quite confusing for users.
@@ -559,7 +554,7 @@ module.exports = {
 Light or dark theme for the Dashboard (`string`, default: `'light'`).
 
 Uppy Dashboard supports “Dark Mode”. You can try it live on
-[the Dashboard example page](https://uppy.io/examples/dashboard/).
+[the Dashboard example page](https://uppy.io/exampl/docs/dashboard/).
 
 It supports the following values:
 
@@ -569,9 +564,8 @@ It supports the following values:
 
 #### `autoOpenFileEditor`
 
-Automatically open file editor (see
-[`@uppy/image-editor`](/docs/user-interfaces/elements/image-editor/)) for the
-first file in a batch (`boolean`, default: `false`).
+Automatically open file editor (see [`@uppy/image-editor`](/docs/image-editor))
+for the first file in a batch (`boolean`, default: `false`).
 
 If one file is added, editor opens for that file, if 10 files are added — editor
 opens for the first file. Use case: user adds an image — Uppy opens Image Editor
@@ -620,8 +614,8 @@ Callback for the [`ondragleave`][ondragleave] event handler.
 :::info
 
 Dashboard also has the methods described in
-[`UIPlugin`](/docs/uppy-core#new-uipluginuppy-options) and
-[`BasePlugin`](/docs/uppy-core#new-basepluginuppy-options).
+[`UIPlugin`](/docs/uppy#new-uipluginuppy-options) and
+[`BasePlugin`](/docs/uppy#new-basepluginuppy-options).
 
 :::
 
@@ -652,8 +646,8 @@ if (dashboard.isModalOpen()) {
 
 :::info
 
-You can use [`on`](/docs/uppy-core#onevent-action) and
-[`once`](/docs/uppy-core#onceevent-action) to listen to these events.
+You can use [`on`](/docs/uppy#onevent-action) and
+[`once`](/docs/uppy#onceevent-action) to listen to these events.
 
 :::
 
@@ -697,51 +691,44 @@ all Uppy plugins.
 
 ### Sources
 
-- [`@uppy/audio`](/docs/sources/audio) — record audio.
-- [`@uppy/box`](/docs/sources/companion-plugins/box) — import files from
+- [`@uppy/audio`](/docs/audio) — record audio.
+- [`@uppy/box`](/docs/box) — import files from
   [Box](https://www.box.com/en-nl/home).
-- [`@uppy/dropbox`](/docs/sources/companion-plugins/dropbox) — import from
-  [Dropbox](https://dropbox.com).
-- [`@uppy/facebook`](/docs/sources/companion-plugins/dropbox) — import from
+- [`@uppy/dropbox`](/docs/dropbox) — import from [Dropbox](https://dropbox.com).
+- [`@uppy/facebook`](/docs/dropbox) — import from
   [Facebook](https://facebook.com).
-- [`@uppy/google-drive`](/docs/sources/companion-plugins/google-drive) — import
-  from [Google Drive](https://drive.google.com).
-- [`@uppy/instagram`](/docs/sources/companion-plugins/instagram) — import from
+- [`@uppy/google-drive`](/docs/google-drive) — import from
+  [Google Drive](https://drive.google.com).
+- [`@uppy/instagram`](/docs/instagram) — import from
   [Instagram](https://instagram.com).
-- [`@uppy/onedrive`](/docs/sources/companion-plugins/onedrive) — import from
+- [`@uppy/onedrive`](/docs/onedrive) — import from
   [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage).
-- [`@uppy/screen-capture`](/docs/sources/screen-capture) — Record your screen,
-  including (optionally) your microphone.
-- [`@uppy/unsplash`](/docs/sources/companion-plugins/unsplash) — import files
-  from [Unsplash](https://unsplash.com/)
-- [`@uppy/url`](/docs/sources/companion-plugins/url) — import files from any
-  URL.
-- [`@uppy/webcam`](/docs/sources/webcam) — Record or make a picture with your
-  webcam.
-- [`@uppy/zoom`](/docs/sources/companion-plugins/url) — import files from
-  [Zoom](https://zoom.us).
+- [`@uppy/screen-capture`](/docs/screen-capture) — Record your screen, including
+  (optionally) your microphone.
+- [`@uppy/unsplash`](/docs/unsplash) — import files from
+  [Unsplash](https://unsplash.com/)
+- [`@uppy/url`](/docs/url) — import files from any URL.
+- [`@uppy/webcam`](/docs/webcam) — Record or make a picture with your webcam.
+- [`@uppy/zoom`](/docs/url) — import files from [Zoom](https://zoom.us).
 
 ### UI
 
-- [`@uppy/image-editor`](/docs/user-interfaces/elements/image-editor) — allows
-  users to crop, rotate, zoom and flip images that are added to Uppy.
-- [`@uppy/informer`](/docs/user-interfaces/elements/informer) — show
-  notifications.
-- [`@uppy/status-bar`](/docs/user-interfaces/elements/status-bar) — advanced
-  upload progress status bar.
-- [`@uppy/thumbnail-generator`](/docs/user-interfaces/elements/thumbnail-generator)
-  — generate preview thumbnails for images to be uploaded.
+- [`@uppy/image-editor`](/docs/image-editor) — allows users to crop, rotate,
+  zoom and flip images that are added to Uppy.
+- [`@uppy/informer`](/docs/informer) — show notifications.
+- [`@uppy/status-bar`](/docs/status-bar) — advanced upload progress status bar.
+- [`@uppy/thumbnail-generator`](/docs/thumbnail-generator) — generate preview
+  thumbnails for images to be uploaded.
 
 ### Frameworks
 
-- [`@uppy/angular`](/docs/framework-integrations/angular) — Dashboard component
-  for [Angular](https://angular.io/).
-- [`@uppy/react`](/docs/framework-integrations/react) — Dashboard component for
+- [`@uppy/angular`](/docs/angular) — Dashboard component for
+  [Angular](https://angular.io/).
+- [`@uppy/react`](/docs/react) — Dashboard component for
   [React](https://reactjs.org/).
-- [`@uppy/svelte`](/docs/framework-integrations/svelte) — Dashboard component
-  for [Svelte](https://svelte.dev/).
-- [`@uppy/vue`](/docs/framework-integrations/vue) — Dashboard component for
-  [Vue](https://vuejs.org/).
+- [`@uppy/svelte`](/docs/svelte) — Dashboard component for
+  [Svelte](https://svelte.dev/).
+- [`@uppy/vue`](/docs/vue) — Dashboard component for [Vue](https://vuejs.org/).
 
 [ondragover]:
 	https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondragover

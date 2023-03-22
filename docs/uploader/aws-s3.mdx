@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+slug: /aws-s3
 ---
 
 import Tabs from '@theme/Tabs';
@@ -23,11 +24,10 @@ Not sure which uploader is best for you? Read
 :::
 
 You can use this plugin when you prefer a _client-to-storage_ over a
-_client-to-server-to-storage_ (such as
-[Transloadit](/docs/upload-strategies/transloadit) or
-[Tus](/docs/upload-strategies/tus)) setup. This may in some cases be preferable,
-for instance, to reduce costs or the complexity of running a server and load
-balancer with [Tus](/docs/upload-strategies/tus).
+_client-to-server-to-storage_ (such as [Transloadit](/docs/transloadit) or
+[Tus](/docs/tus)) setup. This may in some cases be preferable, for instance, to
+reduce costs or the complexity of running a server and load balancer with
+[Tus](/docs/tus).
 
 This plugin can be used with AWS S3, DigitalOcean Spaces, Google Cloud Storage,
 or any S3-compatible provider. Although all S3-compatible providers are
@@ -36,7 +36,7 @@ small risk is involved in using the others.
 
 `@uppy/aws-s3` is best suited for small files and/or lots of files. If you are
 planning to upload mostly large files (100&nbsp;MB+), consider using
-[`@uppy/aws-s3-multipart`](/docs/upload-strategies/aws-s3-multipart).
+[`@uppy/aws-s3-multipart`](/docs/aws-s3-multipart).
 
 ## Install
 
@@ -351,7 +351,7 @@ When no upload progress events have been received for this amount of
 milliseconds, assume the connection has an issue and abort the upload (`number`,
 default: `30_000`).
 
-This is passed through to [XHRUpload](/docs/xhrupload#timeout-30-1000); see its
+This is passed through to [XHRUpload](/docs/xhr-upload#timeout-30-1000); see its
 documentation page for details. Set to `0` to disable this check.
 
 #### `limit`

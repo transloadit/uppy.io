@@ -179,7 +179,7 @@ export default function Examples() {
 				<div className={styles.header}>
 					<h2>Dashboard</h2>
 					<p>
-						<Link to="/docs/user-interfaces/dashboard">Docs</Link> •{' '}
+						<Link to="/docs/dashboard">Docs</Link> •{' '}
 						<a
 							target="_blank"
 							rel="noopener"
