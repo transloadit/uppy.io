@@ -1,6 +1,7 @@
 .section {
 	display: grid;
 	grid-gap: 1em;
+	align-items: stretch;
 }
 
 @media screen and (min-width: 40em) {
@@ -22,10 +23,18 @@ section a:hover {
 		var(--ifm-transition-timing-default);
 }
 
+.item h2 {
+	font-size: 1rem;
+	font-family: var(--ifm-font-family-base);
+	margin-bottom: 0.5rem;
+}
+
 .item:hover {
 	border-color: var(--ifm-color-primary);
 }
 
 .item p {
 	color: var(--ifm-font-color-base);
+	margin: 0;
+	color: gray;
 }
