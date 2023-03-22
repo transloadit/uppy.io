@@ -9,7 +9,7 @@ const config = {
 	title: 'Uppy',
 	tagline: 'Sleek, modular open source JavaScript file uploader',
 	url: 'https://uppy.io',
-	baseUrl: '/uppy.io/',
+	baseUrl: '/',
 	onBrokenLinks: 'warn',
 	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/logo.svg',
