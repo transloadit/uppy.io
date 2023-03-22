@@ -7,6 +7,9 @@ on:
     # Review gh actions docs if you want to further define triggers, paths, etc
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     name: Deploy to GitHub Pages
@@ -23,7 +26,7 @@ jobs:
       - name: Build website
         run: yarn build
 
-      # Popular action to deploy to GitHub Pages:
+      # Recommended action by Docusaurus:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
