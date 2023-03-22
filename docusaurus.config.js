@@ -51,6 +51,18 @@ const config = {
 							'/docs/react/dashboard-modal',
 						],
 					},
+					{
+						to: '/examples',
+						from: [
+							'/examples/dashboard',
+							'/examples/dragdrop',
+							'/examples/xhrupload',
+							'/examples/i18n',
+							'/examples/statusbar',
+							'/examples/markdown-snippets',
+							'/examples/transloadit',
+						],
+					},
 				],
 			},
 		],
