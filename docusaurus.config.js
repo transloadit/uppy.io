@@ -132,6 +132,13 @@ const config = {
 					},
 				],
 			},
+			algolia: {
+				// The application ID provided by Algolia
+				appId: 'Q65IKQHNN5',
+				// Public API key: it is safe to commit it
+				apiKey: '8a30cf604c46f44f2973f55ed6411587',
+				indexName: 'uppy',
+			},
 			prism: {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme,
