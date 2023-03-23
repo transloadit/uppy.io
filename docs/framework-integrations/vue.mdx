@@ -64,7 +64,9 @@ JavaScript.
 	const uppy = new Uppy().use(Webcam);
 </script>
 
-<main><Dashboard uppy={uppy} plugins={["Webcam"]} /></main>
+<template>
+	<Dashboard :uppy="uppy" :plugins="['Webcam']" />
+</template>
 ```
 
 [vue]: https://vuejs.org
