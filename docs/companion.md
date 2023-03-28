@@ -346,20 +346,35 @@ instance is only allowed to upload to your trusted servers and prevents
 
 #### `COMPANION_PORT`
 
-The port on which to start the standalone server, defaults to 3020.
+The port on which to start the standalone server, defaults to 3020. This is a
+standalone-only option.
 
 #### `COMPANION_COOKIE_DOMAIN`
 
 Allows you to customize the domain of the cookies created for Express sessions.
+This is a standalone-only option.
 
 #### `COMPANION_HIDE_WELCOME`
 
-Setting this to `true` disables the welcome message shown at `/`.
+Setting this to `true` disables the welcome message shown at `/`. This is a
+standalone-only option.
 
 #### `redisUrl` `COMPANION_REDIS_URL`
 
 URL to running Redis server. This can be used to scale Companion horizontally
 using many instances. See [How to scale Companion](#how-to-scale-companion).
+
+#### `COMPANION_REDIS_EXPRESS_SESSION_PREFIX`
+
+Set a custom prefix for redis keys created by
+[connect-redis](https://github.com/tj/connect-redis). Defaults to `sess:`.
+Sessions are used for storing authentication state and for allowing thumbnails
+to be loaded by the browser via Companion. You might want to change this because
+if you run a redis with many different apps in the same redis server, it’s hard
+to know where `sess:` comes from and it might collide with other apps. **Note:**
+in the future, we plan and changing the default to `companion:` and possibly
+remove this option. This is a standalone-only option. See also
+`COMPANION_REDIS_PUBSUB_SCOPE`.
 
 #### `redisOptions`
 
@@ -367,10 +382,11 @@ An object of
 [options supported by redis client](https://www.npmjs.com/package/redis#options-object-properties).
 This option can be used in place of `redisUrl`.
 
-#### `redisPubSubScope`
+#### `redisPubSubScope` `COMPANION_REDIS_PUBSUB_SCOPE`
 
 Use a scope for the companion events at the Redis server. Setting this option
-will prefix all events with the name provided and a colon.
+will prefix all events with the name provided and a colon. See also
+`COMPANION_REDIS_EXPRESS_SESSION_PREFIX`.
 
 #### `server`
 
@@ -528,17 +544,18 @@ app.use(
 
 Enable S3
 [Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html).
+This is a standalone-only option.
 
 #### `COMPANION_AWS_EXPIRES`
 
 Set `X-Amz-Expires` query parameter in the presigned urls (in seconds, default:
-300).
+300). This is a standalone-only option.
 
 #### `COMPANION_AWS_ACL`
 
 Set a
 [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)
-for uploaded objects.
+for uploaded objects. This is a standalone-only option.
 
 #### `customProviders`
 
@@ -603,7 +620,8 @@ Allowed CORS Origins (default `true`). Passed as the `origin` option in
 #### `COMPANION_CLIENT_ORIGINS_REGEX`
 
 Like COMPANION_CLIENT_ORIGINS, but allows a single regex instead.
-`COMPANION_CLIENT_ORIGINS` will be ignored if this is used.
+`COMPANION_CLIENT_ORIGINS` will be ignored if this is used. This is a
+standalone-only option.
 
 #### `chunkSize` `COMPANION_CHUNK_SIZE`
 
