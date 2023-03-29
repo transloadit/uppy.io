@@ -1,4 +1,10 @@
-import React, { memo, useCallback, useEffect, useReducer, useState } from 'react';
+import React, {
+	memo,
+	useCallback,
+	useEffect,
+	useReducer,
+	useState,
+} from 'react';
 
 import Layout from '@theme/Layout';
 import Admonition from '@theme/Admonition';
@@ -17,7 +23,7 @@ import Audio from '@uppy/audio';
 import ScreenCapture from '@uppy/screen-capture';
 import ImageEditor from '@uppy/image-editor';
 import Tus from '@uppy/tus';
-import GoldenRetriever from '@uppy/golden-retriever'
+import GoldenRetriever from '@uppy/golden-retriever';
 
 import locales from '../locales.js';
 
@@ -196,18 +202,18 @@ const Uppy = memo(({ state, locale }) => {
 			.use(Url, { companionUrl })
 			.use(OneDrive, { companionUrl })
 			.use(Unsplash, { companionUrl })
-			.use(Box, { companionUrl })
+			.use(Box, { companionUrl });
 
-			if (state.enableGoldenRetriever) {
-				ret.use(GoldenRetriever)
-			}
-		
-		return ret
-	}, [state, locale])
+		if (state.enableGoldenRetriever) {
+			ret.use(GoldenRetriever);
+		}
 
-	const [uppy, setUppy] = useState(createUppy)
+		return ret;
+	}, [state, locale]);
 
-	useEffect(() => setUppy(createUppy()), [createUppy])
+	const [uppy, setUppy] = useState(createUppy);
+
+	useEffect(() => setUppy(createUppy()), [createUppy]);
 
 	return (
 		<div className={styles['uppy-wrapper']}>
@@ -226,7 +232,7 @@ const Uppy = memo(({ state, locale }) => {
 			/>
 		</div>
 	);
-})
+});
 
 // const companionUrl = 'https://companion.uppy.io';
 const companionUrl = 'http://localhost:3020';
