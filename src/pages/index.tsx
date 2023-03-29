@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import Dashboard from '@uppy/react/lib/Dashboard';
@@ -316,9 +316,8 @@ export default function Home(): JSX.Element {
 					<div className={styles['frameworks-wrapper']}>
 						<div className={styles.frameworks}>
 							{frameworks.map(({ name, Icon }) => (
-								<>
+								<Fragment key={name}>
 									<input
-										key={name}
 										type="radio"
 										id={name}
 										className={styles['framework-input']}
@@ -331,7 +330,7 @@ export default function Home(): JSX.Element {
 										<Icon />
 										<span>{name}</span>
 									</label>
-								</>
+								</Fragment>
 							))}
 						</div>
 						<CodeBlock language="js">
