@@ -3476,6 +3476,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uppy/golden-retriever@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@uppy/golden-retriever@npm:3.0.2"
+  dependencies:
+    "@transloadit/prettier-bytes": 0.0.9
+    "@uppy/utils": ^5.0.2
+    lodash.throttle: ^4.1.1
+  peerDependencies:
+    "@uppy/core": ^3.0.3
+  checksum: c18c46c35b039a4f5ba0998c50ed468bb0109d49371fe459b63a6b576f6a3ac03eac2b0c0654b4b68828a928958f2ab3f6a76a4acd286d3872a40e0289ef25f0
+  languageName: node
+  linkType: hard
+
 "@uppy/google-drive@npm:^3.0.1, @uppy/google-drive@npm:latest":
   version: 3.1.0
   resolution: "@uppy/google-drive@npm:3.1.0"
@@ -14886,6 +14899,7 @@ __metadata:
     "@uppy/core": latest
     "@uppy/dashboard": latest
     "@uppy/dropbox": latest
+    "@uppy/golden-retriever": ^3.0.2
     "@uppy/google-drive": latest
     "@uppy/image-editor": latest
     "@uppy/instagram": latest
