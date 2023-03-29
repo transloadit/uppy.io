@@ -185,7 +185,7 @@ const options = [
 	},
 ];
 
-const Uppy = (({ state, locale }) => {
+const Uppy = ({ state, locale }) => {
 	const createUppy = useCallback(() => {
 		const ret = new UppyCore({
 			restrictions: state.restrictions,
@@ -232,7 +232,7 @@ const Uppy = (({ state, locale }) => {
 			/>
 		</div>
 	);
-});
+};
 
 // const companionUrl = 'https://companion.uppy.io';
 const companionUrl = 'http://localhost:3020';
