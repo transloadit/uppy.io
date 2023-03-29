@@ -185,7 +185,7 @@ const options = [
 	},
 ];
 
-const Uppy = memo(({ state, locale }) => {
+const Uppy = (({ state, locale }) => {
 	const createUppy = useCallback(() => {
 		const ret = new UppyCore({
 			restrictions: state.restrictions,
