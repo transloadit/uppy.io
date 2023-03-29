@@ -60,7 +60,7 @@ const initialState: State = {
 	height: 500,
 	restrictions: null,
 	disabled: false,
-	theme: 'auto',
+	theme: 'light',
 	plugins: [
 		'Webcam',
 		'GoogleDrive',
