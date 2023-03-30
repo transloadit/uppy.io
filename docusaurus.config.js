@@ -42,6 +42,12 @@ const config = {
 			{
 				redirects: [
 					{
+						to: '/docs/migration-guides',
+						from: [
+							'/docs/guides/migrate-2.0',
+						]
+					},
+					{
 						to: '/docs/react',
 						from: [
 							'/docs/react/status-bar',
