@@ -42,7 +42,7 @@ const config = {
 			{
 				redirects: [
 					{
-						to: '/docs/migration-guides',
+						to: '/docs/guides/migration-guides',
 						from: [
 							'/docs/guides/migrate-2.0',
 						]
