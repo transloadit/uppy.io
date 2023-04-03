@@ -2,7 +2,7 @@
 title: 'Uppy: let’s teach an old dog some new tricks'
 date: 2016-07-15
 authors: ['arturi']
-slug: '2016/06/uppy-begins'
+slug: '2016/07/uppy-begins'
 ---
 
 For the past six months, we have been working hard on uppy.io. We feel that it

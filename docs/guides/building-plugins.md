@@ -16,7 +16,7 @@ process or render a custom UI, typically to:
 - Interact with a third-party service to process uploads correctly, such as
   [Transloadit](/docs/transloadit) or [AwsS3](/docs/aws-s3).
 
-See a [full example of a plugin](#Example-of-a-custom-plugin) below.
+See a [full example of a plugin](#example-of-a-custom-plugin) below.
 
 ## Creating A Plugin
 
