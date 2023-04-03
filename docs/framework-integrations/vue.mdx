@@ -38,7 +38,7 @@ You also need to install the UI plugin you want to use. For instance,
 
 ## Use
 
-The following plugins are available as React component wrappers:
+The following plugins are available as Vue component wrappers:
 
 - `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
 - `<DragDrop />` renders [`@uppy/drag-drop`](/docs/drag-drop)
@@ -64,7 +64,9 @@ JavaScript.
 	const uppy = new Uppy().use(Webcam);
 </script>
 
-<main><Dashboard uppy={uppy} plugins={["Webcam"]} /></main>
+<template>
+	<Dashboard :uppy="uppy" :plugins="['Webcam']" />
+</template>
 ```
 
 [vue]: https://vuejs.org
