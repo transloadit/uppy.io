@@ -187,7 +187,7 @@
 
 @media screen and (min-width: 50rem) {
 	.upload-one {
-		right: calc(50% - 600px / 2);
+		right: calc(50% - 640px / 2);
 		height: 90%;
 		transform: rotate(10deg) translateY(30px);
 	}
