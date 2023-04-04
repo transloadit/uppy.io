@@ -72,7 +72,10 @@ const config = {
 					{ to: '/docs/xhr-upload', from: '/docs/xhrupload' },
 					{ to: '/docs/transloadit', from: '/docs/robodog' },
 					{ to: '/docs/quick-start', from: '/docs/' },
-					{ to: '/docs/guides/building-plugins', from: '/docs/writing-plugins' },
+					{
+						to: '/docs/guides/building-plugins',
+						from: '/docs/writing-plugins',
+					},
 				],
 			},
 		],
