@@ -68,6 +68,11 @@ const config = {
 							'/examples/transloadit',
 						],
 					},
+					{ to: '/docs/status-bar', from: '/docs/statusbar' },
+					{ to: '/docs/xhr-upload', from: '/docs/xhrupload' },
+					{ to: '/docs/transloadit', from: '/docs/robodog' },
+					{ to: '/docs/quick-start', from: '/docs/' },
+					{ to: '/docs/building-plugins/', from: '/docs/writing-plugins/' }
 				],
 			},
 		],
