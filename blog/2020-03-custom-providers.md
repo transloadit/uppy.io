@@ -3,7 +3,7 @@ title: 'Adding Custom Providers: Step by Step Tutorial to add Custom Providers'
 date: 2020-06-08
 author: ife
 published: false
-slug: '2020/03/custom/providers'
+slug: '2020/03/custom-providers'
 ---
 
 In this post we will be going through a step by step tutorial on how to develop,
