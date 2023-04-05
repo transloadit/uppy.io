@@ -89,7 +89,7 @@ user has to refactor everything to Uppy using plugins.</li></ul><p>This has now 
 suits: modularity and flexibility. At the same time, we’re also introducing
 something to take away some of the repetitive integration code:
 <a href="/docs/remote-sources/"><code>@uppy/remote-sources</code></a>.</p><p>Are you using Robodog in your code base? You can check out the
-<a href="https://uppy.io/docs/migration-guides.html#Migrate-from-Robodog-to-Uppy-plugins" target="_blank" rel="noopener noreferrer">migration guide</a>
+<a href="https://uppy.io/docs/guides/migration-guides/#migrate-from-robodog-to-uppy-plugins" target="_blank" rel="noopener noreferrer">migration guide</a>
 to see how you can transition to Uppy plugins without losing functionality. We
 have committed ourselves to extending Robodog support for one year to give our
 users more time to migrate.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="native-mobile-camera">Native mobile camera<a href="#native-mobile-camera" class="hash-link" aria-label="Direct link to Native mobile camera" title="Direct link to Native mobile camera">​</a></h2><p>As you are probably aware, Uppy’s Webcam plugin provides a nice UI for desktop
