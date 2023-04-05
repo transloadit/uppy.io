@@ -1,0 +1,63 @@
+name: Tools and deps update
+on:
+  schedule:
+    # Run once a week at 00:05 AM UTC on Sunday.
+    - cron: 5 0 * * 0
+
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - .github/workflows/update-deps.yml
+
+jobs:
+  deps-update:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # Prevent other jobs from aborting if one fails
+      matrix:
+        include:
+          - id: uppy
+            subsystem: deps
+            run: |
+              git --no-pager show HEAD:yarn.lock | awk '{
+                if(isInsideUppyPackage) {
+                  # If we are inside an Uppy package block, we filter out that line (no print).
+                  if ($0 == "") {
+                    # If we are on an empty line, that marks the end of an Uppy package block.
+                    isInsideUppyPackage=0
+                  }
+                } else if($0 ~ /^"@uppy\//) {
+                  # Otherwise, if the line starts with `"@uppy/`, it marks the beginning of an Uppy
+                  # package block, and we filter out that line.
+                  isInsideUppyPackage=1
+                } else {
+                  # Otherwise, we are out of an Uppy package block, so that line can go through:
+                  print $0
+                }
+              }' > yarn.lock
+
+              corepack yarn
+              git diff --quiet || echo "NEW_VERSION=$(corepack yarn info @uppy/core --json | jq -r .children.Version)" >> "$GITHUB_ENV"
+              git add yarn.lock
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - run: ${{ matrix.run }}
+      - uses: gr2m/create-or-update-pull-request-action@v1
+        # Creates a PR or update the Action's existing PR, or
+        # no-op if the base branch is already up-to-date.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          body:
+            This is an automated update of ${{ matrix.id }} to ${{
+            env.NEW_VERSION }}.
+          branch: actions/tools-update-${{ matrix.id }} # Custom branch *just* for this Action.
+          commit-message:
+            '${{ matrix.subsystem }}: update ${{ matrix.id }} to ${{
+            env.NEW_VERSION }}'
+          title:
+            '${{ matrix.subsystem }}: update ${{ matrix.id }} to ${{
+            env.NEW_VERSION }}'
