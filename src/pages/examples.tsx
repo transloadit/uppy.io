@@ -260,6 +260,7 @@ export default function Examples() {
 						{() => {
 							const uppy = new Uppy({
 								restrictions: state.restrictions,
+								debug: true,
 								locale,
 							})
 								.use(Webcam)
@@ -274,6 +275,9 @@ export default function Examples() {
 								.use(OneDrive, { companionUrl })
 								.use(Unsplash, { companionUrl })
 								.use(Box, { companionUrl });
+
+							// Expose for easier debugging
+							globalThis.uppy = uppy;
 
 							return (
 								<div className={styles['uppy-wrapper']}>
