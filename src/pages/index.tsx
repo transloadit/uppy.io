@@ -34,6 +34,9 @@ import styles from './index.module.css';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
+const companionUrl = 'https://companion.uppy.io';
+const endpoint = 'https://tusd.tusdemo.net/files/';
+
 const dashboardCode = `import Uppy  from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
 import RemoteSources from '@uppy/google-drive'
@@ -43,10 +46,10 @@ import Tus from '@uppy/tus'
 
 const uppy = new Uppy()
   .use(Dashboard, { target: '.DashboardContainer', inline: true })
-  .use(RemoteSources, { companionUrl: "http://companion.uppy.io" })
+  .use(RemoteSources, { companionUrl: '${companionUrl}' })
   .use(Webcam, { target: Dashboard })
   .use(ImageEditor, { target: Dashboard })
-  .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+  .use(Tus, { endpoint: '${endpoint}' })
 `;
 
 const reactCode = `import React, { useEffect } from 'react'
@@ -221,21 +224,22 @@ export default function Home(): JSX.Element {
 					<div className={styles.dashboard}>
 						<BrowserOnly>
 							{() => {
-								const uppy = new Uppy()
+								const uppy = new Uppy({ debug: true })
 									.use(Webcam)
 									.use(ScreenCapture)
 									.use(Audio)
 									.use(ImageEditor, {})
-									.use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
-									.use(GoogleDrive, {
-										companionUrl: 'http://companion.uppy.io',
-									})
-									.use(Dropbox, { companionUrl: 'http://companion.uppy.io' })
-									.use(Instagram, { companionUrl: 'http://companion.uppy.io' })
-									.use(Url, { companionUrl: 'http://companion.uppy.io' })
-									.use(OneDrive, { companionUrl: 'http://companion.uppy.io' })
-									.use(Unsplash, { companionUrl: 'http://companion.uppy.io' })
-									.use(Box, { companionUrl: 'http://companion.uppy.io' });
+									.use(Tus, { endpoint })
+									.use(GoogleDrive, { companionUrl })
+									.use(Dropbox, { companionUrl })
+									.use(Instagram, { companionUrl })
+									.use(Url, { companionUrl })
+									.use(OneDrive, { companionUrl })
+									.use(Unsplash, { companionUrl })
+									.use(Box, { companionUrl });
+
+								// Expose for easier debugging
+								globalThis.uppy = uppy;
 
 								return (
 									<Dashboard
