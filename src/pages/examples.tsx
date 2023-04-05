@@ -26,6 +26,7 @@ import '@uppy/audio/dist/style.min.css';
 import '@uppy/screen-capture/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
 import '@uppy/webcam/dist/style.min.css';
+import '@uppy/url/dist/style.min.css';
 
 import styles from './examples.module.css';
 import Link from '@docusaurus/Link';
