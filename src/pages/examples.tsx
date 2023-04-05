@@ -26,6 +26,7 @@ import '@uppy/audio/dist/style.min.css';
 import '@uppy/screen-capture/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
 import '@uppy/webcam/dist/style.min.css';
+import '@uppy/url/dist/style.min.css';
 
 import styles from './examples.module.css';
 import Link from '@docusaurus/Link';
@@ -259,6 +260,7 @@ export default function Examples() {
 						{() => {
 							const uppy = new Uppy({
 								restrictions: state.restrictions,
+								debug: true,
 								locale,
 							})
 								.use(Webcam)
@@ -273,6 +275,9 @@ export default function Examples() {
 								.use(OneDrive, { companionUrl })
 								.use(Unsplash, { companionUrl })
 								.use(Box, { companionUrl });
+
+							// Expose for easier debugging
+							globalThis.uppy = uppy;
 
 							return (
 								<div className={styles['uppy-wrapper']}>
