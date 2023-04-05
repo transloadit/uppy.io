@@ -3,7 +3,7 @@ title: 'Companion 2.0 is here'
 date: 2020-09-09
 author: ife
 published: true
-slug: '2020/09/companion/2.0'
+slug: '2020/09/companion-2.0'
 ---
 
 We are happy to announce version 2.0 of Companion! 🎉 After maintaining and

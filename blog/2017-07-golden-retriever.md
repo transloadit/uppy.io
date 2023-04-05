@@ -4,7 +4,7 @@ date: 2017-07-31
 authors: ['arturi']
 image: 'http://uppy.io/img/blog/golden-retriever/uppy-team-kong.jpg'
 published: true
-slug: '2017/07/golden/retriever'
+slug: '2017/07/golden-retriever'
 ---
 
 **TL;DR:** We're on a mission to improve file uploading on the web. We released
