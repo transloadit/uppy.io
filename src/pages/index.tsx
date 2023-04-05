@@ -46,10 +46,10 @@ import Tus from '@uppy/tus'
 
 const uppy = new Uppy()
   .use(Dashboard, { target: '.DashboardContainer', inline: true })
-  .use(RemoteSources, { companionUrl: "https://companion.uppy.io" })
+  .use(RemoteSources, { companionUrl: '${companionUrl}' })
   .use(Webcam, { target: Dashboard })
   .use(ImageEditor, { target: Dashboard })
-  .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+  .use(Tus, { endpoint: '${endpoint}' })
 `;
 
 const reactCode = `import React, { useEffect } from 'react'
