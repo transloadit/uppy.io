@@ -202,8 +202,14 @@
 .companion {
 	display: flex;
 	width: 100%;
-	margin-top: 10rem;
+	margin-top: 7rem;
 	margin-bottom: -3rem;
+}
+
+@media screen and (min-width: 50rem) {
+	.companion {
+		margin-top: 10rem;
+	}
 }
 
 .companion .provider {
@@ -263,7 +269,7 @@
 /* ----- Frameworks ------  */
 .section-stack {
 	position: relative;
-	padding: 8rem 0;
+	padding: 1rem 0;
 	background-image: url('/img/grid-8.svg');
 	background-position: center;
 	background-repeat: repeat-y;
@@ -300,6 +306,7 @@
 }
 @media screen and (min-width: 50rem) {
 	.section-stack {
+		padding: 8rem 0;
 		background-image: url('/img/grid-12.svg');
 	}
 	.frameworks-wrapper {
