@@ -21,7 +21,7 @@ service on this website, we capture and store information about you.
 Since we are operating with a staff of less than ten people, we do not have an
 external data officer. Responsible for data protection are our founders Tim
 Koschützki and Kevin van Zonneveld. You can reach them at
-<a href="mailto:founders@transloadit.com">founders@transloadit.com</a>.
+[founders@transloadit.com](mailto:founders@transloadit.com).
 
 ## What data is collected?
 
