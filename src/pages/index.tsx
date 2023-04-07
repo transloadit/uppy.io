@@ -61,7 +61,7 @@ const uppy = new Uppy().use(Webcam)
 
 function Component () {
   return <Dashboard uppy={uppy} plugins={['Webcam']} />
-} 
+}
 `;
 
 const vueCode = `<template>
@@ -114,9 +114,9 @@ import { AppComponent } from './app.component'
 class {}
 `;
 
-const svelteCode = `<main> 
-  <Dashboard 
-      uppy={uppy} 
+const svelteCode = `<main>
+  <Dashboard
+      uppy={uppy}
       plugins={["Webcam"]}
   />
 </main>
@@ -222,44 +222,46 @@ export default function Home(): JSX.Element {
 						more.
 					</p>
 					<div className={styles.dashboard}>
-						<BrowserOnly>
-							{() => {
-								const uppy = new Uppy({ debug: true })
-									.use(Webcam)
-									.use(ScreenCapture)
-									.use(Audio)
-									.use(ImageEditor, {})
-									.use(Tus, { endpoint })
-									.use(GoogleDrive, { companionUrl })
-									.use(Dropbox, { companionUrl })
-									.use(Instagram, { companionUrl })
-									.use(Url, { companionUrl })
-									.use(OneDrive, { companionUrl })
-									.use(Unsplash, { companionUrl })
-									.use(Box, { companionUrl });
+						<div className={styles['dashboard-inner']}>
+							<BrowserOnly>
+								{() => {
+									const uppy = new Uppy({ debug: true })
+										.use(Webcam)
+										.use(ScreenCapture)
+										.use(Audio)
+										.use(ImageEditor, {})
+										.use(Tus, { endpoint })
+										.use(GoogleDrive, { companionUrl })
+										.use(Dropbox, { companionUrl })
+										.use(Instagram, { companionUrl })
+										.use(Url, { companionUrl })
+										.use(OneDrive, { companionUrl })
+										.use(Unsplash, { companionUrl })
+										.use(Box, { companionUrl });
 
-								// Expose for easier debugging
-								globalThis.uppy = uppy;
+									// Expose for easier debugging
+									globalThis.uppy = uppy;
 
-								return (
-									<Dashboard
-										uppy={uppy}
-										height={400}
-										plugins={[
-											'Webcam',
-											'GoogleDrive',
-											'Dropbox',
-											'Instagram',
-											'Url',
-											'OneDrive',
-											'Unsplash',
-											'Box',
-											'ImageEditor',
-										]}
-									/>
-								);
-							}}
-						</BrowserOnly>
+									return (
+										<Dashboard
+											uppy={uppy}
+											height={400}
+											plugins={[
+												'Webcam',
+												'GoogleDrive',
+												'Dropbox',
+												'Instagram',
+												'Url',
+												'OneDrive',
+												'Unsplash',
+												'Box',
+												'ImageEditor',
+											]}
+										/>
+									);
+								}}
+							</BrowserOnly>
+						</div>
 						<CodeBlock language="js">{dashboardCode}</CodeBlock>
 					</div>
 					<div
