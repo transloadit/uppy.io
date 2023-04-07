@@ -382,7 +382,7 @@
 	color: #dd0031;
 }
 
-/* And much more */
+/* ----- And much more ------  */
 
 .section-much-more ul {
 	list-style: none;
@@ -427,4 +427,29 @@
 	align-items: center;
 	gap: 1rem;
 	margin: 1rem 0;
+}
+
+/* ----- Footer ------  */
+
+.footer {
+	background-color: #15192a;
+	color: #fff;
+	font-size: 12px;
+	margin-top: 50px;
+	padding: 2em 1em 3em;
+	text-align: center;
+}
+
+.footer p {
+	margin: 1em 0;
+}
+
+.footer img {
+	height: auto;
+	width: 44px;
+}
+
+.footer a {
+	color: rgba(255, 255, 255);
+	text-decoration: underline;
 }
