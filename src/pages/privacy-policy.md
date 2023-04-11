@@ -18,9 +18,10 @@ service on this website, we capture and store information about you.
 
 ## Who is responsible for data protection?
 
-Since we are a small company, we do not have an external data officer. 
-Responsible for data protection are Transloadit’s founders Tim Koschützki and Kevin van Zonneveld. 
-You can reach them at [founders@transloadit.com](mailto:founders@transloadit.com).
+Since we are a small company, we do not have an external data officer.
+Responsible for data protection are Transloadit’s founders Tim Koschützki and
+Kevin van Zonneveld. You can reach them at
+[founders@transloadit.com](mailto:founders@transloadit.com).
 
 ## What data is collected?
 
@@ -29,7 +30,9 @@ We receive the following **data** from you:
 1. IP addresses
 2. Request headers
 3. Data entered on our website
-4. Information used to analyze usage of our platform via [Plausible](https://plausible.io), a self-hosted service that is GDPR compliant and anonymizes data on impact.
+4. Information used to analyze usage of our platform via
+   [Plausible](https://plausible.io), a self-hosted service that is GDPR
+   compliant and anonymizes data on impact.
 5. Files you can optionally upload in example demos. Those files are stored
    temporarily for 24–72 hours, on uppy.io, tus.io or transloadit.com servers,
    and then deleted. See also Transloadit’s Privacy Policy:
@@ -47,11 +50,11 @@ We use the following third-party services which also store data about you:
 
 <div class="table-responsive">
 
-| supplier         | subject                 | data                | encryption | anonymized | discarded |
-| :--------------- | :---------------------- | :------------------ | :--------: | :--------: | :-------: |
-| Transloadit      | end user (data subject) | browser identifiers |            |            | instantly |
-| Transloadit      | end user (data subject) | test files          |            |            |   >24h    |
-| Tus.io           | end user (data subject) | test files          |            |            |   >72h    |
+| supplier    | subject                 | data                | encryption | anonymized | discarded |
+| :---------- | :---------------------- | :------------------ | :--------: | :--------: | :-------: |
+| Transloadit | end user (data subject) | browser identifiers |            |            | instantly |
+| Transloadit | end user (data subject) | test files          |            |            |   >24h    |
+| Tus.io      | end user (data subject) | test files          |            |            |   >72h    |
 
 </div>
 
