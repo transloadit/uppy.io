@@ -7,6 +7,8 @@ on:
       - reopened
       - synchronize
       - closed
+  merge_group:
+    types: [checks_requested]
 
 concurrency: test-${{ github.ref }}
 

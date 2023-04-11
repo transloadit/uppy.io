@@ -15,7 +15,7 @@ const config = {
 	favicon: 'img/logo.svg',
 	organizationName: 'transloadit', // Usually your GitHub org/user name.
 	projectName: 'uppy.io', // Usually your repo name.
-	trailingSlash: false,
+	trailingSlash: true,
 	presets: [
 		[
 			'classic',
@@ -42,6 +42,10 @@ const config = {
 			{
 				redirects: [
 					{
+						to: '/docs/guides/migration-guides',
+						from: ['/docs/migration-guides.html'],
+					},
+					{
 						to: '/docs/react',
 						from: [
 							'/docs/react/status-bar',
@@ -63,6 +67,14 @@ const config = {
 							'/examples/markdown-snippets',
 							'/examples/transloadit',
 						],
+					},
+					{ to: '/docs/status-bar', from: '/docs/statusbar' },
+					{ to: '/docs/xhr-upload', from: '/docs/xhrupload' },
+					{ to: '/docs/transloadit', from: '/docs/robodog' },
+					{ to: '/docs/quick-start', from: '/docs/' },
+					{
+						to: '/docs/guides/building-plugins',
+						from: '/docs/writing-plugins',
 					},
 				],
 			},

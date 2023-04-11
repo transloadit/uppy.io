@@ -33,6 +33,7 @@ import '@uppy/audio/dist/style.min.css';
 import '@uppy/screen-capture/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
 import '@uppy/webcam/dist/style.min.css';
+import '@uppy/url/dist/style.min.css';
 
 import styles from './examples.module.css';
 import Link from '@docusaurus/Link';
@@ -190,6 +191,7 @@ const Uppy = ({ state, locale }) => {
 		const ret = new UppyCore({
 			restrictions: state.restrictions,
 			locale,
+			debug: true,
 		})
 			.use(Webcam)
 			.use(ScreenCapture)
@@ -207,6 +209,9 @@ const Uppy = ({ state, locale }) => {
 		if (state.enableGoldenRetriever) {
 			ret.use(GoldenRetriever);
 		}
+
+		// Expose for easier debugging
+		globalThis.uppy = ret;
 
 		return ret;
 	}, [state, locale]);
@@ -234,8 +239,8 @@ const Uppy = ({ state, locale }) => {
 	);
 };
 
-// const companionUrl = 'https://companion.uppy.io';
-const companionUrl = 'http://localhost:3020';
+const companionUrl = 'https://companion.uppy.io';
+// const companionUrl = 'http://localhost:3020';
 const endpoint = 'https://tusd.tusdemo.net/files/';
 
 export default function Examples() {
