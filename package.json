@@ -75,8 +75,7 @@
 		"clsx": "^1.1.1",
 		"prism-react-renderer": "^1.2.1",
 		"react": "^17.0.1",
-		"react-dom": "^17.0.1",
-		"uppy": "latest"
+		"react-dom": "^17.0.1"
 	},
 	"devDependencies": {
 		"@docusaurus/eslint-plugin": "^2.3.1",
@@ -125,7 +124,8 @@
 		"retext-syntax-mentions": "^3.1.0",
 		"typescript": "^4.6.2",
 		"unified": "^10.0.0",
-		"unified-message-control": "^4.0.0"
+		"unified-message-control": "^4.0.0",
+		"uppy": "latest"
 	},
 	"packageManager": "yarn@3.3.1+sha224.1c866bd0fca5cf439c5b6a019f1653906d5e7ea807b01a9c7b18adab"
 }
