@@ -2,7 +2,8 @@ import React from 'react';
 import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
 
-import packageJson from '../../package.json';
+// import packageJson from '../../package.json';
+import packageJson from 'uppy/package.json';
 
 const { version: uppyVersion } = packageJson;
 
