@@ -80,6 +80,24 @@
 	position: relative;
 }
 
+.dashboard-inner {
+	position: relative;
+	z-index: 1;
+	background-color: #fff;
+	padding: 5px;
+	border-radius: 10px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+@media screen and (min-width: 50rem) {
+	.dashboard-inner {
+		background-color: transparent;
+		padding: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+}
+
 .main .section-dashboard {
 	max-width: 65rem;
 }
@@ -94,7 +112,7 @@
 	width: 100%;
 	margin: 0 auto;
 	filter: blur(60px);
-	background: linear-gradient(90deg, rgb(255, 51, 119, 0.4), #fbcfe8);
+	background: linear-gradient(90deg, rgb(255, 51, 119, 0.2), #fbcfe8);
 	background-size: 200% 200%;
 	background-position: 100% 50%;
 }
@@ -169,7 +187,7 @@
 
 @media screen and (min-width: 50rem) {
 	.upload-one {
-		right: calc(50% - 600px / 2);
+		right: calc(50% - 640px / 2);
 		height: 90%;
 		transform: rotate(10deg) translateY(30px);
 	}
@@ -184,8 +202,14 @@
 .companion {
 	display: flex;
 	width: 100%;
-	margin-top: 10rem;
+	margin-top: 7rem;
 	margin-bottom: -3rem;
+}
+
+@media screen and (min-width: 50rem) {
+	.companion {
+		margin-top: 10rem;
+	}
 }
 
 .companion .provider {
@@ -245,7 +269,7 @@
 /* ----- Frameworks ------  */
 .section-stack {
 	position: relative;
-	padding: 8rem 0;
+	padding: 1rem 0;
 	background-image: url('/img/grid-8.svg');
 	background-position: center;
 	background-repeat: repeat-y;
@@ -282,6 +306,7 @@
 }
 @media screen and (min-width: 50rem) {
 	.section-stack {
+		padding: 8rem 0;
 		background-image: url('/img/grid-12.svg');
 	}
 	.frameworks-wrapper {
@@ -357,7 +382,7 @@
 	color: #dd0031;
 }
 
-/* And much more */
+/* ----- And much more ------  */
 
 .section-much-more ul {
 	list-style: none;
@@ -402,4 +427,29 @@
 	align-items: center;
 	gap: 1rem;
 	margin: 1rem 0;
+}
+
+/* ----- Footer ------  */
+
+.footer {
+	background-color: #15192a;
+	color: #fff;
+	font-size: 12px;
+	margin-top: 50px;
+	padding: 2em 1em 3em;
+	text-align: center;
+}
+
+.footer p {
+	margin: 1em 0;
+}
+
+.footer img {
+	height: auto;
+	width: 44px;
+}
+
+.footer a {
+	color: rgba(255, 255, 255);
+	text-decoration: underline;
 }
