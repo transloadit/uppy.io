@@ -1,10 +1,16 @@
-import React, { useReducer, useState } from 'react';
+import React, {
+	memo,
+	useCallback,
+	useEffect,
+	useReducer,
+	useState,
+} from 'react';
 
 import Layout from '@theme/Layout';
 import Admonition from '@theme/Admonition';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import Dashboard from '@uppy/react/lib/Dashboard';
-import Uppy from '@uppy/core';
+import UppyCore from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrive from '@uppy/google-drive';
 import Instagram from '@uppy/instagram';
@@ -17,6 +23,7 @@ import Audio from '@uppy/audio';
 import ScreenCapture from '@uppy/screen-capture';
 import ImageEditor from '@uppy/image-editor';
 import Tus from '@uppy/tus';
+import GoldenRetriever from '@uppy/golden-retriever';
 
 import locales from '../locales.js';
 
@@ -47,13 +54,14 @@ type State = {
 	disabled: boolean;
 	theme: 'light' | 'dark' | 'auto';
 	plugins: string[];
+	enableGoldenRetriever: boolean;
 };
 
 const initialState: State = {
 	height: 500,
 	restrictions: null,
 	disabled: false,
-	theme: 'auto',
+	theme: 'light',
 	plugins: [
 		'Webcam',
 		'GoogleDrive',
@@ -65,6 +73,7 @@ const initialState: State = {
 		'Box',
 		'ImageEditor',
 	],
+	enableGoldenRetriever: false,
 };
 
 function reducer(state: State, action: Action) {
@@ -91,6 +100,9 @@ function reducer(state: State, action: Action) {
 				...state,
 				plugins: state.plugins.filter((p) => p !== action.value),
 			};
+		case 'enableGoldenRetriever': {
+			return { ...state, enableGoldenRetriever: action.checked };
+		}
 		default:
 			return state;
 	}
@@ -167,11 +179,68 @@ const options = [
 	},
 	{
 		heading: 'Uppy',
-		options: [{ label: 'Restrictions', type: 'restrictions' }],
+		options: [
+			{ label: 'Restrictions', type: 'restrictions' },
+			{ label: 'Golden Retriever', type: 'enableGoldenRetriever' },
+		],
 	},
 ];
 
+const Uppy = ({ state, locale }) => {
+	const createUppy = useCallback(() => {
+		const ret = new UppyCore({
+			restrictions: state.restrictions,
+			locale,
+			debug: true,
+		})
+			.use(Webcam)
+			.use(ScreenCapture)
+			.use(Audio)
+			.use(ImageEditor, {})
+			.use(Tus, { endpoint })
+			.use(GoogleDrive, { companionUrl })
+			.use(Dropbox, { companionUrl })
+			.use(Instagram, { companionUrl })
+			.use(Url, { companionUrl })
+			.use(OneDrive, { companionUrl })
+			.use(Unsplash, { companionUrl })
+			.use(Box, { companionUrl });
+
+		if (state.enableGoldenRetriever) {
+			ret.use(GoldenRetriever);
+		}
+
+		// Expose for easier debugging
+		globalThis.uppy = ret;
+
+		return ret;
+	}, [state, locale]);
+
+	const [uppy, setUppy] = useState(createUppy);
+
+	useEffect(() => setUppy(createUppy()), [createUppy]);
+
+	return (
+		<div className={styles['uppy-wrapper']}>
+			<Dashboard
+				uppy={uppy}
+				width={state.width}
+				height={state.height}
+				plugins={state.plugins}
+				theme={state.theme}
+				disabled={state.disabled}
+				note={
+					state.restrictions
+						? 'Images and video only, 2–3 files, up to 1 MB'
+						: null
+				}
+			/>
+		</div>
+	);
+};
+
 const companionUrl = 'https://companion.uppy.io';
+// const companionUrl = 'http://localhost:3020';
 const endpoint = 'https://tusd.tusdemo.net/files/';
 
 export default function Examples() {
@@ -257,46 +326,7 @@ export default function Examples() {
 						</select>
 					</div>
 					<BrowserOnly>
-						{() => {
-							const uppy = new Uppy({
-								restrictions: state.restrictions,
-								debug: true,
-								locale,
-							})
-								.use(Webcam)
-								.use(ScreenCapture)
-								.use(Audio)
-								.use(ImageEditor, {})
-								.use(Tus, { endpoint })
-								.use(GoogleDrive, { companionUrl })
-								.use(Dropbox, { companionUrl })
-								.use(Instagram, { companionUrl })
-								.use(Url, { companionUrl })
-								.use(OneDrive, { companionUrl })
-								.use(Unsplash, { companionUrl })
-								.use(Box, { companionUrl });
-
-							// Expose for easier debugging
-							globalThis.uppy = uppy;
-
-							return (
-								<div className={styles['uppy-wrapper']}>
-									<Dashboard
-										uppy={uppy}
-										width={state.width}
-										height={state.height}
-										plugins={state.plugins}
-										theme={state.theme}
-										disabled={state.disabled}
-										note={
-											state.restrictions
-												? 'Images and video only, 2–3 files, up to 1 MB'
-												: null
-										}
-									/>
-								</div>
-							);
-						}}
+						{() => <Uppy state={state} locale={locale} />}
 					</BrowserOnly>
 				</section>
 				<Admonition type="note">
