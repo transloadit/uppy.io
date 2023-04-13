@@ -264,6 +264,16 @@ uppy.on('file-removed', (file, reason) => {
 For an implementation example, please see
 [#2301](https://github.com/transloadit/uppy/issues/2301#issue-628931176).
 
+#### `singleFileFullScreen`
+
+When only one file is selected, its preview and meta information will be
+centered and enlarged (`boolean`, default: `true`).
+
+Often times Uppy used for photo / profile image uploads, or maybe a single
+document. Then it makes sense to occupy the whole space of the available
+Dashboard UI, giving the stage to this one file. This feature is automatically
+disabled when Dashboard is small in height, since there’s not enough room.
+
 #### `note`
 
 A string of text to be placed in the Dashboard UI (`string`, default: `null`).
