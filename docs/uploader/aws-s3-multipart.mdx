@@ -390,4 +390,20 @@ or between `500` and `600`.
 
 </details>
 
+#### `shouldUseMultipart(file, fileSize)`
+
+A function that returns a boolean, or a boolean value. If a function is
+provided, the following arguments will be provided:
+
+- `file` - the `UppyFile` object.
+- `fileSize` – the number of bytes to upload.
+
+By default, all files are uploaded as multipart. In a future version, all files
+with a size ≤ 100 MiB will be uploaded in a single chunk, all files larger than
+that as multipart.
+
+#### `getUploadParameters(file)`
+
+See [`@uppy/aws-s3`][]. This option is used only for non-multipart uploads.
+
 [`@uppy/aws-s3`]: /docs/aws-s3
