@@ -315,20 +315,6 @@ upload as query parameters (`Array`, default: `null`).
 - Set this to `null` (the default) to send _all_ metadata fields.
 - Set this to an empty array `[]` to not send any fields.
 
-#### `shouldUseMultipart(file, fileSize)`
-
-When provided, this plugin will be swaped with [`@uppy/aws-s3-multipart`][].
-
-A function that returns a boolean, or a boolean value. If a function is
-provided, the following arguments will be provided:
-
-- `file` - the `UppyFile` object.
-- `fileSize` – the number of bytes to upload.
-
-By default, all files are uploaded as a single chunk. In a future version, all
-files with a size ≤ 100 MiB will be uploaded in a single chunk, all files larger
-than that as multipart.
-
 #### `getUploadParameters(file)`
 
 :::note
