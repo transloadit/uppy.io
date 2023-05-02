@@ -390,16 +390,13 @@ or between `500` and `600`.
 
 </details>
 
-#### `shouldUseMultipart(file, fileSize)`
+#### `shouldUseMultipart(file)`
 
 A function that returns a boolean, or a boolean value. If a function is
-provided, the following arguments will be provided:
-
-- `file` - the `UppyFile` object.
-- `fileSize` – the number of bytes to upload.
+provided, it is passed a single argument: `file` - the `UppyFile` object.
 
 By default, all files are uploaded as multipart. In a future version, all files
-with a size ≤ 100 MiB will be uploaded in a single chunk, all files larger than
+with a `file.size` ≤ 100 MiB will be uploaded in a single chunk, all files larger than
 that as multipart.
 
 #### `getUploadParameters(file)`
