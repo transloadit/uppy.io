@@ -392,12 +392,23 @@ or between `500` and `600`.
 
 #### `shouldUseMultipart(file)`
 
-A function that returns a boolean, or a boolean value. If a function is
-provided, it is passed a single argument: `file` - the `UppyFile` object.
+A boolean, or a function that returns a boolean which is called for each file
+that is uploaded with the corresponding `UppyFile` instance as argument.
 
 By default, all files are uploaded as multipart. In a future version, all files
-with a `file.size` ≤ 100 MiB will be uploaded in a single chunk, all files larger than
-that as multipart.
+with a `file.size` ≤ 100 MiB will be uploaded in a single chunk, all files
+larger than that as multipart.
+
+Here’s how to use it:
+
+```js
+uppy.use(AwsS3Multipart, {
+	shouldUseMultipart(file) {
+		// Use multipart only for files larger than 100MiB.
+		return file.size > 100 * 2 ** 20;
+	},
+});
+```
 
 #### `getUploadParameters(file)`
 
