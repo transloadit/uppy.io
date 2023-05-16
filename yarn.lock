@@ -3792,8 +3792,8 @@ __metadata:
   linkType: hard
 
 "@uppy/transloadit@npm:^3.1.2":
-  version: 3.1.4
-  resolution: "@uppy/transloadit@npm:3.1.4"
+  version: 3.1.5
+  resolution: "@uppy/transloadit@npm:3.1.5"
   dependencies:
     "@uppy/companion-client": ^3.1.3
     "@uppy/provider-views": ^3.3.0
@@ -3803,7 +3803,7 @@ __metadata:
     socket.io-client: ^4.1.3
   peerDependencies:
     "@uppy/core": ^3.2.0
-  checksum: 6d5c1ce400416ecacd2a2ed8293392e7fdb19c45f09569548aff70c229c08145a54e52de99af44c288214b271f48a176390a1e6ff635848c62232ec92e4d9ac9
+  checksum: 06fe90b6fced7b149591f87f1bcf0762b7cd2814d8230ccdf3fdf614aafbbe0e84fe5a42c5cf982065c92c13455ae9586949f65f42a9c64ba6a95021c68dac7f
   languageName: node
   linkType: hard
 
