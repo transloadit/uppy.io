@@ -58,7 +58,7 @@ type State = {
 };
 
 const initialState: State = {
-	height: 500,
+	height: 570,
 	restrictions: null,
 	disabled: false,
 	theme: 'light',
