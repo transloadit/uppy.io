@@ -6,7 +6,7 @@ image: 'https://uppy.io/img/blog/new-website/new-uppy-io-1.jpg'
 published: true
 ---
 
-<img src="/img/blog/new-website/new-uppy-io-1.jpg" className="border" />
+<img src="/img/blog/new-website/new-uppy-io-1.jpg" className="border" alt="Screenshot of the new Uppy website homepage" />
 
 We are excited to announce that our new website, documentation and blog are now live out of
 beta, ready for you to enjoy on [Uppy.io](https://uppy.io)! Let us know what
@@ -23,7 +23,7 @@ team contributing in their area of Uppy expertise.
 [Docusaurus](https://docusaurus.io/) 🦕 was chosen as one of the top modern tools for
 documentation.
 
-![](/img/blog/new-website/new-uppy-io-2.jpg)
+![Screenshot of the Uppy website showing a documentation page with new design](/img/blog/new-website/new-uppy-io-2.jpg)
 
 Most of the plugin’s docs now explain when you should use it (and sometimes when
 not), followed by how to install, tips and details and links to CodeSandbox
@@ -32,6 +32,6 @@ samples.
 And for desert, we now have a swift website-wide search in the top bar, powered by [Algolia](https://www.algolia.com), give it a go!
 
 
-![](/img/blog/new-website/new-uppy-io-3.jpg)
+![Screenshot of the Uppy website showing the search interface](/img/blog/new-website/new-uppy-io-3.jpg)
 
 Enjoy the new [uppy.io](https://uppy.io)!
