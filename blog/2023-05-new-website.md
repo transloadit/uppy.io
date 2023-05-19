@@ -12,10 +12,10 @@ We are excited to announce that our new website, documentation and blog are now
 live out of beta, ready for you to enjoy on [Uppy.io](https://uppy.io)! Let us
 know what you think [on twitter](https://twitter.com/uppy_io).
 
-The first iteration of the Uppy website was built by Artur and
-Kevin over 7 years ago, using [Hexo]((https://hexo.io/)) static site generator as
-a base. It served us well, but over time Hexo got less maintained, our docs more
-messy, and quite a few places were collecting dust.
+The first iteration of the Uppy website was built by Artur and Kevin over 7
+years ago, using [Hexo](https://hexo.io/) static site generator as a base.
+It served us well, but over time Hexo got less maintained, our docs more messy,
+and quite a few places were collecting dust.
 
 About a year ago Merlijn set on a task to refresh the Uppy documentation
 experience, rewriting most of the docs from the ground up, with everyone on the
