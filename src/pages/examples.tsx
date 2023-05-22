@@ -1,10 +1,4 @@
-import React, {
-	memo,
-	useCallback,
-	useEffect,
-	useReducer,
-	useState,
-} from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 
 import Layout from '@theme/Layout';
 import Admonition from '@theme/Admonition';
@@ -48,8 +42,8 @@ const restrictions = {
 
 type Action = { type: string; checked?: boolean; value: string };
 type State = {
-	width?: number;
-	height: number;
+	width?: number | string;
+	height: number | string;
 	restrictions?: typeof restrictions;
 	disabled: boolean;
 	theme: 'light' | 'dark' | 'auto';
@@ -59,6 +53,7 @@ type State = {
 
 const initialState: State = {
 	height: 570,
+	width: '100%',
 	restrictions: null,
 	disabled: false,
 	theme: 'light',

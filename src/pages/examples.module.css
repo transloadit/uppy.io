@@ -89,6 +89,6 @@
 	}
 	.main > section {
 		display: grid;
-		grid-template-columns: 1fr 2fr;
+		grid-template-columns: minmax(20rem, 1fr) 2fr;
 	}
 }
