@@ -63,7 +63,6 @@
 	max-width: 30rem;
 	border-radius: 5px;
 	padding: 1rem;
-	font-size: 0.8rem;
 }
 
 .options-wrapper > div {
@@ -90,6 +89,6 @@
 	}
 	.main > section {
 		display: grid;
-		grid-template-columns: 1fr 2fr;
+		grid-template-columns: minmax(20rem, 1fr) 2fr;
 	}
 }

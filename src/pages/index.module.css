@@ -397,9 +397,6 @@
 		gap: 0 1rem;
 		align-items: start;
 	}
-	.section-much-more li {
-		margin: 0;
-	}
 }
 
 .section-much-more ul + div {
@@ -434,7 +431,6 @@
 .footer {
 	background-color: #15192a;
 	color: #fff;
-	font-size: 12px;
 	margin-top: 50px;
 	padding: 2em 1em 3em;
 	text-align: center;

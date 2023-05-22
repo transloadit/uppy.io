@@ -5,6 +5,7 @@ import EditThisPage from '@theme/EditThisPage';
 import TagsListInline from '@theme/TagsListInline';
 import ReadMoreLink from '@theme/BlogPostItem/Footer/ReadMoreLink';
 import styles from './styles.module.css';
+
 export default function BlogPostItemFooter() {
 	const { metadata, isBlogPostPage } = useBlogPost();
 	const { tags, title, editUrl, hasTruncateMarker } = metadata;
@@ -28,34 +29,37 @@ export default function BlogPostItemFooter() {
 				</div>
 			)}
 
-			{isBlogPostPage && editUrl && (
-				<div className="col margin-top--sm">
-					<ul className="blog__post-footer__follow">
-						<li>
-							<a href="https://twitter.com/uppy_io">Follow us on Twitter</a> or
-							grab the <a href="https://uppy.io/blog/atom.xml">RSS feed</a>
-						</li>
-						<li>
-							<a
-								className="github-button"
-								href="https://github.com/transloadit/uppy"
-								data-icon="octicon-star"
-								data-size="large"
-								data-show-count="true"
-								aria-label="Star transloadit/uppy on GitHub"
-							>
-								Star
-							</a>
-						</li>
-					</ul>
-				</div>
+			{isBlogPostPage && (
+				<ul className={styles.footer}>
+					<li>
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://twitter.com/uppy_io"
+						>
+							Twitter
+						</a>
+					</li>
+					<li>
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://uppy.io/blog/atom.xml"
+						>
+							RSS feed
+						</a>
+					</li>
+					<li>
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://github.com/transloadit/uppy"
+						>
+							GitHub
+						</a>
+					</li>
+				</ul>
 			)}
-
-			{/* {isBlogPostPage && editUrl && (
-				<div className="col margin-top--sm">
-					<EditThisPage editUrl={editUrl} />
-				</div>
-			)} */}
 
 			{truncatedPost && (
 				<div
