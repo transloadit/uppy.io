@@ -77,7 +77,7 @@ function reducer(state: State, action: Action) {
 			if (action.checked) {
 				return { ...state, width: 400, height: 400 };
 			}
-			return { ...state, width: undefined, height: 500 };
+			return { ...state, width: '100%', height: 570 };
 		case 'theme':
 			return { ...state, theme: action.checked ? 'dark' : 'light' };
 		case 'disabled':
