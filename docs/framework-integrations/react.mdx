@@ -80,7 +80,7 @@ import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/webcam/dist/style.min.css';
 
 // Don’t forget to keep the Uppy instance outside of your component.
-const uppy = new Uppy().use(Webcam);
+const uppy = new Uppy().use(Webcam, {id: 'upload' });
 
 function Component() {
 	return <Dashboard uppy={uppy} plugins={['Webcam']} />;
