@@ -807,8 +807,8 @@ with an `Error`):
 
 The class must also have:
 
-- A unique `static authProvider` string property - a lowercased value which typically
-  indicates the name of the provider (e.g “dropbox”).
+- A unique `static authProvider` string property - a lowercased value which
+  typically indicates the name of the provider (e.g “dropbox”).
 - A `static` property `static version = 2`, which is the current version of the
   Companion Provider API.
 
