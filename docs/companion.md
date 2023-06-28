@@ -130,7 +130,8 @@ const options = {
 	filePath: '/path/to/folder/',
 };
 
-app.use('/companion', companion.app(options));
+const { app: companionApp } = companion.app(companionOptions);
+app.use(companionApp);
 ```
 
 Companion uses WebSockets to communicate progress, errors, and successes to the
