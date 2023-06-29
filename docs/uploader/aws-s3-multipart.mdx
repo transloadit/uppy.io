@@ -410,8 +410,36 @@ uppy.use(AwsS3Multipart, {
 });
 ```
 
-#### `getUploadParameters(file)`
+#### `getUploadParameters(file, options)`
 
-See [`@uppy/aws-s3`][]. This option is used only for non-multipart uploads.
+:::note
+
+When using [Companion][companion docs] to sign S3 uploads, you should not define
+this option.
+
+:::
+
+A function that will be called for each non-multipart upload.
+
+- `file`: `UppyFile` the file that will be uploaded
+- `options`: `object`
+  - `signal`: `AbortSignal`
+- **Returns:** `object | Promise<object>`
+  - `method`: `string`, the HTTP method to be used for the upload. This should
+    be one of either `PUT` or `POST`, depending on the type of upload used.
+  - `url`: `string`, the URL to which the upload request will be sent. When
+    using a presigned PUT upload, this should be the URL to the S3 object with
+    signing parameters included in the query string. When using a POST upload
+    with a policy document, this should be the root URL of the bucket.
+  - `fields` `object`, an object with form fields to send along with the upload
+    request. For presigned PUT uploads (which are default), this should be left
+    empty.
+  - `headers`: `object`, an object with request headers to send along with the
+    upload request. When using a presigned PUT upload, it’s a good idea to
+    provide `headers['content-type']`. That will make sure that the request uses
+    the same content-type that was used to generate the signature. Without it,
+    the browser may decide on a different content-type instead, causing S3 to
+    reject the upload.
 
 [`@uppy/aws-s3`]: /docs/aws-s3
+[companion docs]: /docs/companion
