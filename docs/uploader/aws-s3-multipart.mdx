@@ -410,8 +410,83 @@ uppy.use(AwsS3Multipart, {
 });
 ```
 
+#### `getTemporarySecurityCredentials(options)`
+
+:::note
+
+When using [Companion][companion docs] as a backend, you can pass `true` instead
+of a function.
+
+:::
+
+A boolean, or an (async) function that returns a boolean which is called each
+time a signed URL needs to be generated. It’s strongly recomended to have some
+sort of caching process to avoid requesting more temporary token than necessary.
+
+- `options`: `object`
+  - `signal`: `AbortSignal`
+- **Returns:** `object | Promise<object>`
+  - `credentials`: `object`
+    - `AccessKeyId`: `string`
+    - `SecretAccessKey`: `string`
+    - `SessionToken`: `string`
+  - `bucket`: `string`
+  - `region`: `string`
+
+```js
+uppy.use(AwsS3Multipart, {
+	// This is an example using Companion:
+	companionUrl: 'http://companion.uppy.io',
+	getTemporarySecurityCredentials: true,
+});
+```
+
+#### `getTemporarySecurityCredentialsExpiry(credentials, options)`
+
+:::note
+
+When using [Companion][companion docs] to generate temporary credentials, do not
+define this option.
+
+:::
+
+An (async) function that returns when the given credentials will expire. This is
+useful to let the client know when a signature has expired, and therefor cancel
+the ongoing upload that has 0 chance to succeed. The reason this is not part of
+`getTemporarySecurityCredentials()` is that we want the reponse from
+`getTemporarySecurityCredentials` to be cacheable.
+
+- `credentials`: `object` the credentials object returned by
+  `getTemporarySecurityCredentials`
+- `options`: `object`
+  - `signal`: `AbortSignal`
+- **Returns:** `number | Promise<number>` the validity time in second for the
+  URL signature
+
+```js
+uppy.use(AwsS3Multipart, {
+	// This is an example not using Companion:
+	async getTemporarySecurityCredentials(options) {
+		const response = await fetch('/sts-token', options);
+		if (!response.ok)
+			throw new Error('Failed to fetch STS', { cause: response });
+		return response.json();
+	},
+	async getTemporarySecurityCredentialsExpiry(credentials, options) {
+		const response = await fetch(
+			'/sts-token-expiry?token=' + credentials.SessionToken.slice(0, 50),
+			options,
+		);
+		if (!response.ok)
+			throw new Error('Failed to fetch STS expiry', { cause: response });
+		return response.json();
+	},
+});
+```
+
 #### `getUploadParameters(file)`
 
 See [`@uppy/aws-s3`][]. This option is used only for non-multipart uploads.
 
 [`@uppy/aws-s3`]: /docs/aws-s3
+[companion docs]: /docs/companion
