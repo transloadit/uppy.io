@@ -430,6 +430,7 @@ sort of caching process to avoid requesting more temporary token than necessary.
     - `AccessKeyId`: `string`
     - `SecretAccessKey`: `string`
     - `SessionToken`: `string`
+    - `Expiration`: `string`
   - `bucket`: `string`
   - `region`: `string`
 
@@ -445,47 +446,15 @@ uppy.use(AwsS3Multipart, {
 ```
 
 In the most common case, you are using a different backend, in which case you
-need to specify a function. See [`getTemporarySecurityCredentialsExpiry`][]
-documentation for an example.
-
-#### `getTemporarySecurityCredentialsExpiry(credentials, options)`
-
-:::note
-
-When using [Companion][companion docs] to generate temporary credentials, do not
-define this option.
-
-:::
-
-An (async) function that returns when the given credentials will expire. This is
-useful to let the client know when a signature has expired, and therefor cancel
-the ongoing upload that has 0 chance to succeed. The reason this is not part of
-`getTemporarySecurityCredentials()` is that we want the reponse from
-`getTemporarySecurityCredentials` to be cacheable.
-
-- `credentials`: `object` the credentials object returned by
-  `getTemporarySecurityCredentials`
-- `options`: `object`
-  - `signal`: `AbortSignal`
-- **Returns:** `number | Promise<number>` the validity time in second for the
-  URL signature
+need to specify a function:
 
 ```js
 uppy.use(AwsS3Multipart, {
 	// This is an example not using Companion:
-	async getTemporarySecurityCredentials(options) {
-		const response = await fetch('/sts-token', options);
+	async getTemporarySecurityCredentials({ signal }) {
+		const response = await fetch('/sts-token', { signal });
 		if (!response.ok)
 			throw new Error('Failed to fetch STS', { cause: response });
-		return response.json();
-	},
-	async getTemporarySecurityCredentialsExpiry(credentials, options) {
-		const response = await fetch(
-			'/sts-token-expiry?token=' + credentials.SessionToken.slice(0, 50),
-			options,
-		);
-		if (!response.ok)
-			throw new Error('Failed to fetch STS expiry', { cause: response });
 		return response.json();
 	},
 });
@@ -496,6 +465,4 @@ uppy.use(AwsS3Multipart, {
 See [`@uppy/aws-s3`][]. This option is used only for non-multipart uploads.
 
 [`@uppy/aws-s3`]: /docs/aws-s3
-[`gettemporarysecuritycredentialsexpiry`]:
-	#getTemporarySecurityCredentialsExpiry-credentials-options
 [companion docs]: /docs/companion
