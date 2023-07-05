@@ -433,6 +433,9 @@ sort of caching process to avoid requesting more temporary token than necessary.
   - `bucket`: `string`
   - `region`: `string`
 
+If you are using Companion (for example because you want to support remote
+upload sources), you can pass a boolean:
+
 ```js
 uppy.use(AwsS3Multipart, {
 	// This is an example using Companion:
@@ -440,6 +443,10 @@ uppy.use(AwsS3Multipart, {
 	getTemporarySecurityCredentials: true,
 });
 ```
+
+In the most common case, you are using a different backend, in which case you
+need to specify a function. See [`getTemporarySecurityCredentialsExpiry`][]
+documentation for an example.
 
 #### `getTemporarySecurityCredentialsExpiry(credentials, options)`
 
@@ -489,4 +496,6 @@ uppy.use(AwsS3Multipart, {
 See [`@uppy/aws-s3`][]. This option is used only for non-multipart uploads.
 
 [`@uppy/aws-s3`]: /docs/aws-s3
+[`gettemporarysecuritycredentialsexpiry`]:
+	#getTemporarySecurityCredentialsExpiry-credentials-options
 [companion docs]: /docs/companion
