@@ -3386,30 +3386,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/aws-s3-multipart@npm:^3.1.3, @uppy/aws-s3-multipart@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "@uppy/aws-s3-multipart@npm:3.4.0"
+"@uppy/aws-s3-multipart@npm:^3.1.3, @uppy/aws-s3-multipart@npm:^3.4.1":
+  version: 3.4.1
+  resolution: "@uppy/aws-s3-multipart@npm:3.4.1"
   dependencies:
-    "@uppy/companion-client": ^3.1.3
+    "@uppy/companion-client": ^3.2.0
     "@uppy/utils": ^5.4.0
   peerDependencies:
-    "@uppy/core": ^3.2.1
-  checksum: dd66a378ed9854fb78b04b4d337130acadab8c35591dcb72497f1c50802dbae57655e779e33e45f7d3354a93b50a9ed75d355c31a298a13e1c9b27e3837d8404
+    "@uppy/core": ^3.3.0
+  checksum: e33011a34f1533bd81b815716072eceb6f79a4224030c47b280917fa559cecba82bdb75cbd564c489c5ca04f88af685dba59f9c750d4712b63c8c0e633d9142d
   languageName: node
   linkType: hard
 
 "@uppy/aws-s3@npm:^3.0.6":
-  version: 3.2.0
-  resolution: "@uppy/aws-s3@npm:3.2.0"
+  version: 3.2.1
+  resolution: "@uppy/aws-s3@npm:3.2.1"
   dependencies:
-    "@uppy/aws-s3-multipart": ^3.4.0
-    "@uppy/companion-client": ^3.1.3
+    "@uppy/aws-s3-multipart": ^3.4.1
+    "@uppy/companion-client": ^3.2.0
     "@uppy/utils": ^5.4.0
-    "@uppy/xhr-upload": ^3.3.0
+    "@uppy/xhr-upload": ^3.3.1
     nanoid: ^4.0.0
   peerDependencies:
-    "@uppy/core": ^3.2.1
-  checksum: a0d4952285190e1bab8cbbc92d965fcba78c39c8a1a1d11e27ed9fe08c04a50e7489fa4f3f2b3eea3ecea4634e3f5b467d4374766c27069162273fdcc2e2db2a
+    "@uppy/core": ^3.3.0
+  checksum: 0ae6799b3a202f9048d7ca69f7c532ed3740e5238fa1a4814612c25507eb6e06f2f69ddcef23597c0fa843378b767b72ff3ba898f713765cdf70ed95bdbcaa15
   languageName: node
   linkType: hard
 
@@ -3427,13 +3427,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/companion-client@npm:^3.1.2, @uppy/companion-client@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "@uppy/companion-client@npm:3.1.3"
+"@uppy/companion-client@npm:^3.1.2, @uppy/companion-client@npm:^3.1.3, @uppy/companion-client@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@uppy/companion-client@npm:3.2.0"
   dependencies:
-    "@uppy/utils": ^5.3.0
+    "@uppy/utils": ^5.4.0
     namespace-emitter: ^2.0.1
-  checksum: c1a855f969d2f68c4e981c783cc415b979a7298650118f8ad584574b5de1bd2bb4541fe33dcaedb1eac4a2288c0b10a0c01eaadcb4628b4e134a1b1fbdacfc1b
+  checksum: 3f6485944349f9be3f851c8e573aeb6e82bf7a2e9fec9c4fc6777f5c711226a136593545f53056784619abab828fb12b8d541ebd30dceda3816be4b78951d576
   languageName: node
   linkType: hard
 
@@ -3453,8 +3453,8 @@ __metadata:
   linkType: hard
 
 "@uppy/core@npm:^3.1.2, @uppy/core@npm:latest":
-  version: 3.2.1
-  resolution: "@uppy/core@npm:3.2.1"
+  version: 3.3.0
+  resolution: "@uppy/core@npm:3.3.0"
   dependencies:
     "@transloadit/prettier-bytes": 0.0.9
     "@uppy/store-default": ^3.0.3
@@ -3464,7 +3464,7 @@ __metadata:
     namespace-emitter: ^2.0.1
     nanoid: ^4.0.0
     preact: ^10.5.13
-  checksum: 886aef81bf6bfef8c606678c1f453fb50d5b538636a4cb43f648be275e824a48dd7cbf101d82f7d6466971db2cfb953519acb6eff26c93db94186b037024af70
+  checksum: cb5e3260c2983784e8704882d52fced0b293ad162828a726b8d79587aa50d7d29baba0fb238b726c0d5f3e9c3ebdb08c86fa1d352ea4eebae1a09ddafd202c9d
   languageName: node
   linkType: hard
 
@@ -3566,15 +3566,15 @@ __metadata:
   linkType: hard
 
 "@uppy/golden-retriever@npm:^3.0.2":
-  version: 3.0.4
-  resolution: "@uppy/golden-retriever@npm:3.0.4"
+  version: 3.1.0
+  resolution: "@uppy/golden-retriever@npm:3.1.0"
   dependencies:
     "@transloadit/prettier-bytes": 0.0.9
     "@uppy/utils": ^5.4.0
     lodash: ^4.17.21
   peerDependencies:
-    "@uppy/core": ^3.2.1
-  checksum: 46fbbcc355dd40a928a07f06001b992b7d02837d1bf1e0fc49d6f63234ed947a5b0807d3e28c9521f00a78054cc4a17f5df0e72f26883176dca9463beff58436
+    "@uppy/core": ^3.3.0
+  checksum: a27fd7b5a9b66219817516d0f9bbe4fba9ca918dfa8f5a81515c5ad8e8ca5e94823af34212a4b790345d2cb4f168ac224579a088fd2214decb8ca1bdbc206275
   languageName: node
   linkType: hard
 
@@ -3750,17 +3750,16 @@ __metadata:
   linkType: hard
 
 "@uppy/status-bar@npm:^3.1.0, @uppy/status-bar@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@uppy/status-bar@npm:3.2.0"
+  version: 3.2.1
+  resolution: "@uppy/status-bar@npm:3.2.1"
   dependencies:
     "@transloadit/prettier-bytes": 0.0.9
     "@uppy/utils": ^5.4.0
     classnames: ^2.2.6
-    lodash: ^4.17.21
     preact: ^10.5.13
   peerDependencies:
-    "@uppy/core": ^3.2.1
-  checksum: 69ea9f3b3f024ba9f661a7b0f2c6265748f09559139a5f6c9970b64330d49cc11918c241a6515c1a00a5ba7c0629c7ae713173a01faf35c61f0600b56ba050cd
+    "@uppy/core": ^3.3.0
+  checksum: cdca4b5b9f29f9c3376c1685be2f77fcfe7cabb313f523075ab3c2014a5179e9843cd06da77564c7bfc9b36f0c7d8cd3e5b972bc7a064bcd6bf8ce891e2483f5
   languageName: node
   linkType: hard
 
@@ -3809,15 +3808,15 @@ __metadata:
   linkType: hard
 
 "@uppy/tus@npm:^3.0.6, @uppy/tus@npm:^3.1.1, @uppy/tus@npm:latest":
-  version: 3.1.1
-  resolution: "@uppy/tus@npm:3.1.1"
+  version: 3.1.2
+  resolution: "@uppy/tus@npm:3.1.2"
   dependencies:
-    "@uppy/companion-client": ^3.1.3
+    "@uppy/companion-client": ^3.2.0
     "@uppy/utils": ^5.4.0
     tus-js-client: ^3.0.0
   peerDependencies:
-    "@uppy/core": ^3.2.1
-  checksum: d1580b540dbc0df3a6d3610130d7425b93c85e7e3c5a12f65b1d679be6d14be33667d591ac31a5677798f2660c9b800173ce1f5c6c8e44e9c66a6797d99c27ae
+    "@uppy/core": ^3.3.0
+  checksum: c53de9d16ee11faab7e00829119ca88b98791deeb8341c6e38801a0fdcbb469efea2348c1bbf32119279e93389c0c65a48ebcdaf40238e9ba8dcdc3e6f2dcb94
   languageName: node
   linkType: hard
 
@@ -3871,16 +3870,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/xhr-upload@npm:^3.1.1, @uppy/xhr-upload@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "@uppy/xhr-upload@npm:3.3.0"
+"@uppy/xhr-upload@npm:^3.1.1, @uppy/xhr-upload@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "@uppy/xhr-upload@npm:3.3.1"
   dependencies:
-    "@uppy/companion-client": ^3.1.3
+    "@uppy/companion-client": ^3.2.0
     "@uppy/utils": ^5.4.0
     nanoid: ^4.0.0
   peerDependencies:
-    "@uppy/core": ^3.2.1
-  checksum: f5eefc376cd8ca3a38708a0714a885365912445347c101644f3e74b5fa4e6682b93c2f669337df859a4c7cb50256b2cc9469482ee762ae8176060a284619e49d
+    "@uppy/core": ^3.3.0
+  checksum: a3a9cbc587e3410c1179b950d885d5c848413ea83e2de8712bf18b20fbab1ce0adc08fa946e557b2157baa760f6ec3df20b1fd36eb9175f3dca936d5b6fce948
   languageName: node
   linkType: hard
 
