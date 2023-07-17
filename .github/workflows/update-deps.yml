@@ -38,7 +38,7 @@ jobs:
               }' > yarn.lock
 
               corepack yarn --no-immutable
-              git diff --quiet || echo "NEW_VERSION=$(corepack yarn info @uppy/core --json | jq -r .children.Version)" >> "$GITHUB_ENV"
+              git diff --quiet || echo "NEW_VERSION=$(corepack yarn info uppy --json | jq -r .children.Version)" >> "$GITHUB_ENV"
               git add yarn.lock
     steps:
       - uses: actions/checkout@v3
