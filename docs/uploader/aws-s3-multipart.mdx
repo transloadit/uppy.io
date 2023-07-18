@@ -35,11 +35,17 @@ request overhead, as it needs to do creation, signing (unless you are [signing
 on the client][]), and completion requests besides the upload requests. For
 example, if you are uploading files that are only a couple kilobytes with a
 100ms roundtrip latency, you are spending 400ms on overhead and only a few
-milliseconds on uploading. When [signing on the client][], it adds two requests
-no matter the size of the file.
+milliseconds on uploading.
 
-If you are uploading large files (100&nbsp;MB+), we recommend
+**In short**
+- If you are uploading large files (100&nbsp;MB+), we recommend
 `@uppy/aws-s3-multipart`, otherwise [`@uppy/aws-s3`][].
+- If you prefer to have less overhead (+20% upload speed)
+  you can use temporary S3 credentials with
+  [`getTemporary`](#gettemporarysecuritycredentialsoptions).
+  This means users get a single token which allows them to do
+  bucket operations for a longer time period, instead of short
+  lived signed URL per resource. This is a security trade-off.
 
 ## Install
 
@@ -422,8 +428,12 @@ signing on the client.
 
 :::
 
-A boolean, or an (async) function that returns a boolean which is called each
-time a signed URL needs to be generated. It’s strongly recomended to have some
+A boolean (when using Companion), or an (async) function to retrieve temporary
+security credentials used for all uploads instead of signing every part.
+This results in less request overhead which can lead to around 20% faster uploads.
+This is a security tradeoff.
+
+It’s strongly recomended to have some
 sort of caching process to avoid requesting more temporary token than necessary.
 
 - `options`: `object`
