@@ -27,14 +27,16 @@ _client-to-server-to-storage_ (such as [Transloadit](/docs/transloadit) or
 reduce costs or the complexity of running a server and load balancer with
 [Tus](/docs/tus).
 
-`@uppy/aws-s3-multipart` starts to become valuable for larger files
-(100&nbsp;MB+) as it uploads a single object as a set of parts. This has certain
-benefits, such as improved throughput (uploading parts in parallel) and quick
-recovery from network issues (only the failed parts need to be retried). The
-downside is request overhead, as it needs to do creation, signing, and
-completion requests besides the upload requests. For example, if you are
-uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
-you are spending 400ms on overhead and only a few milliseconds on uploading.
+Multipart uploads start to become valuable for larger files (100&nbsp;MB+) as it
+uploads a single object as a set of parts. This has certain benefits, such as
+improved throughput (uploading parts in parallel) and quick recovery from
+network issues (only the failed parts need to be retried). The downside is
+request overhead, as it needs to do creation, signing (unless you are [signing
+on the client][]), and completion requests besides the upload requests. For
+example, if you are uploading files that are only a couple kilobytes with a
+100ms roundtrip latency, you are spending 400ms on overhead and only a few
+milliseconds on uploading. When [signing on the client][], it adds two requests
+no matter the size of the file.
 
 If you are uploading large files (100&nbsp;MB+), we recommend
 `@uppy/aws-s3-multipart`, otherwise [`@uppy/aws-s3`][].
@@ -415,7 +417,8 @@ uppy.use(AwsS3Multipart, {
 :::note
 
 When using [Companion][companion docs] as a backend, you can pass `true` instead
-of a function.
+of a function. Setting up Companion will not simplify the process of getting
+signing on the client.
 
 :::
 
@@ -466,3 +469,4 @@ See [`@uppy/aws-s3`][]. This option is used only for non-multipart uploads.
 
 [`@uppy/aws-s3`]: /docs/aws-s3
 [companion docs]: /docs/companion
+[signing on the client]: #gettemporarysecuritycredentialsoptions
