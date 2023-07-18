@@ -826,15 +826,10 @@ uppy.getPlugin('Dashboard').setOptions({
 });
 ```
 
-#### `reset()`
-
-Stop all uploads in progress and clear file selection, set progress to 0. More
-or less, it returns things to the way they were before any user input.
-
 #### `close()`
 
 Uninstall all plugins and close down this Uppy instance. Also runs
-`uppy.reset()` before uninstalling.
+`uppy.cancelAll()` before uninstalling.
 
 #### `logout()`
 
