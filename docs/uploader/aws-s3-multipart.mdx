@@ -38,14 +38,13 @@ example, if you are uploading files that are only a couple kilobytes with a
 milliseconds on uploading.
 
 **In short**
+
 - If you are uploading large files (100&nbsp;MB+), we recommend
-`@uppy/aws-s3-multipart`, otherwise [`@uppy/aws-s3`][].
-- If you prefer to have less overhead (+20% upload speed)
-  you can use temporary S3 credentials with
-  [`getTemporarySecurityCredentials `](#gettemporarysecuritycredentialsoptions).
-  This means users get a single token which allows them to do
-  bucket operations for a longer time period, instead of short
-  lived signed URL per resource. This is a security trade-off.
+  `@uppy/aws-s3-multipart`, otherwise [`@uppy/aws-s3`][].
+- If you prefer to have less overhead (+20% upload speed) you can use temporary
+  S3 credentials with [`getTemporarySecurityCredentials`][]. This means users
+  get a single token which allows them to do bucket operations for longer,
+  instead of short lived signed URL per resource. This is a security trade-off.
 
 ## Install
 
@@ -429,12 +428,16 @@ signing on the client.
 :::
 
 A boolean (when using Companion), or an (async) function to retrieve temporary
-security credentials used for all uploads instead of signing every part.
-This results in less request overhead which can lead to around 20% faster uploads.
-This is a security tradeoff.
+security credentials used for all uploads instead of signing every part. This
+results in less request overhead which can lead to around 20% faster uploads.
+This is a security tradeoff. We recommend to not use this option unless you are
+familiar with the security implications of temporary credentials, and how to
+setup your bucket to make it work. See the
+[Requesting temporary security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
+AWS guide for more information.
 
-It’s strongly recomended to have some
-sort of caching process to avoid requesting more temporary token than necessary.
+It’s strongly recomended to have some sort of caching process to avoid
+requesting more temporary token than necessary.
 
 - `options`: `object`
   - `signal`: `AbortSignal`
@@ -478,5 +481,6 @@ uppy.use(AwsS3Multipart, {
 See [`@uppy/aws-s3`][]. This option is used only for non-multipart uploads.
 
 [`@uppy/aws-s3`]: /docs/aws-s3
+[`gettemporarysecuritycredentials`]: #gettemporarysecuritycredentialsoptions
 [companion docs]: /docs/companion
 [signing on the client]: #gettemporarysecuritycredentialsoptions
