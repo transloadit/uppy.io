@@ -36,8 +36,8 @@ completion requests besides the upload requests. For example, if you are
 uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
 you are spending 400ms on overhead and only a few milliseconds on uploading.
 
-If you are uploading large files (100&nbsp;MB+), we recommend
-`@uppy/aws-s3-multipart`, otherwise [`@uppy/aws-s3`][].
+We recomend setting [`shouldUseMultipart`][] option to use the right upload
+method depending on the file size.
 
 ## Install
 
@@ -441,5 +441,5 @@ A function that will be called for each non-multipart upload.
     the browser may decide on a different content-type instead, causing S3 to
     reject the upload.
 
-[`@uppy/aws-s3`]: /docs/aws-s3
+[`shouldusemultipart`]: #shouldusemultipartfile
 [companion docs]: /docs/companion
