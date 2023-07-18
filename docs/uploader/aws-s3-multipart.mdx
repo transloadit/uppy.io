@@ -36,8 +36,9 @@ completion requests besides the upload requests. For example, if you are
 uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
 you are spending 400ms on overhead and only a few milliseconds on uploading.
 
-We recomend setting [`shouldUseMultipart`][] option to use the right upload
-method depending on the file size.
+Since `3.2.0` of the `aws-s3` package and `3.3.0` of this package, we recommend
+you use [`shouldUseMultipart`][]. This package will eventually be merged into
+`aws-s3` so it is better to use the option with that package already.
 
 ## Install
 
