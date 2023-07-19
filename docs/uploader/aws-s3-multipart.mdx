@@ -187,10 +187,10 @@ const uppy = new Uppy()
 
 :::warning
 
-You must define this option, otherwise you’ll be using the
-[legacy version of this plugin](./aws-s3). If you use the deprecated
-`@uppy/aws-s3-multipart` package, this will be set to `true` by default, which
-is not a recomended setting.
+Until the next major version, not setting this option uses the [legacy version of this plugin](./aws-s3).
+This is a suboptimal experience for some of your user’s uploads.
+It is best for speed and stability to upload large (100&nbsp;MB+) files with multipart
+and small files with regular uploads.
 
 :::
 
