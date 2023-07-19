@@ -11,8 +11,8 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 The `@uppy/aws-s3` plugin can be used to upload files directly to a S3 bucket or
 a S3-compatible provider, such as Google Cloud Storage or DigitalOcean Spaces.
-Uploads can be signed using either [Companion][companion docs], temporary credentials, or a custom
-signing function.
+Uploads can be signed using either [Companion][companion docs], temporary
+credentials, or a custom signing function.
 
 ## When should I use it?
 
@@ -176,7 +176,10 @@ import '@uppy/dashboard/dist/style.min.css';
 
 const uppy = new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
-	.use(AwsS3, { companionUrl: 'http://companion.uppy.io' });
+	.use(AwsS3, {
+		shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
+		companionUrl: 'http://companion.uppy.io',
+	});
 ```
 
 ## API
@@ -187,10 +190,10 @@ const uppy = new Uppy()
 
 :::warning
 
-Until the next major version, not setting this option uses the [legacy version of this plugin](./aws-s3).
-This is a suboptimal experience for some of your user’s uploads.
-It is best for speed and stability to upload large (100&nbsp;MB+) files with multipart
-and small files with regular uploads.
+Until the next major version, not setting this option uses the
+[legacy version of this plugin](./aws-s3). This is a suboptimal experience for
+some of your user’s uploads. It’s best for speed and stability to upload large
+(100&nbsp;MB+) files with multipart and small files with regular uploads.
 
 :::
 
@@ -218,12 +221,12 @@ The maximum amount of files to upload in parallel (`number`, default: `6`).
 
 Note that the amount of files is not the same as the amount of concurrent
 connections. Multipart uploads can use many requests per file. For example, for
-a 100 MB file with a part size of 5 MB:
+a 100 MiB file with a part size of 5 MiB:
 
-- 1 creation request
-- 100/5 = 20 sign requests
+- 1 `createMultipartUpload` request
+- 100/5 = 20 sign requests (unless you are [signing on the client][])
 - 100/5 = 20 upload requests
-- 1 complete request
+- 1 `completeMultipartUpload` request
 
 :::caution
 
@@ -272,6 +275,37 @@ size, at the cost of having to re-upload more data if one chunk fails to upload.
 S3 requires a minimum chunk size of 5MB, and supports at most 10,000 chunks per
 multipart upload. If `getChunkSize()` returns a size that’s too small, Uppy will
 increase it to S3’s minimum requirements.
+
+#### `getUploadParameters(file, options)`
+
+:::note
+
+When using [Companion][companion docs] to sign S3 uploads, you should not define
+this option.
+
+:::
+
+A function that will be called for each non-multipart upload.
+
+- `file`: `UppyFile` the file that will be uploaded
+- `options`: `object`
+  - `signal`: `AbortSignal`
+- **Returns:** `object | Promise<object>`
+  - `method`: `string`, the HTTP method to be used for the upload. This should
+    be one of either `PUT` or `POST`, depending on the type of upload used.
+  - `url`: `string`, the URL to which the upload request will be sent. When
+    using a presigned PUT upload, this should be the URL to the S3 object with
+    signing parameters included in the query string. When using a POST upload
+    with a policy document, this should be the root URL of the bucket.
+  - `fields` `object`, an object with form fields to send along with the upload
+    request. For presigned PUT uploads (which are default), this should be left
+    empty.
+  - `headers`: `object`, an object with request headers to send along with the
+    upload request. When using a presigned PUT upload, it’s a good idea to
+    provide `headers['content-type']`. That will make sure that the request uses
+    the same content-type that was used to generate the signature. Without it,
+    the browser may decide on a different content-type instead, causing S3 to
+    reject the upload.
 
 #### `createMultipartUpload(file)`
 
@@ -473,6 +507,7 @@ uppy.use(AwsS3, {
 	// This is an example using Companion:
 	companionUrl: 'http://companion.uppy.io',
 	getTemporarySecurityCredentials: true,
+	shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
 });
 ```
 
@@ -488,39 +523,9 @@ uppy.use(AwsS3, {
 			throw new Error('Failed to fetch STS', { cause: response });
 		return response.json();
 	},
+	shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
 });
 ```
-
-#### `getUploadParameters(file, options)`
-
-:::note
-
-When using [Companion][companion docs] to sign S3 uploads, you should not define
-this option.
-
-:::
-
-A function that will be called for each non-multipart upload.
-
-- `file`: `UppyFile` the file that will be uploaded
-- `options`: `object`
-  - `signal`: `AbortSignal`
-- **Returns:** `object | Promise<object>`
-  - `method`: `string`, the HTTP method to be used for the upload. This should
-    be one of either `PUT` or `POST`, depending on the type of upload used.
-  - `url`: `string`, the URL to which the upload request will be sent. When
-    using a presigned PUT upload, this should be the URL to the S3 object with
-    signing parameters included in the query string. When using a POST upload
-    with a policy document, this should be the root URL of the bucket.
-  - `fields` `object`, an object with form fields to send along with the upload
-    request. For presigned PUT uploads (which are default), this should be left
-    empty.
-  - `headers`: `object`, an object with request headers to send along with the
-    upload request. When using a presigned PUT upload, it’s a good idea to
-    provide `headers['content-type']`. That will make sure that the request uses
-    the same content-type that was used to generate the signature. Without it,
-    the browser may decide on a different content-type instead, causing S3 to
-    reject the upload.
 
 [`gettemporarysecuritycredentials`]: #gettemporarysecuritycredentialsoptions
 [`shouldusemultipart`]: #shouldusemultipartfile
