@@ -11,7 +11,7 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 The `@uppy/aws-s3` plugin can be used to upload files directly to a S3 bucket or
 a S3-compatible provider, such as Google Cloud Storage or DigitalOcean Spaces.
-Uploads can be signed using either [Companion][companion docs] or a custom
+Uploads can be signed using either [Companion][companion docs], temporary credentials, or a custom
 signing function.
 
 ## When should I use it?
@@ -198,7 +198,7 @@ A boolean, or a function that returns a boolean which is called for each file
 that is uploaded with the corresponding `UppyFile` instance as argument.
 
 By default, all files are uploaded as multipart. In a future version, all files
-with a `file.size` ≤ 100 MiB will be uploaded in a single chunk, all files
+with a `file.size` ≤ 100&nbsp;MiB will be uploaded in a single chunk, all files
 larger than that as multipart.
 
 Here’s how to use it:
