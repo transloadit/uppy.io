@@ -502,12 +502,9 @@ arguments:
 
 - `req`, the HTTP request, for _regular_ S3 uploads using the `@uppy/aws-s3`
   plugin. This parameter is _not_ available for multipart uploads using the
-  `@uppy/aws-s3-multipart` plugin;
+  `@uppy/aws-s3` or `@uppy/aws-s3-multipart` plugins;
 - `filename`, the original name of the uploaded file;
-- `metadata`, user-provided metadata for the file. See the
-  [`@uppy/aws-s3`](https://uppy.io/docs/aws-s3/#metaFields) docs. The
-  `@uppy/aws-s3-multipart` plugin unconditionally sends all metadata fields, so
-  they all are available here.
+- `metadata`, user-provided metadata for the file.
 
 This function should return a string `key`. The `req` parameter can be used to
 upload to a user-specific folder in your bucket, for example:
@@ -540,6 +537,9 @@ app.use(
 	}),
 );
 ```
+
+When signing on the client, this function will only be called for multipart
+uploads.
 
 #### `COMPANION_AWS_USE_ACCELERATE_ENDPOINT`
 

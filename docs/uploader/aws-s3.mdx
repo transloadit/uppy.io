@@ -7,12 +7,15 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import UppyCdnExample from '/src/components/UppyCdnExample';
 
-# AWS S3
+# AWS S3 (legacy)
 
 The `@uppy/aws-s3` plugin can be used to upload files directly to a S3 bucket or
 a S3-compatible provider, such as Google Cloud Storage or DigitalOcean Spaces.
 Uploads can be signed using either [Companion][companion docs] or a custom
 signing function.
+
+This documents the legacy version of this plugin that we plan to remove on the
+next version.
 
 ## When should I use it?
 
@@ -20,6 +23,13 @@ signing function.
 
 Not sure which uploader is best for you? Read
 “[Choosing the uploader you need](/docs/guides/choosing-uploader)”.
+
+:::
+
+:::warning
+
+This plugin is deprecated, you should switch to using the
+[modern version of this plugin](./aws-s3-multipart).
 
 :::
 

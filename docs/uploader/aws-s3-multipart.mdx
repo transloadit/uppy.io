@@ -7,10 +7,12 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import UppyCdnExample from '/src/components/UppyCdnExample';
 
-# AWS S3 Multipart
+# AWS S3
 
-The `@uppy/aws-s3-multipart` plugin can be used to upload files directly to an
-S3 bucket (or S3-compatible provider) using S3’s Multipart uploader.
+The `@uppy/aws-s3` plugin can be used to upload files directly to a S3 bucket or
+a S3-compatible provider, such as Google Cloud Storage or DigitalOcean Spaces.
+Uploads can be signed using either [Companion][companion docs] or a custom
+signing function.
 
 ## When should I use it?
 
@@ -39,7 +41,7 @@ milliseconds on uploading.
 
 **In short**
 
-- We recommend you use [`shouldUseMultipart`][] to enable multipart uploads only
+- We recommend to set [`shouldUseMultipart`][] to enable multipart uploads only
   for large files.
 - If you prefer to have less overhead (+20% upload speed) you can use temporary
   S3 credentials with [`getTemporarySecurityCredentials`][]. This means users
@@ -52,7 +54,7 @@ milliseconds on uploading.
   <TabItem value="npm" label="NPM" default>
 
 ```shell
-npm install @uppy/aws-s3-multipart
+npm install @uppy/aws-s3
 ```
 
   </TabItem>
@@ -60,7 +62,7 @@ npm install @uppy/aws-s3-multipart
   <TabItem value="yarn" label="Yarn">
 
 ```shell
-yarn add @uppy/aws-s3-multipart
+yarn add @uppy/aws-s3
 ```
 
   </TabItem>
@@ -68,8 +70,8 @@ yarn add @uppy/aws-s3-multipart
   <TabItem value="cdn" label="CDN">
     <UppyCdnExample>
       {`
-        import { Uppy, AwsS3Multipart } from "{{UPPY_JS_URL}}"
-        new Uppy().use(AwsS3Multipart, { /* see options */ })
+        import { Uppy, AwsS3 } from "{{UPPY_JS_URL}}"
+        new Uppy().use(AwsS3, { /* see options */ })
       `}
     </UppyCdnExample>
   </TabItem>
@@ -131,19 +133,23 @@ bucket in question. In-depth documentation about CORS rules is available on the
 
 ### Use with your own server
 
-The recommended approach is to integrate `@uppy/aws-s3-multipart` with your own
-server. You will need to do the following things:
+The recommended approach is to integrate `@uppy/aws-s3` with your own server.
+You will need to do the following things:
 
-1. [Setup up a S3 bucket](#setting-up-your-s3-bucket)
+1. [Setup up a S3 bucket](#setting-up-your-s3-bucket).
 2. Create endpoints in your server. You can create them as edge functions (such
-   as AWS Lambdas), inside Next.js as an API route, or wherever your server runs
-   - `POST` > `/uppy/s3`: create the multipart upload
-   - `GET` > `/uppy/s3/:id`: get the uploaded parts
-   - `GET` > `/uppy/s3/:id/:partNumber`: sign the part and return a pre-signed
-     URL
-   - `POST` > `/uppy/s3/:id/complete`: complete the multipart upload
-   - `DELETE` > `/uppy/s3/:id`: abort the multipart upload
-3. [Setup Uppy](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/public/index.html)
+   as AWS Lambdas), inside Next.js as an API route, or wherever your server
+   runs.
+   - `GET` > `/uppy/sts`: get the temporary security credentials (optional).
+   - `POST` > `/uppy/s3`: get parameters and pre-signed URL for non-multipart
+     upload.
+   - `POST` > `/uppy/s3-multipart`: create the multipart upload.
+   - `GET` > `/uppy/s3-multipart/:id`: get the uploaded parts.
+   - `GET` > `/uppy/s3-multipart/:id/:partNumber`: sign the part and return a
+     pre-signed URL.
+   - `POST` > `/uppy/s3-multipart/:id/complete`: complete the multipart upload.
+   - `DELETE` > `/uppy/s3-multipart/:id`: abort the multipart upload.
+3. [Setup Uppy](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/public/index.html).
 
 ### Use with Companion
 
@@ -153,7 +159,7 @@ experience with Uppy.
 :::caution
 
 Generally it’s better for access control, observability, and scaling to
-integrate `@uppy/aws-s3-multipart` with your own server. You may want to use
+integrate `@uppy/aws-s3` with your own server. You may want to use
 [Companion](/docs/companion) for creating, signing, and completing your S3
 uploads if you already need Companion for remote files (such as from Google
 Drive). Otherwise it’s not worth the hosting effort.
@@ -163,19 +169,48 @@ Drive). Otherwise it’s not worth the hosting effort.
 ```js {10} showLineNumbers
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
-import AwsS3Multipart from '@uppy/aws-s3-multipart';
+import AwsS3 from '@uppy/aws-s3';
 
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 const uppy = new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
-	.use(AwsS3Multipart, { companionUrl: 'http://companion.uppy.io' });
+	.use(AwsS3, { companionUrl: 'http://companion.uppy.io' });
 ```
 
 ## API
 
 ### Options
+
+#### `shouldUseMultipart(file)`
+
+:::warning
+
+You must define this option, otherwise you’ll be using the
+[legacy version of this plugin](./aws-s3). If you use the deprecated
+`@uppy/aws-s3-multipart` package, this will be set to `true` by default, which
+is not a recomended setting.
+
+:::
+
+A boolean, or a function that returns a boolean which is called for each file
+that is uploaded with the corresponding `UppyFile` instance as argument.
+
+By default, all files are uploaded as multipart. In a future version, all files
+with a `file.size` ≤ 100 MiB will be uploaded in a single chunk, all files
+larger than that as multipart.
+
+Here’s how to use it:
+
+```js
+uppy.use(AwsS3, {
+	shouldUseMultipart(file) {
+		// Use multipart only for files larger than 100MiB.
+		return file.size > 100 * 2 ** 20;
+	},
+});
+```
 
 #### `limit`
 
@@ -397,26 +432,6 @@ or between `500` and `600`.
 
 </details>
 
-#### `shouldUseMultipart(file)`
-
-A boolean, or a function that returns a boolean which is called for each file
-that is uploaded with the corresponding `UppyFile` instance as argument.
-
-By default, all files are uploaded as multipart. In a future version, all files
-with a `file.size` ≤ 100 MiB will be uploaded in a single chunk, all files
-larger than that as multipart.
-
-Here’s how to use it:
-
-```js
-uppy.use(AwsS3Multipart, {
-	shouldUseMultipart(file) {
-		// Use multipart only for files larger than 100MiB.
-		return file.size > 100 * 2 ** 20;
-	},
-});
-```
-
 #### `getTemporarySecurityCredentials(options)`
 
 :::note
@@ -454,7 +469,7 @@ If you are using Companion (for example because you want to support remote
 upload sources), you can pass a boolean:
 
 ```js
-uppy.use(AwsS3Multipart, {
+uppy.use(AwsS3, {
 	// This is an example using Companion:
 	companionUrl: 'http://companion.uppy.io',
 	getTemporarySecurityCredentials: true,
@@ -465,7 +480,7 @@ In the most common case, you are using a different backend, in which case you
 need to specify a function:
 
 ```js
-uppy.use(AwsS3Multipart, {
+uppy.use(AwsS3, {
 	// This is an example not using Companion:
 	async getTemporarySecurityCredentials({ signal }) {
 		const response = await fetch('/sts-token', { signal });
