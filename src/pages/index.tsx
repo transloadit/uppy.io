@@ -405,34 +405,6 @@ export default function Home(): JSX.Element {
 					</div>
 				</section>
 			</main>
-
-			<footer className={styles.footer}>
-				<p>
-					<img
-						className="IndexFooter-logo"
-						title="Uppy"
-						alt="Uppy"
-						src="/img/logo.svg"
-					/>
-				</p>
-				<p>
-					Released under the{' '}
-					<a
-						href="http://opensource.org/licenses/MIT"
-						rel="noreferrer noopener"
-						target="_blank"
-					>
-						MIT License
-					</a>{' '}
-					⋅ <a href="/privacy-policy/">Privacy Policy</a>
-				</p>
-				<p>
-					© 2023{' '}
-					<a href="https://transloadit.com" target="_blank">
-						Transloadit
-					</a>
-				</p>
-			</footer>
 		</Layout>
 	);
 }
