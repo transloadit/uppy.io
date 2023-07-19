@@ -10,7 +10,7 @@ const { version: uppyVersion } = packageJson;
 export default function UppyCdnExample({
 	children,
 	uppyCssName = 'uppy.min.css',
-	uppyJsName = 'uppy.min.js',
+	uppyJsName = 'uppy.min.mjs',
 }) {
 	let lines = [];
 

@@ -873,8 +873,8 @@ See also
    `env.sh` and edit it to its correct values.
 
    ```bash
-   cp env.example.sh env.sh
-   $EDITOR env.sh
+   cp .env.example .env
+   $EDITOR .env
    ```
 
 3. To start the server, run:
