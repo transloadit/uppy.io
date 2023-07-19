@@ -102,11 +102,11 @@ metadata will be stored on all file objects, but plugins may add more metadata.
 - `file.meta.relativePath`
   - For any local folder that was drag-dropped or opened in Uppy, the files
     inside the folder will have the `relativePath` metadata field set to their
-    path, relative to the folder. `relativePath` begins with the folder's name
-    and ends with the file's name. If opening or drag-dropping a file instead of
+    path, relative to the folder. `relativePath` begins with the folder’s name
+    and ends with the file’s name. If opening or drag-dropping a file instead of
     a folder, `relativePath` will be `null`. The same behaviour exists for
-    remote (provider) files, but the path will instead be relative to the user's
-    selection (checkboxes). There are no leading or trailing slashes.
+    remote (provider) files, but the path will instead be relative to the user’s
+    selection (checkboxes). No leading or trailing slashes.
   - **Local file example:** When drag-dropping a local folder `folder1` which
     has a folder inside of it named `folder2` which has a file named `file`
     inside of it, the `relativePath` meta field of the file will be
@@ -121,11 +121,11 @@ metadata will be stored on all file objects, but plugins may add more metadata.
 - `file.meta.absolutePath`
   - The `absolutePath` meta field will only be set for remote files. Regardless
     of user selection, it will always be the path relative to the root of the
-    provider's list of files, as presented to the user. `absolutePath` always
-    begins with a `/` and will always end with the file's name. To clarify: The
+    provider’s list of files, as presented to the user. `absolutePath` always
+    begins with a `/` and will always end with the file’s name. To clarify: The
     difference between `absolutePath` and `relativePath` is that `absolutePath`
     only exists for remote files, and always contains the full path to the file,
-    while `relativePath` is the file's path _relative to the user's selected
+    while `relativePath` is the file’s path _relative to the user’s selected
     folder._
 
 #### `file.type`
