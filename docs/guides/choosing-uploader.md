@@ -57,7 +57,8 @@ a server and load balancer with [Tus](/docs/tus).
 
 Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and
 [`@uppy/aws-s3-multipart`][], but we are planning to merge the two plugins in
-the next major. You should use [`@uppy/aws-s3`][] with the new `shouldUseMultipart` option.
+the next major. You should use [`@uppy/aws-s3`][] with the new
+`shouldUseMultipart` option.
 
 :::info
 
