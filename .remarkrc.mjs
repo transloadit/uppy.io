@@ -76,6 +76,7 @@ const retextPreset = [
 				'type',
 				'validate',
 				'however',
+				'relative-to',
 			],
 		})
 		.use(retextSyntaxMentions),
