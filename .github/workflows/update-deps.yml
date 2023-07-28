@@ -27,7 +27,7 @@ jobs:
                     # If we are on an empty line, that marks the end of an Uppy package block.
                     isInsideUppyPackage=0
                   }
-                } else if($0 ~ /^"@uppy\//) {
+                } else if($0 ~ /^"(@uppy\/|uppy@)/) {
                   # Otherwise, if the line starts with `"@uppy/`, it marks the beginning of an Uppy
                   # package block, and we filter out that line.
                   isInsideUppyPackage=1
@@ -38,7 +38,7 @@ jobs:
               }' > yarn.lock
 
               corepack yarn --no-immutable
-              git diff --quiet || echo "NEW_VERSION=$(corepack yarn info @uppy/core --json | jq -r .children.Version)" >> "$GITHUB_ENV"
+              git diff --quiet || echo "NEW_VERSION=$(corepack yarn info uppy --json | jq -r .children.Version)" >> "$GITHUB_ENV"
               git add yarn.lock
     steps:
       - uses: actions/checkout@v3

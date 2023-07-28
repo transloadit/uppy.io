@@ -92,6 +92,12 @@
 	--ifm-avatar-intro-margin: 0.5rem;
 }
 
+@media screen and (min-width: 1000px) and (max-width: 1300px) {
+	:root {
+		--ifm-font-size-base: 16px;
+	}
+}
+
 h1 {
 	margin-top: calc(var(--ifm-h1-vertical-rhythm-top) * var(--ifm-leading) / 2);
 }
@@ -144,44 +150,18 @@ div[class*=' admonitionHeading'] {
 
 /* Blog */
 
-/* .avatar__name {
-	font: 500 var(--ifm-h4-font-size)/var(--ifm-heading-line-height) var(--ifm-font-family-base);
-} */
-
 .avatar__name {
-	font-size: 0.75rem;
 	font-weight: 500;
 }
 
 h1[itemprop='headline'] {
-	font-size: 1.8rem;
+	font-size: 2.4rem;
 	margin-bottom: 0.6rem;
 }
 
 h2[itemprop='headline'] {
-	font-size: 1.5rem;
+	font-size: 2.4rem;
 	margin-bottom: 0.6rem;
-}
-
-.theme-edit-this-page {
-	font-size: 0.75rem;
-}
-
-.theme-edit-this-page svg {
-	width: 13px;
-	height: 13px;
-}
-
-.blog__post-footer__follow {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	font-size: 0.9rem;
-	text-align: left;
-}
-
-.blog__post-footer__follow li {
-	margin-bottom: 10px;
 }
 
 /* Content Body */

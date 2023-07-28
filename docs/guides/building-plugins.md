@@ -21,7 +21,7 @@ See a [full example of a plugin](#example-of-a-custom-plugin) below.
 ## Creating A Plugin
 
 Uppy has two classes to create plugins with. `BasePlugin` for plugins that don’t
-need a user interface, and `UIPlugin` for onces that do. Each plugin has an `id`
+need a user interface, and `UIPlugin` for ones that do. Each plugin has an `id`
 and a `type`. `id`s are used to uniquely identify plugins. A `type` can be
 anything—some plugins use `type`s to decide whether to do something to some
 other plugin. For example, when targeting plugins at the built-in `Dashboard`

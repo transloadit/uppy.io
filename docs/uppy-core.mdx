@@ -12,9 +12,8 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 Uppy can be an uploader and an interface with a lot of features. Features can be
 added incrementally with plugins, but Uppy can be as bare bones as you want it
-to be. Therefor we build Uppy’s heart, `@uppy/core`, as a standalone
-orchestrator. It acts as a state manager, event emitter, and restrictions
-handler.
+to be. So we build Uppy’s heart, `@uppy/core`, as a standalone orchestrator. It
+acts as a state manager, event emitter, and restrictions handler.
 
 ## When should I use it?
 
@@ -836,8 +835,8 @@ uppy.getPlugin('Dashboard').setOptions({
 | -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `reason` | `string` | The reason for canceling. Plugins can use this to provide different cleanup behavior (Transloadit plugin cancels an Assembly if user clicked on the “cancel” button). Possible values are: `user` (default) - The user has pressed “cancel”; `unmount` - The Uppy instance has been closed programatically |
 
-Uninstall all plugins, remove all files, unsubscribe from stores and close down
-this Uppy instance.
+Uninstall all plugins and close down this Uppy instance. Also runs
+`uppy.cancelAll()` before uninstalling.
 
 #### `logout()`
 
@@ -1247,7 +1246,7 @@ Fired when all failed uploads are retried
 **Example**
 
 ```js
-uppy.on('upload-retry', (fileIDs) => {
+uppy.on('retry-all', (fileIDs) => {
 	console.log('upload retried:', fileIDs);
 });
 ```

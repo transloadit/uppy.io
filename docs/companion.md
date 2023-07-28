@@ -130,7 +130,8 @@ const options = {
 	filePath: '/path/to/folder/',
 };
 
-app.use('/companion', companion.app(options));
+const { app: companionApp } = companion.app(companionOptions);
+app.use(companionApp);
 ```
 
 Companion uses WebSockets to communicate progress, errors, and successes to the
@@ -807,8 +808,8 @@ with an `Error`):
 
 The class must also have:
 
-- A unique `authProvider` string property - a lowercased value which typically
-  indicates the name of the provider (e.g “dropbox”).
+- A unique `static authProvider` string property - a lowercased value which
+  typically indicates the name of the provider (e.g “dropbox”).
 - A `static` property `static version = 2`, which is the current version of the
   Companion Provider API.
 
@@ -872,8 +873,8 @@ See also
    `env.sh` and edit it to its correct values.
 
    ```bash
-   cp env.example.sh env.sh
-   $EDITOR env.sh
+   cp .env.example .env
+   $EDITOR .env
    ```
 
 3. To start the server, run:

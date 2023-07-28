@@ -165,7 +165,7 @@ if you need the traffic to stay inside a particular region.
 
 #### `limit`
 
-Limit the amount of uploads going on at the same time (`number`, default: `5`).
+Limit the amount of uploads going on at the same time (`number`, default: `20`).
 
 Setting this to `0` means no limit on concurrent uploads, but we recommend a
 value between `5` and `20`. This option is passed through to the
@@ -336,8 +336,8 @@ When this is enabled, you can listen for the
 
 #### `waitForMetadata`
 
-Wait for for Transloadit’s backend to catch early errors, not the entire
-Assembly to complete. (`boolean`, default: `false`)
+Wait for Transloadit’s backend to catch early errors, not the entire Assembly to
+complete. (`boolean`, default: `false`)
 
 When set to `true`, the Transloadit plugin waits for Transloadit’s backend to
 extract metadata from all the uploaded files. This is mostly handy if you want

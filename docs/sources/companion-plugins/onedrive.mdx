@@ -87,7 +87,7 @@ new Uppy()
 ### Use in Companion
 
 To sign up for API keys, go to the
-[OneDrive Platform from Meta](https://developers.facebook.com/products/onedrive/).
+[Azure Platform from Microsoft](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade).
 
 Create a project for your app if you don’t have one yet.
 
@@ -95,14 +95,14 @@ Create a project for your app if you don’t have one yet.
 - Use this for an authorized redirect URI:
   `https://$YOUR\_COMPANION\_HOST\_NAME/onedrive/redirect`
 
-Meta will give you an OAuth client ID and client secret.
+Microsoft will give you an OAuth client ID and client secret.
 
 Configure the OneDrive key and secret in Companion. With the standalone
 Companion server, specify environment variables:
 
 ```shell
-export COMPANION_ONEDRIVE_KEY="OneDrive OAuth client ID"
-export COMPANION_ONEDRIVE_SECRET="OneDrive OAuth client secret"
+export COMPANION_ONEDRIVE_KEY="OneDrive Application ID"
+export COMPANION_ONEDRIVE_SECRET="OneDrive OAuth client secret value"
 ```
 
 When using the Companion Node.js API, configure these options:
@@ -110,9 +110,9 @@ When using the Companion Node.js API, configure these options:
 ```js
 companion.app({
 	providerOptions: {
-		drive: {
-			key: 'OneDrive OAuth client ID',
-			secret: 'OneDrive OAuth client secret',
+		onedrive: {
+			key: 'OneDrive Application ID',
+			secret: 'OneDrive OAuth client secret value',
 		},
 	},
 });

@@ -27,17 +27,24 @@ _client-to-server-to-storage_ (such as [Transloadit](/docs/transloadit) or
 reduce costs or the complexity of running a server and load balancer with
 [Tus](/docs/tus).
 
-`@uppy/aws-s3-multipart` starts to become valuable for larger files
-(100&nbsp;MB+) as it uploads a single object as a set of parts. This has certain
-benefits, such as improved throughput (uploading parts in parallel) and quick
-recovery from network issues (only the failed parts need to be retried). The
-downside is request overhead, as it needs to do creation, signing, and
-completion requests besides the upload requests. For example, if you are
-uploading files that are only a couple kilobytes with a 100ms roundtrip latency,
-you are spending 400ms on overhead and only a few milliseconds on uploading.
+Multipart uploads start to become valuable for larger files (100&nbsp;MB+) as it
+uploads a single object as a set of parts. This has certain benefits, such as
+improved throughput (uploading parts in parallel) and quick recovery from
+network issues (only the failed parts need to be retried). The downside is
+request overhead, as it needs to do creation, signing (unless you are [signing
+on the client][]), and completion requests besides the upload requests. For
+example, if you are uploading files that are only a couple kilobytes with a
+100ms roundtrip latency, you are spending 400ms on overhead and only a few
+milliseconds on uploading.
 
-If you are uploading large files (100&nbsp;MB+), we recommend
-`@uppy/aws-s3-multipart`, otherwise [`@uppy/aws-s3`][].
+**In short**
+
+- We recommend you use [`shouldUseMultipart`][] to enable multipart uploads only
+  for large files.
+- If you prefer to have less overhead (+20% upload speed) you can use temporary
+  S3 credentials with [`getTemporarySecurityCredentials`][]. This means users
+  get a single token which allows them to do bucket operations for longer,
+  instead of short lived signed URL per resource. This is a security trade-off.
 
 ## Install
 
@@ -410,8 +417,97 @@ uppy.use(AwsS3Multipart, {
 });
 ```
 
-#### `getUploadParameters(file)`
+#### `getTemporarySecurityCredentials(options)`
 
-See [`@uppy/aws-s3`][]. This option is used only for non-multipart uploads.
+:::note
 
-[`@uppy/aws-s3`]: /docs/aws-s3
+When using [Companion][companion docs] as a backend, you can pass `true` instead
+of a function. Setting up Companion will not simplify the process of getting
+signing on the client.
+
+:::
+
+A boolean (when using Companion), or an (async) function to retrieve temporary
+security credentials used for all uploads instead of signing every part. This
+results in less request overhead which can lead to around 20% faster uploads.
+This is a security tradeoff. We recommend to not use this option unless you are
+familiar with the security implications of temporary credentials, and how to
+setup your bucket to make it work. See the
+[Requesting temporary security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
+AWS guide for more information.
+
+It’s strongly recomended to have some sort of caching process to avoid
+requesting more temporary token than necessary.
+
+- `options`: `object`
+  - `signal`: `AbortSignal`
+- **Returns:** `object | Promise<object>`
+  - `credentials`: `object`
+    - `AccessKeyId`: `string`
+    - `SecretAccessKey`: `string`
+    - `SessionToken`: `string`
+    - `Expiration`: `string`
+  - `bucket`: `string`
+  - `region`: `string`
+
+If you are using Companion (for example because you want to support remote
+upload sources), you can pass a boolean:
+
+```js
+uppy.use(AwsS3Multipart, {
+	// This is an example using Companion:
+	companionUrl: 'http://companion.uppy.io',
+	getTemporarySecurityCredentials: true,
+});
+```
+
+In the most common case, you are using a different backend, in which case you
+need to specify a function:
+
+```js
+uppy.use(AwsS3Multipart, {
+	// This is an example not using Companion:
+	async getTemporarySecurityCredentials({ signal }) {
+		const response = await fetch('/sts-token', { signal });
+		if (!response.ok)
+			throw new Error('Failed to fetch STS', { cause: response });
+		return response.json();
+	},
+});
+```
+
+#### `getUploadParameters(file, options)`
+
+:::note
+
+When using [Companion][companion docs] to sign S3 uploads, you should not define
+this option.
+
+:::
+
+A function that will be called for each non-multipart upload.
+
+- `file`: `UppyFile` the file that will be uploaded
+- `options`: `object`
+  - `signal`: `AbortSignal`
+- **Returns:** `object | Promise<object>`
+  - `method`: `string`, the HTTP method to be used for the upload. This should
+    be one of either `PUT` or `POST`, depending on the type of upload used.
+  - `url`: `string`, the URL to which the upload request will be sent. When
+    using a presigned PUT upload, this should be the URL to the S3 object with
+    signing parameters included in the query string. When using a POST upload
+    with a policy document, this should be the root URL of the bucket.
+  - `fields` `object`, an object with form fields to send along with the upload
+    request. For presigned PUT uploads (which are default), this should be left
+    empty.
+  - `headers`: `object`, an object with request headers to send along with the
+    upload request. When using a presigned PUT upload, it’s a good idea to
+    provide `headers['content-type']`. That will make sure that the request uses
+    the same content-type that was used to generate the signature. Without it,
+    the browser may decide on a different content-type instead, causing S3 to
+    reject the upload.
+
+[`gettemporarysecuritycredentials`]: #gettemporarysecuritycredentialsoptions
+[`shouldusemultipart`]: #shouldusemultipartfile
+[companion docs]: /docs/companion
+[signing on the client]: #gettemporarysecuritycredentialsoptions
