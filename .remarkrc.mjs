@@ -48,7 +48,7 @@ const retextPreset = [
 				'of course',
 				'just',
 				'simple',
-				'simply'
+				'simply',
 			],
 		})
 		.use(retextProfanities, { sureness: 1 })
