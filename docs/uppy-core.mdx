@@ -719,7 +719,11 @@ Retry an upload (after an error, for example).
 
 Retry all uploads (after an error, for example).
 
-#### `cancelAll()`
+#### `cancelAll({ reason: 'user' })`
+
+| Argument | Type     | Description                                                                                                                                                                                                                                                                                                |
+| -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reason` | `string` | The reason for canceling. Plugins can use this to provide different cleanup behavior (Transloadit plugin cancels an Assembly if user clicked on the “cancel” button). Possible values are: `user` (default) - The user has pressed “cancel”; `unmount` - The Uppy instance has been closed programatically |
 
 Cancel all uploads, reset progress and remove all files.
 
@@ -825,7 +829,11 @@ uppy.getPlugin('Dashboard').setOptions({
 });
 ```
 
-#### `close()`
+#### `close({ reason: 'user' })`
+
+| Argument | Type     | Description                                                                                                                                                                                                                                                                                                |
+| -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reason` | `string` | The reason for canceling. Plugins can use this to provide different cleanup behavior (Transloadit plugin cancels an Assembly if user clicked on the “cancel” button). Possible values are: `user` (default) - The user has pressed “cancel”; `unmount` - The Uppy instance has been closed programatically |
 
 Uninstall all plugins and close down this Uppy instance. Also runs
 `uppy.cancelAll()` before uninstalling.
@@ -1268,6 +1276,10 @@ Fired when “info” message should be hidden in the UI. See
 [`info-visible`](#info-visible).
 
 #### `cancel-all`
+
+| Argument | Type     | Description                         |
+| -------- | -------- | ----------------------------------- |
+| `reason` | `string` | See [uppy.cancelAll](####cancelAll) |
 
 Fired when `cancelAll()` is called, all uploads are canceled, files removed and
 progress is reset.
