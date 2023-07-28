@@ -46,6 +46,9 @@ const retextPreset = [
 				'invalid',
 				'whitespace',
 				'of course',
+				'just',
+				'simple',
+				'simply',
 			],
 		})
 		.use(retextProfanities, { sureness: 1 })
@@ -76,6 +79,16 @@ const retextPreset = [
 				'type',
 				'validate',
 				'however',
+				'there is',
+				'forward',
+				'initiate',
+				'additional',
+				'immediately',
+				'multiple',
+				'ensure',
+				'perform',
+				'there are',
+				'it is',
 			],
 		})
 		.use(retextSyntaxMentions),
