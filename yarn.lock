@@ -3386,15 +3386,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/aws-s3-multipart@npm:^3.4.1, @uppy/aws-s3-multipart@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "@uppy/aws-s3-multipart@npm:3.5.1"
+"@uppy/aws-s3-multipart@npm:^3.4.1, @uppy/aws-s3-multipart@npm:^3.5.2":
+  version: 3.5.2
+  resolution: "@uppy/aws-s3-multipart@npm:3.5.2"
   dependencies:
     "@uppy/companion-client": ^3.2.2
-    "@uppy/utils": ^5.4.2
+    "@uppy/utils": ^5.4.3
   peerDependencies:
     "@uppy/core": ^3.3.1
-  checksum: 7d8e5eb57f3178eee93e617a0a0e2fc67153ecc63e25f14a14edf9b23e174c7185cc2a95703aeeaf8b94ca9e34d89f4906004798dbf358d5c2e7cdc29cb35cb2
+  checksum: a2053cadb6d2b09029215956d01bbf7e3e1a7445da16cadb426195a19a2dcf0fef1cb1b5f81b72412aadc2358197fdaae4786a7a26991955ad340cf73035b576
   languageName: node
   linkType: hard
 
@@ -3848,13 +3848,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^5.0.2, @uppy/utils@npm:^5.3.0, @uppy/utils@npm:^5.4.0, @uppy/utils@npm:^5.4.1, @uppy/utils@npm:^5.4.2":
-  version: 5.4.2
-  resolution: "@uppy/utils@npm:5.4.2"
+"@uppy/utils@npm:^5.0.2, @uppy/utils@npm:^5.3.0, @uppy/utils@npm:^5.4.0, @uppy/utils@npm:^5.4.1, @uppy/utils@npm:^5.4.2, @uppy/utils@npm:^5.4.3":
+  version: 5.4.3
+  resolution: "@uppy/utils@npm:5.4.3"
   dependencies:
     lodash: ^4.17.21
-    preact: ^10.16.0
-  checksum: cd425d7bac7bf628cd0f1cc9e5d9e1772fef32d4be0f792cf1a64d95e5b1337869934cdd88b13c7eaa840522803656dd3d7b5ad3375b6102a9e50a2ef0963f0f
+    preact: ^10.5.13
+  checksum: ddef6aff15f9314e6f18a1a98b8890e394cee4b3c2e18511dec1707b82ea600f52611c44022a7ac2d6d48230e72f9e8ca1e99896b4bd79161d5dadc16828d842
   languageName: node
   linkType: hard
 
@@ -11604,7 +11604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:^10.16.0, preact@npm:^10.5.13":
+"preact@npm:^10.5.13":
   version: 10.16.0
   resolution: "preact@npm:10.16.0"
   checksum: 47a91f47d583b68a4afe971a7f992c06547df6d637cadf56eb3b69fee1fb202659b199af37d0e1a90637385144cadd75aa40acdb4e125cc4b3155e2883c24c07
@@ -15283,12 +15283,12 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 3.13.0
-  resolution: "uppy@npm:3.13.0"
+  version: 3.13.1
+  resolution: "uppy@npm:3.13.1"
   dependencies:
     "@uppy/audio": ^1.1.1
     "@uppy/aws-s3": ^3.2.1
-    "@uppy/aws-s3-multipart": ^3.5.1
+    "@uppy/aws-s3-multipart": ^3.5.2
     "@uppy/box": ^2.1.2
     "@uppy/companion-client": ^3.2.2
     "@uppy/compressor": ^1.0.2
@@ -15322,7 +15322,7 @@ __metadata:
     "@uppy/webcam": ^3.3.1
     "@uppy/xhr-upload": ^3.3.1
     "@uppy/zoom": ^2.1.1
-  checksum: 83063ebe69291dde5eb6b2edc6c5e2f6042baf957c7319ed6e1b89d4a790c67490dbd1a24196d984e4f8868bdbc96a936ec0fea27fd34e9c5757a9141af14230
+  checksum: 475b433df6eaca5878bd909e1692d779e461407416598d8046a89a1a2afe1b37e95f1f977e4b6cdf42d615681844b3d0db3c0d72668396a0b5816c8617cf9bd1
   languageName: node
   linkType: hard
 
