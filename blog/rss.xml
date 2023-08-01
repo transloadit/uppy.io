@@ -21,8 +21,8 @@ regular and multipart uploads, improved performance when adding and validating
 now also easier to configure and leaner in bundle size, since we removed
 <code>socket.io-client</code> in favor of
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events" target="_blank" rel="noopener noreferrer">Server-Sent Events</a>.</p><p>Please make a cup of something tasty ☕️ (in a non-spillable container), as this
-will be quite a ride.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="amazon-s3">Amazon S3<a href="#amazon-s3" class="hash-link" aria-label="Direct link to Amazon S3" title="Direct link to Amazon S3">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="merging-of-the-plugins">Merging of the plugins<a href="#merging-of-the-plugins" class="hash-link" aria-label="Direct link to Merging of the plugins" title="Direct link to Merging of the plugins">​</a></h3><p>After years of separating regular non-multipart uploads and multipart uploads,
-we are finally reuniting the two sibling plugins: <code>@uppy/aws-s3</code> and
+will be quite a ride.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="aws-s3">AWS S3<a href="#aws-s3" class="hash-link" aria-label="Direct link to AWS S3" title="Direct link to AWS S3">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="merging-of-the-plugins">Merging of the plugins<a href="#merging-of-the-plugins" class="hash-link" aria-label="Direct link to Merging of the plugins" title="Direct link to Merging of the plugins">​</a></h3><p>After years of separating regular non-multipart uploads and multipart uploads,
+we are finally merging the two sibling plugins: <code>@uppy/aws-s3</code> and
 <code>@uppy/aws-s3-multpart</code>. Here’s the brief version of what you need to know, with
 details to follow in the next section:</p><ul><li><code>@uppy/aws-s3-multipart</code> is deprecated. You should use <code>@uppy/aws-s3</code> and set
 the <code>shouldUseMultipart: true</code> option to get the same “multipart always
