@@ -123,7 +123,7 @@ The configuration required for Uppy and Companion is this:
 A good practice is to use two CORS rules: one for viewing the uploaded files,
 and one for uploading files. This is done above where the first object in the
 array defines the rules for uploading, and the second for viewing. The example
-above **makes files publically viewable**. You can change it according to your
+above **makes files publicly viewable**. You can change it according to your
 needs.
 
 If you are using an IAM policy to allow access to the S3 bucket, the policy must
@@ -178,7 +178,7 @@ const uppy = new Uppy()
 	.use(Dashboard, { inline: true, target: 'body' })
 	.use(AwsS3, {
 		shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
-		companionUrl: 'http://companion.uppy.io',
+		companionUrl: 'https://companion.uppy.io',
 	});
 ```
 
@@ -398,8 +398,8 @@ Receives the `file` object from Uppy’s state, and an object with keys:
 
 Return a Promise for an object with properties:
 
-- `location` - **(Optional)** A publically accessible URL to the object in the
-  S3 bucket.
+- `location` - **(Optional)** A publicly accessible URL to the object in the S3
+  bucket.
 
 The default implementation calls out to Companion’s S3 signing endpoints.
 
@@ -453,7 +453,7 @@ An example of what the return value should look like:
 }
 ```
 
-If an error occured, reject the `Promise` with an `Object` with the following
+If an error occurred, reject the `Promise` with an `Object` with the following
 keys:
 
 ```json
@@ -485,7 +485,7 @@ setup your bucket to make it work. See the
 [Requesting temporary security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
 AWS guide for more information.
 
-It’s strongly recomended to have some sort of caching process to avoid
+It’s strongly recommended to have some sort of caching process to avoid
 requesting more temporary token than necessary.
 
 - `options`: `object`
