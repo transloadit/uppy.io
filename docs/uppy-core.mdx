@@ -316,10 +316,11 @@ Metadata can also be added from a `<form>` element on your page, through the
 #### `onBeforeFileAdded(file, files)`
 
 A function called before a file is added to Uppy (`Function`, default:
-`(file) => file`).
+`(files, file) => !Object.hasOwn(files, file.id)`).
 
 Use this function to run any number of custom checks on the selected file, or
 manipulate it, for instance, by optimizing a file name.
+You can also allow duplicate files with this.
 
 You can return `true` to keep the file as is, `false` to remove the file, or
 return a modified file.
@@ -344,6 +345,17 @@ purposes via [`uppy.log()`](#logmessage-type).
 
 <details>
   <summary>Filter, change, and abort example</summary>
+
+Allow all files, also duplicate files.
+This will override the file if it has not been uploaded.
+If you upload a duplicate file again it depends on your upload plugin
+and backend how it is handled.
+
+```js
+const uppy = new Uppy({
+  // ...
+  onBeforeFileAdded: () => true,
+```
 
 Keep only files under a condition:
 
@@ -1562,6 +1574,22 @@ const debugLogger = {
 	error: (...args) => console.error(`[Uppy] [${getTimeStamp()}]`, ...args),
 };
 ```
+
+## Frequently asked questions
+
+### How do I allow duplicate files?
+
+You can allow all files, even duplicate files, with [`onBeforeFileAdded`](#onbeforefileadded).
+This will override the file if it has not been uploaded.
+If you upload a duplicate file again it depends on your upload plugin
+and backend how it is handled.
+
+```js
+const uppy = new Uppy({
+  // ...
+  onBeforeFileAdded: () => true,
+```
+
 
 [dashboard]: /docs/dashboard
 [`baseplugin`]: #new-basepluginuppy-options
