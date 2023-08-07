@@ -305,7 +305,7 @@ class UppyImageCompressor extends UIPlugin {
 		};
 
 		// we use those internally in `this.compress`, so they
-		// should not be overriden
+		// should not be overridden
 		delete this.opts.success;
 		delete this.opts.error;
 

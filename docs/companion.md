@@ -88,7 +88,7 @@ accept improvements in this area, but we can’t provide support.
 
 ### Express middleware
 
-First install it into your Node.js project with your favorite package manger:
+First install it into your Node.js project with your favorite package manager:
 
 ```bash
 npm install @uppy/companion
@@ -162,7 +162,7 @@ Standalone Companion will always serve HTTP (not HTTPS) and expects a reverse
 proxy with SSL termination in front of it when running in production. See
 [`COMPANION_PROTOCOL`](#server) for more information.
 
-Companion ships with an excecutable file (`bin/companion`) which is the
+Companion ships with an executable file (`bin/companion`) which is the
 standalone server. Unlike the middleware version, options are set via
 environment variables.
 
@@ -391,12 +391,12 @@ will prefix all events with the name provided and a colon. See also
 
 #### `server`
 
-Configuation options for the underlying server.
+Configuration options for the underlying server.
 
 | Key / Environment variable               | Value             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ---------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `protocol` `COMPANION_PROTOCOL`          | `http` or `https` | Used to build a URL to reference the Companion instance itself, which is used for headers and cookies. Companion itself always runs as a HTTP server, so locally you should use `http`. You must to set this to `https` once you enabled SSL/HTTPS for your domain in production by running a reverse https-proxy in front of Companion, or with a built-in HTTPS feature of your hosting service.                                           |
-| `host` `COMPANION_DOMAIN`                | `String`          | Your server’s publically facing hostname (for example `example.com`).                                                                                                                                                                                                                                                                                                                                                                        |
+| `host` `COMPANION_DOMAIN`                | `String`          | Your server’s publicly facing hostname (for example `example.com`).                                                                                                                                                                                                                                                                                                                                                                          |
 | `oauthDomain` `COMPANION_OAUTH_DOMAIN`   | `String`          | If you have several instances of Companion with different (and perhaps dynamic) subdomains, you can set a single fixed subdomain and server (such as `sub1.example.com`) to handle your OAuth authentication for you. This would then redirect back to the correct instance with the required credentials on completion. This way you only need to configure a single callback URL for OAuth providers.                                      |
 | `path` `COMPANION_PATH`                  | `String`          | The server path to where the Companion app is sitting. For instance, if Companion is at `example.com/companion`, then the path would be `/companion`).                                                                                                                                                                                                                                                                                       |
 | `implicitPath` `COMPANION_IMPLICIT_PATH` | `String`          | If the URL’s path in your reverse proxy is different from your Companion path in your express app, then you need to set this path as `implicitPath`. For instance, if your Companion URL is `example.com/mypath/companion`. Where the path `/mypath` is defined in your NGINX server, while `/companion` is set in your express app. Then you need to set the option `implicitPath` to `/mypath`, and set the `path` option to `/companion`. |
