@@ -158,7 +158,7 @@ const config = {
 			},
 			tableOfContents: {
 				maxHeadingLevel: 2,
-			}
+			},
 		}),
 };
 
