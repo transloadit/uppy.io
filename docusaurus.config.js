@@ -155,10 +155,7 @@ const config = {
 			prism: {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme,
-			},
-			tableOfContents: {
-				maxHeadingLevel: 2,
-			},
+			}
 		}),
 };
 
