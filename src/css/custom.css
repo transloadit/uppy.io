@@ -117,7 +117,7 @@ p > code {
 	font-size: var(--ifm-font-size-base);
 }
 
-/* 
+/*
 * Admonitions have long generated class names.
 * We want to change the heading font, but it's not an config option.
 */
@@ -154,14 +154,10 @@ div[class*=' admonitionHeading'] {
 	font-weight: 500;
 }
 
-h1[itemprop='headline'] {
-	font-size: 2.4rem;
-	margin-bottom: 0.6rem;
-}
-
+h1[itemprop='headline'],
 h2[itemprop='headline'] {
-	font-size: 2.4rem;
-	margin-bottom: 0.6rem;
+	font-size: 2rem;
+	margin-bottom: 0.4rem;
 }
 
 /* Content Body */
