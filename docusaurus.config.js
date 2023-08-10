@@ -156,6 +156,9 @@ const config = {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme,
 			},
+			tableOfContents: {
+				maxHeadingLevel: 2,
+			}
 		}),
 };
 
