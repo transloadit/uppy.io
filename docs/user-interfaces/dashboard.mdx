@@ -212,7 +212,7 @@ Use this if you are providing a custom retry button somewhere, and using the
 
 Hide the status bar after the upload has finished (`boolean`, default: `false`).
 
-#### `doneButtonHandler()`
+#### `doneButtonHandler`
 
 This option is passed to the status bar and will render a “Done” button in place
 of pause/resume/cancel buttons, once the upload/encoding is done. The behaviour
@@ -223,7 +223,7 @@ This is what the Dashboard sets by default:
 
 ```js
 const doneButtonHandler = () => {
-	this.uppy.reset();
+	this.uppy.cancelAll();
 	this.requestCloseModal();
 };
 ```
