@@ -467,6 +467,9 @@ which has only the secret, nothing else.
 
 The name of the bucket to store uploaded files in.
 
+It can be function that takes a [`http.IncomingMessage`][] object as argument
+and returns the name of the bucket as a `string`.
+
 ##### `s3.region` `COMPANION_AWS_REGION`
 
 The datacenter region where the target bucket is located.
@@ -887,6 +890,8 @@ This would get the Companion instance running on `http://localhost:3020`. It
 uses [nodemon](https://github.com/remy/nodemon) so it will automatically restart
 when files are changed.
 
+[`http.incomingmessage`]:
+	https://nodejs.org/api/http.html#class-httpincomingmessage
 [box]: /docs/box
 [dropbox]: /docs/dropbox
 [facebook]: /docs/facebook
