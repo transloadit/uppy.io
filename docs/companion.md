@@ -87,7 +87,7 @@ accept improvements in this area, but we can’t provide support.
 
 ### Standalone mode
 
-You can use the standalone version if you want to run Companion as it’s own Node
+You can use the standalone version if you want to run Companion as it’s own Node.js
 process. It’s a configured Express server with sessions, logging, and security
 best practices. First you’ll typically want to install it globally:
 
