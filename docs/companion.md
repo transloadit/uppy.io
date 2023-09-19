@@ -639,7 +639,8 @@ as well as
 
 #### `enableUrlEndpoint` `COMPANION_ENABLE_URL_ENDPOINT`
 
-Set this to `false` to disable the [URL functionalily](https://uppy.io/docs/url/). Default: `true`.
+Set this to `false` to disable the
+[URL functionalily](https://uppy.io/docs/url/). Default: `true`.
 
 ### Events
 
