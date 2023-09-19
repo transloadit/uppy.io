@@ -637,6 +637,11 @@ as well as
 [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html)
 `partSize`.
 
+#### `enableUrlEndpoint` `COMPANION_ENABLE_URL_ENDPOINT`
+
+Set this to `false` to disable the
+[URL functionalily](https://uppy.io/docs/url/). Default: `true`.
+
 ### Events
 
 The object returned by `companion.app()` also has a property `companionEmitter`
