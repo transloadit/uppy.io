@@ -70,10 +70,10 @@ files to arrive at Transloadit servers, much like Uppy.
 
 Companion is installed from npm. Depending on how you want to run Companion, the
 install process is slightly different. Companion can be integrated as middleware
-into your [Express](https://expressjs.com/) app or as a standalone server.
-Most people probably want to run it as a standalone server, while the middleware
-could be used to further customise Companion or integrate it into your own
-HTTP server code.
+into your [Express](https://expressjs.com/) app or as a standalone server. Most
+people probably want to run it as a standalone server, while the middleware
+could be used to further customise Companion or integrate it into your own HTTP
+server code.
 
 :::note
 
@@ -87,9 +87,9 @@ accept improvements in this area, but we can’t provide support.
 
 ### Standalone mode
 
-You can use the standalone version if you want to run Companion as it’s own Node.js
-process. It’s a configured Express server with sessions, logging, and security
-best practices. First you’ll typically want to install it globally:
+You can use the standalone version if you want to run Companion as it’s own
+Node.js process. It’s a configured Express server with sessions, logging, and
+security best practices. First you’ll typically want to install it globally:
 
 ```bash
 npm install -g @uppy/companion
