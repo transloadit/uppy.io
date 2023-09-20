@@ -91,9 +91,18 @@ To sign up for API keys, go to the
 
 Create a project for your app if you don’t have one yet.
 
-- Enable the Instagram API.
-- Use this for an authorized redirect URI:
-  `https://$YOUR\_COMPANION\_HOST\_NAME/instagram/redirect`
+The app page has a `"Redirect URIs"` field. Here, add:
+
+```
+https://$YOUR_COMPANION_HOST_NAME/box/redirect
+```
+
+If you are using Transloadit hosted Companion:
+
+```
+https://api2.transloadit.com/companion/instagram/redirect
+```
+
 
 Meta will give you an OAuth client ID and client secret.
 
