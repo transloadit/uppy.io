@@ -193,7 +193,13 @@ const Uppy = ({ state, locale }) => {
 			.use(Audio)
 			.use(ImageEditor, {})
 			.use(Tus, { endpoint })
-			.use(GoogleDrive, { companionUrl })
+			.use(GoogleDrive, {
+				companionUrl,
+				companionKeysParams: {
+					key: 'unused-key',
+					credentialsName: 'unused-credentials',
+				},
+			})
 			.use(Dropbox, { companionUrl })
 			.use(Instagram, { companionUrl })
 			.use(Url, { companionUrl })
