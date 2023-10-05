@@ -326,9 +326,11 @@ export default function Examples() {
 							})}
 						</select>
 					</div>
-					<BrowserOnly>
-						{() => <Uppy state={state} locale={locale} />}
-					</BrowserOnly>
+					<div className={styles['dashboard-inner']}>
+						<BrowserOnly>
+							{() => <Uppy state={state} locale={locale} />}
+						</BrowserOnly>
+					</div>
 				</section>
 				<Admonition type="note">
 					Checkout our{' '}
