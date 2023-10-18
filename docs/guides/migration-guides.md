@@ -350,15 +350,15 @@ support:
 
 ```html
 <!-- Modern browsers (recommended) -->
-<script src="https://releases.transloadit.com/uppy/v3.6.1/uppy.min.js"></script>
+<script src="https://releases.transloadit.com/uppy/v3.17.0/uppy.min.js"></script>
 
 <!-- Legacy browsers (IE11+) -->
 <script
 	nomodule
-	src="https://releases.transloadit.com/uppy/v3.6.1/uppy.legacy.min.js"
+	src="https://releases.transloadit.com/uppy/v3.17.0/uppy.legacy.min.js"
 ></script>
 <script type="module">
-	import 'https://releases.transloadit.com/uppy/v3.6.1/uppy.min.js';
+	import 'https://releases.transloadit.com/uppy/v3.17.0/uppy.min.js';
 </script>
 ```
 
