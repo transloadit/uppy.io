@@ -44,9 +44,9 @@ API-compatible alternatives such as [Preact][].
 
 :::caution
 
-If you find yourself writing many instances of `useState` and `useEffect` in
-order to achieve something with Uppy in React, you are most likely breaking
-React best practices. Consider reading
+If you find yourself writing many instances of `useState` and `useEffect` to
+achieve something with Uppy in React, you are most likely breaking React best
+practices. Consider reading
 “[You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)”
 and looking at our examples below.
 
@@ -92,9 +92,9 @@ the plugin.
 ### Example: basic component
 
 Here we have a basic component which ties Uppy’s state to the component. This
-means you can easily render multiple instances. But be aware that as your
-component unmounts, for instance because the user navigates to a different page,
-Uppy’s state will be lost and uploads will stop.
+means you can render multiple instances. But be aware that as your component
+unmounts, for instance because the user navigates to a different page, Uppy’s
+state will be lost and uploads will stop.
 
 :::note
 
@@ -184,8 +184,8 @@ function Component(props) {
 When you go to production using [`@uppy/transloadit`](/docs/transloadit) always
 make sure to set the `signature`. Not using
 [Signature Authentication](https://transloadit.com/docs/topics/signature-authentication/)
-can be a security risk. Signature Authentication is a security measure that can
-prevent outsiders from tampering with your Assembly Instructions.
+prevent outsiders from tampering with your Assembly Instructions. can be a
+security risk. Signature Authentication is a security measure that can
 
 Generating a signature should be done on the server to avoid leaking secrets. In
 React, this could get awkward with a `fetch` in a `useEffect` and setting it to

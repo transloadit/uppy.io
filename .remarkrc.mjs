@@ -89,6 +89,7 @@ const retextPreset = [
 				'perform',
 				'there are',
 				'it is',
+				'effect',
 			],
 		})
 		.use(retextSyntaxMentions),
