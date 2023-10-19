@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem';
 
 # React
 
-[React][] components for the Uppy UI plugins.
+[React][] components for the Uppy UI plugins and a `useUppyState` hook.
 
 ## Install
 
@@ -42,62 +42,131 @@ You also need to install the UI plugin you want to use. For instance,
 other UI elements. The components can be used with either [React][] or
 API-compatible alternatives such as [Preact][].
 
-The following plugins are available as React component wrappers:
+:::caution
+
+If you find yourself writing many instances of `useState` and `useEffect` in
+order to achieve something with Uppy in React, you are most likely breaking
+React best practices. Consider reading
+“[You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)”
+and looking at our examples below.
+
+:::
+
+### Components
+
+The following components are exported from `@uppy/react`:
 
 - `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
 - `<DragDrop />` renders [`@uppy/drag-drop`](/docs/drag-drop)
 - `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/progress-bar)
 - `<StatusBar />` renders [`@uppy/status-bar`](/docs/status-bar)
 
-:::caution
+### Hooks
 
-A couple things to keep in mind when using Uppy with React:
+`useUppyState(uppy, selector)`
 
-- Instead of adding a UI plugin to an Uppy instance with `.use()`, the Uppy
-  instance can be passed into components as an `uppy` prop.
-- All other props are passed as options to the plugin.
-- The Uppy instance **should not live inside the component** but outside of it
-  (for class components, it should not be instantiated inside the `render()`
-  method).
-- You have to pass the IDs of your `use`d plugins to the `plugins` array prop so
-  Dashboard knows it needs to render them.
-- An Uppy instance can’t be used by more than one component. Make sure you are
-  using a unique Uppy instance per component.
+Use this hook when you need to access Uppy’s state reactively. Most of the
+times, this is needed if you are building a custom UI for Uppy in React.
+
+```js
+// IMPORTANT: passing an initializer function to prevent the state from recreating.
+const [uppy] = useState(() => new Uppy());
+
+const files = useUppyState(uppy, (state) => state.files);
+const totalProgress = useUppyState(uppy, (state) => state.totalProgress);
+// We can also get specific plugin state.
+// Note that the value on `plugins` depends on the `id` of the plugin.
+const metaFields = useUppyState(
+	uppy,
+	(state) => state.plugins?.Dashboard?.metaFields,
+);
+```
+
+You can see all the values you can access on the
+[`State`](https://github.com/transloadit/uppy/blob/main/packages/%40uppy/core/types/index.d.ts#L190)
+type. If you are accessing plugin state, you would have to look at the types of
+the plugin.
+
+## Examples
+
+### Example: basic component
+
+Here we have a basic component which ties Uppy’s state to the component. This
+means you can easily render multiple instances. But be aware that as your
+component unmounts, for instance because the user navigates to a different page,
+Uppy’s state will be lost and uploads will stop.
+
+:::note
+
+If you render multiple instances of Uppy, make sure to give each instance a
+unique `id`.
 
 :::
 
-Here is a basic example:
-
 ```js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Uppy from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import { Dashboard } from '@uppy/react';
 
-// Don't forget the CSS: core and the UI components + plugins you are using.
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/webcam/dist/style.min.css';
 
-// Don’t forget to keep the Uppy instance outside of your component.
-const uppy = new Uppy().use(Webcam);
-
 function Component() {
+	// IMPORTANT: passing an initializer function to prevent the state from recreating.
+	const [uppy] = useState(() => new Uppy().use(Webcam));
+
 	return <Dashboard uppy={uppy} plugins={['Webcam']} />;
 }
 ```
 
-## Frequently asked questions
+### Example: keep Uppy state and uploads while navigating between pages
 
-### How do I update @uppy/core and plugins options dynamically?
+When you want Uppy’s state to persist and keep uploads running between pages,
+you can
+[lift the state up](https://react.dev/learn/sharing-state-between-components#lifting-state-up-by-example).
+
+```js
+import React, { useState, useEffect } from 'react';
+import Uppy from '@uppy/core';
+import { Dashboard, useUppyState } from '@uppy/react';
+
+function Page1() {
+	// ...
+}
+
+function Page2({ uppy }) {
+	const totalProgress = useUppyState(uppy, (state) => state.totalProgress);
+	return (
+		<>
+			<p>{totalProgress}</p>
+			<Dashboard id="dashboard" uppy={uppy} />
+		</>
+	);
+}
+
+export default function App() {
+	// keeping the uppy instance alive above the pages the user can switch during uploading
+	const [uppy] = useState(() => new Uppy());
+
+	return (
+		<>
+			<Page1 />
+			<Page2 uppy={uppy} />
+		</>
+	);
+}
+```
+
+### Example: updating Uppy’s options dynamically based on props
 
 ```js
 // ...
-
-// Don’t forget to keep the Uppy instance outside of your component.
-const uppy = new Uppy().use(Webcam);
-
 function Component(props) {
+	// IMPORTANT: passing an initializer function to prevent the state from recreating.
+	const [uppy] = useState(() => new Uppy().use(Webcam));
+
 	useEffect(() => {
 		uppy.setOptions({ restrictions: props.restrictions });
 	}, [props.restrictions]);
@@ -110,70 +179,43 @@ function Component(props) {
 }
 ```
 
-### How do I render X amount of Uppy UI components?
+### Example: dynamic params and signature for Transloadit
 
-You can dynamically render many Uppy UI’s, such as `@uppy/drag-drop`, and let
-every UI upload under different conditions.
+When you go to production using [`@uppy/transloadit`](/docs/transloadit) always
+make sure to set the `signature`. Not using
+[Signature Authentication](https://transloadit.com/docs/topics/signature-authentication/)
+can be a security risk. Signature Authentication is a security measure that can
+prevent outsiders from tampering with your Assembly Instructions.
 
-For example, a platform where you can upload pictures for a house per room, but
-the number of rooms is dynamic and you want to handle every room differently in
-your [Transloadit](https://transloadit.com) template
-
-Here is what that could look like.
-
-:::note
-
-This is the only exception for having Uppy inside the component.
-
-:::
+Generating a signature should be done on the server to avoid leaking secrets. In
+React, this could get awkward with a `fetch` in a `useEffect` and setting it to
+`useState`. Instead, it’s easier to use the
+[`assemblyOptions`](/docs/transloadit#assemblyoptions) option to `fetch` the
+params.
 
 ```js
-import { useState, useEffect } from 'react';
-import { Uppy } from '@uppy/core';
-import { DragDrop, StatusBar } from '@uppy/react';
-import Transloadit from '@uppy/transloadit';
-
-import '@uppy/core/dist/style.min.css';
-import '@uppy/drag-drop/dist/style.min.css';
-import '@uppy/status-bar/dist/style.min.css';
-
-function createUppy(houseId, roomId) {
-	// Adding to global `meta` will add it to every file.
-	// Every Uppy instance needs a unique ID.
-	return new Uppy({ id: roomId, meta: { houseId, roomId } }).use(Transloadit, {
-		assemblyOptions(file) {
-			return {
-				params: {
-					auth: { key: 'TRANSLOADIT_AUTH_KEY_HERE' },
-					template_id: 'xyz',
-					// Send the results of the assembly to your backend.
-					notify_url: 'https://your-domain.com/assembly-status',
-				},
-				// You can use these inside your template
-				// https://transloadit.com/docs/topics/assembly-instructions/#form-fields-in-instructions
-				fields: { roomId: file.meta.roomId, houseId: file.meta.houseId },
-			};
+// ...
+function createUppy(userId) {
+	return new Uppy({ meta: { userId } }).use(Transloadit, {
+		async assemblyOptions(file) {
+			// You can send meta data along for use in your template.
+			// https://transloadit.com/docs/topics/assembly-instructions/#form-fields-in-instructions
+			const body = JSON.stringify({ userId: file.meta.userId });
+			const res = await fetch('/transloadit-params', { method: 'POST', body });
+			return response.json();
 		},
 	});
 }
 
-export default function Room(props) {
-	const { houseId, roomId } = props;
-	// important: passing a initializer function to prevent the state from recreating.
-	const [uppy] = useState(() => createUppy(houseId, roomId));
+function Component({ userId }) {
+	const [uppy] = useState(() => createUppy(userId));
 
 	useEffect(() => {
-		if (houseId && roomId) {
-			uppy.setOptions({ meta: { houseId, roomId } });
+		if (userId) {
+			// Adding to global `meta` will add it to every file.
+			uppy.setOptions({ meta: { userId } });
 		}
-	}, [uppy, houseId, roomId]);
-
-	return (
-		<>
-			<DragDrop uppy={uppy} />
-			<StatusBar uppy={uppy} />
-		</>
-	);
+	}, [uppy, userId]);
 }
 ```
 
