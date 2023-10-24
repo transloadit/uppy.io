@@ -465,7 +465,7 @@ which has only the secret, nothing else.
 
 ##### `s3.endpoint` `COMPANION_AWS_ENDPOINT`
 
-URL to the S3 (compatible) service.
+Optional URL to a custom S3 (compatible) service. Otherwise uses the default from the AWS SDK.
 
 ##### `s3.bucket` `COMPANION_AWS_BUCKET`
 
