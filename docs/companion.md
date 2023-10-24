@@ -463,6 +463,10 @@ which has only the secret, nothing else.
 
 :::
 
+##### `s3.endpoint` `COMPANION_AWS_ENDPOINT`
+
+URL to the S3 (compatible) service.
+
 ##### `s3.bucket` `COMPANION_AWS_BUCKET`
 
 The name of the bucket to store uploaded files in.
