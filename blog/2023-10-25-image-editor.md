@@ -154,7 +154,8 @@ know the image width and height, and we want to find `H`.
 
 The easiest way to go about it is to first color all the corners on the
 image - <span style={{ color: "rgb(26, 196, 213)" }}>blue</span> for our
-rotation angle <code>α</code>, and <span style={{ color: "rgb(224, 128, 193)" }}>pink</span>
+rotation angle <code>α</code>,
+and <span style={{ color: "rgb(224, 128, 193)" }}>pink</span>
 for <code>90 - α</code>:
 
 <table style={{ background: "rgb(250, 250, 250)", textAlign: "center" }}>
