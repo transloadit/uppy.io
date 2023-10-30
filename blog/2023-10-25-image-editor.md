@@ -8,6 +8,8 @@ published: true
 toc_max_heading_level: 3
 ---
 
+<!--retext-simplify disable prior-to all-of employ very represents-->
+
 ## Introduction
 
 This is a tutorial blog post, I’ll be explaining how we implemented “image
