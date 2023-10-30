@@ -98,10 +98,10 @@ In the images below, we see what happens on rotation by default. To remove the
 checkered corners, the user would have to drag around the edges of the
 cropbox.  
 What we can do instead is scale this image (in the directions shown by <span
-style={{ color: "rgb(127, 194, 65)" }}>green arrows</span>) so that these
+style={{ color: `rgb(127, 194, 65)` }}>green arrows</span>) so that these
 corners disappear.
 
-<table style={{ background: "rgb(250, 250, 250)" }}>
+<table style={{ background: `rgb(250, 250, 250)` }}>
   <thead>
   <tr><th colspan={2}>What happens on rotation</th></tr>
   </thead>
@@ -127,7 +127,7 @@ These two scaling factors are calculated very similarly, so we’ll only focus o
 calculating only one of them in this tutorial (a full solution is given in the
 conclusion too, however).
 
-In the images below, the <span style={{ color: "rgb(127, 194, 65)" }}>green
+In the images below, the <span style={{ color: `rgb(127, 194, 65)` }}>green
 rectangle</span> represents the desired dimensions of our image after it’s
 scaled. Scaling operation is defined in such a way that our scaling factor is
 `H/h`. We already know `h` (it’s the height of our image!), so we want to find
@@ -155,9 +155,9 @@ All of the next steps are automatic - we know all the angles in this image, we
 know the image width and height, and we want to find `H`.
 
 The easiest way to go about it is to first color all the corners on the
-image - <span style={{ color: "rgb(26, 196, 213)" }}>blue</span> for our
+image - <span style={{ color: `rgb(26, 196, 213)` }}>blue</span> for our
 rotation angle <code>α</code>,
-and <span style={{ color: "rgb(224, 128, 193)" }}>pink</span>
+and <span style={{ color: `rgb(224, 128, 193)` }}>pink</span>
 for <code>90 - α</code>:
 
 <table style={{ background: "rgb(250, 250, 250)", textAlign: "center" }}>
