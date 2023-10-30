@@ -8,7 +8,7 @@ published: true
 toc_max_heading_level: 3
 ---
 
-<!--retext-simplify disable prior-to all-of employ very represents-->
+<!--retext-simplify disable prior-to all-of employ very represents appropriate-->
 
 ## Introduction
 
@@ -62,23 +62,23 @@ There are **3 steps** to scaling implementation:
 
 1. ask your designer what scaling on rotation should look like,
 1. find the `.scale()` function, and
-1. pretty straightforward maths.
+1. apply some geometry.
 
-### Step 1: Ask Your Designer
+### Step 1: Ask your designer
 
 When I approached this task, my first instinct was to go for the “rotated
 rectangle inscribed within another rectangle” solution so that the largest-area
 inscription possible is achieved. Absolutely do not follow this route, please
-consult your designer (or transloadit founder in my case!) on what would
-actually be a pleasant experience for the user.
+consult your designer on what would actually be a pleasant experience for the user.
 
-Long-story short, we achieve the best “scaling on rotation” UI by:
+Alternatively, trust the following statement -  
+we achieve the best “scaling on rotation” UI by:
 
-- rotating the image around the center of the image (intersection of the
+- always rotating the image around the center of the image (intersection of the
   diagonals)
 - and just enlarging the image so that there are no checkered corners.
 
-### Step 2: Find the `.scale()` Function
+### Step 2: Find the `.scale()` function
 
 To enlarge the image in a way that covers checkered corners, we want some
 scaling function. Uppy uses
@@ -92,7 +92,10 @@ Your `.scale(scalingFactor)` should
 the image _around its center_, where the `scalingFactor` is determined by
 `desiredHeight/oldHeight`.
 
-### Step 3: Straightforward Maths
+### Step 3: Geometry
+
+Now, we want to draw our before-rotation & after-rotation shapes on the same picture,
+and apply some calculations to those pictures - all mathematics you’ll want to know for this is [how angles work](https://www.khanacademy.org/test-prep/praxis-math/praxis-math-lessons/gtp--praxis-math--lessons--geometry/a/gtp--praxis-math--article--angles--lesson) and [how sines and cosines work](https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-trig-ratios-intro/a/finding-trig-ratios-in-right-triangles).
 
 In the images below, we see what happens on rotation by default. To remove the
 checkered corners, the user would have to drag around the edges of the
