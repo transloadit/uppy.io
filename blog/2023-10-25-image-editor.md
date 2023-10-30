@@ -10,12 +10,12 @@ toc_max_heading_level: 3
 
 ## Introduction
 
-This is a tutorial blog post, I'll be explaining how we implemented "image
-scaling on rotation" in Uppy, and how you can implement it in your own image
+This is a tutorial blog post, I’ll be explaining how we implemented “image
+scaling on rotation” in Uppy, and how you can implement it in your own image
 editor.
 
-Below you see how Uppy's image editor handled image rotations prior to our
-"scale on rotation" implementation, and how it handles it now.
+Below you see how Uppy’s image editor handled image rotations prior to our
+“scale on rotation” implementation, and how it handles it now.
 
 <table style={{ textAlign: "center" }}>
   <thead>
@@ -49,7 +49,7 @@ Below you see how Uppy's image editor handled image rotations prior to our
 </table>
 
 This UI is present in many image editors - for example, the default image
-editors on ios and android both employ it. We implemented this in Uppy's image
+editors on ios and android both employ it. We implemented this in Uppy’s image
 editor last week, and the solution turned out non-trivial. Bearing in mind this
 is a pretty ubiquitous task to solve for image editors, we decided to write out
 a post about it instead of leaving the solution in internal notes.
@@ -64,13 +64,13 @@ There are **3 steps** to scaling implementation:
 
 ### Step 1: Ask Your Designer
 
-When I approached this task, my first instinct was to go for the "rotated
-rectangle inscribed within another rectangle" solution so that the largest-area
+When I approached this task, my first instinct was to go for the “rotated
+rectangle inscribed within another rectangle” solution so that the largest-area
 inscription possible is achieved. Absolutely do not follow this route, please
 consult your designer (or transloadit founder in my case!) on what would
 actually be a pleasant experience for the user.
 
-Long-story short, we achieve the best "scaling on rotation" UI by:
+Long-story short, we achieve the best “scaling on rotation” UI by:
 
 - rotating the image around the center of the image (intersection of the
   diagonals)
@@ -82,7 +82,7 @@ To enlarge the image in a way that covers checkered corners, we want some
 scaling function. Uppy uses
 [cropperjs v1.x](https://github.com/fengyuanchen/cropperjs) as an image editing
 library, and it has a `cropper.scale(scalingFactor)` function. Any image editing
-library is likely to have a similar function, or you'll want to manually code it
+library is likely to have a similar function, or you’ll want to manually code it
 up.
 
 Your `.scale(scalingFactor)` should
@@ -121,14 +121,14 @@ So, to cover up these checkered corners, we will need to scale the image. If we
 cover up the larger corner, the smaller corner will get covered up
 automatically, so our code takes the form of
 `scale(Math.max(scalingFactor1, scalingFactor2))`.  
-These two scaling factors are calculated very similarly, so we'll only focus on
+These two scaling factors are calculated very similarly, so we’ll only focus on
 calculating only one of them in this tutorial (a full solution is given in the
 conclusion too, however).
 
 In the images below, the <span style={{ color: "rgb(127, 194, 65)" }}>green
-rectangle</span> represents the desired dimensions of our image after it's
+rectangle</span> represents the desired dimensions of our image after it’s
 scaled. Scaling operation is defined in such a way that our scaling factor is
-`H/h`. We already know `h` (it's the height of our image!), so we want to find
+`H/h`. We already know `h` (it’s the height of our image!), so we want to find
 `H`.
 
 <table style={{ background: "rgb(250, 250, 250)" }}>
@@ -230,6 +230,6 @@ You can see the full version
 [on github](https://github.com/transloadit/uppy/blob/12e08ada02b9080bd5e1d19526bdf8a2010e62a1/packages/%40uppy/image-editor/src/utils/getScaleFactorThatRemovesDarkCorners.js).
 
 <details>
-  <summary>Bonus content: our founder's (Tim Koschuetzki) scribble notes with the solution</summary>
+  <summary>Bonus content: our founder’s (Tim Koschuetzki) scribble notes with the solution</summary>
   <img src="/img/blog/2023-10-25-image-editor/tim.jpg"/>
 </details>
