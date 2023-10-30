@@ -1,5 +1,5 @@
 ---
-title: 'Tutorial: scaling the image on rotation'
+title: 'Scaling Images on Rotation'
 date: 2023-10-25
 authors: [evgenia, tim]
 image: '/img/blog/3.4-3.13/single-file-mode.jpg'
@@ -12,12 +12,12 @@ toc_max_heading_level: 3
 
 ## Introduction
 
-This is a tutorial blog post, I’ll be explaining how we implemented “image
-scaling on rotation” in Uppy, and how you can implement it in your own image
-editor.
+We recently added “image scaling on rotation” to Uppy's
+[Image Editor](https://uppy.io/docs/image-editor/), which means images will
+maintain the full frame, even when rotated.
 
-Below you see how Uppy’s image editor handled image rotations prior to our
-“scale on rotation” implementation, and how it handles it now.
+Below is a comparison between how Uppy’s Image Editor handled image rotations
+prior to our “scale on rotation” feature, and how it handles it now.
 
 <table style={{ textAlign: "center" }}>
   <thead>
@@ -50,57 +50,69 @@ Below you see how Uppy’s image editor handled image rotations prior to our
   </tbody>
 </table>
 
-This UI is present in many image editors - for example, the default image
-editors on ios and android both employ it. We implemented this in Uppy’s image
-editor last week, and the solution turned out non-trivial. Bearing in mind this
-is a pretty ubiquitous task to solve for image editors, we decided to write out
-a post about it instead of leaving the solution in internal notes.
+Lets dive into some of the finer technical details, so you can follow along and
+implement this feature into your own image editor.
+
+<!--truncate-->
+
+The above UI is present in many image editors - for example, the default image
+editors on iOS and Android both employ it. Often users expect this behaviour
+too, leading to some confusion when their images are left with ugly corners
+after a rotation.
+
+We implemented this in Uppy’s Image Editor last week, and the solution turned
+out to be non-trivial. Since this is a pretty ubiquitous task to solve for all
+image editors, we decided to release our solution to the world and write out a
+post about it, instead of keeping it hidden away as part of internal notes.
 
 ## 3 Steps
 
-There are **3 steps** to scaling implementation:
+There are **3 steps** to our scaling implementation:
 
-1. ask your designer what scaling on rotation should look like,
-1. find the `.scale()` function, and
-1. apply some geometry.
+1. Ask your designer what scaling on rotation should look like
+1. Find the `.scale()` function
+1. Calculating the geometry
 
-### Step 1: Ask your designer
+### 1. Trust your designer
 
-When I approached this task, my first instinct was to go for the “rotated
+When I first approached this task, my gut-instinct was to go for the “rotated
 rectangle inscribed within another rectangle” solution so that the largest-area
-inscription possible is achieved. Absolutely do not follow this route, please
-consult your designer on what would actually be a pleasant experience for the user.
+inscription possible is achieved. This route turned out to be an unpleasant user
+experience, so take this as an important lesson in trusting your designer, and
+consulting them first on what the user might want.
 
-Alternatively, trust the following statement -  
-we achieve the best “scaling on rotation” UI by:
+Alternatively, trust our designer, and follow their advice: we can achieve the
+best “scaling on rotation” UI by:
 
 - always rotating the image around the center of the image (intersection of the
   diagonals)
-- and just enlarging the image so that there are no checkered corners.
+- just enlarging the image so that there are no empty corners
 
-### Step 2: Find the `.scale()` function
+### 2. Find the `.scale()` function
 
-To enlarge the image in a way that covers checkered corners, we want some
-scaling function. Uppy uses
-[cropperjs v1.x](https://github.com/fengyuanchen/cropperjs) as an image editing
-library, and it has a `cropper.scale(scalingFactor)` function. Any image editing
-library is likely to have a similar function, or you’ll want to manually code it
-up.
+To enlarge the image in a way that covers empty corners, we first need a scaling
+function. Uppy uses [cropperjs v1.x](https://github.com/fengyuanchen/cropperjs)
+as an image editing library, which exposes the `cropper.scale(scalingFactor)`
+function. Most image editing libraries are likely to have a similar function,
+but of course feel free to code one yourself if you feel up to the challenge.
 
-Your `.scale(scalingFactor)` should
+Importantly, the scaling function should
 [uniformly enlarge](<https://en.wikipedia.org/wiki/Scaling_(geometry)#Uniform_scaling>)
 the image _around its center_, where the `scalingFactor` is determined by
 `desiredHeight/oldHeight`.
 
-### Step 3: Geometry
+### 3. Calculate the geometry
 
-Now, we want to draw our before-rotation & after-rotation shapes on the same picture,
-and apply some calculations to those pictures - all mathematics you’ll want to know for this is [how angles work](https://www.khanacademy.org/test-prep/praxis-math/praxis-math-lessons/gtp--praxis-math--lessons--geometry/a/gtp--praxis-math--article--angles--lesson) and [how sines and cosines work](https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-trig-ratios-intro/a/finding-trig-ratios-in-right-triangles).
+Now, we want to draw our before-rotation & after-rotation shapes on the same
+picture, and apply some trigonometry. If you need to brush up on some of the
+mathematics behind this, we recommend the following Khan Academy lesson on
+[how angles work](https://www.khanacademy.org/test-prep/praxis-math/praxis-math-lessons/gtp--praxis-math--lessons--geometry/a/gtp--praxis-math--article--angles--lesson)
+and
+[how sines and cosines work](https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-trig-ratios-intro/a/finding-trig-ratios-in-right-triangles).
 
 In the images below, we see what happens on rotation by default. To remove the
-checkered corners, the user would have to drag around the edges of the
-cropbox.  
-What we can do instead is scale this image (in the directions shown by <span
+empty corners, the user would have to drag around the edges of the cropbox. What
+we can do instead is scale the image (in the directions shown by the <span
 style={{ color: `rgb(127, 194, 65)` }}>green arrows</span>) so that these
 corners disappear.
 
@@ -125,16 +137,15 @@ corners disappear.
 So, to cover up these checkered corners, we will need to scale the image. If we
 cover up the larger corner, the smaller corner will get covered up
 automatically, so our code takes the form of
-`scale(Math.max(scalingFactor1, scalingFactor2))`.  
-These two scaling factors are calculated very similarly, so we’ll only focus on
-calculating only one of them in this tutorial (a full solution is given in the
-conclusion too, however).
+`scale(Math.max(scalingFactor1, scalingFactor2))`. These two scaling factors are
+calculated very similarly, so we’ll only focus on calculating only one of them
+in this tutorial (although the full solution is given in the conclusion).
 
 In the images below, the <span style={{ color: `rgb(127, 194, 65)` }}>green
 rectangle</span> represents the desired dimensions of our image after it’s
-scaled. Scaling operation is defined in such a way that our scaling factor is
-`H/h`. We already know `h` (it’s the height of our image!), so we want to find
-`H`.
+scaled. Luckily for us, the scaling function is defined in such a way that our
+scaling factor is `H/h`. We already know `h` (it’s the height of our image!), so
+we just need to find `H`, in order to scale our image properly.
 
 <table style={{ background: "rgb(250, 250, 250)" }}>
   <thead>
@@ -157,11 +168,11 @@ scaled. Scaling operation is defined in such a way that our scaling factor is
 All of the next steps are automatic - we know all the angles in this image, we
 know the image width and height, and we want to find `H`.
 
-The easiest way to go about it is to first color all the corners on the
-image - <span style={{ color: `rgb(26, 196, 213)` }}>blue</span> for our
-rotation angle <code>α</code>,
-and <span style={{ color: `rgb(224, 128, 193)` }}>pink</span>
-for <code>90 - α</code>:
+<p style={{ padding: 0 }}>The easiest way to go about it, is to first annotate the image with all the
+relevant angles. We'll be using <span
+style={{ color: `rgb(26, 196, 213)` }}>blue </span> for the rotation angle
+ <code>α</code>, and <span style={{ color: `rgb(224, 128, 193)` }}>pink </span>
+for <code>90 - α</code>:</p>
 
 <table style={{ background: "rgb(250, 250, 250)", textAlign: "center" }}>
   <thead style={{ display: "table", width: "100%" }}>
@@ -177,7 +188,7 @@ for <code>90 - α</code>:
   </tbody>
 </table>
 
-and then find our `H` by adding two large-triangle sides:
+We can then find `H`, by adding the sides of the two outer triangles.
 
 <table style={{ background: "rgb(250, 250, 250)" }}>
   <thead>
@@ -197,9 +208,9 @@ and then find our `H` by adding two large-triangle sides:
   </tbody>
 </table>
 
-So, now we have our desired `H`! One of our scaling factors is `H/h`. Another
-scaling factor of ours will be `W/w`, calculated similarly.  
-The full solution will look as following:
+So, now we have our desired `H`! One of our scaling factors is `H/h`. Our other
+scaling factor is `W/w`, which follows a similar process. Below is a rough
+solution.
 
 ```javascript
 scalingFactor
@@ -232,9 +243,9 @@ cropper.scale(scaleFactor);
 ```
 
 You can see the full version
-[on github](https://github.com/transloadit/uppy/blob/12e08ada02b9080bd5e1d19526bdf8a2010e62a1/packages/%40uppy/image-editor/src/utils/getScaleFactorThatRemovesDarkCorners.js).
+[on GitHub](https://github.com/transloadit/uppy/blob/12e08ada02b9080bd5e1d19526bdf8a2010e62a1/packages/%40uppy/image-editor/src/utils/getScaleFactorThatRemovesDarkCorners.js).
 
 <details>
-  <summary>Bonus content: our founder’s (Tim Koschuetzki) scribble notes with the solution</summary>
+  <summary>Bonus content: our founder’s (Tim Koschuetzki) inital scribbled notes with the solution</summary>
   <img src="/img/blog/2023-10-25-image-editor/tim.jpg"/>
 </details>
