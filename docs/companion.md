@@ -472,8 +472,13 @@ from the AWS SDK.
 
 The name of the bucket to store uploaded files in.
 
-It can be function that takes a [`http.IncomingMessage`][] object as argument
-and returns the name of the bucket as a `string`.
+It can be function that returns the name of the bucket as a `string` and takes
+the following arguments:
+
+- [`http.IncomingMessage`][], the HTTP request (will be `null` for remote
+  uploads)
+- metadata provided by the user for the file (will be `undefined` for local
+  uploads)
 
 ##### `s3.region` `COMPANION_AWS_REGION`
 
@@ -508,9 +513,10 @@ Get the key name for a file. The key is the file path to which the file will be
 uploaded in your bucket. This option should be a function receiving three
 arguments:
 
-- `req`, the HTTP request, for _regular_ S3 uploads using the `@uppy/aws-s3`
-  plugin. This parameter is _not_ available for multipart uploads using the
-  `@uppy/aws-s3` or `@uppy/aws-s3-multipart` plugins;
+- `req` [`http.IncomingMessage`][], the HTTP request, for _regular_ S3 uploads
+  using the `@uppy/aws-s3` plugin. This parameter is _not_ available for
+  multipart uploads using the `@uppy/aws-s3` or `@uppy/aws-s3-multipart`
+  plugins. This parameter is `null` for remote uploads.
 - `filename`, the original name of the uploaded file;
 - `metadata`, user-provided metadata for the file.
 
