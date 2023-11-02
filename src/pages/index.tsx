@@ -30,9 +30,16 @@ import IconFolder from '../../static/img/folder.svg';
 import IconWrench from '../../static/img/wrench.svg';
 import IconUppy from '../../static/img/uppy.svg';
 
-import styles from './index.module.css';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/audio/dist/style.min.css';
+import '@uppy/screen-capture/dist/style.min.css';
+import '@uppy/image-editor/dist/style.min.css';
+import '@uppy/webcam/dist/style.min.css';
+import '@uppy/url/dist/style.min.css';
+
+import styles from './index.module.css';
+
 
 const companionUrl = 'https://companion.uppy.io';
 const endpoint = 'https://tusd.tusdemo.net/files/';
