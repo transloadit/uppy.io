@@ -10,14 +10,16 @@ toc_max_heading_level: 3
 
 <!--retext-simplify disable prior-to all-of employ very represents appropriate-->
 
-## Introduction
+We recently released an “image scaling on rotation” feature, for Uppy's
+[Image Editor](https://uppy.io/docs/image-editor/), an often-requested feature
+that we're super proud to be able to announce.
 
-We recently added “image scaling on rotation” to Uppy's
-[Image Editor](https://uppy.io/docs/image-editor/), which means images will
-maintain the full frame, even when rotated.
+In this blog post, we'll be taking a peek behind the curtain, as we take a
+detailed look into the development of this feature, and our thought-process
+approaching it.
 
-Below is a comparison between how Uppy’s Image Editor handled image rotations
-prior to our “scale on rotation” feature, and how it handles it now.
+Before we start though, take a look below at a comparison between how Uppy’s
+Image Editor used to handle image rotations, and how it handles them now.
 
 <table style={{ textAlign: "center" }}>
   <thead>
@@ -50,8 +52,8 @@ prior to our “scale on rotation” feature, and how it handles it now.
   </tbody>
 </table>
 
-Lets dive into some of the finer technical details, so you can follow along and
-implement this feature into your own image editor.
+Without further adieu, let's dive into some of the finer technical details, so
+you can follow along and implement this feature into your own image editor.
 
 <!--truncate-->
 
@@ -81,12 +83,11 @@ inscription possible is achieved. This route turned out to be an unpleasant user
 experience, so take this as an important lesson in trusting your designer, and
 consulting them first on what the user might want.
 
-Alternatively, trust our designer, and follow their advice: we can achieve the
-best “scaling on rotation” UI by:
+Alternatively, you can choose to trust our designer's advice by:
 
 - always rotating the image around the center of the image (intersection of the
   diagonals)
-- just enlarging the image so that there are no empty corners
+- just enlarging the image to remove any empty corners
 
 ### 2. Find the `.scale()` function
 
@@ -104,11 +105,12 @@ the image _around its center_, where the `scalingFactor` is determined by
 ### 3. Calculate the geometry
 
 Now, we want to draw our before-rotation & after-rotation shapes on the same
-picture, and apply some trigonometry. If you need to brush up on some of the
-mathematics behind this, we recommend the following Khan Academy lesson on
+picture, and apply some trigonometry. If you need to brush up on the mathematics
+behind this, we recommend watching the following Khan Academy lessons on
 [how angles work](https://www.khanacademy.org/test-prep/praxis-math/praxis-math-lessons/gtp--praxis-math--lessons--geometry/a/gtp--praxis-math--article--angles--lesson)
 and
-[how sines and cosines work](https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-trig-ratios-intro/a/finding-trig-ratios-in-right-triangles).
+[how sines and cosines work](https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-trig-ratios-intro/a/finding-trig-ratios-in-right-triangles),
+as these cover everything you'll need to follow along.
 
 In the images below, we see what happens on rotation by default. To remove the
 empty corners, the user would have to drag around the edges of the cropbox. What
@@ -143,9 +145,10 @@ in this tutorial (although the full solution is given in the conclusion).
 
 In the images below, the <span style={{ color: `rgb(127, 194, 65)` }}>green
 rectangle</span> represents the desired dimensions of our image after it’s
-scaled. Luckily for us, the scaling function is defined in such a way that our
-scaling factor is `H/h`. We already know `h` (it’s the height of our image!), so
-we just need to find `H`, in order to scale our image properly.
+scaled. Our scaling function (and hopefully yours) is defined in such a way that
+if we have the image of height `h`, and we want to scale it up to height `H`, we
+need to execute `.scale(H/h)`. Since we already know `h`, as it's the height of
+our image, we only need to find `H` to complete our scaling function.
 
 <table style={{ background: "rgb(250, 250, 250)" }}>
   <thead>
@@ -165,8 +168,9 @@ we just need to find `H`, in order to scale our image properly.
   </tbody>
 </table>
 
-All of the next steps are automatic - we know all the angles in this image, we
-know the image width and height, and we want to find `H`.
+For the rest of the tutorial, the following steps are then automatic - as we
+know all the angles in the image, we know the image's width and height, and we
+know to find `H`.
 
 <p style={{ padding: 0 }}>The easiest way to go about it, is to first annotate the image with all the
 relevant angles. We'll be using <span
@@ -188,7 +192,7 @@ for <code>90 - α</code>:</p>
   </tbody>
 </table>
 
-We can then find `H`, by adding the sides of the two outer triangles.
+We can then find `H`, by adding the two outer sides of these triangles.
 
 <table style={{ background: "rgb(250, 250, 250)" }}>
   <thead>
@@ -208,9 +212,10 @@ We can then find `H`, by adding the sides of the two outer triangles.
   </tbody>
 </table>
 
-So, now we have our desired `H`! One of our scaling factors is `H/h`. Our other
-scaling factor is `W/w`, which follows a similar process. Below is a rough
-solution.
+So, now we have our desired `H`! We know one of our scaling factors is `H/h`.
+Now, we just need to find our other scaling factor, which is `W/w`. This follows
+a similar process, and you can find the calculations as part of the full
+solution below.
 
 ```javascript
 scalingFactor
@@ -224,7 +229,7 @@ scalingFactor
 
 ## Conclusion
 
-In Uppy, our code ended up looking roughly like this:
+In Uppy, our code ended up looking similar to this:
 
 ```javascript
 function getScalingFactor(w, h, rotationAngle) {
@@ -246,6 +251,6 @@ You can see the full version
 [on GitHub](https://github.com/transloadit/uppy/blob/12e08ada02b9080bd5e1d19526bdf8a2010e62a1/packages/%40uppy/image-editor/src/utils/getScaleFactorThatRemovesDarkCorners.js).
 
 <details>
-  <summary>Bonus content: our founder’s (Tim Koschuetzki) inital scribbled notes with the solution</summary>
+  <summary>Bonus content: our founder’s (Tim Koschuetzki) initial scribbled notes with the solution</summary>
   <img src="/img/blog/2023-10-25-image-editor/tim.jpg"/>
 </details>
