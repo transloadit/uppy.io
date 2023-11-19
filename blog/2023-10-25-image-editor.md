@@ -10,11 +10,11 @@ toc_max_heading_level: 3
 
 <!--retext-simplify disable prior-to all-of employ very represents appropriate-->
 
-We recently released an “image scaling on rotation” feature, for Uppy's
-[Image Editor](https://uppy.io/docs/image-editor/), an often-requested feature
-that we're super proud to be able to announce.
+We recently released an “image scaling on rotation” feature, for
+Uppy`s [Image Editor](https://uppy.io/docs/image-editor/), an often-requested feature that we`re
+super proud to be able to announce.
 
-In this blog post, we'll be taking a peek behind the curtain, as we take a
+In this blog post, we`ll be taking a peek behind the curtain, as we take a
 detailed look into the development of this feature, and our thought-process
 approaching it.
 
@@ -52,7 +52,7 @@ Image Editor used to handle image rotations, and how it handles them now.
   </tbody>
 </table>
 
-Without further adieu, let's dive into some of the finer technical details, so
+Without further adieu, let`s dive into some of the finer technical details, so
 you can follow along and implement this feature into your own image editor.
 
 <!--truncate-->
@@ -83,7 +83,7 @@ inscription possible is achieved. This route turned out to be an unpleasant user
 experience, so take this as an important lesson in trusting your designer, and
 consulting them first on what the user might want.
 
-Alternatively, you can choose to trust our designer's advice by:
+Alternatively, you can choose to trust our designer`s advice by:
 
 - always rotating the image around the center of the image (intersection of the
   diagonals)
@@ -110,7 +110,7 @@ behind this, we recommend watching the following Khan Academy lessons on
 [how angles work](https://www.khanacademy.org/test-prep/praxis-math/praxis-math-lessons/gtp--praxis-math--lessons--geometry/a/gtp--praxis-math--article--angles--lesson)
 and
 [how sines and cosines work](https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-trig-ratios-intro/a/finding-trig-ratios-in-right-triangles),
-as these cover everything you'll need to follow along.
+as these cover everything you`ll need to follow along.
 
 In the images below, we see what happens on rotation by default. To remove the
 empty corners, the user would have to drag around the edges of the cropbox. What
@@ -147,8 +147,9 @@ In the images below, the <span style={{ color: `rgb(127, 194, 65)` }}>green
 rectangle</span> represents the desired dimensions of our image after it’s
 scaled. Our scaling function (and hopefully yours) is defined in such a way that
 if we have the image of height `h`, and we want to scale it up to height `H`, we
-need to execute `.scale(H/h)`. Since we already know `h`, as it's the height of
-our image, we only need to find `H` to complete our scaling function.
+need to execute `.scale(H/h)`. Since we already know `h`, as
+it`s the height of our image, we only need to find `H` to complete our scaling
+function.
 
 <table style={{ background: "rgb(250, 250, 250)" }}>
   <thead>
@@ -169,11 +170,11 @@ our image, we only need to find `H` to complete our scaling function.
 </table>
 
 For the rest of the tutorial, the following steps are then automatic - as we
-know all the angles in the image, we know the image's width and height, and we
-know to find `H`.
+know all the angles in the image, we know the
+image`s width and height, and we know to find `H`.
 
 <p style={{ padding: 0 }}>The easiest way to go about it, is to first annotate the image with all the
-relevant angles. We'll be using <span
+relevant angles. We`ll be using <span
 style={{ color: `rgb(26, 196, 213)` }}>blue </span> for the rotation angle
  <code>α</code>, and <span style={{ color: `rgb(224, 128, 193)` }}>pink </span>
 for <code>90 - α</code>:</p>
@@ -229,7 +230,7 @@ scalingFactor
 
 ## Conclusion
 
-In Uppy, our code ended up looking similar to this:
+In Uppy, our code ended up looking like this:
 
 ```javascript
 function getScalingFactor(w, h, rotationAngle) {
