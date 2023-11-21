@@ -30,6 +30,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+        env:
+          SKIP_YARN_COREPACK_CHECK: 1
       - name: Environment Information
         run: npx envinfo
       - name: Install dependencies
