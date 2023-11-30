@@ -74,6 +74,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
+	tab-size: 2;
 	--ifm-color-primary: #f37;
 	--ifm-color-primary-dark: #29784c;
 	--ifm-color-primary-darker: #277148;
