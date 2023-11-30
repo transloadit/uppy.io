@@ -4,10 +4,192 @@
         <title>Uppy Blog</title>
         <link>https://uppy.io/blog</link>
         <description>Uppy Blog</description>
-        <lastBuildDate>Wed, 26 Jul 2023 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 25 Oct 2023 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Scaling Images on Rotation]]></title>
+            <link>https://uppy.io/blog/2023-10-25-image-editor</link>
+            <guid>https://uppy.io/blog/2023-10-25-image-editor</guid>
+            <pubDate>Wed, 25 Oct 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[We recently released an “image scaling on rotation” feature for Uppy’s]]></description>
+            <content:encoded><![CDATA[<p>We recently released an “image scaling on rotation” feature for Uppy’s
+<a href="https://uppy.io/docs/image-editor/" target="_blank" rel="noopener noreferrer">Image Editor</a>, an often-requested feature
+that we’re super proud to be able to announce.</p>
+<p>In this blog post, we’ll be taking a peek behind the curtain, as we take a
+detailed look into the development of this feature, and our thought-process
+approaching it.</p>
+<p>Before we start though, take a look below at a comparison between how Uppy’s
+Image Editor used to handle image rotations, and how it handles them now.</p>
+
+  
+  
+  <table textalign:="">
+  <thead>
+  <tr>
+    <th colspan="{2}">
+      Rotation
+    </th>
+  </tr><tr>
+    <th>Without scaling</th>
+    <th>With scaling</th>
+  </tr>
+  </thead><tbody>
+  <tr>
+  <td>
+    <video controls="" muted="" autoplay="">
+      <source src="/img/blog/2023-10-25-image-editor/without-scaling.mov" type="video/mp4">
+    </video>
+  </td><td>
+    <video controls="" muted="" autoplay="">
+      <source src="/img/blog/2023-10-25-image-editor/with-scaling.mov" type="video/mp4">
+    </video>
+  </td>
+  </tr>
+  </tbody></table>
+<p>Without further adieu, let’s dive into some of the finer technical details, so
+you can follow along and implement this feature into your own image editor.</p>
+<p>The above UI is present in many image editors - for example, the default image
+editors on iOS and Android both employ it. Often users expect this behaviour
+too, leading to some confusion when their images are left with ugly corners
+after a rotation.</p>
+<p>We implemented this in Uppy’s Image Editor last week, and the solution turned
+out to be non-trivial. Since this is a pretty ubiquitous task to solve for all
+image editors, we decided to release our solution to the world and write out a
+post about it, instead of keeping it hidden away as part of internal notes.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3-steps">3 Steps<a href="https://uppy.io/blog/2023-10-25-image-editor#3-steps" class="hash-link" aria-label="Direct link to 3 Steps" title="Direct link to 3 Steps">​</a></h2>
+<p>There are <strong>3 steps</strong> to our scaling implementation:</p>
+<ol>
+<li>Ask your designer what scaling on rotation should look like</li>
+<li>Find the <code>.scale()</code> function</li>
+<li>Calculating the geometry</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="1-trust-your-designer">1. Trust your designer<a href="https://uppy.io/blog/2023-10-25-image-editor#1-trust-your-designer" class="hash-link" aria-label="Direct link to 1. Trust your designer" title="Direct link to 1. Trust your designer">​</a></h3>
+<p>When I first approached this task, my gut-instinct was to go for the “rotated
+rectangle inscribed within another rectangle” solution so that the largest-area
+inscription possible is achieved. This route turned out to be an unpleasant user
+experience, so take this as an important lesson in trusting your designer, and
+consulting them first on what the user might want.</p>
+<p>Alternatively, you can choose to trust our designer’s advice by:</p>
+<ul>
+<li>always rotating the image around the center of the image (intersection of the
+diagonals)</li>
+<li>just enlarging the image to remove any empty corners</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-find-the-scale-function">2. Find the <code>.scale()</code> function<a href="https://uppy.io/blog/2023-10-25-image-editor#2-find-the-scale-function" class="hash-link" aria-label="Direct link to 2-find-the-scale-function" title="Direct link to 2-find-the-scale-function">​</a></h3>
+<p>To enlarge the image in a way that covers empty corners, we first need a scaling
+function. Uppy uses <a href="https://github.com/fengyuanchen/cropperjs" target="_blank" rel="noopener noreferrer">cropperjs v1.x</a>
+as an image editing library, which exposes the <code>cropper.scale(scalingFactor)</code>
+function. Most image editing libraries are likely to have a similar function,
+but of course feel free to code one yourself if you feel up to the challenge.</p>
+<p>Importantly, the scaling function should
+<a href="https://en.wikipedia.org/wiki/Scaling_(geometry)#Uniform_scaling" target="_blank" rel="noopener noreferrer">uniformly enlarge</a>
+the image <em>around its center</em>, where the <code>scalingFactor</code> is determined by
+<code>desiredHeight/oldHeight</code>.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3-calculate-the-geometry">3. Calculate the geometry<a href="https://uppy.io/blog/2023-10-25-image-editor#3-calculate-the-geometry" class="hash-link" aria-label="Direct link to 3. Calculate the geometry" title="Direct link to 3. Calculate the geometry">​</a></h3>
+<p>Now, we want to draw our before-rotation &amp; after-rotation shapes on the same
+picture, and apply some trigonometry. If you need to brush up on the mathematics
+behind this, we recommend watching the following Khan Academy lessons on
+<a href="https://www.khanacademy.org/test-prep/praxis-math/praxis-math-lessons/gtp--praxis-math--lessons--geometry/a/gtp--praxis-math--article--angles--lesson" target="_blank" rel="noopener noreferrer">how angles work</a>
+and
+<a href="https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-trig-ratios-intro/a/finding-trig-ratios-in-right-triangles" target="_blank" rel="noopener noreferrer">how sines and cosines work</a>,
+as these cover everything you’ll need to follow along.</p>
+<p>In the images below, we see what happens on rotation by default. To remove the
+empty corners, the user would have to drag around the edges of the cropbox. What
+we can do instead is scale the image (in the directions shown by the &lt;span
+style={{ color: <code>rgb(127, 194, 65)</code> }}&gt;green arrows) so that these
+corners disappear.</p>
+
+  
+  <table background:="">
+  <thead>
+  <tr><th colspan="{2}">What happens on rotation</th></tr>
+  </thead><tbody>
+  <tr>
+  <td width="50%">
+    <img loading="lazy" maxwidth:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/1a.png" class="img_ev3q">
+  </td><td width="50%">
+    <img loading="lazy" maxwidth:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/1b.png" class="img_ev3q">
+  </td>
+  </tr>
+  </tbody></table>
+<p>So, to cover up these checkered corners, we will need to scale the image. If we
+cover up the larger corner, the smaller corner will get covered up
+automatically, so our code takes the form of
+<code>scale(Math.max(scalingFactor1, scalingFactor2))</code>. These two scaling factors are
+calculated very similarly, so we’ll only focus on calculating only one of them
+in this tutorial (although the full solution is given in the conclusion).</p>
+<p>In the images below, the &lt;span style={{ color: <code>rgb(127, 194, 65)</code> }}&gt;green
+rectangle represents the desired dimensions of our image after it’s
+scaled. Our scaling function (and hopefully yours) is defined in such a way that
+if we have the image of height <code>h</code>, and we want to scale it up to height <code>H</code>, we
+need to execute <code>.scale(H/h)</code>. Since we already know <code>h</code>, as it’s the height of
+our image, we only need to find <code>H</code> to complete our scaling function.</p>
+
+  
+  <table background:="">
+  <thead>
+  <tr><th colspan="{2}">We want to find H</th></tr>
+  </thead><tbody>
+  <tr>
+  <td width="50%">
+    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/2a.png" class="img_ev3q">
+  </td><td width="50%">
+    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/2b.png" class="img_ev3q">
+  </td>
+  </tr>
+  </tbody></table>
+<p>For the rest of the tutorial, the following steps are then automatic - as we
+know all the angles in the image, we know the image’s width and height, and we
+know to find <code>H</code>.</p>
+<p padding:="">The easiest way to go about it, is to first annotate the image with all the
+relevant angles. We’ll be using <span color:="">blue </span> for the rotation angle
+ <code>α</code>, and <span color:="">pink </span>
+for <code>90 - α</code>:</p>
+
+  <table background:="" textalign:="">
+  <thead display:="" width:="">
+  <tr><th>Color all angles</th></tr>
+  </thead><tbody display:="" width:="">
+  <tr>
+  <td>
+    <img loading="lazy" width:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/3.png" class="img_ev3q">
+  </td>
+  </tr>
+  </tbody></table>
+<p>We can then find <code>H</code>, by adding the two outer sides of these triangles.</p>
+
+  
+  <table background:="">
+  <thead>
+  <tr><th colspan="{2}">Add two triangle sides: H = sin(α - 90) * h + sin(α) * w</th></tr>
+  </thead><tbody>
+  <tr>
+  <td width="50%">
+    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/4a.png" class="img_ev3q">
+  </td><td width="50%">
+    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/4b.png" class="img_ev3q">
+  </td>
+  </tr>
+  </tbody></table>
+<p>So, now we have our desired <code>H</code>! We know one of our scaling factors is <code>H/h</code>.
+Now, we just need to find our other scaling factor, which is <code>W/w</code>. This follows
+a similar process, and you can find the calculations as part of the full
+solution below.</p>
+<div class="language-javascript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-javascript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">scalingFactor</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">max</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">scalingFactor1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> scalingFactor2</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">max</span><span class="token punctuation" style="color:#393A34">(</span><span class="token constant" style="color:#36acaa">H</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">h</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token constant" style="color:#36acaa">W</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">w</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">max</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">(</span><span class="token function" style="color:#d73a49">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">α </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">90</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> h </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">α</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> w</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> h</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">(</span><span class="token function" style="color:#d73a49">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">α</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> h </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">α </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">90</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> w</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> w</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">)</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="https://uppy.io/blog/2023-10-25-image-editor#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion">​</a></h2>
+<p>In Uppy, our code ended up looking like this:</p>
+<div class="language-javascript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-javascript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">function</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">getScalingFactor</span><span class="token punctuation" style="color:#393A34">(</span><span class="token parameter">w</span><span class="token parameter punctuation" style="color:#393A34">,</span><span class="token parameter"> h</span><span class="token parameter punctuation" style="color:#393A34">,</span><span class="token parameter"> rotationAngle</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> α </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token known-class-name class-name">Math</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">abs</span><span class="token punctuation" style="color:#393A34">(</span><span class="token function" style="color:#d73a49">toRadians</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">rotationAngle</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> scalingFactor </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token known-class-name class-name">Math</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">max</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">		</span><span class="token punctuation" style="color:#393A34">(</span><span class="token known-class-name class-name">Math</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">α</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> w </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> </span><span class="token known-class-name class-name">Math</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">cos</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">α</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> h</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> h</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">		</span><span class="token punctuation" style="color:#393A34">(</span><span class="token known-class-name class-name">Math</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">α</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> h </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> </span><span class="token known-class-name class-name">Math</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">cos</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">α</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> w</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> w</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token keyword control-flow" style="color:#00009f">return</span><span class="token plain"> scalingFactor</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> image </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cropper</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">getImageData</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> scaleFactor </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">getScalingFactor</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">image</span><span class="token punctuation" style="color:#393A34">.</span><span class="token property-access">width</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> image</span><span class="token punctuation" style="color:#393A34">.</span><span class="token property-access">height</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> rotationAngle</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">cropper</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">scale</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">scaleFactor</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>You can see the full version
+<a href="https://github.com/transloadit/uppy/blob/12e08ada02b9080bd5e1d19526bdf8a2010e62a1/packages/%40uppy/image-editor/src/utils/getScaleFactorThatRemovesDarkCorners.js" target="_blank" rel="noopener noreferrer">on GitHub</a>.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Bonus content: our founder’s (Tim Koschuetzki) initial scribbled notes with the solution</summary><div><div class="collapsibleContent_i85q">
+  <!-- -->
+  <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/tim.jpg" class="img_ev3q">
+</div></div></details>]]></content:encoded>
+            <author>lakesare@gmail.com (Evgenia Karunus)</author>
+            <author>tim@transloadit.com (Tim Koschuetzki)</author>
+        </item>
         <item>
             <title><![CDATA[Uppy 3.3 to 3.13: conditional S3 multipart, signing on the client, speedy handling of 10k files and much much more]]></title>
             <link>https://uppy.io/blog/2023/07/3.3-3.13</link>
@@ -1755,57 +1937,6 @@ during upload instantiation (#2168 / @ifedapoolarewaju)</li>
 as future plans, in our
 <a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content:encoded>
             <author>artur@transloadit.com (Artur Paikin)</author>
-        </item>
-        <item>
-            <title><![CDATA[Uppy 1.10.1: Facebook and OneDrive]]></title>
-            <link>https://uppy.io/blog/2020/04/1.10</link>
-            <guid>https://uppy.io/blog/2020/04/1.10</guid>
-            <pubDate>Fri, 03 Apr 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[Uppy 1.10.1 adds long-awaited support for Facebook and]]></description>
-            <content:encoded><![CDATA[<p>Uppy <code>1.10.1</code> adds long-awaited support for <a href="https://uppy.io/docs/facebook/">Facebook</a> and
-<a href="https://uppy.io/docs/onedrive/">OneDrive</a> 🎉</p>
-<p><img loading="lazy" alt="Screenshot showing Uppy file uploader with Facebook and OneDrive options" src="https://uppy.io/assets/images/uppy-facebook-onedrive-ea84dfbe7c340d85a265b6dfa67a929f.png" width="1218" height="956" class="img_ev3q"></p>
-<div class="language-js codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-js codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> uppy </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token function maybe-class-name" style="color:#d73a49">Uppy</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">uppy</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">Dashboard</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">uppy</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">Facebook</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token literal-property property" style="color:#36acaa">target</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token maybe-class-name">Dashboard</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token literal-property property" style="color:#36acaa">companionUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://companion.uppy.io/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">uppy</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">OneDrive</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token literal-property property" style="color:#36acaa">target</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token maybe-class-name">Dashboard</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token literal-property property" style="color:#36acaa">companionUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://companion.uppy.io/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<p>Try the live demos on <a href="https://transloadit.com/" target="_blank" rel="noopener noreferrer">Transloadit.com</a>: import your
-files from Facebook or OneDrive, and then:</p>
-<ul>
-<li><a href="https://transloadit.com/demos/image-manipulation/text-watermarking/" target="_blank" rel="noopener noreferrer">Apply a watermark to an image</a></li>
-<li><a href="https://transloadit.com/demos/image-manipulation/convert-to-webp/" target="_blank" rel="noopener noreferrer">Convert an image to WebP</a></li>
-<li><a href="https://transloadit.com/demos/file-exporting/store-encoding-and-thumbnails-on-s3/" target="_blank" rel="noopener noreferrer">Encode a video, extract 8 thumbnails and store everything in an S3 bucket</a></li>
-<li><a href="https://transloadit.com/demos/video-encoding/encode-for-apple-iphone-11-pro-max/" target="_blank" rel="noopener noreferrer">Encode video for iPhone</a></li>
-<li><a href="https://transloadit.com/demos/file-compressing/create-one-zip-file-containing-all-uploaded-files/" target="_blank" rel="noopener noreferrer">Create a single Zip file containing all uploaded files</a></li>
-</ul>
-<p>(Uppy demos are below the description and steps, under “Live Demo. See for
-yourself” ;-)</p>
-<p>You can also play with an interactive demo, enabling different Uppy options and
-providers on the fly: <a href="https://uppy.io/examples/dashboard" target="_blank" rel="noopener noreferrer">https://uppy.io/examples/dashboard</a></p>
-<p>OneDrive:</p>
-<p><img loading="lazy" alt="Screenshot showing Uppy file uploader with OneDrive file list" src="https://uppy.io/assets/images/uppy-onedrive-884d4d1a263da38127933f8d963aae20.png" width="1218" height="954" class="img_ev3q"></p>
-<p>Facebook:</p>
-<p><img loading="lazy" alt="Screenshot showing Uppy file uploader with Facebook file list" src="https://uppy.io/assets/images/uppy-facebook-7355fc3660a84b7cf0ddf36dccf44986.png" width="1224" height="962" class="img_ev3q"></p>
-<p>As with Dropbox and Instagram, using the Facebook and OneDrive integrations
-requires the client Plugins (see <a href="https://uppy.io/docs/facebook/">here for Facebook</a> and see
-<a href="https://uppy.io/docs/onedrive/">here for OneDrive</a>), and also your
-<a href="https://uppy.io/docs/companion/#Options">Companion</a> integration.</p>
-<p>This is an exciting release for us, and we can't wait to get some feedback
-(GitHub issues and PRs) on this! :)</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="misc">Misc<a href="https://uppy.io/blog/2020/04/1.10#misc" class="hash-link" aria-label="Direct link to Misc" title="Direct link to Misc">​</a></h2>
-<ul>
-<li>@uppy/companion: pass <code>endpoint</code> and <code>region</code> to AWS SDK constructor (#2113 /
-@goto-bus-stop)</li>
-<li>@uppy/companion: Allow S3 ACL to be specified in Companion Standalone (#2111 /
-@jasonbosco)</li>
-<li>@uppy/companion: return 401 early if token is not set (#2118 /
-@ifedapoolarewaju)</li>
-<li>@uppy/companion: allow providing any S3 option, closes #1388 (#2030 /
-@goto-bus-stop)</li>
-<li>@uppy/companion:: don’t log redundant errors in production (#2112 /
-@ifedapoolarewaju)</li>
-<li>docs: Add S3 ACL option to companion docs (#2109 / @jasonbosco)</li>
-</ul>
-<p>As always, you can find the full list of changes and package versions, as well
-as future plans, in our
-<a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content:encoded>
         </item>
     </channel>
 </rss>
