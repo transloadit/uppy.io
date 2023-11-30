@@ -98,6 +98,10 @@
 	}
 }
 
+body {
+	tab-size: 2;
+}
+
 h1 {
 	margin-top: calc(var(--ifm-h1-vertical-rhythm-top) * var(--ifm-leading) / 2);
 }
