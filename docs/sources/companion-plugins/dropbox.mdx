@@ -77,8 +77,8 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 new Uppy().use(Dashboard, { inline: true, target: '#dashboard' }).use(Dropbox, {
-	target: Dashboard,
-	companionUrl: 'https://your-companion.com',
+  target: Dashboard,
+  companionUrl: 'https://your-companion.com',
 });
 ```
 
@@ -124,12 +124,12 @@ When using the Companion Node.js API, configure these options:
 
 ```js
 companion.app({
-	providerOptions: {
-		dropbox: {
-			key: 'Dropbox API key',
-			secret: 'Dropbox API secret',
-		},
-	},
+  providerOptions: {
+    dropbox: {
+      key: 'Dropbox API key',
+      secret: 'Dropbox API secret',
+    },
+  },
 });
 ```
 
@@ -181,8 +181,8 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 ```js
 export default {
-	strings: {
-		pluginNameDropbox: 'Dropbox',
-	},
+  strings: {
+    pluginNameDropbox: 'Dropbox',
+  },
 };
 ```

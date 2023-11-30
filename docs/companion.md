@@ -115,19 +115,19 @@ app.use(bodyParser.json());
 app.use(session({ secret: 'some secrety secret' }));
 
 const options = {
-	providerOptions: {
-		drive: {
-			key: 'GOOGLE_DRIVE_KEY',
-			secret: 'GOOGLE_DRIVE_SECRET',
-		},
-	},
-	server: {
-		host: 'localhost:3020',
-		protocol: 'http',
-		// This MUST match the path you specify in `app.use()` below:
-		path: '/companion',
-	},
-	filePath: '/path/to/folder/',
+  providerOptions: {
+    drive: {
+      key: 'GOOGLE_DRIVE_KEY',
+      secret: 'GOOGLE_DRIVE_SECRET',
+    },
+  },
+  server: {
+    host: 'localhost:3020',
+    protocol: 'http',
+    // This MUST match the path you specify in `app.use()` below:
+    path: '/companion',
+  },
+  filePath: '/path/to/folder/',
 };
 
 const { app: companionApp } = companion.app(companionOptions);
@@ -270,24 +270,24 @@ environment variables or only as a JS option.
 
 ```javascript
 const options = {
-	server: {
-		protocol: 'http',
-		path: '',
-	},
-	providerOptions: {},
-	s3: {
-		endpoint: 'https://{service}.{region}.amazonaws.com',
-		conditions: [],
-		useAccelerateEndpoint: false,
-		getKey: (req, filename) => `${crypto.randomUUID()}-${filename}`,
-		expires: 800, // seconds
-	},
-	allowLocalUrls: false,
-	logClientVersion: true,
-	periodicPingUrls: [],
-	streamingUpload: false,
-	clientSocketConnectTimeout: 60000,
-	metrics: true,
+  server: {
+    protocol: 'http',
+    path: '',
+  },
+  providerOptions: {},
+  s3: {
+    endpoint: 'https://{service}.{region}.amazonaws.com',
+    conditions: [],
+    useAccelerateEndpoint: false,
+    getKey: (req, filename) => `${crypto.randomUUID()}-${filename}`,
+    expires: 800, // seconds
+  },
+  allowLocalUrls: false,
+  logClientVersion: true,
+  periodicPingUrls: [],
+  streamingUpload: false,
+  clientSocketConnectTimeout: 60000,
+  metrics: true,
 };
 ```
 
@@ -414,10 +414,10 @@ Object to enable providers with their keys and secrets. For example:
 
 ```json
 {
-	"drive": {
-		"key": "***",
-		"secret": "***"
-	}
+  "drive": {
+    "key": "***",
+    "secret": "***"
+  }
 }
 ```
 
@@ -526,14 +526,14 @@ upload to a user-specific folder in your bucket, for example:
 ```js
 app.use(authenticationMiddleware);
 app.use(
-	uppy.app({
-		providerOptions: {
-			s3: {
-				getKey: (req, filename, metadata) => `${req.user.id}/${filename}`,
-				/* auth options */
-			},
-		},
-	}),
+  uppy.app({
+    providerOptions: {
+      s3: {
+        getKey: (req, filename, metadata) => `${req.user.id}/${filename}`,
+        /* auth options */
+      },
+    },
+  }),
 );
 ```
 
@@ -542,13 +542,13 @@ to the root of the bucket as their original file name.
 
 ```js
 app.use(
-	uppy.app({
-		providerOptions: {
-			s3: {
-				getKey: (req, filename, metadata) => filename,
-			},
-		},
-	}),
+  uppy.app({
+    providerOptions: {
+      s3: {
+        getKey: (req, filename, metadata) => filename,
+      },
+    },
+  }),
 );
 ```
 
@@ -674,18 +674,18 @@ const companionApp = companion.app(options);
 const { companionEmitter: emitter } = companionApp;
 
 emitter.on('upload-start', ({ token }) => {
-	console.log('Upload started', token);
+  console.log('Upload started', token);
 
-	function onUploadEvent({ action, payload }) {
-		if (action === 'success') {
-			emitter.off(token, onUploadEvent); // avoid listener leak
-			console.log('Upload finished', token, payload.url);
-		} else if (action === 'error') {
-			emitter.off(token, onUploadEvent); // avoid listener leak
-			console.error('Upload failed', payload);
-		}
-	}
-	emitter.on(token, onUploadEvent);
+  function onUploadEvent({ action, payload }) {
+    if (action === 'success') {
+      emitter.off(token, onUploadEvent); // avoid listener leak
+      console.log('Upload finished', token, payload.url);
+    } else if (action === 'error') {
+      emitter.off(token, onUploadEvent); // avoid listener leak
+      console.error('Upload failed', payload);
+    }
+  }
+  emitter.on(token, onUploadEvent);
 });
 ```
 
@@ -769,19 +769,19 @@ authentication/authorization.
 import providerModule from './path/to/provider/module';
 
 const options = {
-	customProviders: {
-		myprovidername: {
-			config: {
-				authorize_url: 'https://mywebsite.com/authorize',
-				access_url: 'https://mywebsite.com/token',
-				oauth: 2,
-				key: '***',
-				secret: '***',
-				scope: ['read', 'write'],
-			},
-			module: providerModule,
-		},
-	},
+  customProviders: {
+    myprovidername: {
+      config: {
+        authorize_url: 'https://mywebsite.com/authorize',
+        access_url: 'https://mywebsite.com/token',
+        oauth: 2,
+        key: '***',
+        secret: '***',
+        scope: ['read', 'write'],
+      },
+      module: providerModule,
+    },
+  },
 };
 
 uppy.app(options);
@@ -839,41 +839,41 @@ See also
 
 ```json
 {
-	// username or email of the user whose provider account is being accessed
-	"username": "johndoe",
-	// list of files and folders in the directory. An item is considered a folder
-	//  if it mainly exists as a collection to contain sub-items
-	"items": [
-		{
-			// boolean value of whether or NOT it's a folder
-			"isFolder": false,
-			// icon image URL
-			"icon": "https://random-api.url.com/fileicon.jpg",
-			// name of the item
-			"name": "myfile.jpg",
-			// the mime type of the item. Only relevant if the item is NOT a folder
-			"mimeType": "image/jpg",
-			// the id (in string) of the item
-			"id": "uniqueitemid",
-			// thumbnail image URL. Only relevant if the item is NOT a folder
-			"thumbnail": "https://random-api.url.com/filethumbnail.jpg",
-			// for folders this is typically the value that will be passed as "directory" in the list(...) method.
-			// For files, this is the value that will be passed as id in the download(...) method.
-			"requestPath": "file-or-folder-requestpath",
-			// datetime string (in ISO 8601 format) of when this item was last modified
-			"modifiedDate": "2020-06-29T19:59:58Z",
-			// the size in bytes of the item. Only relevant if the item is NOT a folder
-			"size": 278940,
-			"custom": {
-				// an object that may contain some more custom fields that you may need to send to the client. Only add this object if you have a need for it.
-				"customData1": "the value",
-				"customData2": "the value"
-			}
-			// more items here
-		}
-	],
-	// if the "items" list is paginated, this is the request path needed to fetch the next page.
-	"nextPagePath": "directory-name?cursor=cursor-to-next-page"
+  // username or email of the user whose provider account is being accessed
+  "username": "johndoe",
+  // list of files and folders in the directory. An item is considered a folder
+  //  if it mainly exists as a collection to contain sub-items
+  "items": [
+    {
+      // boolean value of whether or NOT it's a folder
+      "isFolder": false,
+      // icon image URL
+      "icon": "https://random-api.url.com/fileicon.jpg",
+      // name of the item
+      "name": "myfile.jpg",
+      // the mime type of the item. Only relevant if the item is NOT a folder
+      "mimeType": "image/jpg",
+      // the id (in string) of the item
+      "id": "uniqueitemid",
+      // thumbnail image URL. Only relevant if the item is NOT a folder
+      "thumbnail": "https://random-api.url.com/filethumbnail.jpg",
+      // for folders this is typically the value that will be passed as "directory" in the list(...) method.
+      // For files, this is the value that will be passed as id in the download(...) method.
+      "requestPath": "file-or-folder-requestpath",
+      // datetime string (in ISO 8601 format) of when this item was last modified
+      "modifiedDate": "2020-06-29T19:59:58Z",
+      // the size in bytes of the item. Only relevant if the item is NOT a folder
+      "size": 278940,
+      "custom": {
+        // an object that may contain some more custom fields that you may need to send to the client. Only add this object if you have a need for it.
+        "customData1": "the value",
+        "customData2": "the value"
+      }
+      // more items here
+    }
+  ],
+  // if the "items" list is paginated, this is the request path needed to fetch the next page.
+  "nextPagePath": "directory-name?cursor=cursor-to-next-page"
 }
 ```
 
@@ -907,7 +907,7 @@ uses [nodemon](https://github.com/remy/nodemon) so it will automatically restart
 when files are changed.
 
 [`http.incomingmessage`]:
-	https://nodejs.org/api/http.html#class-httpincomingmessage
+  https://nodejs.org/api/http.html#class-httpincomingmessage
 [box]: /docs/box
 [dropbox]: /docs/dropbox
 [facebook]: /docs/facebook

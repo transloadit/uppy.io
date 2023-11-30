@@ -77,8 +77,8 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 new Uppy().use(Dashboard, { inline: true, target: '#dashboard' }).use(Box, {
-	target: Dashboard,
-	companionUrl: 'https://your-companion.com',
+  target: Dashboard,
+  companionUrl: 'https://your-companion.com',
 });
 ```
 
@@ -125,12 +125,12 @@ When using the Companion Node.js API, configure these options:
 
 ```js
 companion.app({
-	providerOptions: {
-		box: {
-			key: 'Box API key',
-			secret: 'Box API secret',
-		},
-	},
+  providerOptions: {
+    box: {
+      key: 'Box API key',
+      secret: 'Box API secret',
+    },
+  },
 });
 ```
 
@@ -182,8 +182,8 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 ```js
 export default {
-	strings: {
-		pluginNameBox: 'Box',
-	},
+  strings: {
+    pluginNameBox: 'Box',
+  },
 };
 ```

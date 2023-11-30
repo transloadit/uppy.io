@@ -80,8 +80,8 @@ const totalProgress = useUppyState(uppy, (state) => state.totalProgress);
 // We can also get specific plugin state.
 // Note that the value on `plugins` depends on the `id` of the plugin.
 const metaFields = useUppyState(
-	uppy,
-	(state) => state.plugins?.Dashboard?.metaFields,
+  uppy,
+  (state) => state.plugins?.Dashboard?.metaFields,
 );
 ```
 
@@ -119,10 +119,10 @@ import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/webcam/dist/style.min.css';
 
 function Component() {
-	// IMPORTANT: passing an initializer function to prevent Uppy from being reinstantiated on every render.
-	const [uppy] = useState(() => new Uppy().use(Webcam));
+  // IMPORTANT: passing an initializer function to prevent Uppy from being reinstantiated on every render.
+  const [uppy] = useState(() => new Uppy().use(Webcam));
 
-	return <Dashboard uppy={uppy} plugins={['Webcam']} />;
+  return <Dashboard uppy={uppy} plugins={['Webcam']} />;
 }
 ```
 
@@ -138,29 +138,29 @@ import Uppy from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 
 function Page1() {
-	// ...
+  // ...
 }
 
 function Page2({ uppy }) {
-	return (
-		<>
-			<p>{totalProgress}</p>
-			<Dashboard id="dashboard" uppy={uppy} />
-		</>
-	);
+  return (
+    <>
+      <p>{totalProgress}</p>
+      <Dashboard id="dashboard" uppy={uppy} />
+    </>
+  );
 }
 
 export default function App() {
-	// keeping the uppy instance alive above the pages the user can switch during uploading
-	const [uppy] = useState(() => new Uppy());
+  // keeping the uppy instance alive above the pages the user can switch during uploading
+  const [uppy] = useState(() => new Uppy());
 
-	return (
-		// Add your router here
-		<>
-			<Page1 />
-			<Page2 uppy={uppy} />
-		</>
-	);
+  return (
+    // Add your router here
+    <>
+      <Page1 />
+      <Page2 uppy={uppy} />
+    </>
+  );
 }
 ```
 
@@ -169,18 +169,18 @@ export default function App() {
 ```js
 // ...
 function Component(props) {
-	// IMPORTANT: passing an initializer function to prevent the state from recreating.
-	const [uppy] = useState(() => new Uppy().use(Webcam));
+  // IMPORTANT: passing an initializer function to prevent the state from recreating.
+  const [uppy] = useState(() => new Uppy().use(Webcam));
 
-	useEffect(() => {
-		uppy.setOptions({ restrictions: props.restrictions });
-	}, [props.restrictions]);
+  useEffect(() => {
+    uppy.setOptions({ restrictions: props.restrictions });
+  }, [props.restrictions]);
 
-	useEffect(() => {
-		uppy.getPlugin('Webcam').setOptions({ modes: props.webcamModes });
-	}, [props.webcamModes]);
+  useEffect(() => {
+    uppy.getPlugin('Webcam').setOptions({ modes: props.webcamModes });
+  }, [props.webcamModes]);
 
-	return <Dashboard uppy={uppy} plugins={['Webcam']} />;
+  return <Dashboard uppy={uppy} plugins={['Webcam']} />;
 }
 ```
 
@@ -200,27 +200,27 @@ params.
 ```js
 // ...
 function createUppy(userId) {
-	return new Uppy({ meta: { userId } }).use(Transloadit, {
-		async assemblyOptions(file) {
-			// You can send meta data along for use in your template.
-			// https://transloadit.com/docs/topics/assembly-instructions/#form-fields-in-instructions
-			const body = JSON.stringify({ userId: file.meta.userId });
-			const res = await fetch('/transloadit-params', { method: 'POST', body });
-			return response.json();
-		},
-	});
+  return new Uppy({ meta: { userId } }).use(Transloadit, {
+    async assemblyOptions(file) {
+      // You can send meta data along for use in your template.
+      // https://transloadit.com/docs/topics/assembly-instructions/#form-fields-in-instructions
+      const body = JSON.stringify({ userId: file.meta.userId });
+      const res = await fetch('/transloadit-params', { method: 'POST', body });
+      return response.json();
+    },
+  });
 }
 
 function Component({ userId }) {
-	// IMPORTANT: passing an initializer function to prevent Uppy from being reinstantiated on every render.
-	const [uppy] = useState(() => createUppy(userId));
+  // IMPORTANT: passing an initializer function to prevent Uppy from being reinstantiated on every render.
+  const [uppy] = useState(() => createUppy(userId));
 
-	useEffect(() => {
-		if (userId) {
-			// Adding to global `meta` will add it to every file.
-			uppy.setOptions({ meta: { userId } });
-		}
-	}, [uppy, userId]);
+  useEffect(() => {
+    if (userId) {
+      // Adding to global `meta` will add it to every file.
+      uppy.setOptions({ meta: { userId } });
+    }
+  }, [uppy, userId]);
 }
 ```
 

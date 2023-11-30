@@ -39,8 +39,8 @@ import GoldenRetriever from '@uppy/golden-retriever';
 import ImageEditor from '@uppy/image-editor';
 import Audio from '@uppy/audio';
 import Transloadit, {
-	COMPANION_URL,
-	COMPANION_ALLOWED_HOSTS,
+  COMPANION_URL,
+  COMPANION_ALLOWED_HOSTS,
 } from '@uppy/transloadit';
 
 import '@uppy/core/dist/style.css';
@@ -50,39 +50,39 @@ import '@uppy/screen-capture/dist/style.css';
 import '@uppy/image-editor/dist/style.css';
 
 new Uppy()
-	.use(Dashboard, {
-		inline: true,
-		target: '#app',
-		showProgressDetails: true,
-		proudlyDisplayPoweredByUppy: true,
-	})
-	.use(RemoteSources, {
-		companionUrl: COMPANION_URL,
-		companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
-	})
-	.use(Webcam, {
-		target: Dashboard,
-		showVideoSourceDropdown: true,
-		showRecordingLength: true,
-	})
-	.use(Audio, {
-		target: Dashboard,
-		showRecordingLength: true,
-	})
-	.use(ScreenCapture, { target: Dashboard })
-	.use(ImageEditor, { target: Dashboard })
-	.use(Transloadit, {
-		service: 'https://api2.transloadit.com',
-		async getAssemblyOptions(file) {
-			// This is where you configure your auth key, auth secret, and template ID
-			// /uppy/docs/transloadit/#getAssemblyOptions-file
-			//
-			// It is important to set the secret in production:
-			// https://transloadit.com/docs/topics/signature-authentication/
-			const response = await fetch('/some-endpoint');
-			return response.json();
-		},
-	});
+  .use(Dashboard, {
+    inline: true,
+    target: '#app',
+    showProgressDetails: true,
+    proudlyDisplayPoweredByUppy: true,
+  })
+  .use(RemoteSources, {
+    companionUrl: COMPANION_URL,
+    companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
+  })
+  .use(Webcam, {
+    target: Dashboard,
+    showVideoSourceDropdown: true,
+    showRecordingLength: true,
+  })
+  .use(Audio, {
+    target: Dashboard,
+    showRecordingLength: true,
+  })
+  .use(ScreenCapture, { target: Dashboard })
+  .use(ImageEditor, { target: Dashboard })
+  .use(Transloadit, {
+    service: 'https://api2.transloadit.com',
+    async getAssemblyOptions(file) {
+      // This is where you configure your auth key, auth secret, and template ID
+      // /uppy/docs/transloadit/#getAssemblyOptions-file
+      //
+      // It is important to set the secret in production:
+      // https://transloadit.com/docs/topics/signature-authentication/
+      const response = await fetch('/some-endpoint');
+      return response.json();
+    },
+  });
 ```
 
 ## Migrate from Uppy 2.x to 3.x
@@ -155,8 +155,8 @@ import { COMPANION_URL, COMPANION_ALLOWED_HOSTS } from '@uppy/transloadit';
 
 // ...
 uppy.use(Dropbox, {
-	companionUrl: COMPANION_URL,
-	companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
+  companionUrl: COMPANION_URL,
+  companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
 });
 ```
 
@@ -354,11 +354,11 @@ support:
 
 <!-- Legacy browsers (IE11+) -->
 <script
-	nomodule
-	src="https://releases.transloadit.com/uppy/v3.17.0/uppy.legacy.min.js"
+  nomodule
+  src="https://releases.transloadit.com/uppy/v3.17.0/uppy.legacy.min.js"
 ></script>
 <script type="module">
-	import 'https://releases.transloadit.com/uppy/v3.17.0/uppy.min.js';
+  import 'https://releases.transloadit.com/uppy/v3.17.0/uppy.min.js';
 </script>
 ```
 
@@ -409,7 +409,7 @@ Before
 import Webcam from '@uppy/webcam';
 
 uppy.use(Webcam, {
-	title: 'Some title',
+  title: 'Some title',
 });
 ```
 
@@ -419,11 +419,11 @@ After
 import Webcam from '@uppy/webcam';
 
 uppy.use(Webcam, {
-	locale: {
-		strings: {
-			title: 'Some title',
-		},
-	},
+  locale: {
+    strings: {
+      title: 'Some title',
+    },
+  },
 });
 ```
 
@@ -453,7 +453,7 @@ and not whether a user can choose multiple files for one upload.
 
 ```js
 const uppy = new Uppy({
-	allowMultipleUploadBatches: true,
+  allowMultipleUploadBatches: true,
 });
 ```
 
@@ -466,15 +466,15 @@ You can change the limit on the Tus and XHR plugin options.
 
 ```js
 uppy.use(Tus, {
-	// ...
-	limit: 10,
+  // ...
+  limit: 10,
 });
 ```
 
 ```js
 uppy.use(XHRUpload, {
-	// ...
-	limit: 10,
+  // ...
+  limit: 10,
 });
 ```
 
@@ -491,7 +491,7 @@ import Tus from '@uppy/tus';
 const uppy = Uppy<Uppy.StrictTypes>();
 
 uppy.use(Tus, {
-	invalidOption: null, // this will make the compilation fail!
+  invalidOption: null, // this will make the compilation fail!
 });
 ```
 
@@ -503,7 +503,7 @@ Uppy is now strictly typed by default and loose types have been removed.
 const uppy = new Uppy();
 
 uppy.use(Tus, {
-	invalidOption: null, // this will make the compilation fail!
+  invalidOption: null, // this will make the compilation fail!
 });
 ```
 
@@ -531,14 +531,14 @@ type Meta = { myCustomMetadata: string };
 
 // Invalid event
 uppy.on<Meta>('upload-errrOOOoooOOOOOrrrr', () => {
-	// ...
+  // ...
 });
 
 // After:
 
 // Normal event signature
 uppy.on('complete', (result) => {
-	const successResults = result.successful;
+  const successResults = result.successful;
 });
 
 // Custom signature
@@ -546,8 +546,8 @@ type Meta = { myCustomMetadata: string };
 
 // Notice how the custom type has now become the second argument
 uppy.on<'complete', Meta>('complete', (result) => {
-	// The passed type is now merged into the `meta` types.
-	const meta = result.successful[0].meta.myCustomMetadata;
+  // The passed type is now merged into the `meta` types.
+  const meta = result.successful[0].meta.myCustomMetadata;
 });
 ```
 
@@ -560,7 +560,7 @@ For instance, when using [`@uppy/dashboard`][dashboard]:
 
 ```ts
 uppy.on('dashboard:file-edit-start', (file) => {
-	const fileName = file.name;
+  const fileName = file.name;
 });
 ```
 

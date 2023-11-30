@@ -63,10 +63,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 
 @NgModule({
-	declarations: [AppComponent],
-	imports: [BrowserModule, UppyAngularDashboardModule],
-	providers: [],
-	bootstrap: [AppComponent],
+  declarations: [AppComponent],
+  imports: [BrowserModule, UppyAngularDashboardModule],
+  providers: [],
+  bootstrap: [AppComponent],
 })
 class {}
 ```
@@ -82,10 +82,10 @@ import { Component } from '@angular/core';
 import { Uppy } from '@uppy/core';
 
 @Component({
-	selector: 'app-root',
+  selector: 'app-root',
 })
 export class AppComponent {
-	uppy: Uppy = new Uppy({ debug: true, autoProceed: true });
+  uppy: Uppy = new Uppy({ debug: true, autoProceed: true });
 }
 ```
 

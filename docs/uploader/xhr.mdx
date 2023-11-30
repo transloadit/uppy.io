@@ -68,8 +68,8 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 new Uppy()
-	.use(Dashboard, { inline: true, target: 'body' })
-	.use(XHR, { endpoint: 'https://your-domain.com/upload' });
+  .use(Dashboard, { inline: true, target: 'body' })
+  .use(XHR, { endpoint: 'https://your-domain.com/upload' });
 ```
 
 ## API
@@ -125,7 +125,7 @@ names, values are header values.
 
 ```js
 const headers = {
-	authorization: `Bearer ${window.getCurrentUserToken()}`,
+  authorization: `Bearer ${window.getCurrentUserToken()}`,
 };
 ```
 
@@ -135,10 +135,10 @@ header names, and values are header values.
 
 ```js
 const headers = (file) => {
-	return {
-		authorization: `Bearer ${window.getCurrentUserToken()}`,
-		expires: file.meta.expires,
-	};
+  return {
+    authorization: `Bearer ${window.getCurrentUserToken()}`,
+    expires: file.meta.expires,
+  };
 };
 ```
 
@@ -172,7 +172,7 @@ To upload files on different fields, use
 
 ```js
 uppy.setFileState(fileID, {
-	xhrUpload: { fieldName: 'pic0' },
+  xhrUpload: { fieldName: 'pic0' },
 });
 ```
 
@@ -217,11 +217,11 @@ XML document:
 
 ```js
 function getResponseData(responseText, response) {
-	const parser = new DOMParser();
-	const xmlDoc = parser.parseFromString(responseText, 'text/xml');
-	return {
-		url: xmlDoc.querySelector('Location').textContent,
-	};
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(responseText, 'text/xml');
+  return {
+    url: xmlDoc.querySelector('Location').textContent,
+  };
 }
 ```
 
@@ -251,7 +251,7 @@ For example, if the endpoint responds with a JSON object containing a
 
 ```js
 function getResponseError(responseText, response) {
-	return new Error(JSON.parse(responseText).message);
+  return new Error(JSON.parse(responseText).message);
 }
 ```
 
@@ -295,10 +295,10 @@ credentials (`boolean`, default: `false`).
 
 ```js
 export default {
-	strings: {
-		// Shown in the Informer if an upload is being canceled because it stalled for too long.
-		timedOut: 'Upload stalled for %{seconds} seconds, aborting.',
-	},
+  strings: {
+    // Shown in the Informer if an upload is being canceled because it stalled for too long.
+    timedOut: 'Upload stalled for %{seconds} seconds, aborting.',
+  },
 };
 ```
 
@@ -319,9 +319,9 @@ method to do this:
 
 ```js
 uppy.on('file-added', (file) => {
-	uppy.setFileMeta(file.id, {
-		size: file.size,
-	});
+  uppy.setFileMeta(file.id, {
+    size: file.size,
+  });
 });
 ```
 
@@ -335,8 +335,8 @@ option to restrict the field names that should be sent.
 
 ```js
 uppy.use(XHRUpload, {
-	// Only send our own `size` metadata field.
-	allowedMetaFields: ['size'],
+  // Only send our own `size` metadata field.
+  allowedMetaFields: ['size'],
 });
 ```
 
@@ -369,8 +369,8 @@ convoluted:
 ```js
 // app.js
 uppy.use(XHRUpload, {
-	endpoint: '/upload.php',
-	fieldName: 'my_file',
+  endpoint: '/upload.php',
+  fieldName: 'my_file',
 });
 ```
 
@@ -385,15 +385,15 @@ move_uploaded_file($file_path, $_SERVER['DOCUMENT_ROOT'] . '/img/' . basename($f
 
 [formdata]: https://developer.mozilla.org/en-US/docs/Web/API/FormData
 [xmlhttprequest]:
-	https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+  https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
 [xhr.timeout]:
-	https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
+  https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
 [xhr.responsetype]:
-	https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType
+  https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType
 [uppy.upload-success]: /docs/uppy/#upload-success
 [uppy file]: /docs/uppy#working-with-uppy-files
 [php.file-upload]: https://secure.php.net/manual/en/features.file-upload.php
 [php.multiple]:
-	https://secure.php.net/manual/en/features.file-upload.multiple.php
+  https://secure.php.net/manual/en/features.file-upload.multiple.php
 [tus-node-server]: https://github.com/tus/tus-node-server
 [tus]: https://tus.io/

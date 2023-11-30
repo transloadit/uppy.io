@@ -100,23 +100,23 @@ The configuration required for Uppy and Companion is this:
 
 ```json
 [
-	{
-		"AllowedOrigins": ["https://my-app.com"],
-		"AllowedMethods": ["GET", "PUT"],
-		"MaxAgeSeconds": 3000,
-		"AllowedHeaders": [
-			"Authorization",
-			"x-amz-date",
-			"x-amz-content-sha256",
-			"content-type"
-		],
-		"ExposeHeaders": ["ETag", "Location"]
-	},
-	{
-		"AllowedOrigins": ["*"],
-		"AllowedMethods": ["GET"],
-		"MaxAgeSeconds": 3000
-	}
+  {
+    "AllowedOrigins": ["https://my-app.com"],
+    "AllowedMethods": ["GET", "PUT"],
+    "MaxAgeSeconds": 3000,
+    "AllowedHeaders": [
+      "Authorization",
+      "x-amz-date",
+      "x-amz-content-sha256",
+      "content-type"
+    ],
+    "ExposeHeaders": ["ETag", "Location"]
+  },
+  {
+    "AllowedOrigins": ["*"],
+    "AllowedMethods": ["GET"],
+    "MaxAgeSeconds": 3000
+  }
 ]
 ```
 
@@ -175,11 +175,11 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 const uppy = new Uppy()
-	.use(Dashboard, { inline: true, target: 'body' })
-	.use(AwsS3, {
-		shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
-		companionUrl: 'https://companion.uppy.io',
-	});
+  .use(Dashboard, { inline: true, target: 'body' })
+  .use(AwsS3, {
+    shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
+    companionUrl: 'https://companion.uppy.io',
+  });
 ```
 
 ## API
@@ -208,10 +208,10 @@ Here’s how to use it:
 
 ```js
 uppy.use(AwsS3, {
-	shouldUseMultipart(file) {
-		// Use multipart only for files larger than 100MiB.
-		return file.size > 100 * 2 ** 20;
-	},
+  shouldUseMultipart(file) {
+    // Use multipart only for files larger than 100MiB.
+    return file.size > 100 * 2 ** 20;
+  },
 });
 ```
 
@@ -364,8 +364,8 @@ An example of what the return value should look like:
 
 ```json
 {
-	"url": "https://bucket.region.amazonaws.com/path/to/file.jpg?partNumber=1&...",
-	"headers": { "Content-MD5": "foo" }
+  "url": "https://bucket.region.amazonaws.com/path/to/file.jpg?partNumber=1&...",
+  "headers": { "Content-MD5": "foo" }
 }
 ```
 
@@ -440,16 +440,16 @@ An example of what the return value should look like:
 
 ```json
 {
-	"presignedUrls": {
-		"1": "https://bucket.region.amazonaws.com/path/to/file.jpg?partNumber=1&...",
-		"2": "https://bucket.region.amazonaws.com/path/to/file.jpg?partNumber=2&...",
-		"3": "https://bucket.region.amazonaws.com/path/to/file.jpg?partNumber=3&..."
-	},
-	"headers": {
-		"1": { "Content-MD5": "foo" },
-		"2": { "Content-MD5": "bar" },
-		"3": { "Content-MD5": "baz" }
-	}
+  "presignedUrls": {
+    "1": "https://bucket.region.amazonaws.com/path/to/file.jpg?partNumber=1&...",
+    "2": "https://bucket.region.amazonaws.com/path/to/file.jpg?partNumber=2&...",
+    "3": "https://bucket.region.amazonaws.com/path/to/file.jpg?partNumber=3&..."
+  },
+  "headers": {
+    "1": { "Content-MD5": "foo" },
+    "2": { "Content-MD5": "bar" },
+    "3": { "Content-MD5": "baz" }
+  }
 }
 ```
 
@@ -504,10 +504,10 @@ upload sources), you can pass a boolean:
 
 ```js
 uppy.use(AwsS3, {
-	// This is an example using Companion:
-	companionUrl: 'http://companion.uppy.io',
-	getTemporarySecurityCredentials: true,
-	shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
+  // This is an example using Companion:
+  companionUrl: 'http://companion.uppy.io',
+  getTemporarySecurityCredentials: true,
+  shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
 });
 ```
 
@@ -516,14 +516,14 @@ need to specify a function:
 
 ```js
 uppy.use(AwsS3, {
-	// This is an example not using Companion:
-	async getTemporarySecurityCredentials({ signal }) {
-		const response = await fetch('/sts-token', { signal });
-		if (!response.ok)
-			throw new Error('Failed to fetch STS', { cause: response });
-		return response.json();
-	},
-	shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
+  // This is an example not using Companion:
+  async getTemporarySecurityCredentials({ signal }) {
+    const response = await fetch('/sts-token', { signal });
+    if (!response.ok)
+      throw new Error('Failed to fetch STS', { cause: response });
+    return response.json();
+  },
+  shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
 });
 ```
 

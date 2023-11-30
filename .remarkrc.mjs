@@ -35,108 +35,108 @@ import retextSimplify from 'retext-simplify';
 import retextSyntaxMentions from 'retext-syntax-mentions';
 
 const retextPreset = [
-	remarkRetext,
-	unified()
-		.use(retextEnglish)
-		.use(retextEquality, {
-			ignore: [
-				'disabled',
-				'host',
-				'hosts',
-				'invalid',
-				'whitespace',
-				'of course',
-				'just',
-				'simple',
-				'simply',
-			],
-		})
-		.use(retextProfanities, { sureness: 1 })
-		.use(retextQuotes)
-		.use(retextSimplify, {
-			ignore: [
-				'accurate',
-				'address',
-				'alternatively',
-				'component',
-				'equivalent',
-				'frequently',
-				'function',
-				'identify',
-				'implement',
-				'initial',
-				'interface',
-				'maintain',
-				'maximum',
-				'minimum',
-				'option',
-				'parameters',
-				'provide',
-				'render',
-				'request',
-				'selection',
-				'submit',
-				'type',
-				'validate',
-				'however',
-				'there is',
-				'forward',
-				'initiate',
-				'additional',
-				'immediately',
-				'multiple',
-				'ensure',
-				'perform',
-				'there are',
-				'it is',
-				'effect',
-			],
-		})
-		.use(retextSyntaxMentions),
+  remarkRetext,
+  unified()
+    .use(retextEnglish)
+    .use(retextEquality, {
+      ignore: [
+        'disabled',
+        'host',
+        'hosts',
+        'invalid',
+        'whitespace',
+        'of course',
+        'just',
+        'simple',
+        'simply',
+      ],
+    })
+    .use(retextProfanities, { sureness: 1 })
+    .use(retextQuotes)
+    .use(retextSimplify, {
+      ignore: [
+        'accurate',
+        'address',
+        'alternatively',
+        'component',
+        'equivalent',
+        'frequently',
+        'function',
+        'identify',
+        'implement',
+        'initial',
+        'interface',
+        'maintain',
+        'maximum',
+        'minimum',
+        'option',
+        'parameters',
+        'provide',
+        'render',
+        'request',
+        'selection',
+        'submit',
+        'type',
+        'validate',
+        'however',
+        'there is',
+        'forward',
+        'initiate',
+        'additional',
+        'immediately',
+        'multiple',
+        'ensure',
+        'perform',
+        'there are',
+        'it is',
+        'effect',
+      ],
+    })
+    .use(retextSyntaxMentions),
 ];
 
 const messageControlPreset = [
-	unifiedMessageControl,
-	{
-		name: 'retext-simplify',
-		marker: commentMarker,
-		test: 'html',
-	},
+  unifiedMessageControl,
+  {
+    name: 'retext-simplify',
+    marker: commentMarker,
+    test: 'html',
+  },
 ];
 
 export default {
-	settings: {
-		emphasis: '_',
-		strong: '*',
-		'tab-size': 1,
-	},
-	plugins: [
-		remarkFrontmatter, // YAML in MD
-		remarkGfm, // GitHub Flavored Markdown
-		remarkDirective, // Admonitions
-		remarkPresetLintConsistent,
+  settings: {
+    emphasis: '_',
+    strong: '*',
+    'tab-size': 1,
+  },
+  plugins: [
+    remarkFrontmatter, // YAML in MD
+    remarkGfm, // GitHub Flavored Markdown
+    remarkDirective, // Admonitions
+    remarkPresetLintConsistent,
 
-		// remark-preset-lint-recommended:
-		remarkLint,
-		// Unix compatibility.
-		remarkLintFinalNewline,
-		// Rendering across vendors differs greatly if using other styles.
-		remarkLintListItemBulletIndent,
-		// [remarkLintListItemIndent, 'tab-size'], // Incompatible with MDX
-		remarkLintNoBlockquoteWithoutMarker,
-		remarkLintNoLiteralUrls,
-		[remarkLintOrderedListMarkerStyle, '.'],
+    // remark-preset-lint-recommended:
+    remarkLint,
+    // Unix compatibility.
+    remarkLintFinalNewline,
+    // Rendering across vendors differs greatly if using other styles.
+    remarkLintListItemBulletIndent,
+    // [remarkLintListItemIndent, 'tab-size'], // Incompatible with MDX
+    remarkLintNoBlockquoteWithoutMarker,
+    remarkLintNoLiteralUrls,
+    [remarkLintOrderedListMarkerStyle, '.'],
 
-		// Mistakes.
-		remarkLintHardBreakSpaces,
-		remarkLintNoDuplicateDefinitions,
-		remarkLintNoHeadingContentIndent,
-		remarkLintNoInlinePadding,
-		remarkLintNoShortcutReferenceImage,
-		remarkLintNoShortcutReferenceLink,
-		remarkLintNoUndefinedReferences,
-		remarkLintNoUnusedDefinitions,
-		retextPreset,
-		messageControlPreset,
-	],
+    // Mistakes.
+    remarkLintHardBreakSpaces,
+    remarkLintNoDuplicateDefinitions,
+    remarkLintNoHeadingContentIndent,
+    remarkLintNoInlinePadding,
+    remarkLintNoShortcutReferenceImage,
+    remarkLintNoShortcutReferenceLink,
+    remarkLintNoUndefinedReferences,
+    remarkLintNoUnusedDefinitions,
+    retextPreset,
+    messageControlPreset,
+  ],
 };

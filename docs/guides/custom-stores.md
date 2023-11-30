@@ -25,7 +25,7 @@ To use a store, pass an instance to the
 import DefaultStore from '@uppy/store-default';
 
 const uppy = new Uppy({
-	store: new DefaultStore(),
+  store: new DefaultStore(),
 });
 ```
 
@@ -58,8 +58,8 @@ by passing an `id` option if it should be predictable.
 
 ```js
 ReduxStore({
-	store,
-	id: 'avatarUpload',
+  store,
+  id: 'avatarUpload',
 });
 ```
 
@@ -71,11 +71,11 @@ state instead:
 
 ```js
 const uppy = new Uppy({
-	store: ReduxStore({
-		store,
-		id: 'avatarUpload',
-		selector: (state) => state.pages.profile.uppy.avatarUpload,
-	}),
+  store: ReduxStore({
+    store,
+    id: 'avatarUpload',
+    selector: (state) => state.pages.profile.uppy.avatarUpload,
+  }),
 });
 ```
 
@@ -105,26 +105,26 @@ The default store implementation, for example, looks a bit like this:
 
 ```js
 function createDefaultStore() {
-	let state = {};
-	const listeners = new Set();
+  let state = {};
+  const listeners = new Set();
 
-	return {
-		getState: () => state,
-		setState: (patch) => {
-			const prevState = state;
-			const nextState = { ...prevState, ...patch };
+  return {
+    getState: () => state,
+    setState: (patch) => {
+      const prevState = state;
+      const nextState = { ...prevState, ...patch };
 
-			state = nextState;
+      state = nextState;
 
-			listeners.forEach((listener) => {
-				listener(prevState, nextState, patch);
-			});
-		},
-		subscribe: (listener) => {
-			listeners.add(listener);
-			return () => listeners.remove(listener);
-		},
-	};
+      listeners.forEach((listener) => {
+        listener(prevState, nextState, patch);
+      });
+    },
+    subscribe: (listener) => {
+      listeners.add(listener);
+      return () => listeners.remove(listener);
+    },
+  };
 }
 ```
 

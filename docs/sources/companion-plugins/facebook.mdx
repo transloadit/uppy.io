@@ -77,11 +77,11 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 new Uppy()
-	.use(Dashboard, { inline: true, target: '#dashboard' })
-	.use(Facebook, {
-		target: Dashboard,
-		companionUrl: 'https://your-companion.com',
-	});
+  .use(Dashboard, { inline: true, target: '#dashboard' })
+  .use(Facebook, {
+    target: Dashboard,
+    companionUrl: 'https://your-companion.com',
+  });
 ```
 
 ### Use in Companion
@@ -123,12 +123,12 @@ When using the Companion Node.js API, configure these options:
 
 ```js
 companion.app({
-	providerOptions: {
-		facebook: {
-			key: 'Facebook API key',
-			secret: 'Facebook API secret',
-		},
-	},
+  providerOptions: {
+    facebook: {
+      key: 'Facebook API key',
+      secret: 'Facebook API secret',
+    },
+  },
 });
 ```
 
@@ -180,8 +180,8 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 ```js
 export default {
-	strings: {
-		pluginNameFacebook: 'Facebook',
-	},
+  strings: {
+    pluginNameFacebook: 'Facebook',
+  },
 };
 ```

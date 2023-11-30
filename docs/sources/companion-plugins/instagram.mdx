@@ -77,11 +77,11 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 
 new Uppy()
-	.use(Dashboard, { inline: true, target: '#dashboard' })
-	.use(Instagram, {
-		target: Dashboard,
-		companionUrl: 'https://your-companion.com',
-	});
+  .use(Dashboard, { inline: true, target: '#dashboard' })
+  .use(Instagram, {
+    target: Dashboard,
+    companionUrl: 'https://your-companion.com',
+  });
 ```
 
 ### Use in Companion
@@ -117,12 +117,12 @@ When using the Companion Node.js API, configure these options:
 
 ```js
 companion.app({
-	providerOptions: {
-		drive: {
-			key: 'Instagram OAuth client ID',
-			secret: 'Instagram OAuth client secret',
-		},
-	},
+  providerOptions: {
+    drive: {
+      key: 'Instagram OAuth client ID',
+      secret: 'Instagram OAuth client secret',
+    },
+  },
 });
 ```
 
@@ -174,8 +174,8 @@ This tells the plugin whether to send cookies to [Companion](/docs/companion).
 
 ```js
 export default {
-	strings: {
-		pluginNameInstagram: 'Instagram',
-	},
+  strings: {
+    pluginNameInstagram: 'Instagram',
+  },
 };
 ```
