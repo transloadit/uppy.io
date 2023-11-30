@@ -67,3 +67,15 @@ andrew:
   name: 'Andrew Kachnic'
   id: 'andrew'
   tagline: 'Developer'
+evgenia:
+  email: 'lakesare@gmail.com'
+  name: 'Evgenia Karunus'
+  id: 'evgenia'
+  tagline: 'Developer'
+  image_url: 'https://github.com/lakesare.png'
+tim:
+  email: 'tim@transloadit.com'
+  name: 'Tim Koschuetzki'
+  id: 'tim'
+  tagline: 'Transloadit co-founder'
+  image_url: 'https://github.com/tim-kos.png'
