@@ -1,6 +1,6 @@
 ---
 title: 'Scaling Images on Rotation'
-date: 2023-10-25
+date: 2023-12-08
 authors: [evgenia, tim]
 image: '/img/blog/3.4-3.13/single-file-mode.jpg'
 slug: '2023-10-25-image-editor'
