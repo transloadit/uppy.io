@@ -52,7 +52,7 @@ Image Editor used to handle image rotations, and how it handles them now.
   </tbody>
 </table>
 
-Without further adieu, let’s dive into some of the finer technical details, so
+Without further ado, let’s dive into some of the finer technical details, so
 you can follow along and implement this feature into your own image editor.
 
 <!--truncate-->
