@@ -4,7 +4,7 @@
         <title>Uppy Blog</title>
         <link>https://uppy.io/blog</link>
         <description>Uppy Blog</description>
-        <lastBuildDate>Wed, 25 Oct 2023 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 08 Dec 2023 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -12,7 +12,7 @@
             <title><![CDATA[Scaling Images on Rotation]]></title>
             <link>https://uppy.io/blog/2023-10-25-image-editor</link>
             <guid>https://uppy.io/blog/2023-10-25-image-editor</guid>
-            <pubDate>Wed, 25 Oct 2023 00:00:00 GMT</pubDate>
+            <pubDate>Fri, 08 Dec 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[We recently released an “image scaling on rotation” feature for Uppy’s]]></description>
             <content:encoded><![CDATA[<p>We recently released an “image scaling on rotation” feature for Uppy’s
 <a href="https://uppy.io/docs/image-editor/" target="_blank" rel="noopener noreferrer">Image Editor</a>, an often-requested feature

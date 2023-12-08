@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://uppy.io/blog</id>
     <title>Uppy Blog</title>
-    <updated>2023-10-25T00:00:00.000Z</updated>
+    <updated>2023-12-08T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://uppy.io/blog"/>
     <subtitle>Uppy Blog</subtitle>
@@ -11,7 +11,7 @@
         <title type="html"><![CDATA[Scaling Images on Rotation]]></title>
         <id>https://uppy.io/blog/2023-10-25-image-editor</id>
         <link href="https://uppy.io/blog/2023-10-25-image-editor"/>
-        <updated>2023-10-25T00:00:00.000Z</updated>
+        <updated>2023-12-08T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[We recently released an “image scaling on rotation” feature for Uppy’s]]></summary>
         <content type="html"><![CDATA[<p>We recently released an “image scaling on rotation” feature for Uppy’s
 <a href="https://uppy.io/docs/image-editor/" target="_blank" rel="noopener noreferrer">Image Editor</a>, an often-requested feature
