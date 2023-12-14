@@ -85,7 +85,7 @@ const config = {
 	],
 	scripts: [
 		{
-			src: 'https://analytics.transloadit.com/js/plausible.js',
+			src: 'https://plausible.io/js/script.js',
 			async: true,
 			defer: true,
 			'data-domain': 'uppy.io',
