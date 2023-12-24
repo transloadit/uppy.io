@@ -2,11 +2,154 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://uppy.io/blog</id>
     <title>Uppy Blog</title>
-    <updated>2023-12-08T00:00:00.000Z</updated>
+    <updated>2023-12-23T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://uppy.io/blog"/>
     <subtitle>Uppy Blog</subtitle>
     <icon>https://uppy.io/img/logo.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[🎄 Uppy 3.13 to 3.21: Typescript Saga: the beginning, Image Editor improvements, Dashboard auto-install]]></title>
+        <id>https://uppy.io/blog/2023/07/3.13-3.21</id>
+        <link href="https://uppy.io/blog/2023/07/3.13-3.21"/>
+        <updated>2023-12-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[It’s this time of the year again! Make yourself cozy]]></summary>
+        <content type="html"><![CDATA[<img loading="lazy" src="https://uppy.io/img/blog/3.13-3.21/dog-coding-laptop-mars-christmas-tree.jpg" class="border img_ev3q" alt="Screenshot of the new Uppy website homepage">
+<p>It’s this time of the year again! Make yourself cozy
+<a href="https://www.youtube.com/watch?v=ouqtX6WWL1U" target="_blank" rel="noopener noreferrer">by the fire</a>, and let us help you
+unwrap the gifts Uppy has prepared for you.</p>
+<p>We proud of all the improvements and amazing new features and bug fixes we were
+able to introduce this year. The highlights being: conditional S3 multipart and
+signing S3 uploads on the client, speedy handling of 10-50k file uploads,
+refresh tokens (useful when the token expires mid-upload for a large amount of
+files / slow connections), server-sent events and new <code>assemblyOptions</code> for the
+Transloadit plugin, Dashboard Single File mode (<code>singleFileFullScreen</code>),
+improved ETA in the Status Bar, a bunch of new languages, including Hindi,
+Mexican Spanish and Catalan.</p>
+<p>This one, however, is a recent Uppy updates post, covering releases from
+<a href="https://github.com/transloadit/uppy/compare/uppy%403.13.0...uppy%403.21.0" target="_blank" rel="noopener noreferrer"><code>3.13.0</code> to <code>3.21.0</code></a>:
+announcing the switch to Typescript, Dashboard can now auto-install plugins,
+support for Catalan language, a heap of bug fixes for Tus, Companion, AWS S3,
+and more.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="typescript">Typescript<a href="https://uppy.io/blog/2023/07/3.13-3.21#typescript" class="hash-link" aria-label="Direct link to Typescript" title="Direct link to Typescript">​</a></h2>
+<p>We are excited to announce that we are working hard to refactor Uppy Core and
+all plugins source files to TypeScript. We have a build setup in place that
+temporarily supports both <code>.ts</code> and <code>.js</code> files in our monorepo. And a helper
+utility that takes a package name and does the initial renaming and Typescript
+config. Then we go through the list of plugins one by one. We begun with
+<code>@uppy/utils</code> and <code>@uppy/core</code>, since most other packages depend on those. Now
+we are moving to the rest, one by one.</p>
+<p>This work so far is only affecting Uppy internals. In published packages we are
+using the manually crafted <code>d.ts</code> files, as before. We are planning to flip the
+switch and introduce some breaking changes in the next Uppy major, due to be
+released in the first quater of 2024.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="core">Core<a href="https://uppy.io/blog/2023/07/3.13-3.21#core" class="hash-link" aria-label="Direct link to Core" title="Direct link to Core">​</a></h2>
+<ul>
+<li>Allow duplicate files with <code>onBeforeFileAdded</code>.</li>
+<li>Fixed<code>onBeforeFileAdded</code> with Golden Retriever.</li>
+<li>Simplify types with class generic and type more events.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="image-editor">Image Editor<a href="https://uppy.io/blog/2023/07/3.13-3.21#image-editor" class="hash-link" aria-label="Direct link to Image Editor" title="Direct link to Image Editor">​</a></h2>
+<p>We have a whole separate blog post about the recent rotation improvements in the
+Image Editor, so please read that, if you are interested. Other changes include:</p>
+<ul>
+<li>Fixed labels on all buttons, centered the rotation slider label.</li>
+<li>Limited cropbox movements.</li>
+<li>Fixed to respect <code>cropperOptions.initialAspectRatio</code>.</li>
+<li>Change the checkered background color, make it semi-transparent.</li>
+<li>Fixed granular rotation: <code>[-45, 45]</code> instead of <code>[-45, 44]</code>.</li>
+<li>Removed 1px black lines.</li>
+<li>Made <code>file-editor:cancel</code> event fire when the Image Editor’s “cancel” button
+is pressed.</li>
+</ul>
+<video muted="" autoplay="" loop="" src="/img/blog/3.13-3.21/crop.mov" type="video/mp4">
+</video>
+<img loading="lazy" alt="Editor semi-transparant checkered background" src="https://uppy.io/img/blog/3.13-3.21/editor.jpg" class="img_ev3q">
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="dashboard">Dashboard<a href="https://uppy.io/blog/2023/07/3.13-3.21#dashboard" class="hash-link" aria-label="Direct link to Dashboard" title="Direct link to Dashboard">​</a></h2>
+<p>Dashboard can now automatically discover and install compatible plugins without
+<code>target</code> option. This lets you use a much more condense syntax:</p>
+<div class="language-js codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-js codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> uppy </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">Uppy</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">ImageEditor</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">Dashboard</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">Webcam</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">GoogleDrive</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><mdxadmonitiontitle>The old way via <code>.use(ImageEditor, { target: Dashboard })</code> and</mdxadmonitiontitle><p><code>.use(Dashboard, { plugins: ['Webcam', 'GoogleDrive'] })</code> still works, but we
+encourage you to use the new syntax :::</p><p>Bug fixes:</p><ul>
+<li>Remove <code>.uppy-Dashboard-isFixed</code> CSS class when <code>uppy.close()</code> is invoked.</li>
+<li>When <code>showAddFilesPanel: true</code>, <code>aria-hidden</code> should be the opposite.</li>
+<li>Don’t cancel all files and Assemblies when clicking “done”.</li>
+<li>Update Dashboard’s blue color to meet WCAG contrast requirements.</li>
+</ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="aws-s3">AWS S3<a href="https://uppy.io/blog/2023/07/3.13-3.21#aws-s3" class="hash-link" aria-label="Direct link to AWS S3" title="Direct link to AWS S3">​</a></h2><ul>
+<li>Fixed <code>TypeError</code>, fixed <code>uploadURL</code> when using <code>PUT</code>.</li>
+<li>Pass <code>signal</code> as separate arg for backward compat; pass the <code>uploadURL</code> back
+to the caller.</li>
+<li>Refresh file before calling user-defined functions.</li>
+<li>Made sure we retry signature request.</li>
+<li>Use uppercase HTTP method names.</li>
+<li>Call <code>#setCompanionHeaders</code> in <code>setOptions</code>.</li>
+</ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="companion">Companion<a href="https://uppy.io/blog/2023/07/3.13-3.21#companion" class="hash-link" aria-label="Direct link to Companion" title="Direct link to Companion">​</a></h2><p>One of the most notable changes in Companion is on the client side, we’ve made
+authentication optional, allowing for more provider types, with publicly
+accessable links, for example.</p><p>In Companion Client we were able to drop the now unnecessary preflight requests,
+improving upload speeds and latency yet again.</p><p>Other notable changes and fixes:</p><ul>
+<li>Allow dynamic S3 bucket.</li>
+<li>Companion+client stability fixes, error handling and retries.</li>
+<li>Catch “invalid initialization vector” instead of crashing.</li>
+<li>Added Onedrive refresh tokens.</li>
+<li>Fixed <code>authProvider</code> property inconsistency.</li>
+<li>Fixed accelerated endpoints for presigned POST.</li>
+<li>Fixed double tus uploads.</li>
+<li>Fixed onedrive pagination.</li>
+<li>Fixed Redis key default TTL.</li>
+<li>Fixed Uploader.js metadata normalisation.</li>
+<li>Make CSRF protection helpers available to providers.</li>
+<li>Refactor <code>getProtectedHttpAgent</code> to make TS happy.</li>
+<li>Unify redis initialization.</li>
+<li>Use deferred length for tus streams.</li>
+<li>Fixed a refresh token race condition.</li>
+<li>Fixed edge case for pagination on root.</li>
+<li>Fixed instagram/facebook auth error regression; uploadRemoteFile undefined;
+ProviderView error on empty plugin.icon.</li>
+<li>Added getBucket metadata argument.</li>
+<li>Added missing credentialsURL for box.</li>
+<li>Added test endpoint for dynamic oauth creds.</li>
+<li>Added Companion OAuth Key type.</li>
+<li>Aliased “removeListener” as “off” in Redis emitter.</li>
+<li>Use user-defined <code>onSuccess</code>, <code>onError</code>, and <code>onProgress</code> callbacks in
+<code>@uppy/tus</code>.</li>
+<li>Invoke headers function for remote uploads.</li>
+<li>Send certain Onedrive errors to the user.</li>
+<li>Upgraded Node.js docker version.</li>
+</ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="frameworks-integraions">Frameworks Integraions<a href="https://uppy.io/blog/2023/07/3.13-3.21#frameworks-integraions" class="hash-link" aria-label="Direct link to Frameworks Integraions" title="Direct link to Frameworks Integraions">​</a></h2><ul>
+<li>Angular: upgraded to Angular 16.x.</li>
+<li>Svelte: Fixed TS build command.</li>
+<li>Vue: added export for FileInput.</li>
+</ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="locales">Locales<a href="https://uppy.io/blog/2023/07/3.13-3.21#locales" class="hash-link" aria-label="Direct link to Locales" title="Direct link to Locales">​</a></h2><ul>
+<li>Added Catalan locale <code>ca_ES</code>.</li>
+<li>Added missing translations to <code>de_DE</code>.</li>
+<li>Update Farsi.</li>
+</ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="transloadit">Transloadit<a href="https://uppy.io/blog/2023/07/3.13-3.21#transloadit" class="hash-link" aria-label="Direct link to Transloadit" title="Direct link to Transloadit">​</a></h2><ul>
+<li>Emit assembly progress events.</li>
+<li>Removed Socket.io — it’s server-sent events with fallback to polling now.</li>
+</ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="misc">Misc<a href="https://uppy.io/blog/2023/07/3.13-3.21#misc" class="hash-link" aria-label="Direct link to Misc" title="Direct link to Misc">​</a></h2><ul>
+<li>Added Prettier, migrated to Vitest for Uppy core and Uppy plugins.</li>
+<li>Update <code>file.meta.name</code> after compression, becase format/extension might have
+changed.</li>
+<li>use latest Node.js version for tests.</li>
+<li>Migrate to AWS-SDK V3 syntax.</li>
+<li>Move remote file upload logic into companion-client.</li>
+</ul><p>Happy holidays and see you in 2024!</p></div></div>]]></content>
+        <author>
+            <name>Antoine du Hamel</name>
+            <email>antoine@transloadit.com</email>
+        </author>
+        <author>
+            <name>Merlijn Vos</name>
+            <email>merlijn@transloadit.com</email>
+        </author>
+        <author>
+            <name>Artur Paikin</name>
+            <email>artur@transloadit.com</email>
+        </author>
+        <author>
+            <name>Mikael Finstad</name>
+            <email>mikael@transloadit.com</email>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Scaling Images on Rotation]]></title>
         <id>https://uppy.io/blog/2023-10-25-image-editor</id>
@@ -1980,90 +2123,6 @@ source code on this tutorial, please see the
 <a href="https://github.com/transloadit/uppy/tree/master/examples/custom-provider" target="_blank" rel="noopener noreferrer">custom provider example</a>.</p>]]></content>
         <author>
             <name>ife</name>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Uppy 1.11 — 1.13: Dark Mode, custom meta fields and Google Docs in Companion]]></title>
-        <id>https://uppy.io/blog/2020/04/1.13</id>
-        <link href="https://uppy.io/blog/2020/04/1.13"/>
-        <updated>2020-04-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Releases 1.11 through 1.13 introduced a bunch of major new features and]]></summary>
-        <content type="html"><![CDATA[<p>Releases 1.11 through 1.13 introduced a bunch of major new features and
-bugfixes. Let's go through the main ones!</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="dark-mode">Dark mode<a href="https://uppy.io/blog/2020/04/1.13#dark-mode" class="hash-link" aria-label="Direct link to Dark mode" title="Direct link to Dark mode">​</a></h2>
-<p>A little while ago we’ve
-<a href="https://mobile.twitter.com/uppy_io/status/1221070643543838721" target="_blank" rel="noopener noreferrer">announced work in progress</a>
-on Dark Mode for the Dashboard. We're happy to tell you it’s live now! You can
-try it out on <a href="https://uppy.io/examples/dashboard/">the Dashboard example page</a>.</p>
-<video alt="Demo video showing Uppy Dark Mode" muted="" autoplay="" loop="">
-  <source src="/img/blog/1.13/dark-mode-auto.webm" type="video/webm">
-  <source src="/img/blog/1.13/dark-mode-auto.mp4" type="video/mp4">
-</video>
-<p>There are three options available:</p>
-<ul>
-<li><code>light</code> — the default</li>
-<li><code>dark</code></li>
-<li><code>auto</code> — will respect the user’s system settings and switch automatically</li>
-</ul>
-<div class="language-js codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-js codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">uppy</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">Dashboard</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token literal-property property" style="color:#36acaa">theme</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'dark'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<p><img loading="lazy" src="https://uppy.io/assets/images/uppy-dashboard-dark-mar-2020-8404676e497ecef5f6832518f40f8fa6.png" width="1200" height="940" class="img_ev3q"></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="custom-meta-fields">Custom meta fields<a href="https://uppy.io/blog/2020/04/1.13#custom-meta-fields" class="hash-link" aria-label="Direct link to Custom meta fields" title="Direct link to Custom meta fields">​</a></h2>
-<p>This is big one! Thanks to @galli-leo, you can now add custom fields to the
-Dashboard meta editor, such as <code>&lt;input type="tel"&gt;</code>, <code>&lt;select&gt;</code> or
-<code>&lt;input type="checkbox"&gt;</code>, like this:</p>
-<div class="language-js codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-js codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">uppy</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">Dashboard</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token literal-property property" style="color:#36acaa">trigger</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'#pick-files'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token literal-property property" style="color:#36acaa">metaFields</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">		</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">			</span><span class="token literal-property property" style="color:#36acaa">id</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'caption'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">			</span><span class="token literal-property property" style="color:#36acaa">name</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Caption'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">			</span><span class="token literal-property property" style="color:#36acaa">placeholder</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'describe what the image is about'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">		</span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">		</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">			</span><span class="token literal-property property" style="color:#36acaa">id</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'public'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">			</span><span class="token literal-property property" style="color:#36acaa">name</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Public'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">			</span><span class="token function-variable function" style="color:#d73a49">render</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token parameter punctuation" style="color:#393A34">{</span><span class="token parameter"> value</span><span class="token parameter punctuation" style="color:#393A34">,</span><span class="token parameter"> onChange </span><span class="token parameter punctuation" style="color:#393A34">}</span><span class="token parameter punctuation" style="color:#393A34">,</span><span class="token parameter"> h</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token arrow operator" style="color:#393A34">=&gt;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">				</span><span class="token keyword control-flow" style="color:#00009f">return</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">h</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'input'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">					</span><span class="token literal-property property" style="color:#36acaa">type</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'checkbox'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">					</span><span class="token function-variable function" style="color:#d73a49">onChange</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token parameter">ev</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token arrow operator" style="color:#393A34">=&gt;</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">onChange</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">ev</span><span class="token punctuation" style="color:#393A34">.</span><span class="token property-access">target</span><span class="token punctuation" style="color:#393A34">.</span><span class="token property-access">checked</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">?</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'on'</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'off'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">					</span><span class="token literal-property property" style="color:#36acaa">defaultChecked</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> value </span><span class="token operator" style="color:#393A34">===</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'on'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">				</span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">			</span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">		</span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<p>See <a href="https://uppy.io/docs/dashboard/#metaFields">the docs</a> and
-<a href="https://github.com/transloadit/uppy/pull/2147" target="_blank" rel="noopener noreferrer">PR #2147</a> for details.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="google-docs-support-in-companion">Google Docs support in Companion<a href="https://uppy.io/blog/2020/04/1.13#google-docs-support-in-companion" class="hash-link" aria-label="Direct link to Google Docs support in Companion" title="Direct link to Google Docs support in Companion">​</a></h2>
-<p>In the past, Uppy could already import files from Google Drive using Companion.
-However, files from Google Docs are not <em>really</em> files, and could not be
-imported. That was confusing for users: some of their files simply didn't
-appear!</p>
-<p>Companion now automagically converts GSuite documents, such as docs,
-spreadsheets and presentations, to <code>.docx</code>, <code>.xlsx</code> and <code>.ppt</code> files that can be
-opened in various applications. The current list of conversions is hardcoded to:</p>
-<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">{</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	"application/vnd.google-apps.document": ".docx",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	"application/vnd.google-apps.drawing": ".png",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	"application/vnd.google-apps.script": ".json",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	"application/vnd.google-apps.spreadsheet": ".xlsx",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	"application/vnd.google-apps.presentation": ".ppt"</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<p>This may be configurable in a future release.</p>
-<p>Note that only documents under 10MB are converted. This is a limitation set by
-the Google Drive API.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="aws-s3">AWS S3<a href="https://uppy.io/blog/2020/04/1.13#aws-s3" class="hash-link" aria-label="Direct link to AWS S3" title="Direct link to AWS S3">​</a></h2>
-<p>The Aws S3 plugin now handles uploads internally, instead of deferring to XHR
-Upload. This change fixes many bugs with Aws S3. See
-<a href="https://github.com/transloadit/uppy/pull/2147" target="_blank" rel="noopener noreferrer">PR #2060</a> for details.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="locales">Locales<a href="https://uppy.io/blog/2020/04/1.13#locales" class="hash-link" aria-label="Direct link to Locales" title="Direct link to Locales">​</a></h2>
-<p>Polish, Croatian and Romanian language packs have been added by @alfatv, @dkisic
-and @akizor 🎉</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="exifr-in-thumbnail-generator">Exifr in Thumbnail Generator<a href="https://uppy.io/blog/2020/04/1.13#exifr-in-thumbnail-generator" class="hash-link" aria-label="Direct link to Exifr in Thumbnail Generator" title="Direct link to Exifr in Thumbnail Generator">​</a></h2>
-<p><a href="https://github.com/MikeKovarik" target="_blank" rel="noopener noreferrer">@MikeKovarik</a> created an awesome library called
-<a href="https://github.com/MikeKovarik/exifr" target="_blank" rel="noopener noreferrer">Exifr</a>, useful for extracting EXIF image
-data. He was kind enough to submit a PR that replaces Uppy’s internal fork of
-<code>exif-js</code> with <code>exifr</code>. Our thumbnail generation is now faster and more robust!
-See <a href="https://github.com/transloadit/uppy/pull/2140" target="_blank" rel="noopener noreferrer">PR 2140</a> for details.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="misc">Misc<a href="https://uppy.io/blog/2020/04/1.13#misc" class="hash-link" aria-label="Direct link to Misc" title="Direct link to Misc">​</a></h2>
-<ul>
-<li>@uppy/tus, @uppy/xhr-upload: emit error when companion returns error during
-upload creation (#2166 / @ifedapoolarewaju)</li>
-<li>@uppy/transloadit: fix progress with very different Assembly runtimes (#2143 /
-@agreene-coursera)</li>
-<li>@uppy/core: Only <code>_startIfAutoProceed</code> if some files were actually added
-(#2146 / @arturi)</li>
-<li>@uppy/companion: emit error to client if download fails (#2139 /
-@ifedapoolarewaju)</li>
-<li>@uppy/companion: validate all client provided upload data. (#2160 /
-@ifedapoolarewaju)</li>
-<li>@uppy/dashboard: Log warning instead of an error when trigger is not found
-(#2144 / @arturi)</li>
-<li>@uppy/robodog: Pass <code>hideUploadButton</code> to Dashboard in Robodog too (#2169 /
-@arturi)</li>
-<li>@uppy/aws-s3-multipart: emit <code>upload-error</code> when companion returns error
-during upload instantiation (#2168 / @ifedapoolarewaju)</li>
-</ul>
-<p>As always, you can find the full list of changes and package versions, as well
-as future plans, in our
-<a href="https://github.com/transloadit/uppy/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>.</p>]]></content>
-        <author>
-            <name>Artur Paikin</name>
-            <email>artur@transloadit.com</email>
         </author>
     </entry>
 </feed>
