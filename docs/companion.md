@@ -79,7 +79,7 @@ npm install @uppy/companion
 :::note
 
 Since v2, you need to be running `node.js >= v10.20.1` to use Companion. More
-information in the [migrating to 2.0](/docs/guides/migrate-2.0) guide.
+information in the [migrating to 2.0](/docs/guides/migration-guides/#migrate-from-uppy-1x-to-2x) guide.
 
 Windows is not a supported platform right now. It may work, and we’re happy to
 accept improvements in this area, but we can’t provide support.
