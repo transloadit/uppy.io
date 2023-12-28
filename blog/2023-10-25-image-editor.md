@@ -126,11 +126,11 @@ corners disappear.
   <tbody>
   <tr>
   <td width="50%">
-    <img style={{ maxWidth: 300 }} src="/img/blog/2023-10-25-image-editor/1a.png" />
+    <img style={{ maxWidth: 300 }} src="/img/blog/2023-10-25-image-editor/1a.jpg" />
   </td>
 
   <td width="50%">
-    <img style={{ maxWidth: 340 }} src="/img/blog/2023-10-25-image-editor/1b.png" />
+    <img style={{ maxWidth: 340 }} src="/img/blog/2023-10-25-image-editor/1b.jpg" />
   </td>
   </tr>
   </tbody>
@@ -158,11 +158,11 @@ our image, we only need to find `H` to complete our scaling function.
   <tbody>
   <tr>
   <td width="50%">
-    <img src="/img/blog/2023-10-25-image-editor/2a.png" />
+    <img src="/img/blog/2023-10-25-image-editor/2a.jpg" />
   </td>
 
   <td width="50%">
-    <img src="/img/blog/2023-10-25-image-editor/2b.png" />
+    <img src="/img/blog/2023-10-25-image-editor/2b.jpg" />
   </td>
   </tr>
   </tbody>
@@ -186,7 +186,7 @@ for <code>90 - α</code>:</p>
   <tbody style={{ display: "table", width: "100%" }}>
   <tr>
   <td>
-    <img style={{ width: 500 }} src="/img/blog/2023-10-25-image-editor/3.png" />
+    <img style={{ width: 500 }} src="/img/blog/2023-10-25-image-editor/3.jpg" />
   </td>
   </tr>
   </tbody>
@@ -202,11 +202,11 @@ We can then find `H`, by adding the two outer sides of these triangles.
   <tbody>
   <tr>
   <td width="50%">
-    <img src="/img/blog/2023-10-25-image-editor/4a.png" />
+    <img src="/img/blog/2023-10-25-image-editor/4a.jpg" />
   </td>
 
   <td width="50%">
-    <img src="/img/blog/2023-10-25-image-editor/4b.png" />
+    <img src="/img/blog/2023-10-25-image-editor/4b.jpg" />
   </td>
   </tr>
   </tbody>
