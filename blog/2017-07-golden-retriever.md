@@ -39,7 +39,7 @@ dreaded Blue Screen of Death! (if that is still a thing ;)
 First off, let’s show you a demo 📹 of Uppy surviving a browser crash and
 picking up right where we left it:
 
-<figure class="wide"><video alt="Demo video showing the Golden Retriever file restoring plugin in action" controls><source src="/img/blog/golden-retriever/uppy-golden-retriever-crash-demo-2.mp4" type="video/mp4" />Your browser does not support the video tag, you can <a href="/img/blog/golden-retriever/uppy-golden-retriever-crash-demo-2.mp4">download the video</a> to watch it.</video></figure>
+<figure class="wide"><video alt="Demo video showing the Golden Retriever file restoring plugin in action" controls><source src="/img/blog/golden-retriever/uppy-golden-retriever-crash-demo-2.mp4" type="video/mp4" />Your browser does not support the video tag, you can <a href="pathname:///img/blog/golden-retriever/uppy-golden-retriever-crash-demo-2.mp4">download the video</a> to watch it.</video></figure>
 
 <a name="uppy"></a>
 
