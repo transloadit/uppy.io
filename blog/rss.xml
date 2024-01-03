@@ -69,7 +69,7 @@ is pressed.</li>
 <p>Dashboard can now automatically discover and install compatible plugins without
 <code>target</code> option. This lets you use a much more condense syntax:</p>
 <div class="language-js codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-js codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> uppy </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">Uppy</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">ImageEditor</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">Dashboard</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">Webcam</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">	</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">use</span><span class="token punctuation" style="color:#393A34">(</span><span class="token maybe-class-name">GoogleDrive</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><mdxadmonitiontitle></mdxadmonitiontitle><p>The old way via <code>.use(ImageEditor, { target: Dashboard })</code> and
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>The old way via <code>.use(ImageEditor, { target: Dashboard })</code> and
 <code>.use(Dashboard, { plugins: ['Webcam', 'GoogleDrive'] })</code> still works, but we
 encourage you to use the new syntax.</p></div></div>
 <p>Bug fixes:</p>
@@ -258,9 +258,9 @@ corners disappear.</p>
   </thead><tbody>
   <tr>
   <td width="50%">
-    <img loading="lazy" maxwidth:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/1a.png" class="img_ev3q">
+    <img loading="lazy" maxwidth:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/1a.jpg" class="img_ev3q">
   </td><td width="50%">
-    <img loading="lazy" maxwidth:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/1b.png" class="img_ev3q">
+    <img loading="lazy" maxwidth:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/1b.jpg" class="img_ev3q">
   </td>
   </tr>
   </tbody></table>
@@ -284,9 +284,9 @@ our image, we only need to find <code>H</code> to complete our scaling function.
   </thead><tbody>
   <tr>
   <td width="50%">
-    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/2a.png" class="img_ev3q">
+    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/2a.jpg" class="img_ev3q">
   </td><td width="50%">
-    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/2b.png" class="img_ev3q">
+    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/2b.jpg" class="img_ev3q">
   </td>
   </tr>
   </tbody></table>
@@ -304,7 +304,7 @@ for <code>90 - α</code>:</p>
   </thead><tbody display:="" width:="">
   <tr>
   <td>
-    <img loading="lazy" width:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/3.png" class="img_ev3q">
+    <img loading="lazy" width:="" src="https://uppy.io/img/blog/2023-10-25-image-editor/3.jpg" class="img_ev3q">
   </td>
   </tr>
   </tbody></table>
@@ -317,9 +317,9 @@ for <code>90 - α</code>:</p>
   </thead><tbody>
   <tr>
   <td width="50%">
-    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/4a.png" class="img_ev3q">
+    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/4a.jpg" class="img_ev3q">
   </td><td width="50%">
-    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/4b.png" class="img_ev3q">
+    <img loading="lazy" src="https://uppy.io/img/blog/2023-10-25-image-editor/4b.jpg" class="img_ev3q">
   </td>
   </tr>
   </tbody></table>
@@ -1329,10 +1329,9 @@ for more details.</p>
 <p><a href="https://releases.transloadit.com/uppy/v1.29.1/uppy-v1.30.0.zip" target="_blank" rel="noopener noreferrer" class="TryButton">Download
 Uppy 1.30 Bundle</a></p>
 <p><small>Or <a href="https://uppy.io/docs/" target="_blank" rel="noopener noreferrer">include from CDN</a>. Note that it’s highly
-recommended to
-<a href="https://uppy.io/docs/plugins/#package-list" target="_blank" rel="noopener noreferrer">pick and choose specific Uppy plugins</a>
-that you need, and install them with <code>npm</code> or <code>yarn</code>. This is because the bundle
-includes all Uppy plugins at once.</small></p>]]></content:encoded>
+recommended to pick and choose specific Uppy plugins that you need, and install
+them with <code>npm</code> or <code>yarn</code>. This is because the bundle includes all Uppy plugins
+at once.</small></p>]]></content:encoded>
             <author>artur@transloadit.com (Artur Paikin)</author>
         </item>
         <item>
@@ -1412,10 +1411,9 @@ for details.</p>
 <p><a href="https://releases.transloadit.com/uppy/v1.29.1/uppy-v1.29.1.zip" target="_blank" rel="noopener noreferrer" class="TryButton">Download
 Uppy 1.29.1</a></p>
 <p><small>Or <a href="https://uppy.io/docs/" target="_blank" rel="noopener noreferrer">include from CDN</a>. Note that it’s highly
-recommended to
-<a href="https://uppy.io/docs/plugins/#package-list" target="_blank" rel="noopener noreferrer">pick and choose specific Uppy plugins</a>
-that you need, and install them with <code>npm</code> or <code>yarn</code>. This is because the bundle
-includes all Uppy plugins at once.</small></p>]]></content:encoded>
+recommended to pick and choose specific Uppy plugins that you need, and install
+them with <code>npm</code> or <code>yarn</code>. This is because the bundle includes all Uppy plugins
+at once.</small></p>]]></content:encoded>
             <author>artur@transloadit.com (Artur Paikin)</author>
         </item>
         <item>
@@ -1491,10 +1489,9 @@ for details.</p>
 <p><a href="https://releases.transloadit.com/uppy/v1.27.0/uppy-v1.27.0.zip" target="_blank" rel="noopener noreferrer" class="TryButton">Download
 Uppy 1.27.0</a></p>
 <p><small>Or <a href="https://uppy.io/docs/" target="_blank" rel="noopener noreferrer">include from CDN</a>. Note that it’s highly
-recommended to
-<a href="https://uppy.io/docs/plugins/#package-list" target="_blank" rel="noopener noreferrer">pick and choose specific Uppy plugins</a>
-that you need, and install them with <code>npm</code> or <code>yarn</code>. This is because the bundle
-includes all Uppy plugins at once.</small></p>]]></content:encoded>
+recommended to pick and choose specific Uppy plugins that you need, and install
+them with <code>npm</code> or <code>yarn</code>. This is because the bundle includes all Uppy plugins
+at once.</small></p>]]></content:encoded>
             <author>artur@transloadit.com (Artur Paikin)</author>
         </item>
         <item>
@@ -1597,10 +1594,9 @@ like <code>inline-start</code> and <code>inline-end</code> with <code>postcss-lo
 and fixes for Russian grammar!</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="integration-guide">Integration Guide<a href="https://uppy.io/blog/2021/01/1.25#integration-guide" class="hash-link" aria-label="Direct link to Integration Guide" title="Direct link to Integration Guide">​</a></h2>
 <p>Andrew, who’s been on fire recently adding Vue and Svelte integrations for Uppy,
-has taken the time to share his experience and has written an
-“<a href="https://uppy.io/docs/contributing.html/#Adding-a-new-integration">Adding a new integration</a>”
-guide, in case you’d like to help befriend Uppy with your favorite framework or
-library.</p>
+has taken the time to share his experience and has written an “Adding a new
+integration” guide, in case you’d like to help befriend Uppy with your favorite
+framework or library.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="companion">Companion<a href="https://uppy.io/blog/2021/01/1.25#companion" class="hash-link" aria-label="Direct link to Companion" title="Direct link to Companion">​</a></h2>
 <ul>
 <li>Added support for setting 3rd party credentials in runtime</li>
@@ -1880,9 +1876,8 @@ too. Check out
             <pubDate>Mon, 08 Jun 2020 00:00:00 GMT</pubDate>
             <description><![CDATA[In this post we will be going through a step by step tutorial on how to develop,]]></description>
             <content:encoded><![CDATA[<p>In this post we will be going through a step by step tutorial on how to develop,
-and add custom <a href="https://uppy.io/docs/providers/" target="_blank" rel="noopener noreferrer">providers</a> to Uppy and
-Companion. For the purpose of this tutorial we will be building a custom
-provider for <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>.</p>
+and add custom providers to Uppy and Companion. For the purpose of this tutorial
+we will be building a custom provider for <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-are-provider-plugins">What are Provider Plugins?<a href="https://uppy.io/blog/2020/03/custom-providers#what-are-provider-plugins" class="hash-link" aria-label="Direct link to What are Provider Plugins?" title="Direct link to What are Provider Plugins?">​</a></h2>
 <blockquote>
 <p>Provider Plugins help you connect to your accounts with remote file storage
@@ -1892,7 +1887,6 @@ providers such as Dropbox, Google Drive, Instagram and remote URLs.</p>
 server-to-server communication handler between your server and file storage
 providers.</p>
 </blockquote>
-<p>Read more on <a href="https://uppy.io/docs/providers/" target="_blank" rel="noopener noreferrer">Provider Plugins</a>.</p>
 <p>Creating a custom provider composes of two parts; <strong>Custom Companion Provider</strong>
 and <strong>Custom Uppy Plugin</strong></p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="creating-a-custom-companion-provider">Creating a Custom Companion Provider<a href="https://uppy.io/blog/2020/03/custom-providers#creating-a-custom-companion-provider" class="hash-link" aria-label="Direct link to Creating a Custom Companion Provider" title="Direct link to Creating a Custom Companion Provider">​</a></h2>
