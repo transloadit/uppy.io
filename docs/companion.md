@@ -116,7 +116,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(session({ secret: 'some secrety secret' }));
 
-const options = {
+const companionOptions = {
 	providerOptions: {
 		drive: {
 			key: 'GOOGLE_DRIVE_KEY',
