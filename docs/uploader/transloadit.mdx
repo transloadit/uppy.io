@@ -415,6 +415,16 @@ export default {
 };
 ```
 
+#### `clientName`
+
+Append a custom client name to the `Transloadit-Client` header field when
+creating an Assembly (`string`, default: `null`).
+
+The `Transloadit-Client` header includes by default information about the used
+SDK and is included in the Assembly Status under the `transloadit_client`
+property. By providing a value, such as `homepage-file-uploader`, you can
+identify the client and SDK that created a given Assembly.
+
 <details>
   <summary>Deprecated options</summary>
 
