@@ -14,6 +14,8 @@
  * Date: 2020-05-23T05:23:00.081Z
  */
 
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+
 /**
  * Takes a string with placeholder variables like `%{smart_count} file selected`
  * and replaces it with values from options `{smart_count: 5}`
