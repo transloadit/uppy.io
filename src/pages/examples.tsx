@@ -258,6 +258,11 @@ const companionUrl = 'https://companion.uppy.io';
 const endpoint = 'https://tusd.tusdemo.net/files/';
 
 export default function Examples() {
+	// Silly trick to please Docusaurus with client-side hooks such as useLocalStorage
+	return <BrowserOnly>{() => <Page />}</BrowserOnly>;
+}
+
+function Page() {
 	const [state, setPersistentState] = useLocalStorage(
 		'uppy-examples-state',
 		initialState,
