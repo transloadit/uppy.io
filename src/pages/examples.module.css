@@ -30,8 +30,13 @@
 	color: gray;
 }
 
-.main input[type='checkbox']:not(:checked):hover + label {
+.main input[type='checkbox']:not(:checked, :disabled):hover + label {
 	color: black;
+}
+
+.main input[type='checkbox']:disabled:hover,
+.main input[type='checkbox']:disabled:hover + label {
+	cursor: not-allowed;
 }
 
 .main select {
