@@ -113,12 +113,16 @@ const options = [
 				label: 'Instagram',
 				value: 'Instagram',
 				type: 'plugins',
+				title:
+					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
 				disabled: true,
 			},
 			{
 				label: 'Facebook',
 				value: 'Facebook',
 				type: 'plugins',
+				title:
+					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
 				disabled: true,
 			},
 			{ label: 'Url', value: 'Url', type: 'plugins' },
@@ -306,34 +310,39 @@ function Page() {
 										wrapper-for={section.heading}
 										className={styles['options-wrapper']}
 									>
-										{section.options.map(({ label, value, type, disabled }) => (
-											<div key={label}>
-												<input
-													type="checkbox"
-													id={label}
-													className={styles['framework-input']}
-													name="framework"
-													value={type}
-													checked={
-														// Forgive me for this logic
-														Array.isArray(state[type])
-															? state[type].includes(value)
-															: type === 'theme'
-															? state.theme === 'dark'
-															: state[type]
-													}
-													disabled={disabled}
-													onChange={(event) =>
-														dispatch({
-															type: type,
-															checked: event.target.checked,
-															value,
-														})
-													}
-												/>
-												<label htmlFor={label}>{label}</label>
-											</div>
-										))}
+										{section.options.map(
+											({ label, value, type, disabled, title }) => (
+												<div key={label}>
+													<input
+														type="checkbox"
+														id={label}
+														className={styles['framework-input']}
+														name="framework"
+														value={type}
+														title={title}
+														checked={
+															// Forgive me for this logic
+															Array.isArray(state[type])
+																? state[type].includes(value)
+																: type === 'theme'
+																? state.theme === 'dark'
+																: state[type]
+														}
+														disabled={disabled}
+														onChange={(event) =>
+															dispatch({
+																type: type,
+																checked: event.target.checked,
+																value,
+															})
+														}
+													/>
+													<label title={title} htmlFor={label}>
+														{label}
+													</label>
+												</div>
+											),
+										)}
 									</div>
 								</div>
 							);
