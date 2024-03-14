@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { useLocalStorage } from '@uidotdev/usehooks';
 
 import Layout from '@theme/Layout';
 import Admonition from '@theme/Admonition';
@@ -10,6 +11,7 @@ import GoogleDrive from '@uppy/google-drive';
 import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
+import Facebook from '@uppy/facebook';
 import Unsplash from '@uppy/unsplash';
 import Url from '@uppy/url';
 import Box from '@uppy/box';
@@ -42,18 +44,16 @@ const restrictions = {
 
 type Action = { type: string; checked?: boolean; value: string };
 type State = {
-	width?: number | string;
-	height: number | string;
+	small: boolean;
 	restrictions?: typeof restrictions;
 	disabled: boolean;
-	theme: 'light' | 'dark' | 'auto';
+	theme: string;
+	// theme: 'light' | 'dark' | 'auto';
 	plugins: string[];
-	enableGoldenRetriever: boolean;
 };
 
 const initialState: State = {
-	height: 570,
-	width: '100%',
+	small: false,
 	restrictions: null,
 	disabled: false,
 	theme: 'light',
@@ -61,23 +61,18 @@ const initialState: State = {
 		'Webcam',
 		'GoogleDrive',
 		'Dropbox',
-		'Instagram',
 		'Url',
 		'OneDrive',
 		'Unsplash',
 		'Box',
 		'ImageEditor',
 	],
-	enableGoldenRetriever: false,
 };
 
 function reducer(state: State, action: Action) {
 	switch (action.type) {
 		case 'small':
-			if (action.checked) {
-				return { ...state, width: 400, height: 400 };
-			}
-			return { ...state, width: '100%', height: 570 };
+			return { ...state, small: action.checked };
 		case 'theme':
 			return { ...state, theme: action.checked ? 'dark' : 'light' };
 		case 'disabled':
@@ -95,9 +90,6 @@ function reducer(state: State, action: Action) {
 				...state,
 				plugins: state.plugins.filter((p) => p !== action.value),
 			};
-		case 'enableGoldenRetriever': {
-			return { ...state, enableGoldenRetriever: action.checked };
-		}
 		default:
 			return state;
 	}
@@ -111,34 +103,36 @@ const options = [
 				label: 'Google Drive',
 				value: 'GoogleDrive',
 				type: 'plugins',
-				defaultChecked: true,
 			},
 			{
 				label: 'Dropbox',
 				value: 'Dropbox',
 				type: 'plugins',
-				defaultChecked: true,
 			},
 			{
 				label: 'Instagram',
 				value: 'Instagram',
 				type: 'plugins',
-				defaultChecked: true,
+				disabled: true,
 			},
-			{ label: 'Url', value: 'Url', type: 'plugins', defaultChecked: true },
+			{
+				label: 'Facebook',
+				value: 'Facebook',
+				type: 'plugins',
+				disabled: true,
+			},
+			{ label: 'Url', value: 'Url', type: 'plugins' },
 			{
 				label: 'OneDrive',
 				value: 'OneDrive',
 				type: 'plugins',
-				defaultChecked: true,
 			},
 			{
 				label: 'Unsplash',
 				value: 'Unsplash',
 				type: 'plugins',
-				defaultChecked: true,
 			},
-			{ label: 'Box', value: 'Box', type: 'plugins', defaultChecked: true },
+			{ label: 'Box', value: 'Box', type: 'plugins' },
 		],
 	},
 	{
@@ -148,19 +142,16 @@ const options = [
 				label: 'Webcam',
 				value: 'Webcam',
 				type: 'plugins',
-				defaultChecked: true,
 			},
 			{
 				label: 'Audio',
 				value: 'Audio',
 				type: 'plugins',
-				defaultChecked: false,
 			},
 			{
 				label: 'Screencast',
 				value: 'ScreenCapture',
 				type: 'plugins',
-				defaultChecked: false,
 			},
 		],
 	},
@@ -176,48 +167,71 @@ const options = [
 		heading: 'Uppy',
 		options: [
 			{ label: 'Restrictions', type: 'restrictions' },
-			{ label: 'Golden Retriever', type: 'enableGoldenRetriever' },
+			{ label: 'Golden Retriever', value: 'GoldenRetriever', type: 'plugins' },
 		],
 	},
 ];
 
 const Uppy = ({ state, locale }) => {
 	const createUppy = useCallback(() => {
-		const ret = new UppyCore({
+		const uppy = new UppyCore({
 			restrictions: state.restrictions,
 			locale,
 			debug: true,
 		})
-			.use(Webcam)
-			.use(ScreenCapture)
-			.use(Audio)
 			.use(ImageEditor, {})
-			.use(Tus, { endpoint })
-			.use(GoogleDrive, {
+			.use(Tus, { endpoint });
+
+		if (state.plugins.includes('Box')) {
+			uppy.use(Box, { companionUrl });
+		}
+		if (state.plugins.includes('Instagram')) {
+			uppy.use(Instagram, { companionUrl });
+		}
+		if (state.plugins.includes('Url')) {
+			uppy.use(Url, { companionUrl });
+		}
+		if (state.plugins.includes('Facebook')) {
+			uppy.use(Facebook, { companionUrl });
+		}
+		if (state.plugins.includes('OneDrive')) {
+			uppy.use(OneDrive, { companionUrl });
+		}
+		if (state.plugins.includes('Unsplash')) {
+			uppy.use(Unsplash, { companionUrl });
+		}
+		if (state.plugins.includes('Webcam')) {
+			uppy.use(Webcam);
+		}
+		if (state.plugins.includes('ScreenCapture')) {
+			uppy.use(ScreenCapture);
+		}
+		if (state.plugins.includes('Audio')) {
+			uppy.use(Audio);
+		}
+		if (state.plugins.includes('GoogleDrive')) {
+			uppy.use(GoogleDrive, {
 				companionUrl,
 				companionKeysParams: {
 					key: 'unused-key',
 					credentialsName: 'unused-credentials',
 				},
-			})
-			.use(Dropbox, { companionUrl })
-			.use(Instagram, { companionUrl })
-			.use(Url, { companionUrl })
-			.use(OneDrive, { companionUrl })
-			.use(Unsplash, { companionUrl })
-			.use(Box, { companionUrl });
-
-		if (state.enableGoldenRetriever) {
-			ret.use(GoldenRetriever);
+			});
+		}
+		if (state.plugins.includes('Dropbox')) {
+			uppy.use(Dropbox, { companionUrl });
+		}
+		if (state.plugins.includes('GoldenRetriever')) {
+			uppy.use(GoldenRetriever);
 		}
 
 		// Expose for easier debugging
-		globalThis.uppy = ret;
+		globalThis.uppy = uppy;
 
-		return ret;
+		return uppy;
 	}, [state, locale]);
 
-	const [uppy, setUppy] = useState(createUppy);
+	const [uppy, setUppy] = useState(() => createUppy());
 
 	useEffect(() => setUppy(createUppy()), [createUppy]);
 
@@ -225,9 +239,8 @@ const Uppy = ({ state, locale }) => {
 		<div className={styles['uppy-wrapper']}>
 			<Dashboard
 				uppy={uppy}
-				width={state.width}
-				height={state.height}
-				plugins={state.plugins}
+				width={state.small ? 400 : '100%'}
+				height={state.small ? 400 : 570}
 				theme={state.theme}
 				disabled={state.disabled}
 				note={
@@ -245,8 +258,15 @@ const companionUrl = 'https://companion.uppy.io';
 const endpoint = 'https://tusd.tusdemo.net/files/';
 
 export default function Examples() {
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, setPersistentState] = useLocalStorage(
+		'uppy-examples-state',
+		initialState,
+	);
 	const [locale, setLocale] = useState(null);
+	const dispatch = useCallback(
+		(action: Action) => setPersistentState(reducer(state, action)),
+		[state],
+	);
 
 	return (
 		<Layout>
@@ -281,28 +301,34 @@ export default function Examples() {
 										wrapper-for={section.heading}
 										className={styles['options-wrapper']}
 									>
-										{section.options.map(
-											({ label, value, type, defaultChecked }) => (
-												<div key={label}>
-													<input
-														type="checkbox"
-														id={label}
-														className={styles['framework-input']}
-														name="framework"
-														value={type}
-														defaultChecked={defaultChecked}
-														onChange={(event) =>
-															dispatch({
-																type: type,
-																checked: event.target.checked,
-																value,
-															})
-														}
-													/>
-													<label htmlFor={label}>{label}</label>
-												</div>
-											),
-										)}
+										{section.options.map(({ label, value, type, disabled }) => (
+											<div key={label}>
+												<input
+													type="checkbox"
+													id={label}
+													className={styles['framework-input']}
+													name="framework"
+													value={type}
+													checked={
+														// Forgive me for this logic
+														Array.isArray(state[type])
+															? state[type].includes(value)
+															: type === 'theme'
+															? state.theme === 'dark'
+															: state[type]
+													}
+													disabled={disabled}
+													onChange={(event) =>
+														dispatch({
+															type: type,
+															checked: event.target.checked,
+															value,
+														})
+													}
+												/>
+												<label htmlFor={label}>{label}</label>
+											</div>
+										))}
 									</div>
 								</div>
 							);
