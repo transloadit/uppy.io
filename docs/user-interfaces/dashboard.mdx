@@ -572,14 +572,17 @@ It supports the following values:
 - `dark`
 - `auto` — will respect the user’s system settings and switch automatically
 
-#### `autoOpenFileEditor`
+#### `autoOpen`
 
-Automatically open file editor (see [`@uppy/image-editor`](/docs/image-editor))
-for the first file in a batch (`boolean`, default: `false`).
+Automatically open file editor for the file user just dropped/selected.  
+If one file is added, editor opens for that file; if 10 files are added, editor
+opens only for the first file.
 
-If one file is added, editor opens for that file, if 10 files are added — editor
-opens for the first file. Use case: user adds an image — Uppy opens Image Editor
-right away — user crops / adjusts the image — upload.
+This option supports the following values:
+
+- `false` - the default
+- `"metaEditor"` - open the meta fields editor if [meta fields](/docs/dashboard/#metafields) are enabled.
+- `"fileEditor"` - open the file editor if the file editor is enabled. Potentially there might be editors for many file formats, however currently we only support the [`@uppy/image-editor`](/docs/image-editor).
 
 #### `disabled`
 
