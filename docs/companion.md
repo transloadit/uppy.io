@@ -126,11 +126,11 @@ const companionOptions = {
 	server: {
 		host: 'localhost:3020',
 		protocol: 'http',
-		// path: '/companion',
 		// Default installations normally don't need a path.
                 // However if you specify a `path`, you MUST specify
                 // the same path in `app.use()` below,
                 // e.g. app.use('/companion', companionApp)
+		// path: '/companion',
 	},
 	filePath: '/path/to/folder/',
 };
