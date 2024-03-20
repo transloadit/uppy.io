@@ -115,7 +115,6 @@ const options = [
 				type: 'plugins',
 				title:
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
 			},
 			{
 				label: 'Facebook',
@@ -123,7 +122,6 @@ const options = [
 				type: 'plugins',
 				title:
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
 			},
 			{ label: 'Url', value: 'Url', type: 'plugins' },
 			{
