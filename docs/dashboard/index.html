@@ -12,7 +12,7 @@
 
 <script src="https://plausible.io/js/script.js" async defer="defer" data-domain="uppy.io"></script>
 <script src="https://buttons.github.io/buttons.js" async defer="defer"></script><link rel="stylesheet" href="/assets/css/styles.e2335ff3.css">
-<script src="/assets/js/runtime~main.44d06b05.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.321c2164.js" defer="defer"></script>
 <script src="/assets/js/main.6053aefb.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -253,12 +253,18 @@ disable the <code>ThumbnailGenerator</code> and/or provide your own custom solut
 <li><code>dark</code></li>
 <li><code>auto</code> — will respect the user’s system settings and switch automatically</li>
 </ul>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="autoopenfileeditor"><code>autoOpenFileEditor</code><a href="#autoopenfileeditor" class="hash-link" aria-label="Direct link to autoopenfileeditor" title="Direct link to autoopenfileeditor">​</a></h4>
-<p>Automatically open file editor (see <a href="/docs/image-editor/"><code>@uppy/image-editor</code></a>)
-for the first file in a batch (<code>boolean</code>, default: <code>false</code>).</p>
-<p>If one file is added, editor opens for that file, if 10 files are added — editor
-opens for the first file. Use case: user adds an image — Uppy opens Image Editor
-right away — user crops / adjusts the image — upload.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="autoopen"><code>autoOpen</code><a href="#autoopen" class="hash-link" aria-label="Direct link to autoopen" title="Direct link to autoopen">​</a></h4>
+<p>Automatically open file editor for the file user just dropped/selected.<br>
+<!-- -->If one file is added, editor opens for that file; if 10 files are added, editor
+opens only for the first file.</p>
+<p>This option supports the following values:</p>
+<ul>
+<li><code>null</code> - the default</li>
+<li><code>&quot;metaEditor&quot;</code> - open the meta fields editor if
+<a href="/docs/dashboard/#metafields">meta fields</a> are enabled.</li>
+<li><code>&quot;imageEditor&quot;</code> - open <a href="/docs/image-editor/"><code>@uppy/image-editor</code></a> if the
+plugin is enabled.</li>
+</ul>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="disabled"><code>disabled</code><a href="#disabled" class="hash-link" aria-label="Direct link to disabled" title="Direct link to disabled">​</a></h4>
 <p>Enabling this option makes the Dashboard grayed-out and non-interactive
 (<code>boolean</code>, default: <code>false</code>).</p>
