@@ -141,14 +141,16 @@ You will need to do the following things:
    as AWS Lambdas), inside Next.js as an API route, or wherever your server
    runs.
    - `GET` > `/uppy/sts`: get the temporary security credentials (optional).
-   - `POST` > `/uppy/s3`: get parameters and pre-signed URL for non-multipart
+   - `POST` > `/uppy/s3/params`: get parameters and pre-signed URL for non-multipart
      upload.
-   - `POST` > `/uppy/s3-multipart`: create the multipart upload.
-   - `GET` > `/uppy/s3-multipart/:id`: get the uploaded parts.
-   - `GET` > `/uppy/s3-multipart/:id/:partNumber`: sign the part and return a
+   - `POST` > `/uppy/s3/multipart`: create the multipart upload.
+   - `GET` > `/uppy/s3/multipart/:id`: get the uploaded parts.
+   - `GET` > `/uppy/s3/multipart/:id/batch`: sign a batch of parts and return a
      pre-signed URL.
-   - `POST` > `/uppy/s3-multipart/:id/complete`: complete the multipart upload.
-   - `DELETE` > `/uppy/s3-multipart/:id`: abort the multipart upload.
+   - `GET` > `/uppy/s3/multipart/:id/:partNumber`: sign the part and return a
+     pre-signed URL.
+   - `POST` > `/uppy/s3/multipart/:id/complete`: complete the multipart upload.
+   - `DELETE` > `/uppy/s3/multipart/:id`: abort the multipart upload.
 3. [Setup Uppy](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/public/index.html).
 
 ### Use with Companion
