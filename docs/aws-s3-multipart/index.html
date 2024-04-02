@@ -12,7 +12,7 @@
 
 <script src="https://plausible.io/js/script.js" async defer="defer" data-domain="uppy.io"></script>
 <script src="https://buttons.github.io/buttons.js" async defer="defer"></script><link rel="stylesheet" href="/assets/css/styles.49dee910.css">
-<script src="/assets/js/runtime~main.fe76484c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.8c6bad6d.js" defer="defer"></script>
 <script src="/assets/js/main.6053aefb.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -78,23 +78,9 @@ bucket in question. In-depth documentation about CORS rules is available on the
 <p>The recommended approach is to integrate <code>@uppy/aws-s3</code> with your own server.
 You will need to do the following things:</p>
 <ol>
-<li><a href="#setting-up-your-s3-bucket">Setup up a S3 bucket</a>.</li>
-<li>Create endpoints in your server. You can create them as edge functions (such
-as AWS Lambdas), inside Next.js as an API route, or wherever your server
-runs.<!-- -->
-<ul>
-<li><code>GET</code> &gt; <code>/uppy/sts</code>: get the temporary security credentials (optional).</li>
-<li><code>POST</code> &gt; <code>/uppy/s3</code>: get parameters and pre-signed URL for non-multipart
-upload.</li>
-<li><code>POST</code> &gt; <code>/uppy/s3-multipart</code>: create the multipart upload.</li>
-<li><code>GET</code> &gt; <code>/uppy/s3-multipart/:id</code>: get the uploaded parts.</li>
-<li><code>GET</code> &gt; <code>/uppy/s3-multipart/:id/:partNumber</code>: sign the part and return a
-pre-signed URL.</li>
-<li><code>POST</code> &gt; <code>/uppy/s3-multipart/:id/complete</code>: complete the multipart upload.</li>
-<li><code>DELETE</code> &gt; <code>/uppy/s3-multipart/:id</code>: abort the multipart upload.</li>
-</ul>
-</li>
-<li><a href="https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/public/index.html" target="_blank" rel="noopener noreferrer">Setup Uppy</a>.</li>
+<li><a href="#setting-up-your-s3-bucket">Setup a S3 bucket</a>.</li>
+<li><a href="https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/index.js" target="_blank" rel="noopener noreferrer">Setup your server</a></li>
+<li><a href="https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/public/index.html" target="_blank" rel="noopener noreferrer">Setup Uppy client</a>.</li>
 </ol>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="use-with-companion">Use with Companion<a href="#use-with-companion" class="hash-link" aria-label="Direct link to Use with Companion" title="Direct link to Use with Companion">​</a></h3>
 <p><a href="/docs/companion/">Companion</a> has S3 routes built-in for a plug-and-play
