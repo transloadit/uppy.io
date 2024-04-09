@@ -32,6 +32,7 @@ import '@uppy/webcam/dist/style.min.css';
 import '@uppy/url/dist/style.min.css';
 
 import styles from './examples.module.css';
+import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 
 const restrictions = {
@@ -278,19 +279,19 @@ function Page() {
 	return (
 		<Layout>
 			<main className={styles.main}>
-				<h1>Examples</h1>
+				<Heading as="h1">Examples</Heading>
 
 				<div className={styles.header}>
-					<h2>Dashboard</h2>
+					<Heading as="h2">Dashboard</Heading>
 					<p>
 						<Link to="/docs/dashboard">Docs</Link> •{' '}
-						<a
+						<Link
 							target="_blank"
 							rel="noopener"
 							href="https://codesandbox.io/s/uppy-dashboard-xpxuhd"
 						>
 							CodeSandbox
-						</a>
+						</Link>
 					</p>
 				</div>
 				<p>
@@ -303,7 +304,7 @@ function Page() {
 						{options.map((section) => {
 							return (
 								<div key={section.heading}>
-									<h3>{section.heading}</h3>
+									<Heading as="h3">{section.heading}</Heading>
 									<div
 										wrapper-for={section.heading}
 										className={styles['options-wrapper']}
@@ -372,13 +373,13 @@ function Page() {
 				</section>
 				<Admonition type="note">
 					Checkout our{' '}
-					<a
+					<Link
 						href="https://github.com/transloadit/uppy/tree/main/examples"
 						target="_blank"
 						rel="noopener"
 					>
 						GitHub examples
-					</a>{' '}
+					</Link>{' '}
 					folder for many more examples.
 				</Admonition>
 			</main>

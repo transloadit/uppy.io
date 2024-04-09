@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from '@docusaurus/Link';
 
 import styles from './index.module.css';
 
@@ -15,23 +16,23 @@ function Footer() {
 			</p>
 			<p>
 				Released under the{' '}
-				<a
+				<Link
 					href="http://opensource.org/licenses/MIT"
 					rel="noreferrer noopener"
 					target="_blank"
 				>
 					MIT License
-				</a>{' '}
-				⋅ <a href="/privacy-policy/">Privacy Policy</a> ⋅{' '}
-				<a href="https://github.com/transloadit/uppy/blob/main/.github/CONTRIBUTING.md">
+				</Link>{' '}
+				⋅ <Link href="/privacy-policy/">Privacy Policy</Link> ⋅{' '}
+				<Link href="https://github.com/transloadit/uppy/blob/main/.github/CONTRIBUTING.md">
 					Contributing
-				</a>
+				</Link>
 			</p>
 			<p>
 				© 2023{' '}
-				<a href="https://transloadit.com" target="_blank">
+				<Link href="https://transloadit.com" target="_blank">
 					Transloadit
-				</a>
+				</Link>
 			</p>
 		</footer>
 	);
