@@ -7,7 +7,7 @@
 		"clear": "docusaurus clear",
 		"deploy": "docusaurus deploy",
 		"dev": "docusaurus start",
-		"lint:js": "eslint . --cache",
+		"lint:js": "eslint . --cache --max-warnings=0",
 		"lint:md": "run-s --continue-on-error remark:md remark:mdx",
 		"lint": "run-s --continue-on-error lint:js lint:md format:check-diff",
 		"prepare": "husky install",
