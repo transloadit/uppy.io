@@ -246,9 +246,9 @@ const Uppy = ({ state, locale }) => {
 				theme={state.theme}
 				disabled={state.disabled}
 				note={
-					state.restrictions
-						? 'Images and video only, 2–3 files, up to 1 MB'
-						: null
+					state.restrictions ?
+						'Images and video only, 2–3 files, up to 1 MB'
+					:	null
 				}
 			/>
 		</div>
@@ -320,11 +320,11 @@ function Page() {
 														title={title}
 														checked={
 															// Forgive me for this logic
-															Array.isArray(state[type])
-																? state[type].includes(value)
-																: type === 'theme'
-																? state.theme === 'dark'
-																: state[type]
+															Array.isArray(state[type]) ?
+																state[type].includes(value)
+															: type === 'theme' ?
+																state.theme === 'dark'
+															:	state[type]
 														}
 														disabled={disabled}
 														onChange={(event) =>
