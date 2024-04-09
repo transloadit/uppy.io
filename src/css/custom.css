@@ -9,7 +9,9 @@
 	font-style: normal;
 	font-weight: normal;
 	font-display: swap;
-	src: local('IBM Plex Mono'), local('IBMPlexMono'),
+	src:
+		local('IBM Plex Mono'),
+		local('IBMPlexMono'),
 		url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
 }
 @font-face {
@@ -17,7 +19,9 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: local('IBM Plex Mono SemiBold'), local('IBMPlexMono-SemiBold'),
+	src:
+		local('IBM Plex Mono SemiBold'),
+		local('IBMPlexMono-SemiBold'),
 		url('/fonts/IBMPlexMono-SemiBold.woff2') format('woff2');
 }
 
@@ -26,7 +30,9 @@
 	font-style: normal;
 	font-weight: 500;
 	font-display: swap;
-	src: local('IBM Plex Sans Regular'), local('IBMPlexSans-Regular'),
+	src:
+		local('IBM Plex Sans Regular'),
+		local('IBMPlexSans-Regular'),
 		url('/fonts/IBMPlexSans-Regular.woff2') format('woff2');
 }
 @font-face {
@@ -34,7 +40,9 @@
 	font-style: italic;
 	font-weight: 500;
 	font-display: swap;
-	src: local('IBM Plex Sans Italic'), local('IBMPlexSans-Italic'),
+	src:
+		local('IBM Plex Sans Italic'),
+		local('IBMPlexSans-Italic'),
 		url('/fonts/IBMPlexSans-Italic.woff2') format('woff2');
 }
 @font-face {
@@ -42,7 +50,9 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: local('IBM Plex Sans SemiBold'), local('IBMPlexSans-SemiBold'),
+	src:
+		local('IBM Plex Sans SemiBold'),
+		local('IBMPlexSans-SemiBold'),
 		url('/fonts/IBMPlexSans-SemiBold.woff2') format('woff2');
 }
 @font-face {
@@ -50,7 +60,8 @@
 	font-style: italic;
 	font-weight: 600;
 	font-display: swap;
-	src: local('IBM Plex Sans SemiBoldItalic'),
+	src:
+		local('IBM Plex Sans SemiBoldItalic'),
 		local('IBMPlexSans-SemiBoldItalic'),
 		url('/fonts/IBMPlexSans-SemiBoldItalic.woff2') format('woff2');
 }
@@ -60,7 +71,9 @@
 	font-style: normal;
 	font-weight: 500;
 	font-display: swap;
-	src: local('IBM Plex Serif Regular'), local('IBMPlexSerif-Regular'),
+	src:
+		local('IBM Plex Serif Regular'),
+		local('IBMPlexSerif-Regular'),
 		url('/fonts/IBMPlexSerif-Regular.woff2') format('woff2');
 }
 @font-face {
@@ -68,7 +81,9 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: local('IBM Plex Serif SemiBold'), local('IBMPlexSerif-SemiBold'),
+	src:
+		local('IBM Plex Serif SemiBold'),
+		local('IBMPlexSerif-SemiBold'),
 		url('/fonts/IBMPlexSerif-SemiBold.woff2') format('woff2');
 }
 

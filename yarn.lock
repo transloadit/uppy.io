@@ -14028,12 +14028,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.1":
-  version: 2.8.1
-  resolution: "prettier@npm:2.8.1"
+"prettier@npm:3.2.5":
+  version: 3.2.5
+  resolution: "prettier@npm:3.2.5"
   bin:
-    prettier: bin-prettier.js
-  checksum: 135801ef4c609f24f3606607f8b4e71bd42d6a2efb2579d7709d9079377614800a295f9cc5683b10c6070381106e805e00700a278a506b79a4e29c3548ef4ec1
+    prettier: bin/prettier.cjs
+  checksum: d509f9da0b70e8cacc561a1911c0d99ec75117faed27b95cc8534cb2349667dee6351b0ca83fa9d5703f14127faa52b798de40f5705f02d843da133fc3aa416a
   languageName: node
   linkType: hard
 
@@ -17723,7 +17723,7 @@ __metadata:
     lint-staged: "npm:^13.0.3"
     mdast-comment-marker: "npm:^2.1.0"
     npm-run-all: "npm:^4.1.5"
-    prettier: "npm:2.8.1"
+    prettier: "npm:3.2.5"
     prism-react-renderer: "npm:^2.1.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"

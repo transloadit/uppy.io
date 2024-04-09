@@ -587,7 +587,7 @@ module.exports = (api) => {
    like so:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
