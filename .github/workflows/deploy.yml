@@ -2,6 +2,16 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      UPPY_REF:
+        type: string
+        description: Uppy ref
+        required: false
+  workflow_call:
+    inputs:
+      UPPY_REF:
+        type: string
+        required: false
   push:
     branches:
       - main
@@ -20,6 +30,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Checkout docs from Uppy repo
+        uses: actions/checkout@v3
+        with:
+          repository: transloadit/uppy.io
+          ref: inputs.UPPY_REF
+          path: uppy
+      - run: mv uppy /tmp/uppy && ln -s /tmp/uppy/docs docs
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
