@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useBlogPost } from '@docusaurus/theme-common/internal';
 import EditThisPage from '@theme/EditThisPage';
 import TagsListInline from '@theme/TagsListInline';
+import Link from '@docusaurus/Link';
 import ReadMoreLink from '@theme/BlogPostItem/Footer/ReadMoreLink';
 import styles from './styles.module.css';
 
@@ -32,31 +33,31 @@ export default function BlogPostItemFooter() {
 			{isBlogPostPage && (
 				<ul className={styles.footer}>
 					<li>
-						<a
+						<Link
 							target="_blank"
 							rel="noopener"
 							href="https://twitter.com/uppy_io"
 						>
 							Twitter
-						</a>
+						</Link>
 					</li>
 					<li>
-						<a
+						<Link
 							target="_blank"
 							rel="noopener"
 							href="https://uppy.io/blog/atom.xml"
 						>
 							RSS feed
-						</a>
+						</Link>
 					</li>
 					<li>
-						<a
+						<Link
 							target="_blank"
 							rel="noopener"
 							href="https://github.com/transloadit/uppy"
 						>
 							GitHub
-						</a>
+						</Link>
 					</li>
 				</ul>
 			)}
