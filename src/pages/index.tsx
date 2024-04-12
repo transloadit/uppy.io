@@ -6,6 +6,7 @@ import Dashboard from '@uppy/react/lib/Dashboard';
 import Uppy from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrive from '@uppy/google-drive';
+import GooglePhotos from '@uppy/google-photos';
 import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
@@ -40,7 +41,7 @@ const endpoint = 'https://tusd.tusdemo.net/files/';
 
 const dashboardCode = `import Uppy  from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
-import RemoteSources from '@uppy/google-drive'
+import RemoteSources from '@uppy/remote-sources'
 import ImageEditor from '@uppy/image-editor'
 import Webcam from '@uppy/webcam'
 import Tus from '@uppy/tus'
