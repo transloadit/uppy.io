@@ -3713,15 +3713,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/file-input@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "@uppy/file-input@npm:3.1.0"
+"@uppy/file-input@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@uppy/file-input@npm:3.1.1"
   dependencies:
-    "@uppy/utils": "npm:^5.7.4"
+    "@uppy/utils": "npm:^5.7.5"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^3.9.3
-  checksum: 10/950a7c481340eeb18d47bcaa06dd63939b9c240851ed46439e811a13f4a41fc5fdae659969d46964a23323a909fd239f69d4b02ad3bcf07288673de9aa7fd549
+    "@uppy/core": ^3.10.0
+  checksum: 10/f4f85d3a68644abf0f072e53e3424cb5b0c34fc21bbd1a5082548584e24e25b555a19900dfe9de4f93e7e6170ee350209cb90001c2a602b681bbf4d1f96e77df
   languageName: node
   linkType: hard
 
@@ -16137,8 +16137,8 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 3.24.0
-  resolution: "uppy@npm:3.24.0"
+  version: 3.24.1
+  resolution: "uppy@npm:3.24.1"
   dependencies:
     "@uppy/audio": "npm:^1.1.8"
     "@uppy/aws-s3": "npm:^3.6.2"
@@ -16152,7 +16152,7 @@ __metadata:
     "@uppy/drop-target": "npm:^2.0.5"
     "@uppy/dropbox": "npm:^3.3.0"
     "@uppy/facebook": "npm:^3.3.0"
-    "@uppy/file-input": "npm:^3.1.0"
+    "@uppy/file-input": "npm:^3.1.1"
     "@uppy/form": "npm:^3.2.0"
     "@uppy/golden-retriever": "npm:^3.2.0"
     "@uppy/google-drive": "npm:^3.5.0"
@@ -16176,7 +16176,7 @@ __metadata:
     "@uppy/webcam": "npm:^3.4.0"
     "@uppy/xhr-upload": "npm:^3.6.4"
     "@uppy/zoom": "npm:^2.3.0"
-  checksum: 10/a5c78f19640c5595b3fcc45f492e03cbd77fac4d1552e168292e1aea91a8f1db802e00f8f6f1d482467bdf439e02475e8abef7d0be36cdc61712a6a6b5afd6a9
+  checksum: 10/bf4fe8e3d5d8725c4147be193eb7b2f53a6648dddfa8f1c8dca5a1e19ba3acd43d46afcc7a3da8dfe4b492853386d44a62cc606b71874dce7f07233b4feb5311
   languageName: node
   linkType: hard
 
