@@ -112,7 +112,9 @@ metadata will be stored on all file objects, but plugins may add more metadata.
     inside of it, the `relativePath` meta field of the file will be
     `folder1/folder2/file`. However if drag-dropping or opening `file` directly,
     `relativePath` will be `null`.
-  - **Remote file example:** When checking the checkbox next to a remove
+  - **Remote file example:** Suppose we have a remote provider folder structure such as `/folder1/folder2/file`.
+    Then, if the user checks the checkbox next to `folder1`, `file`'s `relativePath` will be `"folder1/folder2/file"`.
+    However if the user first navigates into `folder1`, and only then checks the checkbox next to `folder2`, `relativePath` will be `"folder2/file"`.
     provider folder `folder1` which has a folder inside of it named `folder2`,
     which has a file named `file` inside of it, the `relativePath` meta field of
     the file will be `folder1/folder2/file`. However if the user first navigates
