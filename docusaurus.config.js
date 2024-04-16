@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
+const { themes } = require('prism-react-renderer');
+const lightCodeTheme = themes.github;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -16,6 +16,9 @@ const config = {
 	organizationName: 'transloadit', // Usually your GitHub org/user name.
 	projectName: 'uppy.io', // Usually your repo name.
 	trailingSlash: true,
+	markdown: {
+		format: 'detect',
+	},
 	presets: [
 		[
 			'classic',
@@ -79,10 +82,11 @@ const config = {
 				],
 			},
 		],
+		'./src/plugins/custom.js',
 	],
 	scripts: [
 		{
-			src: 'https://analytics.transloadit.com/js/plausible.js',
+			src: 'https://plausible.io/js/script.js',
 			async: true,
 			defer: true,
 			'data-domain': 'uppy.io',
@@ -95,16 +99,14 @@ const config = {
 		({
 			image: 'img/og_image.jpg',
 			metadata: [
-				{ property: 'og:url', content: 'https://uppy.io' },
 				{ property: 'og:type', content: 'website' },
 				{ property: 'og:title', content: 'Uppy' },
 				{
 					property: 'og:description',
 					content: 'Sleek, modular open source JavaScript file uploader',
 				},
-				{ name: 'twitter:card', content: 'img/og_image.jpg' },
+				{ name: 'twitter:card', content: 'summary_large_image' },
 				{ name: 'twitter:domain', content: 'uppy.io' },
-				{ name: 'twitter:url', content: 'https://uppy.io' },
 				{ name: 'twitter:title', content: 'Uppy' },
 				{
 					name: 'twitter:description',
@@ -154,7 +156,6 @@ const config = {
 			},
 			prism: {
 				theme: lightCodeTheme,
-				darkTheme: darkCodeTheme,
 			},
 		}),
 };

@@ -8,6 +8,9 @@ on:
     # Review gh actions docs if you want to further define triggers, paths, etc
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 
+env:
+  NODE_VERSION: lts/*
+
 permissions:
   contents: write
 
@@ -19,8 +22,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: ${{ env.NODE_VERSION }}
           cache: yarn
+        env:
+          SKIP_YARN_COREPACK_CHECK: 1
 
       - name: Install dependencies
         run: corepack yarn install --immutable

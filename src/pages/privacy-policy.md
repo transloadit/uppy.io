@@ -31,8 +31,8 @@ We receive the following **data** from you:
 2. Request headers
 3. Data entered on our website
 4. Information used to analyze usage of our platform via
-   [Plausible](https://plausible.io), a self-hosted service that is GDPR
-   compliant and anonymizes data on impact.
+   [Plausible](https://plausible.io), a GDPR-compliant service that anonymizes
+   data on impact.
 5. Files you can optionally upload in example demos. Those files are stored
    temporarily for 24–72 hours, on uppy.io, tus.io or transloadit.com servers,
    and then deleted. See also Transloadit’s Privacy Policy:

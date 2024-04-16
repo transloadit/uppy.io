@@ -7,7 +7,7 @@
 		"clear": "docusaurus clear",
 		"deploy": "docusaurus deploy",
 		"dev": "docusaurus start",
-		"lint:js": "eslint . --cache",
+		"lint:js": "eslint . --cache --max-warnings=0",
 		"lint:md": "run-s --continue-on-error remark:md remark:mdx",
 		"lint": "run-s --continue-on-error lint:js lint:md format:check-diff",
 		"prepare": "husky install",
@@ -51,10 +51,11 @@
 		]
 	},
 	"dependencies": {
-		"@docusaurus/core": "^2.3.1",
-		"@docusaurus/plugin-client-redirects": "^2.3.1",
-		"@docusaurus/preset-classic": "^2.3.1",
-		"@mdx-js/react": "^1.6.22",
+		"@docusaurus/core": "^3.0.0",
+		"@docusaurus/plugin-client-redirects": "^3.0.0",
+		"@docusaurus/preset-classic": "^3.0.0",
+		"@mdx-js/react": "^3.0.0",
+		"@uidotdev/usehooks": "^2.4.1",
 		"@uppy/audio": "latest",
 		"@uppy/box": "latest",
 		"@uppy/core": "latest",
@@ -74,14 +75,14 @@
 		"@uppy/url": "latest",
 		"@uppy/webcam": "latest",
 		"clsx": "^1.1.1",
-		"prism-react-renderer": "^1.2.1",
-		"react": "^17.0.1",
-		"react-dom": "^17.0.1"
+		"prism-react-renderer": "^2.1.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@docusaurus/eslint-plugin": "^2.3.1",
-		"@docusaurus/module-type-aliases": "^2.3.1",
-		"@tsconfig/docusaurus": "^1.0.7",
+		"@docusaurus/eslint-plugin": "^3.0.0",
+		"@docusaurus/module-type-aliases": "^3.0.0",
+		"@tsconfig/docusaurus": "^2.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.48.1",
 		"@typescript-eslint/parser": "^5.48.1",
 		"eslint": "^8.19.0",
@@ -92,7 +93,7 @@
 		"lint-staged": "^13.0.3",
 		"mdast-comment-marker": "^2.1.0",
 		"npm-run-all": "^4.1.5",
-		"prettier": "2.8.1",
+		"prettier": "3.2.5",
 		"remark-cli": "^11.0.0",
 		"remark-directive": "^2.0.1",
 		"remark-frontmatter": "^4.0.0",
@@ -123,10 +124,10 @@
 		"retext-quotes": "^5.0.0",
 		"retext-simplify": "^7.0.0",
 		"retext-syntax-mentions": "^3.1.0",
-		"typescript": "^4.6.2",
+		"typescript": "^5.2.2",
 		"unified": "^10.0.0",
 		"unified-message-control": "^4.0.0",
 		"uppy": "latest"
 	},
-	"packageManager": "yarn@3.3.1+sha224.1c866bd0fca5cf439c5b6a019f1653906d5e7ea807b01a9c7b18adab"
+	"packageManager": "yarn@4.1.1+sha256.f3cc0eda8e5560e529c7147565b30faa43b4e472d90e8634d7134a37c7f59781"
 }
