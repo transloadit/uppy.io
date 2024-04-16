@@ -13,7 +13,7 @@
 
 <script src="https://plausible.io/js/script.js" async defer="defer" data-domain="uppy.io"></script>
 <script src="https://buttons.github.io/buttons.js" async defer="defer"></script><link rel="stylesheet" href="/assets/css/styles.0c52297c.css">
-<script src="/assets/js/runtime~main.b02048d0.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.1913fad5.js" defer="defer"></script>
 <script src="/assets/js/main.d3bcbe3a.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -572,7 +572,9 @@ some data you need in there).</li>
 <p>The class must also have:</p>
 <ul>
 <li>A unique <code>static authProvider</code> string property - a lowercased value which
-typically indicates the name of the provider (e.g “dropbox”).</li>
+indicates name of the <a href="https://github.com/simov/grant" target="_blank" rel="noopener noreferrer"><code>grant</code></a> OAuth2
+provider to use (e.g <code>google</code> for Google). If your provider doesn’t use
+OAuth2, you can omit this property.</li>
 <li>A <code>static</code> property <code>static version = 2</code>, which is the current version of the
 Companion Provider API.</li>
 </ul>
