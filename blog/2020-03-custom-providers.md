@@ -173,9 +173,7 @@ The constructor of our class will look something like this:
 
 ```js
 class MyCustomProvider {
-	constructor(options) {
-		this.authProvider = 'myunsplash'; // the name of our provider (lowercased)
-	}
+	static authProvider = 'google'; // the name of the OAuth provider to use (lowercased)
 	// ...
 }
 ```
@@ -302,9 +300,7 @@ const request = require('request');
 const BASE_URL = 'https://api.unsplash.com';
 
 class MyCustomProvider {
-	constructor(options) {
-		this.authProvider = 'myunsplash';
-	}
+	static authProvider = 'unsplash'; // the name of the OAuth provider to use (lowercased)
 
 	list({ token, directory }, done) {
 		const path = directory ? `/${directory}/photos` : '';
@@ -587,7 +583,7 @@ module.exports = (api) => {
    like so:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
