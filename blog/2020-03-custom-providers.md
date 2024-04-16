@@ -177,8 +177,6 @@ The constructor of our class will look something like this:
 ```js
 class MyCustomProvider {
 	static authProvider = 'google'; // the name of the OAuth provider to use (lowercased)
-
-	constructor(options) {}
 	// ...
 }
 ```
