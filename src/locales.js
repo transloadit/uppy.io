@@ -1,3 +1,4 @@
+import zh_TW from '@uppy/locales/lib/zh_TW';
 import zh_CN from '@uppy/locales/lib/zh_CN';
 import vi_VN from '@uppy/locales/lib/vi_VN';
 import uz_UZ from '@uppy/locales/lib/uz_UZ';
@@ -22,11 +23,13 @@ import is_IS from '@uppy/locales/lib/is_IS';
 import id_ID from '@uppy/locales/lib/id_ID';
 import hu_HU from '@uppy/locales/lib/hu_HU';
 import hr_HR from '@uppy/locales/lib/hr_HR';
+import hi_IN from '@uppy/locales/lib/hi_IN';
 import he_IL from '@uppy/locales/lib/he_IL';
 import gl_ES from '@uppy/locales/lib/gl_ES';
 import fr_FR from '@uppy/locales/lib/fr_FR';
 import fi_FI from '@uppy/locales/lib/fi_FI';
 import fa_IR from '@uppy/locales/lib/fa_IR';
+import es_MX from '@uppy/locales/lib/es_MX';
 import es_ES from '@uppy/locales/lib/es_ES';
 import en_US from '@uppy/locales/lib/en_US';
 import el_GR from '@uppy/locales/lib/el_GR';
@@ -41,6 +44,7 @@ export default [
 	{ name: 'Arabic (Saudi Arabia)', locale: ar_SA },
 	{ name: 'Bulgarian (Bulgaria)', locale: bg_BG },
 	{ name: 'Chinese (China)', locale: zh_CN },
+	{ name: 'Chinese (Taiwan)', locale: zh_TW },
 	{ name: 'Croatian (Croatia)', locale: hr_HR },
 	{ name: 'Czech (Czechia)', locale: cs_CZ },
 	{ name: 'Danish (Denmark)', locale: da_DK },
@@ -51,6 +55,7 @@ export default [
 	{ name: 'German (Germany)', locale: de_DE },
 	{ name: 'Greek (Greece)', locale: el_GR },
 	{ name: 'Hebrew (Israel)', locale: he_IL },
+	{ name: 'Hindi (India)', locale: hi_IN },
 	{ name: 'Hungarian (Hungary)', locale: hu_HU },
 	{ name: 'Icelandic (Iceland)', locale: is_IS },
 	{ name: 'Indonesian (Indonesia)', locale: id_ID },
@@ -68,6 +73,7 @@ export default [
 	{ name: 'Serbian (Serbia Latin)', locale: sr_RS_Latin },
 	{ name: 'Slovak (Slovakia)', locale: sk_SK },
 	{ name: 'Spanish (Spain)', locale: es_ES },
+	{ name: 'Spanish (Mexico)', locale: es_MX },
 	{ name: 'Swedish (Sweden)', locale: sv_SE },
 	{ name: 'Thai (Thailand)', locale: th_TH },
 	{ name: 'Turkish (Turkey)', locale: tr_TR },

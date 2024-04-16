@@ -12,9 +12,8 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 Uppy can be an uploader and an interface with a lot of features. Features can be
 added incrementally with plugins, but Uppy can be as bare bones as you want it
-to be. Therefor we build Uppy’s heart, `@uppy/core`, as a standalone
-orchestrator. It acts as a state manager, event emitter, and restrictions
-handler.
+to be. So we build Uppy’s heart, `@uppy/core`, as a standalone orchestrator. It
+acts as a state manager, event emitter, and restrictions handler.
 
 ## When should I use it?
 
@@ -112,9 +111,11 @@ metadata will be stored on all file objects, but plugins may add more metadata.
     inside of it, the `relativePath` meta field of the file will be
     `folder1/folder2/file`. However if drag-dropping or opening `file` directly,
     `relativePath` will be `null`.
-  - **Remote file example:** Suppose we have a remote provider folder structure such as `/folder1/folder2/file`.
-    Then, if the user checks the checkbox next to `folder1`, `file`'s `relativePath` will be `"folder1/folder2/file"`.
-    However if the user first navigates into `folder1`, and only then checks the checkbox next to `folder2`, `relativePath` will be `"folder2/file"`.
+  - **Remote file example:** Suppose we have a remote provider folder structure
+    such as `/folder1/folder2/file`. Then, if the user checks the checkbox next
+    to `folder1`, `file`’s `relativePath` will be `"folder1/folder2/file"`.
+    However if the user first navigates into `folder1`, and only then checks the
+    checkbox next to `folder2`, `relativePath` will be `"folder2/file"`.
     provider folder `folder1` which has a folder inside of it named `folder2`,
     which has a file named `file` inside of it, the `relativePath` meta field of
     the file will be `folder1/folder2/file`. However if the user first navigates
@@ -349,15 +350,16 @@ Metadata can also be added from a `<form>` element on your page, through the
 
 :::
 
-<a id="onBeforeFileAdded" />
+<i id="onBeforeFileAdded" />
 
 #### `onBeforeFileAdded(file, files)`
 
 A function called before a file is added to Uppy (`Function`, default:
-`(file) => file`).
+`(files, file) => !Object.hasOwn(files, file.id)`).
 
 Use this function to run any number of custom checks on the selected file, or
-manipulate it, for instance, by optimizing a file name.
+manipulate it, for instance, by optimizing a file name. You can also allow
+duplicate files with this.
 
 You can return `true` to keep the file as is, `false` to remove the file, or
 return a modified file.
@@ -382,6 +384,16 @@ purposes via [`uppy.log()`](#logmessage-type).
 
 <details>
   <summary>Filter, change, and abort example</summary>
+
+Allow all files, also duplicate files. This will replace the file if it has not
+been uploaded. If you upload a duplicate file again it depends on your upload
+plugin and backend how it is handled.
+
+```js
+const uppy = new Uppy({
+  // ...
+  onBeforeFileAdded: () => true,
+```
 
 Keep only files under a condition:
 
@@ -757,7 +769,11 @@ Retry an upload (after an error, for example).
 
 Retry all uploads (after an error, for example).
 
-#### `cancelAll()`
+#### `cancelAll({ reason: 'user' })`
+
+| Argument | Type     | Description                                                                                                                                                                                                                                                                                                 |
+| -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reason` | `string` | The reason for canceling. Plugins can use this to provide different cleanup behavior (Transloadit plugin cancels an Assembly if user clicked on the “cancel” button). Possible values are: `user` (default) - The user has pressed “cancel”; `unmount` - The Uppy instance has been closed programmatically |
 
 Cancel all uploads, reset progress and remove all files.
 
@@ -863,7 +879,11 @@ uppy.getPlugin('Dashboard').setOptions({
 });
 ```
 
-#### `close()`
+#### `close({ reason: 'user' })`
+
+| Argument | Type     | Description                                                                                                                                                                                                                                                                                                 |
+| -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reason` | `string` | The reason for canceling. Plugins can use this to provide different cleanup behavior (Transloadit plugin cancels an Assembly if user clicked on the “cancel” button). Possible values are: `user` (default) - The user has pressed “cancel”; `unmount` - The Uppy instance has been closed programmatically |
 
 Uninstall all plugins and close down this Uppy instance. Also runs
 `uppy.cancelAll()` before uninstalling.
@@ -1276,7 +1296,7 @@ Fired when all failed uploads are retried
 **Example**
 
 ```js
-uppy.on('upload-retry', (fileIDs) => {
+uppy.on('retry-all', (fileIDs) => {
 	console.log('upload retried:', fileIDs);
 });
 ```
@@ -1306,6 +1326,10 @@ Fired when “info” message should be hidden in the UI. See
 [`info-visible`](#info-visible).
 
 #### `cancel-all`
+
+| Argument | Type     | Description                         |
+| -------- | -------- | ----------------------------------- |
+| `reason` | `string` | See [uppy.cancelAll](####cancelAll) |
 
 Fired when `cancelAll()` is called, all uploads are canceled, files removed and
 progress is reset.
@@ -1449,7 +1473,7 @@ uninstall () {
 #### `i18nInit`
 
 Call `this.i18nInit()` once in the constructor of your plugin class to
-initialize [internationalisation](/docs/guides/using-locales).
+initialize [internationalisation](/docs/locales).
 
 #### `addTarget`
 
@@ -1587,6 +1611,21 @@ const debugLogger = {
 	warn: (...args) => console.warn(`[Uppy] [${getTimeStamp()}]`, ...args),
 	error: (...args) => console.error(`[Uppy] [${getTimeStamp()}]`, ...args),
 };
+```
+
+## Frequently asked questions
+
+### How do I allow duplicate files?
+
+You can allow all files, even duplicate files, with
+[`onBeforeFileAdded`](#onbeforefileadded). This will override the file if it has
+not been uploaded. If you upload a duplicate file again it depends on your
+upload plugin and backend how it is handled.
+
+```js
+const uppy = new Uppy({
+  // ...
+  onBeforeFileAdded: () => true,
 ```
 
 [dashboard]: /docs/dashboard

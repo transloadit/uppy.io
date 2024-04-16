@@ -70,89 +70,28 @@ files to arrive at Transloadit servers, much like Uppy.
 
 Companion is installed from npm. Depending on how you want to run Companion, the
 install process is slightly different. Companion can be integrated as middleware
-into your [Express](https://expressjs.com/) app or as a standalone server.
-
-```bash
-npm install @uppy/companion
-```
+into your [Express](https://expressjs.com/) app or as a standalone server. Most
+people probably want to run it as a standalone server, while the middleware
+could be used to further customise Companion or integrate it into your own HTTP
+server code.
 
 :::note
 
 Since v2, you need to be running `node.js >= v10.20.1` to use Companion. More
-information in the [migrating to 2.0](/docs/guides/migrate-2.0) guide.
+information in the
+[migrating to 2.0](/docs/guides/migration-guides/#migrate-from-uppy-1x-to-2x)
+guide.
 
 Windows is not a supported platform right now. It may work, and we’re happy to
 accept improvements in this area, but we can’t provide support.
 
 :::
 
-### Express middleware
+### Standalone mode
 
-First install it into your Node.js project with your favorite package manger:
-
-```bash
-npm install @uppy/companion
-```
-
-To plug Companion into an existing server, call its `.app` method, passing in an
-[options](#options) object as a parameter. This returns a server instance that
-you can mount on a route in your Express app.
-
-```js
-import express from 'express';
-import bodyParser from 'body-parser';
-import session from 'express-session';
-import companion from '@uppy/companion';
-
-const app = express();
-
-// Companion requires body-parser and express-session middleware.
-// You can add it like this if you use those throughout your app.
-//
-// If you are using something else in your app, you can add these
-// middlewares in the same subpath as Companion instead.
-app.use(bodyParser.json());
-app.use(session({ secret: 'some secrety secret' }));
-
-const options = {
-	providerOptions: {
-		drive: {
-			key: 'GOOGLE_DRIVE_KEY',
-			secret: 'GOOGLE_DRIVE_SECRET',
-		},
-	},
-	server: {
-		host: 'localhost:3020',
-		protocol: 'http',
-		// This MUST match the path you specify in `app.use()` below:
-		path: '/companion',
-	},
-	filePath: '/path/to/folder/',
-};
-
-const { app: companionApp } = companion.app(companionOptions);
-app.use(companionApp);
-```
-
-Companion uses WebSockets to communicate progress, errors, and successes to the
-client. This is what Uppy listens to to update it’s internal state and UI.
-
-Add the Companion WebSocket server using the `companion.socket` function:
-
-```js
-const server = app.listen(PORT);
-
-companion.socket(server);
-```
-
-If WebSockets fail for some reason Uppy and Companion will fallback to HTTP
-polling.
-
-### Standalone
-
-You can use the standalone version if you want to run Companion as it’s own Node
-process. It’s a configured Express server with sessions, logging, and security
-best practices. First you’ll typically want to install it globally:
+You can use the standalone version if you want to run Companion as it’s own
+Node.js process. It’s a configured Express server with sessions, logging, and
+security best practices. First you’ll typically want to install it globally:
 
 ```bash
 npm install -g @uppy/companion
@@ -162,7 +101,7 @@ Standalone Companion will always serve HTTP (not HTTPS) and expects a reverse
 proxy with SSL termination in front of it when running in production. See
 [`COMPANION_PROTOCOL`](#server) for more information.
 
-Companion ships with an excecutable file (`bin/companion`) which is the
+Companion ships with an executable file (`bin/companion`) which is the
 standalone server. Unlike the middleware version, options are set via
 environment variables.
 
@@ -196,6 +135,71 @@ companion --config /path/to/companion.json
 You may also want to run Companion in a process manager like
 [PM2](https://pm2.keymetrics.io/) to make sure it gets restarted on upon
 crashing as well as allowing scaling to many instances.
+
+### Express middleware mode
+
+First install it into your Node.js project with your favorite package manager:
+
+```bash
+npm install @uppy/companion
+```
+
+To plug Companion into an existing server, call its `.app` method, passing in an
+[options](#options) object as a parameter. This returns a server instance that
+you can mount on a route in your Express app.
+
+```js
+import express from 'express';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import companion from '@uppy/companion';
+
+const app = express();
+
+// Companion requires body-parser and express-session middleware.
+// You can add it like this if you use those throughout your app.
+//
+// If you are using something else in your app, you can add these
+// middlewares in the same subpath as Companion instead.
+app.use(bodyParser.json());
+app.use(session({ secret: 'some secrety secret' }));
+
+const companionOptions = {
+	providerOptions: {
+		drive: {
+			key: 'GOOGLE_DRIVE_KEY',
+			secret: 'GOOGLE_DRIVE_SECRET',
+		},
+	},
+	server: {
+		host: 'localhost:3020',
+		protocol: 'http',
+		// Default installations normally don't need a path.
+		// However if you specify a `path`, you MUST specify
+		// the same path in `app.use()` below,
+		// e.g. app.use('/companion', companionApp)
+		// path: '/companion',
+	},
+	filePath: '/path/to/folder/',
+};
+
+const { app: companionApp } = companion.app(companionOptions);
+app.use(companionApp);
+```
+
+Companion uses WebSockets to communicate progress, errors, and successes to the
+client. This is what Uppy listens to to update it’s internal state and UI.
+
+Add the Companion WebSocket server using the `companion.socket` function:
+
+```js
+const server = app.listen(PORT);
+
+companion.socket(server);
+```
+
+If WebSockets fail for some reason Uppy and Companion will fallback to HTTP
+polling.
 
 ### Running many instances
 
@@ -391,12 +395,12 @@ will prefix all events with the name provided and a colon. See also
 
 #### `server`
 
-Configuation options for the underlying server.
+Configuration options for the underlying server.
 
 | Key / Environment variable               | Value             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ---------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `protocol` `COMPANION_PROTOCOL`          | `http` or `https` | Used to build a URL to reference the Companion instance itself, which is used for headers and cookies. Companion itself always runs as a HTTP server, so locally you should use `http`. You must to set this to `https` once you enabled SSL/HTTPS for your domain in production by running a reverse https-proxy in front of Companion, or with a built-in HTTPS feature of your hosting service.                                           |
-| `host` `COMPANION_DOMAIN`                | `String`          | Your server’s publically facing hostname (for example `example.com`).                                                                                                                                                                                                                                                                                                                                                                        |
+| `host` `COMPANION_DOMAIN`                | `String`          | Your server’s publicly facing hostname (for example `example.com`).                                                                                                                                                                                                                                                                                                                                                                          |
 | `oauthDomain` `COMPANION_OAUTH_DOMAIN`   | `String`          | If you have several instances of Companion with different (and perhaps dynamic) subdomains, you can set a single fixed subdomain and server (such as `sub1.example.com`) to handle your OAuth authentication for you. This would then redirect back to the correct instance with the required credentials on completion. This way you only need to configure a single callback URL for OAuth providers.                                      |
 | `path` `COMPANION_PATH`                  | `String`          | The server path to where the Companion app is sitting. For instance, if Companion is at `example.com/companion`, then the path would be `/companion`).                                                                                                                                                                                                                                                                                       |
 | `implicitPath` `COMPANION_IMPLICIT_PATH` | `String`          | If the URL’s path in your reverse proxy is different from your Companion path in your express app, then you need to set this path as `implicitPath`. For instance, if your Companion URL is `example.com/mypath/companion`. Where the path `/mypath` is defined in your NGINX server, while `/companion` is set in your express app. Then you need to set the option `implicitPath` to `/mypath`, and set the `path` option to `/companion`. |
@@ -463,9 +467,22 @@ which has only the secret, nothing else.
 
 :::
 
+##### `s3.endpoint` `COMPANION_AWS_ENDPOINT`
+
+Optional URL to a custom S3 (compatible) service. Otherwise uses the default
+from the AWS SDK.
+
 ##### `s3.bucket` `COMPANION_AWS_BUCKET`
 
 The name of the bucket to store uploaded files in.
+
+It can be function that returns the name of the bucket as a `string` and takes
+the following arguments:
+
+- [`http.IncomingMessage`][], the HTTP request (will be `null` for remote
+  uploads)
+- metadata provided by the user for the file (will be `undefined` for local
+  uploads)
 
 ##### `s3.region` `COMPANION_AWS_REGION`
 
@@ -500,14 +517,12 @@ Get the key name for a file. The key is the file path to which the file will be
 uploaded in your bucket. This option should be a function receiving three
 arguments:
 
-- `req`, the HTTP request, for _regular_ S3 uploads using the `@uppy/aws-s3`
-  plugin. This parameter is _not_ available for multipart uploads using the
-  `@uppy/aws-s3-multipart` plugin;
+- `req` [`http.IncomingMessage`][], the HTTP request, for _regular_ S3 uploads
+  using the `@uppy/aws-s3` plugin. This parameter is _not_ available for
+  multipart uploads using the `@uppy/aws-s3` or `@uppy/aws-s3-multipart`
+  plugins. This parameter is `null` for remote uploads.
 - `filename`, the original name of the uploaded file;
-- `metadata`, user-provided metadata for the file. See the
-  [`@uppy/aws-s3`](https://uppy.io/docs/aws-s3/#metaFields) docs. The
-  `@uppy/aws-s3-multipart` plugin unconditionally sends all metadata fields, so
-  they all are available here.
+- `metadata`, user-provided metadata for the file.
 
 This function should return a string `key`. The `req` parameter can be used to
 upload to a user-specific folder in your bucket, for example:
@@ -540,6 +555,9 @@ app.use(
 	}),
 );
 ```
+
+When signing on the client, this function will only be called for multipart
+uploads.
 
 #### `COMPANION_AWS_USE_ACCELERATE_ENDPOINT`
 
@@ -633,6 +651,11 @@ of bad network connections. Passed to tus-js-client
 as well as
 [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html)
 `partSize`.
+
+#### `enableUrlEndpoint` `COMPANION_ENABLE_URL_ENDPOINT`
+
+Set this to `false` to disable the
+[URL functionalily](https://uppy.io/docs/url/). Default: `true`.
 
 ### Events
 
@@ -809,7 +832,9 @@ with an `Error`):
 The class must also have:
 
 - A unique `static authProvider` string property - a lowercased value which
-  typically indicates the name of the provider (e.g “dropbox”).
+  indicates name of the [`grant`](https://github.com/simov/grant) OAuth2
+  provider to use (e.g `google` for Google). If your provider doesn’t use
+  OAuth2, you can omit this property.
 - A `static` property `static version = 2`, which is the current version of the
   Companion Provider API.
 
@@ -873,8 +898,8 @@ See also
    `env.sh` and edit it to its correct values.
 
    ```bash
-   cp env.example.sh env.sh
-   $EDITOR env.sh
+   cp .env.example .env
+   $EDITOR .env
    ```
 
 3. To start the server, run:
@@ -887,6 +912,8 @@ This would get the Companion instance running on `http://localhost:3020`. It
 uses [nodemon](https://github.com/remy/nodemon) so it will automatically restart
 when files are changed.
 
+[`http.incomingmessage`]:
+	https://nodejs.org/api/http.html#class-httpincomingmessage
 [box]: /docs/box
 [dropbox]: /docs/dropbox
 [facebook]: /docs/facebook

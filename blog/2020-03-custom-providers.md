@@ -7,9 +7,8 @@ slug: '2020/03/custom-providers'
 ---
 
 In this post we will be going through a step by step tutorial on how to develop,
-and add custom [providers](https://uppy.io/docs/providers/) to Uppy and
-Companion. For the purpose of this tutorial we will be building a custom
-provider for [Unsplash](https://unsplash.com/).
+and add custom providers to Uppy and Companion. For the purpose of this tutorial
+we will be building a custom provider for [Unsplash](https://unsplash.com/).
 
 <!--truncate-->
 
@@ -22,8 +21,6 @@ provider for [Unsplash](https://unsplash.com/).
 > [Companion](https://www.npmjs.com/package/@uppy/companion) — Uppy's
 > server-to-server communication handler between your server and file storage
 > providers.
-
-Read more on [Provider Plugins](https://uppy.io/docs/providers/).
 
 Creating a custom provider composes of two parts; **Custom Companion Provider**
 and **Custom Uppy Plugin**
@@ -176,9 +173,7 @@ The constructor of our class will look something like this:
 
 ```js
 class MyCustomProvider {
-	constructor(options) {
-		this.authProvider = 'myunsplash'; // the name of our provider (lowercased)
-	}
+	static authProvider = 'google'; // the name of the OAuth provider to use (lowercased)
 	// ...
 }
 ```
@@ -305,9 +300,7 @@ const request = require('request');
 const BASE_URL = 'https://api.unsplash.com';
 
 class MyCustomProvider {
-	constructor(options) {
-		this.authProvider = 'myunsplash';
-	}
+	static authProvider = 'unsplash'; // the name of the OAuth provider to use (lowercased)
 
 	list({ token, directory }, done) {
 		const path = directory ? `/${directory}/photos` : '';
@@ -590,7 +583,7 @@ module.exports = (api) => {
    like so:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />

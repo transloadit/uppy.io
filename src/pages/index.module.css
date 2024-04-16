@@ -86,7 +86,9 @@
 	background-color: #fff;
 	padding: 5px;
 	border-radius: 10px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.05);
+	box-shadow:
+		0 1px 2px rgba(0, 0, 0, 0.1),
+		0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 @media screen and (min-width: 50rem) {
@@ -319,8 +321,11 @@
 	}
 	.frameworks-wrapper div:nth-of-type(2) {
 		grid-column: 7 / 13;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
-			0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12),
+		box-shadow:
+			0 1px 1px rgba(0, 0, 0, 0.12),
+			0 2px 2px rgba(0, 0, 0, 0.12),
+			0 4px 4px rgba(0, 0, 0, 0.12),
+			0 8px 8px rgba(0, 0, 0, 0.12),
 			0 16px 16px rgba(0, 0, 0, 0.12);
 	}
 }
@@ -424,28 +429,4 @@
 	align-items: center;
 	gap: 1rem;
 	margin: 1rem 0;
-}
-
-/* ----- Footer ------  */
-
-.footer {
-	background-color: #15192a;
-	color: #fff;
-	margin-top: 50px;
-	padding: 2em 1em 3em;
-	text-align: center;
-}
-
-.footer p {
-	margin: 1em 0;
-}
-
-.footer img {
-	height: auto;
-	width: 44px;
-}
-
-.footer a {
-	color: rgba(255, 255, 255);
-	text-decoration: underline;
 }

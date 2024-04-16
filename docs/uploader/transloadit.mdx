@@ -336,8 +336,8 @@ When this is enabled, you can listen for the
 
 #### `waitForMetadata`
 
-Wait for for Transloadit’s backend to catch early errors, not the entire
-Assembly to complete. (`boolean`, default: `false`)
+Wait for Transloadit’s backend to catch early errors, not the entire Assembly to
+complete. (`boolean`, default: `false`)
 
 When set to `true`, the Transloadit plugin waits for Transloadit’s backend to
 extract metadata from all the uploaded files. This is mostly handy if you want
@@ -382,9 +382,9 @@ Tranloadit will download the files and expose them to your Template as
 `:original`, as if they were directly uploaded from the Uppy client.  
 :::note
 
-For this to work, the upload plugin must assign a publically accessible
+For this to work, the upload plugin must assign a publicly accessible
 `uploadURL` property to the uploaded file object. The Tus and S3 plugins both do
-this automatically, but you must configure your S3 bucket to have publically
+this automatically, but you must configure your S3 bucket to have publicly
 readable objects. For the XHRUpload plugin, you may have to specify a custom
 `getResponseData` function.
 
@@ -415,6 +415,16 @@ export default {
 };
 ```
 
+#### `clientName`
+
+Append a custom client name to the `Transloadit-Client` header field when
+creating an Assembly (`string`, default: `null`).
+
+The `Transloadit-Client` header includes by default information about the used
+SDK and is included in the Assembly Status under the `transloadit_client`
+property. By providing a value, such as `homepage-file-uploader`, you can
+identify the client and SDK that created a given Assembly.
+
 <details>
   <summary>Deprecated options</summary>
 
@@ -426,7 +436,7 @@ version.
 #### `getAssemblyOptions`
 
 This function behaves the same as passing a function to
-[`assemblyOptions`](assemblyoptions).
+[`assemblyOptions`](#assemblyoptions).
 
 #### `params`
 

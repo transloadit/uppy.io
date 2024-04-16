@@ -1,4 +1,5 @@
 import React from 'react';
+import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 
 import styles from './styles.module.css';
@@ -18,7 +19,7 @@ export const QuickStartLinks = (props: Props) => {
 			{props.items.map((item) => (
 				<Link to={item.link}>
 					<div className={styles.item}>
-						<h2>{item.name}</h2>
+						<Heading as="h2">{item.name}</Heading>
 						<p>{item.description}</p>
 					</div>
 				</Link>

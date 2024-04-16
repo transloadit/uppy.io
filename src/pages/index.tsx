@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import Layout from '@theme/Layout';
+import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 import Dashboard from '@uppy/react/lib/Dashboard';
 import Uppy from '@uppy/core';
@@ -30,9 +31,15 @@ import IconFolder from '../../static/img/folder.svg';
 import IconWrench from '../../static/img/wrench.svg';
 import IconUppy from '../../static/img/uppy.svg';
 
-import styles from './index.module.css';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/audio/dist/style.min.css';
+import '@uppy/screen-capture/dist/style.min.css';
+import '@uppy/image-editor/dist/style.min.css';
+import '@uppy/webcam/dist/style.min.css';
+import '@uppy/url/dist/style.min.css';
+
+import styles from './index.module.css';
 
 const companionUrl = 'https://companion.uppy.io';
 const endpoint = 'https://tusd.tusdemo.net/files/';
@@ -154,7 +161,9 @@ export default function Home(): JSX.Element {
 	return (
 		<Layout description="Description will go into a meta tag in <head />">
 			<header className={styles.header}>
-				<h1>Sleek, modular open source JavaScript file uploader</h1>
+				<Heading as="h1">
+					Sleek, modular open source JavaScript file uploader
+				</Heading>
 
 				<p>
 					Uppy fetches files locally and from remote places like Dropbox or
@@ -171,13 +180,13 @@ export default function Home(): JSX.Element {
 						<p>“Top 10 tools of the year”</p>
 					</blockquote>
 					<figcaption>
-						<a
+						<Link
 							href="https://stackshare.io/posts/top-developer-tools-2017"
 							rel="noopener"
 							target="_blank"
 						>
 							Stackshare
-						</a>
+						</Link>
 					</figcaption>
 				</figure>
 
@@ -186,13 +195,13 @@ export default function Home(): JSX.Element {
 						<p>“The best product launches”</p>
 					</blockquote>
 					<figcaption>
-						<a
+						<Link
 							href="https://books.producthunt.com/bestof2017"
 							rel="noopener"
 							target="_blank"
 						>
 							Product Hunt
-						</a>
+						</Link>
 					</figcaption>
 				</figure>
 
@@ -201,22 +210,22 @@ export default function Home(): JSX.Element {
 						<p>“Soooo useful”</p>
 					</blockquote>
 					<figcaption>
-						<a
+						<Link
 							href="https://twitter.com/smashingmag/status/1097870169043546112"
 							rel="noopener"
 							target="_blank"
 						>
 							Smashing Magazine
-						</a>
+						</Link>
 					</figcaption>
 				</figure>
 			</header>
 
 			<main className={styles.main}>
 				<section className={styles['section-dashboard']}>
-					<h2>
+					<Heading as="h2">
 						The all you need Dashboard — powerful, responsive, and pluggable.
-					</h2>
+					</Heading>
 					<p>
 						Add files from remote sources, edit images, generate thumbnails, and
 						more.
@@ -231,7 +240,13 @@ export default function Home(): JSX.Element {
 										.use(Audio)
 										.use(ImageEditor, {})
 										.use(Tus, { endpoint })
-										.use(GoogleDrive, { companionUrl })
+										.use(GoogleDrive, {
+											companionUrl,
+											companionKeysParams: {
+												key: 'unused-key',
+												credentialsName: 'unused-credentials',
+											},
+										})
 										.use(Dropbox, { companionUrl })
 										.use(Instagram, { companionUrl })
 										.use(Url, { companionUrl })
@@ -287,7 +302,9 @@ export default function Home(): JSX.Element {
 							</div>
 						))}
 					</div>
-					<h2>Bring in the files from the cloud with Companion.</h2>
+					<Heading as="h2">
+						Bring in the files from the cloud with Companion.
+					</Heading>
 					<p>
 						Companion is a hosted, standalone, or middleware server to{' '}
 						<strong>
@@ -307,7 +324,7 @@ export default function Home(): JSX.Element {
 
 				<section className={styles['section-stack']}>
 					<div>
-						<h2>Integrate Uppy into your existing stack.</h2>
+						<Heading as="h2">Integrate Uppy into your existing stack.</Heading>
 						<p>
 							Uppy can seamlessly integrate in your existing stack. Plug the pup
 							in the framework of your choosing.
@@ -346,7 +363,7 @@ export default function Home(): JSX.Element {
 				</section>
 
 				<section className={styles['section-much-more']}>
-					<h2>And much more</h2>
+					<Heading as="h2">And much more</Heading>
 					<ul>
 						<li>
 							<span>
@@ -354,7 +371,8 @@ export default function Home(): JSX.Element {
 							</span>
 							<span>
 								Large uploads survive network hiccups thanks to resumable file
-								uploads via the open <a href="https://tus.io/">Tus</a> standard
+								uploads via the open <Link href="https://tus.io/">Tus</Link>{' '}
+								standard
 							</span>
 						</li>
 						<li>
@@ -363,7 +381,7 @@ export default function Home(): JSX.Element {
 							</span>
 							<span>
 								Works great with the file encoding and processing backend from{' '}
-								<a href="https://transloadit.com/">Transloadit</a>.
+								<Link href="https://transloadit.com/">Transloadit</Link>.
 							</span>
 						</li>
 						<li>
@@ -405,34 +423,6 @@ export default function Home(): JSX.Element {
 					</div>
 				</section>
 			</main>
-
-			<footer className={styles.footer}>
-				<p>
-					<img
-						className="IndexFooter-logo"
-						title="Uppy"
-						alt="Uppy"
-						src="/img/logo.svg"
-					/>
-				</p>
-				<p>
-					Released under the{' '}
-					<a
-						href="http://opensource.org/licenses/MIT"
-						rel="noreferrer noopener"
-						target="_blank"
-					>
-						MIT License
-					</a>{' '}
-					⋅ <a href="/privacy-policy/">Privacy Policy</a>
-				</p>
-				<p>
-					© 2023{' '}
-					<a href="https://transloadit.com" target="_blank">
-						Transloadit
-					</a>
-				</p>
-			</footer>
 		</Layout>
 	);
 }

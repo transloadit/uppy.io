@@ -56,24 +56,9 @@ cases be preferable, for instance, to reduce costs or the complexity of running
 a server and load balancer with [Tus](/docs/tus).
 
 Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and
-[`@uppy/aws-s3-multipart`][].
-
-#### Which one should I pick?
-
-If your users are planning to mostly upload small files and/or a lot of files,
-it’s better to use [`@uppy/aws-s3`][].
-
-[`@uppy/aws-s3-multipart`][] is valuable for larger files (100&nbsp;MB+) as it
-uploads a single object as a set of parts. This has certain benefits, such as
-improved throughput (uploading parts in parallel) and quick recovery from
-network issues (only the failed parts need to be retried). The downside is
-request overhead, as it needs to do creation, signing, and completion requests
-besides the upload requests. For example, if you are uploading files that are
-only a couple kilobytes with a 100ms roundtrip latency, you are spending 400ms
-on overhead and only a few milliseconds on uploading.
-
-If you are uploading large files (100&nbsp;MB+), we recommend
-[`@uppy/aws-s3-multipart`][], otherwise [`@uppy/aws-s3`][].
+[`@uppy/aws-s3-multipart`][], but we are planning to merge the two plugins in
+the next major. You should use [`@uppy/aws-s3`][] with the new
+`shouldUseMultipart` option.
 
 :::info
 
@@ -93,7 +78,7 @@ uploads using the HTTP `PUT` method.
 [`@uppy/transloadit`]: /docs/transloadit
 [`@uppy/tus`]: /docs/tus
 [`@uppy/aws-s3-multipart`]: /docs/aws-s3-multipart
-[`@uppy/aws-s3`]: /docs/aws-s3
+[`@uppy/aws-s3`]: /docs/aws-s3-multipart
 [`@uppy/xhr-upload`]: /docs/xhr-upload
 [tus]: https://tus.io/
 [tus-implementations]: https://tus.io/implementations.html
