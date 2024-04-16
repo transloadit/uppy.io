@@ -13,7 +13,7 @@
 
 <script src="https://plausible.io/js/script.js" async defer="defer" data-domain="uppy.io"></script>
 <script src="https://buttons.github.io/buttons.js" async defer="defer"></script><link rel="stylesheet" href="/assets/css/styles.0c52297c.css">
-<script src="/assets/js/runtime~main.e8fc1363.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.d2dfcd1a.js" defer="defer"></script>
 <script src="/assets/js/main.d3bcbe3a.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -39,12 +39,58 @@ to <a href="/docs/guides/choosing-uploader/">choosing the uploader you need</a>.
 <code>debugLogger</code>. The default export is the <code>Uppy</code> class.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="working-with-uppy-files">Working with Uppy files<a href="#working-with-uppy-files" class="hash-link" aria-label="Direct link to Working with Uppy files" title="Direct link to Working with Uppy files">​</a></h3>
 <p>Uppy keeps files in state with the <a href="https://developer.mozilla.org/en-US/docs/Web/API/File" target="_blank" rel="noopener noreferrer"><code>File</code></a> browser API, but it’s wrapped in
-an <code>Object</code> to be able to add more data to it, which we call an Uppy file. All
+an <code>Object</code> to be able to add more data to it, which we call an <em>Uppy file</em>. All
 these properties can be useful for plugins and side-effects (such as
 <a href="#events">events</a>).</p>
 <p>Mutating these properties should be done through <a href="#methods">methods</a>.</p>
 <details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Uppy file properties</summary><div><div class="collapsibleContent_i85q"><h4 class="anchor anchorWithStickyNavbar_LWe7" id="filesource"><code>file.source</code><a href="#filesource" class="hash-link" aria-label="Direct link to filesource" title="Direct link to filesource">​</a></h4><p>Name of the plugin that was responsible for adding this file. Typically a remote
-provider plugin like <code>&#x27;GoogleDrive&#x27;</code> or a UI plugin like <code>&#x27;DragDrop&#x27;</code>.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="fileid"><code>file.id</code><a href="#fileid" class="hash-link" aria-label="Direct link to fileid" title="Direct link to fileid">​</a></h4><p>Unique ID for the file.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="filename"><code>file.name</code><a href="#filename" class="hash-link" aria-label="Direct link to filename" title="Direct link to filename">​</a></h4><p>The name of the file.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="filemeta"><code>file.meta</code><a href="#filemeta" class="hash-link" aria-label="Direct link to filemeta" title="Direct link to filemeta">​</a></h4><p>Object containing file metadata. Any file metadata should be JSON-serializable.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="filetype"><code>file.type</code><a href="#filetype" class="hash-link" aria-label="Direct link to filetype" title="Direct link to filetype">​</a></h4><p>MIME type of the file. This may actually be guessed if a file type was not
+provider plugin like <code>&#x27;GoogleDrive&#x27;</code> or a UI plugin like <code>&#x27;DragDrop&#x27;</code>.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="fileid"><code>file.id</code><a href="#fileid" class="hash-link" aria-label="Direct link to fileid" title="Direct link to fileid">​</a></h4><p>Unique ID for the file.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="filename"><code>file.name</code><a href="#filename" class="hash-link" aria-label="Direct link to filename" title="Direct link to filename">​</a></h4><p>The name of the file.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="filemeta"><code>file.meta</code><a href="#filemeta" class="hash-link" aria-label="Direct link to filemeta" title="Direct link to filemeta">​</a></h4><p>Object containing standard as well as user-defined metadata for each file. Any
+custom file metadata should be JSON-serializable. The following standard
+metadata will be stored on all file objects, but plugins may add more metadata.</p><ul>
+<li><code>file.meta.name</code>
+<ul>
+<li>Same as <code>file.name</code>.</li>
+</ul>
+</li>
+<li><code>file.meta.type</code>
+<ul>
+<li>Same as <code>file.type</code>.</li>
+</ul>
+</li>
+<li><code>file.meta.relativePath</code>
+<ul>
+<li>For any local folder that was drag-dropped or opened in Uppy, the files
+inside the folder will have the <code>relativePath</code> metadata field set to their
+path, relative to the folder. <code>relativePath</code> begins with the folder’s name
+and ends with the file’s name. If opening or drag-dropping a file instead of
+a folder, <code>relativePath</code> will be <code>null</code>. The same behaviour exists for
+remote (provider) files, but the path will instead be relative to the user’s
+selection (checkboxes). No leading or trailing slashes.</li>
+<li><strong>Local file example:</strong> When drag-dropping a local folder <code>folder1</code> which
+has a folder inside of it named <code>folder2</code> which has a file named <code>file</code>
+inside of it, the <code>relativePath</code> meta field of the file will be
+<code>folder1/folder2/file</code>. However if drag-dropping or opening <code>file</code> directly,
+<code>relativePath</code> will be <code>null</code>.</li>
+<li><strong>Remote file example:</strong> Suppose we have a remote provider folder structure
+such as <code>/folder1/folder2/file</code>. Then, if the user checks the checkbox next
+to <code>folder1</code>, <code>file</code>’s <code>relativePath</code> will be <code>&quot;folder1/folder2/file&quot;</code>.
+However if the user first navigates into <code>folder1</code>, and only then checks the
+checkbox next to <code>folder2</code>, <code>relativePath</code> will be <code>&quot;folder2/file&quot;</code>.</li>
+</ul>
+</li>
+<li><code>file.meta.absolutePath</code>
+<ul>
+<li>The <code>absolutePath</code> meta field will only be set for remote files. Regardless
+of user selection, it will always be the path relative to the root of the
+provider’s list of files, as presented to the user. <code>absolutePath</code> always
+begins with a <code>/</code> and will always end with the file’s name. To clarify: The
+difference between <code>absolutePath</code> and <code>relativePath</code> is that <code>absolutePath</code>
+only exists for remote files, and always has the full path to the file,
+while <code>relativePath</code> is the file’s path <em>relative to the user’s selected
+folder</em>.</li>
+</ul>
+</li>
+</ul><h4 class="anchor anchorWithStickyNavbar_LWe7" id="filetype"><code>file.type</code><a href="#filetype" class="hash-link" aria-label="Direct link to filetype" title="Direct link to filetype">​</a></h4><p>MIME type of the file. This may actually be guessed if a file type was not
 provided by the user’s browser, so this is a best-effort value and not
 guaranteed to be correct.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="filedata"><code>file.data</code><a href="#filedata" class="hash-link" aria-label="Direct link to filedata" title="Direct link to filedata">​</a></h4><p>For local files, this is the actual <a href="https://developer.mozilla.org/en-US/docs/Web/API/File" target="_blank" rel="noopener noreferrer"><code>File</code></a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob" target="_blank" rel="noopener noreferrer"><code>Blob</code></a> object representing
 the file contents.</p><p>For files that are imported from remote providers, the file data is not
