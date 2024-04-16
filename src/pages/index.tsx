@@ -41,7 +41,6 @@ import '@uppy/url/dist/style.min.css';
 
 import styles from './index.module.css';
 
-
 const companionUrl = 'https://companion.uppy.io';
 const endpoint = 'https://tusd.tusdemo.net/files/';
 
