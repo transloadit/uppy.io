@@ -21,6 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - if: !inputs.UPPY_REF
+        name: Extract Uppy version from yarn.lock
+        id: UPPY_VERSION_FROM_YARN_LOCK
+        run: |
+          grep 'resolution: "uppy@' yarn.lock | awk -F'"' '{ sub(/npm:/, ""); print "UPPY_REF=" $2 }' >> "$GITHUB_OUTPUT"
       - name: Checkout docs from Uppy repo
         uses: actions/checkout@v3
         with:
