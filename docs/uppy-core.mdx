@@ -116,11 +116,6 @@ metadata will be stored on all file objects, but plugins may add more metadata.
     to `folder1`, `file`’s `relativePath` will be `"folder1/folder2/file"`.
     However if the user first navigates into `folder1`, and only then checks the
     checkbox next to `folder2`, `relativePath` will be `"folder2/file"`.
-    provider folder `folder1` which has a folder inside of it named `folder2`,
-    which has a file named `file` inside of it, the `relativePath` meta field of
-    the file will be `folder1/folder2/file`. However if the user first navigates
-    into `folder1`, then checks the checkbox next to `folder2`, `relativePath`
-    will become `folder2/file`.
 - `file.meta.absolutePath`
   - The `absolutePath` meta field will only be set for remote files. Regardless
     of user selection, it will always be the path relative to the root of the
