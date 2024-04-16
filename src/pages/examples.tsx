@@ -32,6 +32,7 @@ import '@uppy/webcam/dist/style.min.css';
 import '@uppy/url/dist/style.min.css';
 
 import styles from './examples.module.css';
+import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 
 const restrictions = {
@@ -115,7 +116,6 @@ const options = [
 				type: 'plugins',
 				title:
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
 			},
 			{
 				label: 'Facebook',
@@ -123,7 +123,6 @@ const options = [
 				type: 'plugins',
 				title:
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
 			},
 			{ label: 'Url', value: 'Url', type: 'plugins' },
 			{
@@ -248,9 +247,9 @@ const Uppy = ({ state, locale }) => {
 				theme={state.theme}
 				disabled={state.disabled}
 				note={
-					state.restrictions
-						? 'Images and video only, 2–3 files, up to 1 MB'
-						: null
+					state.restrictions ?
+						'Images and video only, 2–3 files, up to 1 MB'
+					:	null
 				}
 			/>
 		</div>
@@ -280,19 +279,19 @@ function Page() {
 	return (
 		<Layout>
 			<main className={styles.main}>
-				<h1>Examples</h1>
+				<Heading as="h1">Examples</Heading>
 
 				<div className={styles.header}>
-					<h2>Dashboard</h2>
+					<Heading as="h2">Dashboard</Heading>
 					<p>
 						<Link to="/docs/dashboard">Docs</Link> •{' '}
-						<a
+						<Link
 							target="_blank"
 							rel="noopener"
 							href="https://codesandbox.io/s/uppy-dashboard-xpxuhd"
 						>
 							CodeSandbox
-						</a>
+						</Link>
 					</p>
 				</div>
 				<p>
@@ -305,7 +304,7 @@ function Page() {
 						{options.map((section) => {
 							return (
 								<div key={section.heading}>
-									<h3>{section.heading}</h3>
+									<Heading as="h3">{section.heading}</Heading>
 									<div
 										wrapper-for={section.heading}
 										className={styles['options-wrapper']}
@@ -322,11 +321,11 @@ function Page() {
 														title={title}
 														checked={
 															// Forgive me for this logic
-															Array.isArray(state[type])
-																? state[type].includes(value)
-																: type === 'theme'
-																? state.theme === 'dark'
-																: state[type]
+															Array.isArray(state[type]) ?
+																state[type].includes(value)
+															: type === 'theme' ?
+																state.theme === 'dark'
+															:	state[type]
 														}
 														disabled={disabled}
 														onChange={(event) =>
@@ -374,13 +373,13 @@ function Page() {
 				</section>
 				<Admonition type="note">
 					Checkout our{' '}
-					<a
+					<Link
 						href="https://github.com/transloadit/uppy/tree/main/examples"
 						target="_blank"
 						rel="noopener"
 					>
 						GitHub examples
-					</a>{' '}
+					</Link>{' '}
 					folder for many more examples.
 				</Admonition>
 			</main>

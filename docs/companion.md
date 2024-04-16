@@ -70,11 +70,10 @@ files to arrive at Transloadit servers, much like Uppy.
 
 Companion is installed from npm. Depending on how you want to run Companion, the
 install process is slightly different. Companion can be integrated as middleware
-into your [Express](https://expressjs.com/) app or as a standalone server.
-
-```bash
-npm install @uppy/companion
-```
+into your [Express](https://expressjs.com/) app or as a standalone server. Most
+people probably want to run it as a standalone server, while the middleware
+could be used to further customise Companion or integrate it into your own HTTP
+server code.
 
 :::note
 
@@ -88,7 +87,56 @@ accept improvements in this area, but we can’t provide support.
 
 :::
 
-### Express middleware
+### Standalone mode
+
+You can use the standalone version if you want to run Companion as it’s own
+Node.js process. It’s a configured Express server with sessions, logging, and
+security best practices. First you’ll typically want to install it globally:
+
+```bash
+npm install -g @uppy/companion
+```
+
+Standalone Companion will always serve HTTP (not HTTPS) and expects a reverse
+proxy with SSL termination in front of it when running in production. See
+[`COMPANION_PROTOCOL`](#server) for more information.
+
+Companion ships with an executable file (`bin/companion`) which is the
+standalone server. Unlike the middleware version, options are set via
+environment variables.
+
+:::info
+
+Checkout [options](#options) for the available options in JS and environment
+variable formats.
+
+:::
+
+You need at least these three to get started:
+
+```bash
+export COMPANION_SECRET="shh!Issa Secret!"
+export COMPANION_DOMAIN="YOUR SERVER DOMAIN"
+export COMPANION_DATADIR="PATH/TO/DOWNLOAD/DIRECTORY"
+```
+
+Then run:
+
+```bash
+companion
+```
+
+You can also pass in the path to your JSON config file, like so:
+
+```bash
+companion --config /path/to/companion.json
+```
+
+You may also want to run Companion in a process manager like
+[PM2](https://pm2.keymetrics.io/) to make sure it gets restarted on upon
+crashing as well as allowing scaling to many instances.
+
+### Express middleware mode
 
 First install it into your Node.js project with your favorite package manager:
 
@@ -152,55 +200,6 @@ companion.socket(server);
 
 If WebSockets fail for some reason Uppy and Companion will fallback to HTTP
 polling.
-
-### Standalone
-
-You can use the standalone version if you want to run Companion as it’s own Node
-process. It’s a configured Express server with sessions, logging, and security
-best practices. First you’ll typically want to install it globally:
-
-```bash
-npm install -g @uppy/companion
-```
-
-Standalone Companion will always serve HTTP (not HTTPS) and expects a reverse
-proxy with SSL termination in front of it when running in production. See
-[`COMPANION_PROTOCOL`](#server) for more information.
-
-Companion ships with an executable file (`bin/companion`) which is the
-standalone server. Unlike the middleware version, options are set via
-environment variables.
-
-:::info
-
-Checkout [options](#options) for the available options in JS and environment
-variable formats.
-
-:::
-
-You need at least these three to get started:
-
-```bash
-export COMPANION_SECRET="shh!Issa Secret!"
-export COMPANION_DOMAIN="YOUR SERVER DOMAIN"
-export COMPANION_DATADIR="PATH/TO/DOWNLOAD/DIRECTORY"
-```
-
-Then run:
-
-```bash
-companion
-```
-
-You can also pass in the path to your JSON config file, like so:
-
-```bash
-companion --config /path/to/companion.json
-```
-
-You may also want to run Companion in a process manager like
-[PM2](https://pm2.keymetrics.io/) to make sure it gets restarted on upon
-crashing as well as allowing scaling to many instances.
 
 ### Running many instances
 
@@ -833,7 +832,9 @@ with an `Error`):
 The class must also have:
 
 - A unique `static authProvider` string property - a lowercased value which
-  typically indicates the name of the provider (e.g “dropbox”).
+  indicates name of the [`grant`](https://github.com/simov/grant) OAuth2
+  provider to use (e.g `google` for Google). If your provider doesn’t use
+  OAuth2, you can omit this property.
 - A `static` property `static version = 2`, which is the current version of the
   Companion Provider API.
 
