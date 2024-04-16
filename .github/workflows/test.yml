@@ -21,6 +21,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Extract Uppy version from yarn.lock
+        id: UPPY_VERSION_FROM_YARN_LOCK
+        run: |
+          grep 'resolution: "uppy@' yarn.lock | awk -F'"' '{ sub(/npm:/, ""); print "UPPY_REF=" $2 }' >> "$GITHUB_OUTPUT"
+      - name: Checkout docs from Uppy repo
+        uses: actions/checkout@v3
+        with:
+          repository: transloadit/uppy
+          ref: ${{ steps.UPPY_VERSION_FROM_YARN_LOCK.outputs.UPPY_REF }}
+          path: uppy
+      - run: mv uppy /tmp/uppy && ln -s /tmp/uppy/docs docs
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
