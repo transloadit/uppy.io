@@ -9,7 +9,9 @@
 	font-style: normal;
 	font-weight: normal;
 	font-display: swap;
-	src: local('IBM Plex Mono'), local('IBMPlexMono'),
+	src:
+		local('IBM Plex Mono'),
+		local('IBMPlexMono'),
 		url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
 }
 @font-face {
@@ -17,7 +19,9 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: local('IBM Plex Mono SemiBold'), local('IBMPlexMono-SemiBold'),
+	src:
+		local('IBM Plex Mono SemiBold'),
+		local('IBMPlexMono-SemiBold'),
 		url('/fonts/IBMPlexMono-SemiBold.woff2') format('woff2');
 }
 
@@ -26,7 +30,9 @@
 	font-style: normal;
 	font-weight: 500;
 	font-display: swap;
-	src: local('IBM Plex Sans Regular'), local('IBMPlexSans-Regular'),
+	src:
+		local('IBM Plex Sans Regular'),
+		local('IBMPlexSans-Regular'),
 		url('/fonts/IBMPlexSans-Regular.woff2') format('woff2');
 }
 @font-face {
@@ -34,7 +40,9 @@
 	font-style: italic;
 	font-weight: 500;
 	font-display: swap;
-	src: local('IBM Plex Sans Italic'), local('IBMPlexSans-Italic'),
+	src:
+		local('IBM Plex Sans Italic'),
+		local('IBMPlexSans-Italic'),
 		url('/fonts/IBMPlexSans-Italic.woff2') format('woff2');
 }
 @font-face {
@@ -42,7 +50,9 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: local('IBM Plex Sans SemiBold'), local('IBMPlexSans-SemiBold'),
+	src:
+		local('IBM Plex Sans SemiBold'),
+		local('IBMPlexSans-SemiBold'),
 		url('/fonts/IBMPlexSans-SemiBold.woff2') format('woff2');
 }
 @font-face {
@@ -50,7 +60,8 @@
 	font-style: italic;
 	font-weight: 600;
 	font-display: swap;
-	src: local('IBM Plex Sans SemiBoldItalic'),
+	src:
+		local('IBM Plex Sans SemiBoldItalic'),
 		local('IBMPlexSans-SemiBoldItalic'),
 		url('/fonts/IBMPlexSans-SemiBoldItalic.woff2') format('woff2');
 }
@@ -60,7 +71,9 @@
 	font-style: normal;
 	font-weight: 500;
 	font-display: swap;
-	src: local('IBM Plex Serif Regular'), local('IBMPlexSerif-Regular'),
+	src:
+		local('IBM Plex Serif Regular'),
+		local('IBMPlexSerif-Regular'),
 		url('/fonts/IBMPlexSerif-Regular.woff2') format('woff2');
 }
 @font-face {
@@ -68,12 +81,15 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: local('IBM Plex Serif SemiBold'), local('IBMPlexSerif-SemiBold'),
+	src:
+		local('IBM Plex Serif SemiBold'),
+		local('IBMPlexSerif-SemiBold'),
 		url('/fonts/IBMPlexSerif-SemiBold.woff2') format('woff2');
 }
 
 /* You can override the default Infima variables here. */
 :root {
+	tab-size: 2;
 	--ifm-color-primary: #f37;
 	--ifm-color-primary-dark: #29784c;
 	--ifm-color-primary-darker: #277148;
@@ -117,7 +133,7 @@ p > code {
 	font-size: var(--ifm-font-size-base);
 }
 
-/* 
+/*
 * Admonitions have long generated class names.
 * We want to change the heading font, but it's not an config option.
 */
@@ -154,14 +170,10 @@ div[class*=' admonitionHeading'] {
 	font-weight: 500;
 }
 
-h1[itemprop='headline'] {
-	font-size: 2.4rem;
-	margin-bottom: 0.6rem;
-}
-
+h1[itemprop='headline'],
 h2[itemprop='headline'] {
-	font-size: 2.4rem;
-	margin-bottom: 0.6rem;
+	font-size: 2rem;
+	margin-bottom: 0.4rem;
 }
 
 /* Content Body */

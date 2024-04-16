@@ -51,7 +51,7 @@ const retextPreset = [
 				'simply',
 			],
 		})
-		.use(retextProfanities, { sureness: 1 })
+		.use(retextProfanities, { sureness: 1, ignore: ['black'] })
 		.use(retextQuotes)
 		.use(retextSimplify, {
 			ignore: [
@@ -89,6 +89,7 @@ const retextPreset = [
 				'perform',
 				'there are',
 				'it is',
+				'effect',
 			],
 		})
 		.use(retextSyntaxMentions),

@@ -94,8 +94,18 @@ Create a project for your app if you don’t have one yet.
 - On the project’s dashboard,
   [enable the Google Drive API](https://developers.google.com/drive/api/v3/enable-drive-api).
 - [Set up OAuth authorization](https://developers.google.com/drive/api/v3/about-auth).
-  Use this for an authorized redirect URI:
-  https://$YOUR_COMPANION_HOST_NAME/drive/redirect
+
+The app page has a `"Redirect URIs"` field. Here, add:
+
+```
+https://$YOUR_COMPANION_HOST_NAME/drive/redirect
+```
+
+If you are using Transloadit hosted Companion:
+
+```
+https://api2.transloadit.com/companion/drive/redirect
+```
 
 Google will give you an OAuth client ID and client secret.
 

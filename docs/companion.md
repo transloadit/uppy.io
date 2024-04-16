@@ -79,7 +79,9 @@ npm install @uppy/companion
 :::note
 
 Since v2, you need to be running `node.js >= v10.20.1` to use Companion. More
-information in the [migrating to 2.0](/docs/guides/migrate-2.0) guide.
+information in the
+[migrating to 2.0](/docs/guides/migration-guides/#migrate-from-uppy-1x-to-2x)
+guide.
 
 Windows is not a supported platform right now. It may work, and we’re happy to
 accept improvements in this area, but we can’t provide support.
@@ -114,7 +116,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(session({ secret: 'some secrety secret' }));
 
-const options = {
+const companionOptions = {
 	providerOptions: {
 		drive: {
 			key: 'GOOGLE_DRIVE_KEY',
@@ -463,9 +465,22 @@ which has only the secret, nothing else.
 
 :::
 
+##### `s3.endpoint` `COMPANION_AWS_ENDPOINT`
+
+Optional URL to a custom S3 (compatible) service. Otherwise uses the default
+from the AWS SDK.
+
 ##### `s3.bucket` `COMPANION_AWS_BUCKET`
 
 The name of the bucket to store uploaded files in.
+
+It can be function that returns the name of the bucket as a `string` and takes
+the following arguments:
+
+- [`http.IncomingMessage`][], the HTTP request (will be `null` for remote
+  uploads)
+- metadata provided by the user for the file (will be `undefined` for local
+  uploads)
 
 ##### `s3.region` `COMPANION_AWS_REGION`
 
@@ -500,9 +515,10 @@ Get the key name for a file. The key is the file path to which the file will be
 uploaded in your bucket. This option should be a function receiving three
 arguments:
 
-- `req`, the HTTP request, for _regular_ S3 uploads using the `@uppy/aws-s3`
-  plugin. This parameter is _not_ available for multipart uploads using the
-  `@uppy/aws-s3` or `@uppy/aws-s3-multipart` plugins;
+- `req` [`http.IncomingMessage`][], the HTTP request, for _regular_ S3 uploads
+  using the `@uppy/aws-s3` plugin. This parameter is _not_ available for
+  multipart uploads using the `@uppy/aws-s3` or `@uppy/aws-s3-multipart`
+  plugins. This parameter is `null` for remote uploads.
 - `filename`, the original name of the uploaded file;
 - `metadata`, user-provided metadata for the file.
 
@@ -633,6 +649,11 @@ of bad network connections. Passed to tus-js-client
 as well as
 [AWS S3 Multipart](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html)
 `partSize`.
+
+#### `enableUrlEndpoint` `COMPANION_ENABLE_URL_ENDPOINT`
+
+Set this to `false` to disable the
+[URL functionalily](https://uppy.io/docs/url/). Default: `true`.
 
 ### Events
 
@@ -887,6 +908,8 @@ This would get the Companion instance running on `http://localhost:3020`. It
 uses [nodemon](https://github.com/remy/nodemon) so it will automatically restart
 when files are changed.
 
+[`http.incomingmessage`]:
+	https://nodejs.org/api/http.html#class-httpincomingmessage
 [box]: /docs/box
 [dropbox]: /docs/dropbox
 [facebook]: /docs/facebook
