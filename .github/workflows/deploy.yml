@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - if: !inputs.UPPY_REF
+      - if: ${{ !inputs.UPPY_REF }}
         name: Extract Uppy version from yarn.lock
         id: UPPY_VERSION_FROM_YARN_LOCK
         run: |
