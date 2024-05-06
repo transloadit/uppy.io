@@ -13900,7 +13900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-mdx@npm:^2.1.2, remark-mdx@npm:^2.3.0":
+"remark-mdx@npm:^2.3.0":
   version: 2.3.0
   resolution: "remark-mdx@npm:2.3.0"
   dependencies:
@@ -13910,7 +13910,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-mdx@npm:^3.0.0":
+"remark-mdx@npm:^3.0.0, remark-mdx@npm:^3.0.1":
   version: 3.0.1
   resolution: "remark-mdx@npm:3.0.1"
   dependencies:
@@ -16117,7 +16117,7 @@ __metadata:
     remark-lint-no-undefined-references: "npm:^4.0.0"
     remark-lint-no-unused-definitions: "npm:^3.0.0"
     remark-lint-ordered-list-marker-style: "npm:^3.0.0"
-    remark-mdx: "npm:^2.1.2"
+    remark-mdx: "npm:^3.0.1"
     remark-preset-lint-consistent: "npm:^5.1.1"
     remark-preset-lint-markdown-style-guide: "npm:^5.1.2"
     remark-preset-prettier: "npm:^2.0.1"
