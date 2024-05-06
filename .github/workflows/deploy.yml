@@ -29,14 +29,14 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - if: ${{ !inputs.UPPY_REF }}
         name: Extract Uppy version from yarn.lock
         id: UPPY_VERSION_FROM_YARN_LOCK
         run: |
           grep 'resolution: "uppy@' yarn.lock | awk -F'"' '{ sub(/npm:/, ""); print "UPPY_REF=" $2 }' >> "$GITHUB_OUTPUT"
       - name: Checkout docs from Uppy repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: transloadit/uppy
           ref:
@@ -44,7 +44,7 @@ jobs:
             steps.UPPY_VERSION_FROM_YARN_LOCK.outputs.UPPY_REF }}
           path: uppy
       - run: mv uppy /tmp/uppy && ln -s /tmp/uppy/docs docs
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
@@ -59,7 +59,7 @@ jobs:
       # Recommended action by Docusaurus:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Build output to publish to the `gh-pages` branch:
