@@ -10337,17 +10337,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-frontmatter@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "mdast-util-frontmatter@npm:1.0.1"
-  dependencies:
-    "@types/mdast": "npm:^3.0.0"
-    mdast-util-to-markdown: "npm:^1.3.0"
-    micromark-extension-frontmatter: "npm:^1.0.0"
-  checksum: 10/74ba3314c545c085b1506a5e63cea3168c1a62fe8b501fbf8c11d4aa7fe3bad963f074d7d2bf37868041f9c448ac5ea7c8c2d4f330f668c6c56cb53f410012da
-  languageName: node
-  linkType: hard
-
 "mdast-util-frontmatter@npm:^2.0.0":
   version: 2.0.1
   resolution: "mdast-util-frontmatter@npm:2.0.1"
@@ -10902,18 +10891,6 @@ __metadata:
     micromark-util-types: "npm:^2.0.0"
     parse-entities: "npm:^4.0.0"
   checksum: 10/6ed8eb21548d6b3d3efb3f871881559083b11163cab65311d91b3f0d139902d3d20c2b98e12654e8361ac31490d7e3c9eab8a7f8e61036887278ba5f430c8c04
-  languageName: node
-  linkType: hard
-
-"micromark-extension-frontmatter@npm:^1.0.0":
-  version: 1.1.1
-  resolution: "micromark-extension-frontmatter@npm:1.1.1"
-  dependencies:
-    fault: "npm:^2.0.0"
-    micromark-util-character: "npm:^1.0.0"
-    micromark-util-symbol: "npm:^1.0.0"
-    micromark-util-types: "npm:^1.0.0"
-  checksum: 10/3986f5154395e9e5d9de2e81c9db72f2b39b79f264d9a3739adb82a28982ae2926695cb3630b630d5f0042061fb57b2b33a65edc8b893dead98a235368b0c61b
   languageName: node
   linkType: hard
 
@@ -14398,18 +14375,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-frontmatter@npm:^4.0.0":
-  version: 4.0.1
-  resolution: "remark-frontmatter@npm:4.0.1"
-  dependencies:
-    "@types/mdast": "npm:^3.0.0"
-    mdast-util-frontmatter: "npm:^1.0.0"
-    micromark-extension-frontmatter: "npm:^1.0.0"
-    unified: "npm:^10.0.0"
-  checksum: 10/d458e4150af9dcf625193badfbb29c35fd20ac33bd5e6a210aee15d2f6bc9d262f2f4b6195c7f9ab157e2d78f256879a80eacadaeba0536d88548cc70d11dbb1
-  languageName: node
-  linkType: hard
-
 "remark-frontmatter@npm:^5.0.0":
   version: 5.0.0
   resolution: "remark-frontmatter@npm:5.0.0"
@@ -14920,6 +14885,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remark-lint-no-literal-urls@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "remark-lint-no-literal-urls@npm:4.0.0"
+  dependencies:
+    "@types/mdast": "npm:^4.0.0"
+    mdast-util-to-string: "npm:^4.0.0"
+    micromark-util-character: "npm:^2.0.0"
+    unified-lint-rule: "npm:^3.0.0"
+    unist-util-position: "npm:^5.0.0"
+    unist-util-visit-parents: "npm:^6.0.0"
+  checksum: 10/e203946757bec9ca2cd85b2a5dd94687d03c88fae50977804709bef814d1e42f6bb306a9ed3a33d08312819abc2aada537f992d434714519822600140da2bf25
+  languageName: node
+  linkType: hard
+
 "remark-lint-no-multiple-toplevel-headings@npm:^3.0.0":
   version: 3.1.2
   resolution: "remark-lint-no-multiple-toplevel-headings@npm:3.1.2"
@@ -15004,16 +14983,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-lint-no-unused-definitions@npm:^3.0.0":
-  version: 3.1.2
-  resolution: "remark-lint-no-unused-definitions@npm:3.1.2"
+"remark-lint-no-unused-definitions@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "remark-lint-no-unused-definitions@npm:4.0.0"
   dependencies:
-    "@types/mdast": "npm:^3.0.0"
-    unified: "npm:^10.0.0"
-    unified-lint-rule: "npm:^2.0.0"
-    unist-util-generated: "npm:^2.0.0"
-    unist-util-visit: "npm:^4.0.0"
-  checksum: 10/d636d4a1d00bc0d821b9f9dddfa60c8823891c8110c2a1e0fb7bb9439f48856547b410472e58bf690a3bd787bf081fe1ebf183f29437f4698659194595b6f443
+    "@types/mdast": "npm:^4.0.0"
+    devlop: "npm:^1.0.0"
+    unified-lint-rule: "npm:^3.0.0"
+    unist-util-visit: "npm:^5.0.0"
+  checksum: 10/cd8ef0d0bfbdee19cdd35efb1e35bd8123266ef3527e7b30111b0d5c0ecbe7381009da4204db79a5dd0aa5c24390d839f23a6f7f4d3462ad132148e3a91ab94f
   languageName: node
   linkType: hard
 
@@ -15136,7 +15114,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-mdx@npm:^2.1.2, remark-mdx@npm:^2.3.0":
+"remark-mdx@npm:^2.3.0":
   version: 2.3.0
   resolution: "remark-mdx@npm:2.3.0"
   dependencies:
@@ -15146,7 +15124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-mdx@npm:^3.0.0":
+"remark-mdx@npm:^3.0.0, remark-mdx@npm:^3.0.1":
   version: 3.0.1
   resolution: "remark-mdx@npm:3.0.1"
   dependencies:
@@ -16999,6 +16977,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"unified-lint-rule@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "unified-lint-rule@npm:3.0.0"
+  dependencies:
+    "@types/unist": "npm:^3.0.0"
+    trough: "npm:^2.0.0"
+    unified: "npm:^11.0.0"
+    vfile: "npm:^6.0.0"
+  checksum: 10/6298a35c5fc71de2113cc407c31b69e8560436dc3c02f85d25b56db8485fea4913000dde0268ac45bc9faa5c006d25d79ef0b3db829e989281acd26972e6a761
+  languageName: node
+  linkType: hard
+
 "unified-message-control@npm:^4.0.0":
   version: 4.0.0
   resolution: "unified-message-control@npm:4.0.0"
@@ -17382,7 +17372,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     remark-cli: "npm:^11.0.0"
     remark-directive: "npm:^2.0.1"
-    remark-frontmatter: "npm:^4.0.0"
+    remark-frontmatter: "npm:^5.0.0"
     remark-gfm: "npm:^3.0.1"
     remark-lint: "npm:^9.0.0"
     remark-lint-final-newline: "npm:^2.0.0"
@@ -17393,13 +17383,13 @@ __metadata:
     remark-lint-no-duplicate-definitions: "npm:^3.0.0"
     remark-lint-no-heading-content-indent: "npm:^4.0.0"
     remark-lint-no-inline-padding: "npm:^4.0.0"
-    remark-lint-no-literal-urls: "npm:^3.0.0"
+    remark-lint-no-literal-urls: "npm:^4.0.0"
     remark-lint-no-shortcut-reference-image: "npm:^3.0.0"
     remark-lint-no-shortcut-reference-link: "npm:^3.0.0"
     remark-lint-no-undefined-references: "npm:^4.0.0"
-    remark-lint-no-unused-definitions: "npm:^3.0.0"
+    remark-lint-no-unused-definitions: "npm:^4.0.0"
     remark-lint-ordered-list-marker-style: "npm:^3.0.0"
-    remark-mdx: "npm:^2.1.2"
+    remark-mdx: "npm:^3.0.1"
     remark-preset-lint-consistent: "npm:^5.1.1"
     remark-preset-lint-markdown-style-guide: "npm:^5.1.2"
     remark-preset-prettier: "npm:^2.0.1"
