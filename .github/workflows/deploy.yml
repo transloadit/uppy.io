@@ -44,7 +44,7 @@ jobs:
             steps.UPPY_VERSION_FROM_YARN_LOCK.outputs.UPPY_REF }}
           path: uppy
       - run: mv uppy /tmp/uppy && ln -s /tmp/uppy/docs docs
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
