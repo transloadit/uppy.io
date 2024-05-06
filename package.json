@@ -114,7 +114,7 @@
 		"remark-lint-no-undefined-references": "^4.0.0",
 		"remark-lint-no-unused-definitions": "^4.0.0",
 		"remark-lint-ordered-list-marker-style": "^3.0.0",
-		"remark-mdx": "^2.1.2",
+		"remark-mdx": "^3.0.1",
 		"remark-preset-lint-consistent": "^5.1.1",
 		"remark-preset-lint-markdown-style-guide": "^5.1.2",
 		"remark-preset-prettier": "^2.0.1",
