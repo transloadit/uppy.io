@@ -9484,17 +9484,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-frontmatter@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "mdast-util-frontmatter@npm:1.0.1"
-  dependencies:
-    "@types/mdast": "npm:^3.0.0"
-    mdast-util-to-markdown: "npm:^1.3.0"
-    micromark-extension-frontmatter: "npm:^1.0.0"
-  checksum: 10/74ba3314c545c085b1506a5e63cea3168c1a62fe8b501fbf8c11d4aa7fe3bad963f074d7d2bf37868041f9c448ac5ea7c8c2d4f330f668c6c56cb53f410012da
-  languageName: node
-  linkType: hard
-
 "mdast-util-frontmatter@npm:^2.0.0":
   version: 2.0.1
   resolution: "mdast-util-frontmatter@npm:2.0.1"
@@ -10035,18 +10024,6 @@ __metadata:
     micromark-util-types: "npm:^2.0.0"
     parse-entities: "npm:^4.0.0"
   checksum: 10/6ed8eb21548d6b3d3efb3f871881559083b11163cab65311d91b3f0d139902d3d20c2b98e12654e8361ac31490d7e3c9eab8a7f8e61036887278ba5f430c8c04
-  languageName: node
-  linkType: hard
-
-"micromark-extension-frontmatter@npm:^1.0.0":
-  version: 1.1.1
-  resolution: "micromark-extension-frontmatter@npm:1.1.1"
-  dependencies:
-    fault: "npm:^2.0.0"
-    micromark-util-character: "npm:^1.0.0"
-    micromark-util-symbol: "npm:^1.0.0"
-    micromark-util-types: "npm:^1.0.0"
-  checksum: 10/3986f5154395e9e5d9de2e81c9db72f2b39b79f264d9a3739adb82a28982ae2926695cb3630b630d5f0042061fb57b2b33a65edc8b893dead98a235368b0c61b
   languageName: node
   linkType: hard
 
@@ -13162,18 +13139,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-frontmatter@npm:^4.0.0":
-  version: 4.0.1
-  resolution: "remark-frontmatter@npm:4.0.1"
-  dependencies:
-    "@types/mdast": "npm:^3.0.0"
-    mdast-util-frontmatter: "npm:^1.0.0"
-    micromark-extension-frontmatter: "npm:^1.0.0"
-    unified: "npm:^10.0.0"
-  checksum: 10/d458e4150af9dcf625193badfbb29c35fd20ac33bd5e6a210aee15d2f6bc9d262f2f4b6195c7f9ab157e2d78f256879a80eacadaeba0536d88548cc70d11dbb1
-  languageName: node
-  linkType: hard
-
 "remark-frontmatter@npm:^5.0.0":
   version: 5.0.0
   resolution: "remark-frontmatter@npm:5.0.0"
@@ -16111,7 +16076,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     remark-cli: "npm:^11.0.0"
     remark-directive: "npm:^2.0.1"
-    remark-frontmatter: "npm:^4.0.0"
+    remark-frontmatter: "npm:^5.0.0"
     remark-gfm: "npm:^3.0.1"
     remark-lint: "npm:^9.0.0"
     remark-lint-final-newline: "npm:^2.0.0"

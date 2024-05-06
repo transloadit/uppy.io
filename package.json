@@ -97,7 +97,7 @@
 		"prettier": "3.2.5",
 		"remark-cli": "^11.0.0",
 		"remark-directive": "^2.0.1",
-		"remark-frontmatter": "^4.0.0",
+		"remark-frontmatter": "^5.0.0",
 		"remark-gfm": "^3.0.1",
 		"remark-lint": "^9.0.0",
 		"remark-lint-final-newline": "^2.0.0",
