@@ -71,34 +71,17 @@ function Component () {
 }
 `;
 
-const vueCode = `<template>
-  <div id="app">
-    <dashboard :uppy="uppy" :plugins="['Webcam']" :props="{theme: 'light'}" />
-  </div>
-</template>
-
-<script>
-import { Dashboard } from '@uppy/vue'
-
-import '@uppy/core/dist/style.css'
-import '@uppy/dashboard/dist/style.css'
-
+const vueCode = `<script setup>
 import Uppy from '@uppy/core'
 import Webcam from '@uppy/webcam'
+import { Dashboard } from '@uppy/vue'
 
-export default {
-  name: 'App',
-  components: {
-    Dashboard
-  },
-  computed: {
-    uppy: () => new Uppy().use(Webcam)
-  },
-  beforeDestroy () {
-    this.uppy.close({ reason: 'unmount' })
-  }
-}
+const uppy = new Uppy().use(Webcam)
 </script>
+
+<template>
+  <Dashboard :uppy="uppy" :plugins="['Webcam']" />
+</template>
 `;
 
 const angularCode = `import { NgModule } from '@angular/core'
