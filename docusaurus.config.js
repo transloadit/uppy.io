@@ -155,6 +155,7 @@ const config = {
 				indexName: 'uppy',
 			},
 			prism: {
+				additionalLanguages: ['svelte'],
 				theme: lightCodeTheme,
 			},
 		}),
