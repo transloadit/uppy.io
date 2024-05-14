@@ -27,7 +27,7 @@ const config = {
 				docs: {
 					breadcrumbs: false,
 					sidebarPath: require.resolve('./sidebars.js'),
-					editUrl: 'https://github.com/transloadit/uppy.io/tree/main',
+					editUrl: 'https://github.com/transloadit/uppy/blob/main/',
 				},
 				blog: {
 					showReadingTime: true,
