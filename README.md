@@ -16,7 +16,7 @@ should:
 
 1. Clone both the **uppy** repo and **uppy.io** repo.
 
-2. Then, from your **/uppy.io** repo, run:
+2. Then, from your `uppy.io` clone, run:
 
    ```sh
    ln -s /path-to-your-uppy-repo/docs docs
