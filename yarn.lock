@@ -3602,9 +3602,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:^3.11.2, @uppy/core@npm:latest":
-  version: 3.11.2
-  resolution: "@uppy/core@npm:3.11.2"
+"@uppy/core@npm:^3.11.3, @uppy/core@npm:latest":
+  version: 3.11.3
+  resolution: "@uppy/core@npm:3.11.3"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
     "@uppy/store-default": "npm:^3.2.2"
@@ -3614,7 +3614,7 @@ __metadata:
     namespace-emitter: "npm:^2.0.1"
     nanoid: "npm:^4.0.0"
     preact: "npm:^10.5.13"
-  checksum: 10/baf3c461faead95a03114802295a97bfcb75bcaa02b6d21d50e469b8b31e096ea424298e0930439018231095bca5fdbac7c5288e4cd4e58ddf6670dda4687800
+  checksum: 10/ecc533785ef3459f2cfe3d131d082ffbaf9b99b88619b71d7ca7664cd6073c2771df6314386ce5d88631da544dce101d88770c7ebb91ea72eafcd07929082df3
   languageName: node
   linkType: hard
 
@@ -3741,16 +3741,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/image-editor@npm:^2.4.5, @uppy/image-editor@npm:latest":
-  version: 2.4.5
-  resolution: "@uppy/image-editor@npm:2.4.5"
+"@uppy/image-editor@npm:^2.4.6, @uppy/image-editor@npm:latest":
+  version: 2.4.6
+  resolution: "@uppy/image-editor@npm:2.4.6"
   dependencies:
     "@uppy/utils": "npm:^5.9.0"
     cropperjs: "npm:1.5.7"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^3.11.0
-  checksum: 10/87a53dddf9a5f1e3c97d96bec679f8d1ea74a0d9733f997d68839abde7157d59e71acbaa8e6e1ba08a07c51e67d4e1ff7dee3b5c1c40c15a511e614272ebbd45
+    "@uppy/core": ^3.11.3
+  checksum: 10/ae585046e1a3bcb9d7bde7d2a4020a85a849f48a82afd3d8f948ee92fd405483493664ed29820c8f3089bea94a6bfc3f4cada4f52283e0cfbc2cf2bd2acb12bd
   languageName: node
   linkType: hard
 
@@ -16124,8 +16124,8 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 3.25.2
-  resolution: "uppy@npm:3.25.2"
+  version: 3.25.3
+  resolution: "uppy@npm:3.25.3"
   dependencies:
     "@uppy/audio": "npm:^1.1.9"
     "@uppy/aws-s3": "npm:^3.6.2"
@@ -16133,7 +16133,7 @@ __metadata:
     "@uppy/box": "npm:^2.3.1"
     "@uppy/companion-client": "npm:^3.8.1"
     "@uppy/compressor": "npm:^1.1.4"
-    "@uppy/core": "npm:^3.11.2"
+    "@uppy/core": "npm:^3.11.3"
     "@uppy/dashboard": "npm:^3.8.3"
     "@uppy/drag-drop": "npm:^3.1.0"
     "@uppy/drop-target": "npm:^2.1.0"
@@ -16143,7 +16143,7 @@ __metadata:
     "@uppy/form": "npm:^3.2.1"
     "@uppy/golden-retriever": "npm:^3.2.0"
     "@uppy/google-drive": "npm:^3.5.1"
-    "@uppy/image-editor": "npm:^2.4.5"
+    "@uppy/image-editor": "npm:^2.4.6"
     "@uppy/informer": "npm:^3.1.0"
     "@uppy/instagram": "npm:^3.3.1"
     "@uppy/onedrive": "npm:^3.3.1"
@@ -16163,7 +16163,7 @@ __metadata:
     "@uppy/webcam": "npm:^3.4.1"
     "@uppy/xhr-upload": "npm:^3.6.6"
     "@uppy/zoom": "npm:^2.3.1"
-  checksum: 10/e633e17540c6b1c410ac6b2b687c796cd407ee4b1810b91232a145624e49b33139e0be7b348b2e95ccc78527223724e01123862ac6b97c3d78d9a455bab643ea
+  checksum: 10/ad8cb8d0790cf89018196e68339b1db90384344bbb00efa56262fda66d9345862e778dad8bc0f8f38b8cc944cd0146034927e1642121bd1235181c5e94f10812
   languageName: node
   linkType: hard
 
