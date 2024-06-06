@@ -31,7 +31,6 @@ import retextEnglish from 'retext-english';
 import retextEquality from 'retext-equality';
 import retextProfanities from 'retext-profanities';
 import retextQuotes from 'retext-quotes';
-import retextSimplify from 'retext-simplify';
 import retextSyntaxMentions from 'retext-syntax-mentions';
 
 const retextPreset = [
@@ -53,46 +52,6 @@ const retextPreset = [
 		})
 		.use(retextProfanities, { sureness: 1, ignore: ['black'] })
 		.use(retextQuotes)
-		.use(retextSimplify, {
-			ignore: [
-				'accurate',
-				'additional',
-				'address',
-				'alternatively',
-				'component',
-				'effect',
-				'ensure',
-				'equivalent',
-				'forward',
-				'frequently',
-				'function',
-				'however',
-				'identify',
-				'immediately',
-				'implement',
-				'initial',
-				'initiate',
-				'interface',
-				'it is',
-				'maintain',
-				'maximum',
-				'minimum',
-				'multiple',
-				'option',
-				'parameters',
-				'perform',
-				'provide',
-				'relative to',
-				'render',
-				'request',
-				'selection',
-				'submit',
-				'there are',
-				'there is',
-				'type',
-				'validate',
-			],
-		})
 		.use(retextSyntaxMentions),
 ];
 
