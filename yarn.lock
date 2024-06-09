@@ -3533,15 +3533,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/aws-s3-multipart@npm:^3.10.2, @uppy/aws-s3-multipart@npm:^3.11.1":
-  version: 3.11.1
-  resolution: "@uppy/aws-s3-multipart@npm:3.11.1"
+"@uppy/aws-s3-multipart@npm:^3.10.2, @uppy/aws-s3-multipart@npm:^3.12.0":
+  version: 3.12.0
+  resolution: "@uppy/aws-s3-multipart@npm:3.12.0"
   dependencies:
     "@uppy/companion-client": "npm:^3.8.1"
     "@uppy/utils": "npm:^5.9.0"
   peerDependencies:
-    "@uppy/core": ^3.11.0
-  checksum: 10/b384234d8bc25b5f756c640cf5e81b1a7f0f6b232f270363110ea48b11d6958dfb9fbd3be7dacb1eb600d6e8226ea6443c4f29e04570d7f38f56c263c7961a57
+    "@uppy/core": ^3.12.0
+  checksum: 10/08b0787ad74171f3f2a5740924def9692d689c3337bb610fcf49a239d2425e5f2e0272fabc7692de03ed4e35877f62ffaa048a1b9351582e748ce84c7dd00c45
   languageName: node
   linkType: hard
 
@@ -3602,9 +3602,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:^3.11.3, @uppy/core@npm:latest":
-  version: 3.11.3
-  resolution: "@uppy/core@npm:3.11.3"
+"@uppy/core@npm:^3.12.0, @uppy/core@npm:latest":
+  version: 3.12.0
+  resolution: "@uppy/core@npm:3.12.0"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
     "@uppy/store-default": "npm:^3.2.2"
@@ -3614,7 +3614,7 @@ __metadata:
     namespace-emitter: "npm:^2.0.1"
     nanoid: "npm:^4.0.0"
     preact: "npm:^10.5.13"
-  checksum: 10/ecc533785ef3459f2cfe3d131d082ffbaf9b99b88619b71d7ca7664cd6073c2771df6314386ce5d88631da544dce101d88770c7ebb91ea72eafcd07929082df3
+  checksum: 10/5b7027d6e97fcba87300a7655b848de9a358b00922d158bf64b272c1bb0a2ba1ecc8a786c9c2ed336c3e9187cad0ec54e3c346b6900693d8ecd976f993b044c3
   languageName: node
   linkType: hard
 
@@ -3942,9 +3942,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/transloadit@npm:^3.6.2":
-  version: 3.6.2
-  resolution: "@uppy/transloadit@npm:3.6.2"
+"@uppy/transloadit@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@uppy/transloadit@npm:3.7.0"
   dependencies:
     "@uppy/companion-client": "npm:^3.8.1"
     "@uppy/provider-views": "npm:^3.12.0"
@@ -3952,8 +3952,8 @@ __metadata:
     "@uppy/utils": "npm:^5.9.0"
     component-emitter: "npm:^1.2.1"
   peerDependencies:
-    "@uppy/core": ^3.11.3
-  checksum: 10/c3cb29008687e8b96291cc06f256187f2f55807485fa0ece4557ffedfa74432df105e2beddbe692b00e1cde3f5ad8af792f2b5d6244f5bfe5eb17bb339284ee3
+    "@uppy/core": ^3.12.0
+  checksum: 10/6a3fd415ff2d3284cda16b4ad4f9af912b47de361d4c9507127f884459ddcb37daba8aff916c24ba8f5df6690cd688d2cafeb109d06f342907ae72e3f49feaea
   languageName: node
   linkType: hard
 
@@ -4008,16 +4008,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/webcam@npm:^3.4.1, @uppy/webcam@npm:latest":
-  version: 3.4.1
-  resolution: "@uppy/webcam@npm:3.4.1"
+"@uppy/webcam@npm:^3.4.2, @uppy/webcam@npm:latest":
+  version: 3.4.2
+  resolution: "@uppy/webcam@npm:3.4.2"
   dependencies:
     "@uppy/utils": "npm:^5.9.0"
     is-mobile: "npm:^3.1.1"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^3.11.0
-  checksum: 10/68234346cf8bdd865a4b183e585363d8cb2db5a3b504de7ca508eac6ea6df4ba3ea91b919e01c5a1534b78a56b83157d6d934893a466ad2944df03dab4ef82e6
+    "@uppy/core": ^3.12.0
+  checksum: 10/fb9bb6922e1ade9a9798cbaf9e7130b213ba7ddb9574a63e8e3aa999ef9f5e03d9d2f008866d751539637e750bd98db25aafe2d267248a30d55c3820cbdce3f4
   languageName: node
   linkType: hard
 
@@ -16108,16 +16108,16 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 3.25.5
-  resolution: "uppy@npm:3.25.5"
+  version: 3.26.0
+  resolution: "uppy@npm:3.26.0"
   dependencies:
     "@uppy/audio": "npm:^1.1.9"
     "@uppy/aws-s3": "npm:^3.6.2"
-    "@uppy/aws-s3-multipart": "npm:^3.11.1"
+    "@uppy/aws-s3-multipart": "npm:^3.12.0"
     "@uppy/box": "npm:^2.3.1"
     "@uppy/companion-client": "npm:^3.8.1"
     "@uppy/compressor": "npm:^1.1.4"
-    "@uppy/core": "npm:^3.11.3"
+    "@uppy/core": "npm:^3.12.0"
     "@uppy/dashboard": "npm:^3.8.3"
     "@uppy/drag-drop": "npm:^3.1.0"
     "@uppy/drop-target": "npm:^2.1.0"
@@ -16140,14 +16140,14 @@ __metadata:
     "@uppy/store-default": "npm:^3.2.2"
     "@uppy/store-redux": "npm:^3.0.7"
     "@uppy/thumbnail-generator": "npm:^3.1.0"
-    "@uppy/transloadit": "npm:^3.6.2"
+    "@uppy/transloadit": "npm:^3.7.0"
     "@uppy/tus": "npm:^3.5.5"
     "@uppy/unsplash": "npm:^3.3.1"
     "@uppy/url": "npm:^3.6.1"
-    "@uppy/webcam": "npm:^3.4.1"
+    "@uppy/webcam": "npm:^3.4.2"
     "@uppy/xhr-upload": "npm:^3.6.7"
     "@uppy/zoom": "npm:^2.3.1"
-  checksum: 10/04a1d1a83b028b6c5d77ded65fef60200293334204c203070518d1902480c056aa2ddb7163e94cdc27db4cef053eac56e76a09129ca5e20a272e40700fc5f3e0
+  checksum: 10/b05781a062ab78c9dcea6cd2491d2e5888d0888e299c5dc95bab94177146bc94bc1fa4cf9971a8b94fe0b5626b4f115ce3f0d80bc7b4c1a1ef57432c10507a50
   languageName: node
   linkType: hard
 
