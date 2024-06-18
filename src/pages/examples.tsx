@@ -8,6 +8,7 @@ import Dashboard from '@uppy/react/lib/Dashboard';
 import UppyCore from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrive from '@uppy/google-drive';
+import GooglePhotos from '@uppy/google-photos';
 import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
@@ -103,6 +104,11 @@ const options = [
 			{
 				label: 'Google Drive',
 				value: 'GoogleDrive',
+				type: 'plugins',
+			},
+			{
+				label: 'Google Photos',
+				value: 'GooglePhotos',
 				type: 'plugins',
 			},
 			{
@@ -249,7 +255,7 @@ const Uppy = ({ state, locale }) => {
 				note={
 					state.restrictions ?
 						'Images and video only, 2–3 files, up to 1 MB'
-					:	null
+						: null
 				}
 			/>
 		</div>
@@ -323,9 +329,9 @@ function Page() {
 															// Forgive me for this logic
 															Array.isArray(state[type]) ?
 																state[type].includes(value)
-															: type === 'theme' ?
-																state.theme === 'dark'
-															:	state[type]
+																: type === 'theme' ?
+																	state.theme === 'dark'
+																	: state[type]
 														}
 														disabled={disabled}
 														onChange={(event) =>
