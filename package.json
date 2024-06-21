@@ -94,7 +94,7 @@
 		"lint-staged": "^13.0.3",
 		"mdast-comment-marker": "^2.1.0",
 		"npm-run-all": "^4.1.5",
-		"prettier": "3.2.5",
+		"prettier": "3.3.2",
 		"remark-cli": "^11.0.0",
 		"remark-directive": "^2.0.1",
 		"remark-frontmatter": "^5.0.0",
@@ -129,5 +129,5 @@
 		"unified-message-control": "^4.0.0",
 		"uppy": "latest"
 	},
-	"packageManager": "yarn@4.2.1+sha256.15ce76682a8cd2090257b883cd69c637925b29573f9573e8403ec227d5ab6815"
+	"packageManager": "yarn@4.3.1+sha224.934d21773e22af4b69a7032a2d3b4cb38c1f7c019624777cc9916b23"
 }
