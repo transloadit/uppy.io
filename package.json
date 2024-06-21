@@ -123,7 +123,7 @@
 		"retext-equality": "^6.2.0",
 		"retext-profanities": "^7.1.0",
 		"retext-quotes": "^5.0.0",
-		"retext-syntax-mentions": "^3.1.0",
+		"retext-syntax-mentions": "^4.0.0",
 		"typescript": "^5.2.2",
 		"unified": "^10.0.0",
 		"unified-message-control": "^4.0.0",
