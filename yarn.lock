@@ -3628,9 +3628,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/dashboard@npm:^3.9.0, @uppy/dashboard@npm:latest":
-  version: 3.9.0
-  resolution: "@uppy/dashboard@npm:3.9.0"
+"@uppy/dashboard@npm:^3.9.0, @uppy/dashboard@npm:^3.9.1, @uppy/dashboard@npm:latest":
+  version: 3.9.1
+  resolution: "@uppy/dashboard@npm:3.9.1"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
     "@uppy/informer": "npm:^3.1.0"
@@ -3646,7 +3646,7 @@ __metadata:
     preact: "npm:^10.5.13"
   peerDependencies:
     "@uppy/core": ^3.13.0
-  checksum: 10/3fe3328584afbe5de2dab511f5ed2a4c7e9cd82a395211c7f84464cffbed42f99e028776f30c421e803609d5d7aefc6a6281a0752d395bca4a9c0be43db3804c
+  checksum: 10/d6713cadedecee38ff6feddc632daf352e0841a5a9944de3a30f65127bfea1810352c68ab5d9a0b856a945dc4f55443f9ea7bf2c6a66dba322c57628707092b1
   languageName: node
   linkType: hard
 
@@ -4046,15 +4046,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/xhr-upload@npm:^3.6.2, @uppy/xhr-upload@npm:^3.6.7":
-  version: 3.6.7
-  resolution: "@uppy/xhr-upload@npm:3.6.7"
+"@uppy/xhr-upload@npm:^3.6.2, @uppy/xhr-upload@npm:^3.6.8":
+  version: 3.6.8
+  resolution: "@uppy/xhr-upload@npm:3.6.8"
   dependencies:
     "@uppy/companion-client": "npm:^3.8.1"
     "@uppy/utils": "npm:^5.9.0"
   peerDependencies:
-    "@uppy/core": ^3.11.3
-  checksum: 10/8898edf8920e331575c471ed5e28e86fb1d32cb8d637e8cb735268dce9fe2485e06bd84fb8aae50ea6299cd109e752d8bb8395e785fc4477c76da81915350f8d
+    "@uppy/core": ^3.13.0
+  checksum: 10/40ae67d5e8526da329e79c1b5e5ca07a90faf05ea0262f43cc297465c3eba394a405ccd4301642dca80b10c58b6a1401ce0c2cf8fb8dfc8f3dfa810805b2380b
   languageName: node
   linkType: hard
 
@@ -16153,8 +16153,8 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 3.27.0
-  resolution: "uppy@npm:3.27.0"
+  version: 3.27.1
+  resolution: "uppy@npm:3.27.1"
   dependencies:
     "@uppy/audio": "npm:^1.1.9"
     "@uppy/aws-s3": "npm:^3.6.2"
@@ -16163,7 +16163,7 @@ __metadata:
     "@uppy/companion-client": "npm:^3.8.1"
     "@uppy/compressor": "npm:^1.1.4"
     "@uppy/core": "npm:^3.13.0"
-    "@uppy/dashboard": "npm:^3.9.0"
+    "@uppy/dashboard": "npm:^3.9.1"
     "@uppy/drag-drop": "npm:^3.1.0"
     "@uppy/drop-target": "npm:^2.1.0"
     "@uppy/dropbox": "npm:^3.4.0"
@@ -16191,9 +16191,9 @@ __metadata:
     "@uppy/unsplash": "npm:^3.3.1"
     "@uppy/url": "npm:^3.6.1"
     "@uppy/webcam": "npm:^3.4.2"
-    "@uppy/xhr-upload": "npm:^3.6.7"
+    "@uppy/xhr-upload": "npm:^3.6.8"
     "@uppy/zoom": "npm:^2.3.1"
-  checksum: 10/9984fecf1c06b570f844ce2e55d5cac33fa4c29926fc9aba2f90d0da6f10adad1fffbddae083a88444c51886c114079237dc7301dac8d042f4bdcfdb3d26959d
+  checksum: 10/9ae2f673a519e0133a1004e72062a1e7693f8577c76d529ebe56a56a7411e6a1de3e8b480e1030f69a81b0410f5d9742adb73cf8d74c6fccc896bee474974c7f
   languageName: node
   linkType: hard
 
