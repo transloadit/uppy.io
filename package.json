@@ -64,6 +64,7 @@
 		"@uppy/dropbox": "latest",
 		"@uppy/golden-retriever": "^3.0.2",
 		"@uppy/google-drive": "latest",
+		"@uppy/google-photos": "^0.1.0",
 		"@uppy/image-editor": "latest",
 		"@uppy/instagram": "latest",
 		"@uppy/locales": "latest",
