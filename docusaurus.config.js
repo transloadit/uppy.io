@@ -45,8 +45,8 @@ const config = {
 			{
 				redirects: [
 					{
-						to: '/docs/aws-s3-multipart',
-						from: ['/docs/aws-s3'],
+						to: '/docs/aws-s3',
+						from: ['/docs/aws-s3-multipart'],
 					},
 					{
 						to: '/docs/guides/migration-guides',
