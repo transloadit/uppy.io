@@ -288,9 +288,9 @@ function Page() {
 						<Link
 							target="_blank"
 							rel="noopener"
-							href="https://codesandbox.io/s/uppy-dashboard-xpxuhd"
+							href="https://stackblitz.com/edit/vitejs-vite-zaqyaf?file=main.js"
 						>
-							CodeSandbox
+							StackBlitz
 						</Link>
 					</p>
 				</div>
