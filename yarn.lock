@@ -3745,7 +3745,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/google-photos@npm:^0.2.0":
+"@uppy/google-photos@npm:^0.2.0, @uppy/google-photos@npm:latest":
   version: 0.2.0
   resolution: "@uppy/google-photos@npm:0.2.0"
   dependencies:
@@ -16086,6 +16086,7 @@ __metadata:
     "@uppy/dropbox": "npm:latest"
     "@uppy/golden-retriever": "npm:latest"
     "@uppy/google-drive": "npm:latest"
+    "@uppy/google-photos": "npm:latest"
     "@uppy/image-editor": "npm:latest"
     "@uppy/instagram": "npm:latest"
     "@uppy/locales": "npm:latest"

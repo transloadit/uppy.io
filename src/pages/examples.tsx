@@ -8,6 +8,7 @@ import Dashboard from '@uppy/react/lib/Dashboard';
 import UppyCore from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrive from '@uppy/google-drive';
+import GooglePhotos from '@uppy/google-photos';
 import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
@@ -61,6 +62,7 @@ const initialState: State = {
 	plugins: [
 		'Webcam',
 		'GoogleDrive',
+		'GooglePhotos',
 		'Dropbox',
 		'Url',
 		'OneDrive',
@@ -103,6 +105,11 @@ const options = [
 			{
 				label: 'Google Drive',
 				value: 'GoogleDrive',
+				type: 'plugins',
+			},
+			{
+				label: 'Google Photos',
+				value: 'GooglePhotos',
 				type: 'plugins',
 			},
 			{
@@ -219,6 +226,11 @@ const Uppy = ({ state, locale }) => {
 					key: 'unused-key',
 					credentialsName: 'unused-credentials',
 				},
+			});
+		}
+		if (state.plugins.includes('GooglePhotos')) {
+			uppy.use(GooglePhotos, {
+				companionUrl,
 			});
 		}
 		if (state.plugins.includes('Dropbox')) {

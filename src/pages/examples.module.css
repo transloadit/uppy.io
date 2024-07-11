@@ -28,10 +28,6 @@
 	accent-color: #f37;
 }
 
-.main input[type='checkbox']:not(:checked) + label {
-	color: gray;
-}
-
 .main input[type='checkbox']:not(:checked, :disabled):hover + label {
 	color: black;
 }
