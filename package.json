@@ -62,7 +62,7 @@
 		"@uppy/core": "latest",
 		"@uppy/dashboard": "latest",
 		"@uppy/dropbox": "latest",
-		"@uppy/golden-retriever": "^3.0.2",
+		"@uppy/golden-retriever": "latest",
 		"@uppy/google-drive": "latest",
 		"@uppy/image-editor": "latest",
 		"@uppy/instagram": "latest",

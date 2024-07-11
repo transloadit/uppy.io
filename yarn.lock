@@ -3719,19 +3719,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/golden-retriever@npm:^3.0.2":
-  version: 3.2.0
-  resolution: "@uppy/golden-retriever@npm:3.2.0"
-  dependencies:
-    "@uppy/utils": "npm:^5.7.5"
-    lodash: "npm:^4.17.21"
-  peerDependencies:
-    "@uppy/core": ^3.10.0
-  checksum: 10/fa41a81d76949e86947200b52bc3e9445cbecb7567530c07826ced4aee43b06b09d0de8d04058fa7f24cafd1dc91c6d6b85d62dbb786554af9c868c46985a9f8
-  languageName: node
-  linkType: hard
-
-"@uppy/golden-retriever@npm:^4.0.0":
+"@uppy/golden-retriever@npm:^4.0.0, @uppy/golden-retriever@npm:latest":
   version: 4.0.0
   resolution: "@uppy/golden-retriever@npm:4.0.0"
   dependencies:
@@ -4026,16 +4014,6 @@ __metadata:
   peerDependencies:
     "@uppy/core": ^4.0.0
   checksum: 10/c3935f7391f29ff9d2926a7a2c831656b65212e8a5b4ad463bf3c3d0b7a64d2d0afb7cc337880a664fe374c836a653d6dc302a8a5fcdf7f4d71a8e3acfbdee78
-  languageName: node
-  linkType: hard
-
-"@uppy/utils@npm:^5.7.5":
-  version: 5.9.0
-  resolution: "@uppy/utils@npm:5.9.0"
-  dependencies:
-    lodash: "npm:^4.17.21"
-    preact: "npm:^10.5.13"
-  checksum: 10/049cdcc75435014e98b419143eb25a79ee6d1500963ffcf11f9c751719d8310dde2f10660bd36d40de80bdfb951367fa58a5db5394a95d17aa421c412a3a525d
   languageName: node
   linkType: hard
 
@@ -16106,7 +16084,7 @@ __metadata:
     "@uppy/core": "npm:latest"
     "@uppy/dashboard": "npm:latest"
     "@uppy/dropbox": "npm:latest"
-    "@uppy/golden-retriever": "npm:^3.0.2"
+    "@uppy/golden-retriever": "npm:latest"
     "@uppy/google-drive": "npm:latest"
     "@uppy/image-editor": "npm:latest"
     "@uppy/instagram": "npm:latest"
