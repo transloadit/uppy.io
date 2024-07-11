@@ -148,7 +148,7 @@
 
 .upload-one {
 	transform: rotate(5deg) translateY(30px);
-	top: 0;
+	top: 60px;
 	right: 50px;
 	height: 130%;
 	width: 150px;
@@ -156,7 +156,7 @@
 
 .upload-two {
 	transform: rotate(-10deg) translateY(30px);
-	top: 0;
+	top: 20px;
 	left: 400px;
 	height: 130%;
 	width: 150px;
