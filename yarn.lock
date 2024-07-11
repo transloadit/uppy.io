@@ -3597,6 +3597,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uppy/companion-client@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@uppy/companion-client@npm:4.0.0"
+  dependencies:
+    "@uppy/utils": "npm:^6.0.0"
+    namespace-emitter: "npm:^2.0.1"
+    p-retry: "npm:^6.1.0"
+  peerDependencies:
+    "@uppy/core": ^4.0.0
+  checksum: 10/2b28d8f395b42bc062883d96ecb110ac5a0c4fabde63667e10df604368d0e854edcb77a6eb9aa7c69c6c5439d8a45bf661d8c7bb9634a386aeda4260316c2098
+  languageName: node
+  linkType: hard
+
 "@uppy/compressor@npm:^1.1.4":
   version: 1.1.4
   resolution: "@uppy/compressor@npm:1.1.4"
@@ -3765,6 +3778,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uppy/google-photos@npm:latest":
+  version: 0.2.0
+  resolution: "@uppy/google-photos@npm:0.2.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^4.0.0"
+    "@uppy/provider-views": "npm:^4.0.0"
+    "@uppy/utils": "npm:^6.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^4.0.0
+  checksum: 10/ad8c3c2077bd1ef08e9dc3c7bfc4448a2f9e31aa5bc24cac04126afa98902e12e1b6333fabd3dcea2821c0c25b1cb58f53d15ffb8be19009f2cbcaa2b04c0507
+  languageName: node
+  linkType: hard
+
 "@uppy/image-editor@npm:^2.4.6, @uppy/image-editor@npm:latest":
   version: 2.4.6
   resolution: "@uppy/image-editor@npm:2.4.6"
@@ -3851,6 +3878,21 @@ __metadata:
   peerDependencies:
     "@uppy/core": ^3.13.0
   checksum: 10/d89237add39da40195772324daf74441238607efeedea56dfc83d70f3d5accace9b30a89209e77bac7d8e95b5683127956185a7d2578a32362cee61ca063cf75
+  languageName: node
+  linkType: hard
+
+"@uppy/provider-views@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@uppy/provider-views@npm:4.0.0"
+  dependencies:
+    "@uppy/utils": "npm:^6.0.0"
+    classnames: "npm:^2.2.6"
+    nanoid: "npm:^5.0.0"
+    p-queue: "npm:^8.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^4.0.0
+  checksum: 10/58463ab28c39c76b53d300c2fbedc2412e08b8c62a767b31374af70977457bf0c4972840c4e0e9865fa19f36e1bed1314020e3b55274f7a9d3417f551ab6b0b8
   languageName: node
   linkType: hard
 
@@ -4030,6 +4072,16 @@ __metadata:
     lodash: "npm:^4.17.21"
     preact: "npm:^10.5.13"
   checksum: 10/049cdcc75435014e98b419143eb25a79ee6d1500963ffcf11f9c751719d8310dde2f10660bd36d40de80bdfb951367fa58a5db5394a95d17aa421c412a3a525d
+  languageName: node
+  linkType: hard
+
+"@uppy/utils@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@uppy/utils@npm:6.0.0"
+  dependencies:
+    lodash: "npm:^4.17.21"
+    preact: "npm:^10.5.13"
+  checksum: 10/5145b9ba81cd367029347b6d40ab419fe0a7e6b79780a18e72e312c486762e3d3f68d5ca11a3612e7b9aba390a45559ec7c8892ac0f21b5178e29d906aa7bd7a
   languageName: node
   linkType: hard
 
@@ -11207,6 +11259,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^5.0.0":
+  version: 5.0.7
+  resolution: "nanoid@npm:5.0.7"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 10/25ab0b0cf9082ae6747f0f55cec930e6c1cc5975103aa3a5fda44be5720eff57d9b25a8a9850274bfdde8def964b49bf03def71c6aa7ad1cba32787819b79f60
+  languageName: node
+  linkType: hard
+
 "natural-compare-lite@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare-lite@npm:1.4.0"
@@ -11651,6 +11712,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p-queue@npm:^8.0.0":
+  version: 8.0.1
+  resolution: "p-queue@npm:8.0.1"
+  dependencies:
+    eventemitter3: "npm:^5.0.1"
+    p-timeout: "npm:^6.1.2"
+  checksum: 10/8dcf8fbb8339675eba7d369f6eebac9e249e2412280ad73938403b83a28a2627a2072c732890d22ef98837cef89ff09eecd839cbac358cdc532d00ef4f736d0d
+  languageName: node
+  linkType: hard
+
 "p-retry@npm:^4.5.0":
   version: 4.6.2
   resolution: "p-retry@npm:4.6.2"
@@ -11676,6 +11747,13 @@ __metadata:
   version: 5.1.0
   resolution: "p-timeout@npm:5.1.0"
   checksum: 10/f5cd4e17301ff1ff1d8dbf2817df0ad88c6bba99349fc24d8d181827176ad4f8aca649190b8a5b1a428dfd6ddc091af4606835d3e0cb0656e04045da5c9e270c
+  languageName: node
+  linkType: hard
+
+"p-timeout@npm:^6.1.2":
+  version: 6.1.2
+  resolution: "p-timeout@npm:6.1.2"
+  checksum: 10/ca3ede368d792bd86fcfa4e133220536382225d31e5f62e2cedb8280df267b25f6684aa0056b22e8aa538cc85014b310058d8fdddeb0a1ff363093d56e87ac3a
   languageName: node
   linkType: hard
 
