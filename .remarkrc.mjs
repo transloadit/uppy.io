@@ -48,9 +48,10 @@ const retextPreset = [
 				'just',
 				'simple',
 				'simply',
+				'boys',
 			],
 		})
-		.use(retextProfanities, { sureness: 1, ignore: ['black'] })
+		.use(retextProfanities, { sureness: 1, ignore: ['black', 'ball'] })
 		.use(retextQuotes)
 		.use(retextSyntaxMentions),
 ];
