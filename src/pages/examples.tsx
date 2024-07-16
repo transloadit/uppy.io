@@ -261,7 +261,7 @@ const Uppy = ({ state, locale }) => {
 				note={
 					state.restrictions ?
 						'Images and video only, 2–3 files, up to 1 MB'
-					:	null
+						: null
 				}
 			/>
 		</div>
@@ -335,9 +335,9 @@ function Page() {
 															// Forgive me for this logic
 															Array.isArray(state[type]) ?
 																state[type].includes(value)
-															: type === 'theme' ?
-																state.theme === 'dark'
-															:	state[type]
+																: type === 'theme' ?
+																	state.theme === 'dark'
+																	: state[type]
 														}
 														disabled={disabled}
 														onChange={(event) =>
