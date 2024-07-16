@@ -293,7 +293,7 @@ function Page() {
 			<main className={styles['main']}>
 				<Heading className={styles['h1']} as="h1">Examples</Heading>
 
-				<div className={styles['header']}>
+				<div className={styles['dashboard-docs-stackblitz']}>
 					<Heading as="h2">Dashboard</Heading>
 					<p>
 						<Link to="/docs/dashboard">Docs</Link> •{' '}
@@ -319,7 +319,7 @@ function Page() {
 									<Heading className={styles['h3']} as="h3">{section.heading}</Heading>
 									<div
 										wrapper-for={section.heading}
-										className={styles['options-wrapper']}
+										className={styles['options-inner']}
 									>
 										{section.options.map(
 											({ label, value, type, disabled, title }) => (
@@ -327,8 +327,6 @@ function Page() {
 													<input
 														type="checkbox"
 														id={label}
-														className={styles['framework-input']}
-														name="framework"
 														value={type}
 														title={title}
 														checked={
