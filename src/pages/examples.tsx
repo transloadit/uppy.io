@@ -291,7 +291,9 @@ function Page() {
 	return (
 		<Layout>
 			<main className={styles['main']}>
-				<Heading className={styles['h1']} as="h1">Examples</Heading>
+				<Heading className={styles['h1']} as="h1">
+					Examples
+				</Heading>
 
 				<div className={styles['dashboard-docs-stackblitz']}>
 					<Heading as="h2">Dashboard</Heading>
@@ -316,7 +318,9 @@ function Page() {
 						{options.map((section) => {
 							return (
 								<div key={section.heading}>
-									<Heading className={styles['h3']} as="h3">{section.heading}</Heading>
+									<Heading className={styles['h3']} as="h3">
+										{section.heading}
+									</Heading>
 									<div
 										wrapper-for={section.heading}
 										className={styles['options-inner']}
