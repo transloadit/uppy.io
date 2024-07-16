@@ -72,6 +72,11 @@
 	z-index: 1;
 }
 
+.dashboard-inner :is(h1, h2, h3, h4, h5, h6) {
+	/* This is a copypaste from Uppy; here we're making sure docusaurus styles don't override Uppy's styles */
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;
+}
+
 @media screen and (min-width: 60rem) {
 	.main {
 		padding: 0;
