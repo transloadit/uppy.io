@@ -43,6 +43,8 @@
 }
 .options input[type='checkbox'] {
 	accent-color: #f37;
+	margin-right: 5px;
+	margin-left: 0;
 }
 .options-inner > div {
 	display: flexl;
