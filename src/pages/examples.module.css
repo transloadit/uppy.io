@@ -4,16 +4,16 @@
 	padding: 0 1rem;
 }
 
-.main h1 {
+.main .h1 {
 	font-size: 3rem;
 }
 
-.main h3 {
+.main .h3 {
 	font-size: 1rem;
 	font-family: var(--ifm-font-family-base);
 }
 
-.main section {
+.main .options-and-uppy {
 	position: relative;
 	border-radius: 5px;
 	margin-bottom: 1rem;

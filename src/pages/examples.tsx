@@ -290,10 +290,10 @@ function Page() {
 
 	return (
 		<Layout>
-			<main className={styles.main}>
-				<Heading as="h1">Examples</Heading>
+			<main className={styles['main']}>
+				<Heading className={styles['h1']} as="h1">Examples</Heading>
 
-				<div className={styles.header}>
+				<div className={styles['header']}>
 					<Heading as="h2">Dashboard</Heading>
 					<p>
 						<Link to="/docs/dashboard">Docs</Link> •{' '}
@@ -311,12 +311,12 @@ function Page() {
 					previews and upload progress, lets you edit metadata, and unites
 					acquire plugins, such as Google Drive and Webcam, under one roof.
 				</p>
-				<section>
-					<div className={styles.options}>
+				<section className={styles['options-and-uppy']}>
+					<div className={styles['options']}>
 						{options.map((section) => {
 							return (
 								<div key={section.heading}>
-									<Heading as="h3">{section.heading}</Heading>
+									<Heading className={styles['h3']} as="h3">{section.heading}</Heading>
 									<div
 										wrapper-for={section.heading}
 										className={styles['options-wrapper']}
