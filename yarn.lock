@@ -3552,15 +3552,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/aws-s3@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@uppy/aws-s3@npm:4.0.0"
+"@uppy/aws-s3@npm:^4.0.0, @uppy/aws-s3@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@uppy/aws-s3@npm:4.0.1"
   dependencies:
     "@uppy/companion-client": "npm:^4.0.0"
     "@uppy/utils": "npm:^6.0.0"
   peerDependencies:
-    "@uppy/core": ^4.0.0
-  checksum: 10/75ae0095ca2953aeeb6cef60daa8041131bf95090e0402f6e56dc7e59288e0eb31a5aac65c4cebc7ebd52b923b89021381ba2920f75ab96c8210d11e85b3dd5a
+    "@uppy/core": ^4.0.1
+  checksum: 10/b2dcefe6ecf6b450b90c1d3782c362477832b7db75808d655ad22b2da9c3e603a8155e595f798c9873f08d0687c6b24b620204adf5badbb12f47f1a8b0eca2a9
   languageName: node
   linkType: hard
 
@@ -4040,15 +4040,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/xhr-upload@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "@uppy/xhr-upload@npm:4.0.1"
+"@uppy/xhr-upload@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "@uppy/xhr-upload@npm:4.0.2"
   dependencies:
     "@uppy/companion-client": "npm:^4.0.0"
     "@uppy/utils": "npm:^6.0.0"
   peerDependencies:
     "@uppy/core": ^4.0.1
-  checksum: 10/7eef6d0f04392bef9114e0c2a71d6280a5193327cde266261ad53070096c2aece525244f6d526fefc4e96fe4e17c9a3c65a87ec100669ec3b46e1d07e41861f9
+  checksum: 10/384767e79b442ab7bd4286667023c623293d1c162a57a619d1fe5861d0f5b8df3fd414a19908b0ac99d83a0f3423ed8d5fa646a83c390fef400a38a02137154d
   languageName: node
   linkType: hard
 
@@ -16148,11 +16148,11 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 4.0.4
-  resolution: "uppy@npm:4.0.4"
+  version: 4.0.5
+  resolution: "uppy@npm:4.0.5"
   dependencies:
     "@uppy/audio": "npm:^2.0.0"
-    "@uppy/aws-s3": "npm:^4.0.0"
+    "@uppy/aws-s3": "npm:^4.0.1"
     "@uppy/aws-s3-multipart": "npm:^4.0.0"
     "@uppy/box": "npm:^3.0.0"
     "@uppy/companion-client": "npm:^4.0.0"
@@ -16186,9 +16186,9 @@ __metadata:
     "@uppy/unsplash": "npm:^4.0.0"
     "@uppy/url": "npm:^4.0.0"
     "@uppy/webcam": "npm:^4.0.0"
-    "@uppy/xhr-upload": "npm:^4.0.1"
+    "@uppy/xhr-upload": "npm:^4.0.2"
     "@uppy/zoom": "npm:^3.0.0"
-  checksum: 10/fad4a373b7ca385c9957c86a748eeb9eb7aa17e57dfbe508773fc0d15857a3ca12b04a201087f0038b88a2e608fc307f098320e54e4a48babe180a308cb983f2
+  checksum: 10/ed9502517da9e9cbbc773b126b3ffa290042c624ad2ff76ba582465419590ad1ce10230033a238804b25ab40db33d5a67c0fc74ecde629527adb3afc58f1a072
   languageName: node
   linkType: hard
 
