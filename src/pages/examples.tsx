@@ -290,10 +290,12 @@ function Page() {
 
 	return (
 		<Layout>
-			<main className={styles.main}>
-				<Heading as="h1">Examples</Heading>
+			<main className={styles['main']}>
+				<Heading className={styles['h1']} as="h1">
+					Examples
+				</Heading>
 
-				<div className={styles.header}>
+				<div className={styles['dashboard-docs-stackblitz']}>
 					<Heading as="h2">Dashboard</Heading>
 					<p>
 						<Link to="/docs/dashboard">Docs</Link> •{' '}
@@ -311,15 +313,17 @@ function Page() {
 					previews and upload progress, lets you edit metadata, and unites
 					acquire plugins, such as Google Drive and Webcam, under one roof.
 				</p>
-				<section>
-					<div className={styles.options}>
+				<section className={styles['options-and-uppy']}>
+					<div className={styles['options']}>
 						{options.map((section) => {
 							return (
 								<div key={section.heading}>
-									<Heading as="h3">{section.heading}</Heading>
+									<Heading className={styles['h3']} as="h3">
+										{section.heading}
+									</Heading>
 									<div
 										wrapper-for={section.heading}
-										className={styles['options-wrapper']}
+										className={styles['options-inner']}
 									>
 										{section.options.map(
 											({ label, value, type, disabled, title }) => (
@@ -327,8 +331,6 @@ function Page() {
 													<input
 														type="checkbox"
 														id={label}
-														className={styles['framework-input']}
-														name="framework"
 														value={type}
 														title={title}
 														checked={

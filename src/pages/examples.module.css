@@ -3,17 +3,26 @@
 	margin: 4rem auto;
 	padding: 0 1rem;
 }
-
-.main h1 {
+.h1 {
 	font-size: 3rem;
 }
-
-.main h3 {
+.h3 {
 	font-size: 1rem;
 	font-family: var(--ifm-font-family-base);
 }
 
-.main section {
+.dashboard-docs-stackblitz {
+	display: flex;
+	align-items: baseline;
+	gap: 1rem;
+	margin-top: 2rem;
+}
+.dashboard-docs-stackblitz h2,
+.dashboard-docs-stackblitz p {
+	margin-bottom: 0.5rem;
+}
+
+.options-and-uppy {
 	position: relative;
 	border-radius: 5px;
 	margin-bottom: 1rem;
@@ -23,41 +32,6 @@
 		rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
 		rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
 }
-
-.main input[type='checkbox'] {
-	accent-color: #f37;
-}
-
-.main input[type='checkbox']:not(:checked, :disabled):hover + label {
-	color: black;
-}
-
-.main input[type='checkbox']:disabled:hover,
-.main input[type='checkbox']:disabled:hover + label {
-	cursor: not-allowed;
-}
-
-.main select {
-	grid-column: 1 / 3;
-	background: white;
-	padding: 0.2rem 1rem;
-	font-size: 1rem;
-	border: 1px solid lightgray;
-	border-radius: 5px;
-}
-
-.header {
-	display: flex;
-	align-items: baseline;
-	gap: 1rem;
-	margin-top: 2rem;
-}
-
-.header h2,
-.header p {
-	margin-bottom: 0.5rem;
-}
-
 .options {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -67,11 +41,35 @@
 	border-radius: 5px;
 	padding: 1rem;
 }
-
-.options-wrapper > div {
+.options input[type='checkbox'] {
+	accent-color: #f37;
+	margin-right: 5px;
+	margin-left: 0;
+}
+.options-inner > div {
 	display: flexl;
 	align-items: center;
 	margin: 0.25rem 0;
+}
+.options input[type='checkbox']:not(:checked, :disabled):hover + label {
+	color: black;
+}
+.options input[type='checkbox']:disabled:hover,
+.options input[type='checkbox']:disabled:hover + label {
+	cursor: not-allowed;
+}
+.options select {
+	grid-column: 1 / 3;
+	background: white;
+	padding: 0.2rem 1rem;
+	font-size: 1rem;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+
+.dashboard-inner {
+	position: relative;
+	z-index: 1;
 }
 
 @media screen and (min-width: 60rem) {
@@ -86,17 +84,12 @@
 	.options > div:first-of-type {
 		grid-column: 1 / 3;
 	}
-	.options-wrapper[wrapper-for='Remote sources'] {
+	.options-inner[wrapper-for='Remote sources'] {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
-	.main > section {
+	.options-and-uppy {
 		display: grid;
 		grid-template-columns: minmax(20rem, 1fr) 2fr;
 	}
-}
-
-.dashboard-inner {
-	position: relative;
-	z-index: 1;
 }
