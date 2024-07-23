@@ -61,8 +61,8 @@ const initialState: State = {
 	theme: 'light',
 	plugins: [
 		'Webcam',
-		'GoogleDrive',
-		'GooglePhotos',
+		// 'GoogleDrive',
+		// 'GooglePhotos',
 		'Dropbox',
 		'Url',
 		'OneDrive',
@@ -106,11 +106,13 @@ const options = [
 				label: 'Google Drive',
 				value: 'GoogleDrive',
 				type: 'plugins',
+				disabled: true,
 			},
 			{
 				label: 'Google Photos',
 				value: 'GooglePhotos',
 				type: 'plugins',
+				disabled: true,
 			},
 			{
 				label: 'Dropbox',
@@ -183,6 +185,12 @@ const options = [
 ];
 
 const Uppy = ({ state, locale }) => {
+	const disabled = (value: string) =>
+		options.some((section) =>
+			section.options.some(
+				(option) => value === option.value && option.disabled,
+			),
+		);
 	const createUppy = useCallback(() => {
 		const uppy = new UppyCore({
 			restrictions: state.restrictions,
@@ -192,34 +200,34 @@ const Uppy = ({ state, locale }) => {
 			.use(ImageEditor, {})
 			.use(Tus, { endpoint });
 
-		if (state.plugins.includes('Box')) {
+		if (state.plugins.includes('Box') && !disabled('Box')) {
 			uppy.use(Box, { companionUrl });
 		}
-		if (state.plugins.includes('Instagram')) {
+		if (state.plugins.includes('Instagram') && !disabled('Instagram')) {
 			uppy.use(Instagram, { companionUrl });
 		}
-		if (state.plugins.includes('Url')) {
+		if (state.plugins.includes('Url') && !disabled('Url')) {
 			uppy.use(Url, { companionUrl });
 		}
-		if (state.plugins.includes('Facebook')) {
+		if (state.plugins.includes('Facebook') && !disabled('Facebook')) {
 			uppy.use(Facebook, { companionUrl });
 		}
-		if (state.plugins.includes('OneDrive')) {
+		if (state.plugins.includes('OneDrive') && !disabled('OneDrive')) {
 			uppy.use(OneDrive, { companionUrl });
 		}
-		if (state.plugins.includes('Unsplash')) {
+		if (state.plugins.includes('Unsplash') && !disabled('Unsplash')) {
 			uppy.use(Unsplash, { companionUrl });
 		}
-		if (state.plugins.includes('Webcam')) {
+		if (state.plugins.includes('Webcam') && !disabled('Webcam')) {
 			uppy.use(Webcam);
 		}
-		if (state.plugins.includes('ScreenCapture')) {
+		if (state.plugins.includes('ScreenCapture') && !disabled('ScreenCapture')) {
 			uppy.use(ScreenCapture);
 		}
-		if (state.plugins.includes('Audio')) {
+		if (state.plugins.includes('Audio') && !disabled('Audio')) {
 			uppy.use(Audio);
 		}
-		if (state.plugins.includes('GoogleDrive')) {
+		if (state.plugins.includes('GoogleDrive') && !disabled('GoogleDrive')) {
 			uppy.use(GoogleDrive, {
 				companionUrl,
 				companionKeysParams: {
@@ -228,15 +236,18 @@ const Uppy = ({ state, locale }) => {
 				},
 			});
 		}
-		if (state.plugins.includes('GooglePhotos')) {
+		if (state.plugins.includes('GooglePhotos') && !disabled('GooglePhotos')) {
 			uppy.use(GooglePhotos, {
 				companionUrl,
 			});
 		}
-		if (state.plugins.includes('Dropbox')) {
+		if (state.plugins.includes('Dropbox') && !disabled('Dropbox')) {
 			uppy.use(Dropbox, { companionUrl });
 		}
-		if (state.plugins.includes('GoldenRetriever')) {
+		if (
+			state.plugins.includes('GoldenRetriever') &&
+			!disabled('GoldenRetriever')
+		) {
 			uppy.use(GoldenRetriever);
 		}
 
@@ -335,7 +346,8 @@ function Page() {
 														title={title}
 														checked={
 															// Forgive me for this logic
-															Array.isArray(state[type]) ?
+															disabled ? false
+															: Array.isArray(state[type]) ?
 																state[type].includes(value)
 															: type === 'theme' ?
 																state.theme === 'dark'

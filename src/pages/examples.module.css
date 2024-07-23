@@ -51,6 +51,9 @@
 	align-items: center;
 	margin: 0.25rem 0;
 }
+.options input[type='checkbox']:disabled + label {
+	color: gray;
+}
 .options input[type='checkbox']:not(:checked, :disabled):hover + label {
 	color: black;
 }
