@@ -19,6 +19,15 @@ const config = {
 	markdown: {
 		format: 'detect',
 	},
+	headTags: [
+		{
+			tagName: 'meta',
+			attributes: {
+				name: 'google-site-verification',
+				content: 'JxARoHXoCI8bD07pLV_u3z6xpuWNcSIZIcHEytyCkUc',
+			},
+		},
+	],
 	presets: [
 		[
 			'classic',
