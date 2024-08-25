@@ -3606,9 +3606,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:^4.1.1, @uppy/core@npm:latest":
-  version: 4.1.1
-  resolution: "@uppy/core@npm:4.1.1"
+"@uppy/core@npm:^4.1.2, @uppy/core@npm:latest":
+  version: 4.1.2
+  resolution: "@uppy/core@npm:4.1.2"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
     "@uppy/store-default": "npm:^4.1.0"
@@ -3618,7 +3618,7 @@ __metadata:
     namespace-emitter: "npm:^2.0.1"
     nanoid: "npm:^5.0.0"
     preact: "npm:^10.5.13"
-  checksum: 10/9031799bca285f35489630788a0e51f610fd876bc6b2d363544213e5ead4c6a72f067aa4a40170385942b88e857620e0f6d96351be1014872f7d5655cdc06cb6
+  checksum: 10/5f98fd3667dc38872f46cf7d168df460cd364e2ba693c24189507ca24b3e475b7a8ba39af84b35660e963c50c5c9d1b09c8939af04556b411f1a642a0a5308d2
   languageName: node
   linkType: hard
 
@@ -3919,17 +3919,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/status-bar@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "@uppy/status-bar@npm:4.0.2"
+"@uppy/status-bar@npm:^4.0.2, @uppy/status-bar@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "@uppy/status-bar@npm:4.0.3"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
     "@uppy/utils": "npm:^6.0.2"
     classnames: "npm:^2.2.6"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^4.1.1
-  checksum: 10/590ad74163c4ae24d4071ff03ffee35277e556509ccfb9cfeb9a30a50a3a073d9ac50853041d20fa74f24da96509b8074d1bd6deee27cfaff6c297a6d61de708
+    "@uppy/core": ^4.1.2
+  checksum: 10/e630c39dd94782e54065ec1d838653efdd8283bd0dd6dad7c169a7fa8c7bf94cc49cbf30aa530bf4af719868c75cf9078adc3f00002a8b1789af8468124c24ca
   languageName: node
   linkType: hard
 
@@ -3961,9 +3961,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/transloadit@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "@uppy/transloadit@npm:4.0.2"
+"@uppy/transloadit@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@uppy/transloadit@npm:4.1.0"
   dependencies:
     "@uppy/companion-client": "npm:^4.0.1"
     "@uppy/provider-views": "npm:^4.0.1"
@@ -3971,8 +3971,8 @@ __metadata:
     "@uppy/utils": "npm:^6.0.2"
     component-emitter: "npm:^2.0.0"
   peerDependencies:
-    "@uppy/core": ^4.1.1
-  checksum: 10/31c79454ed662897795abcc41948afdcbcabf357d7d45435ff9b75d8de65fda2ed6f0c80efdb193978a707e86a419f082c6ab3cb122186b9d26791324ba8f6f8
+    "@uppy/core": ^4.1.2
+  checksum: 10/ea009ace4467b7eebc35da0d55d0838911cbcf428be8cf618468caac1f6fb868c445903e12352ab8dddf1d55e8dba07ad5f59d61a76aef2bf2da48ff27556b2f
   languageName: node
   linkType: hard
 
@@ -16148,8 +16148,8 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 4.1.1
-  resolution: "uppy@npm:4.1.1"
+  version: 4.2.0
+  resolution: "uppy@npm:4.2.0"
   dependencies:
     "@uppy/audio": "npm:^2.0.1"
     "@uppy/aws-s3": "npm:^4.0.3"
@@ -16157,7 +16157,7 @@ __metadata:
     "@uppy/box": "npm:^3.0.0"
     "@uppy/companion-client": "npm:^4.0.1"
     "@uppy/compressor": "npm:^2.0.1"
-    "@uppy/core": "npm:^4.1.1"
+    "@uppy/core": "npm:^4.1.2"
     "@uppy/dashboard": "npm:^4.0.3"
     "@uppy/drag-drop": "npm:^4.0.2"
     "@uppy/drop-target": "npm:^3.0.1"
@@ -16177,18 +16177,18 @@ __metadata:
     "@uppy/redux-dev-tools": "npm:^4.0.0"
     "@uppy/remote-sources": "npm:^2.1.0"
     "@uppy/screen-capture": "npm:^4.0.0"
-    "@uppy/status-bar": "npm:^4.0.2"
+    "@uppy/status-bar": "npm:^4.0.3"
     "@uppy/store-default": "npm:^4.1.0"
     "@uppy/store-redux": "npm:^4.0.0"
     "@uppy/thumbnail-generator": "npm:^4.0.0"
-    "@uppy/transloadit": "npm:^4.0.2"
+    "@uppy/transloadit": "npm:^4.1.0"
     "@uppy/tus": "npm:^4.0.1"
     "@uppy/unsplash": "npm:^4.0.0"
     "@uppy/url": "npm:^4.0.0"
     "@uppy/webcam": "npm:^4.0.1"
     "@uppy/xhr-upload": "npm:^4.0.2"
     "@uppy/zoom": "npm:^3.0.0"
-  checksum: 10/385a84f1b446e29950749f65b23a0c034bb7642c2bb47971b651c6adc9ee7780983d6da3268b2270b4a386d43f3f6fd88a6bfe102f0f81e8c2d5bb1742ee26ec
+  checksum: 10/2acd7c0f3a2c597548553924008172371b9831c5a9ecff44c2105a4b39232e0a65c081cd4d94187ee55b994b380a34ebfe90c4a48b5cabbbf871d82be13eed88
   languageName: node
   linkType: hard
 
