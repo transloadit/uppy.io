@@ -638,7 +638,10 @@ Prometheus metrics (by default metrics are enabled.)
 A boolean flag to tell Companion whether to enable streaming uploads. If
 enabled, it will lead to _faster uploads_ because companion will start uploading
 at the same time as downloading using `stream.pipe`. If `false`, files will be
-fully downloaded first, then uploaded. Defaults to `true`.
+fully downloaded first, then uploaded. Note that for Tus to suppport streaming
+files of unknown size, this requires an optional extension on the Tus server if
+using Tus uploads. For form multipart uploads it requres a server that can
+handle `transfer-encoding: chunked`. Defaults to `true`.
 
 #### `maxFileSize` `COMPANION_MAX_FILE_SIZE`
 
