@@ -95,7 +95,6 @@ const config = {
 				],
 			},
 		],
-		'./src/plugins/custom.js',
 	],
 	scripts: [
 		{

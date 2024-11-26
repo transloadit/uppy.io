@@ -3,11 +3,10 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"downloadLatestDocs": "[ -L docs ] || curl -L https://github.com/transloadit/uppy/archive/HEAD.tar.gz | tar -xz --strip-component 1 -- '*/docs'",
-		"build": "yarn downloadLatestDocs && docusaurus build",
+		"build": "docusaurus build",
 		"clear": "docusaurus clear",
 		"deploy": "docusaurus deploy",
-		"dev": "yarn downloadLatestDocs && docusaurus start",
+		"dev": "docusaurus start",
 		"lint:js": "eslint . --cache --max-warnings=0",
 		"lint:md": "run-s --continue-on-error remark:md remark:mdx",
 		"lint": "run-s --continue-on-error lint:js lint:md format:check-diff",
