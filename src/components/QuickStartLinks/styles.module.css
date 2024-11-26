@@ -15,6 +15,7 @@ section a:hover {
 }
 
 .item {
+	color: black;
 	position: relative;
 	padding: 1em;
 	border: 1px solid var(--ifm-color-emphasis-300);
@@ -23,10 +24,34 @@ section a:hover {
 		var(--ifm-transition-timing-default);
 }
 
+.item svg {
+	width: 2.5em;
+	height: 2.5em;
+}
+
+.item[data-framework] {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+}
+
+.item[data-framework='react'] svg {
+	color: #61dafb;
+}
+.item[data-framework='vue'] svg {
+	color: #4fc08d;
+}
+.item[data-framework='svelte'] svg {
+	color: #ff3e00;
+}
+.item[data-framework='angular'] svg {
+	color: #dd0031;
+}
+
 .item h2 {
 	font-size: 1rem;
 	font-family: var(--ifm-font-family-base);
-	margin-bottom: 0.5rem;
+	margin-bottom: 0;
 }
 
 .item:hover {
@@ -34,7 +59,6 @@ section a:hover {
 }
 
 .item p {
-	color: var(--ifm-font-color-base);
 	margin: 0;
 	color: gray;
 }
