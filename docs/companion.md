@@ -22,9 +22,10 @@ OAuth.
 ## When should I use it?
 
 If you want to let users download files from [Box][], [Dropbox][], [Facebook][],
-[Google Drive][googledrive], [Google Photos][googlephotos], [Instagram][],
-[OneDrive][], [Unsplash][], [Import from URL][url], or [Zoom][] — you need
-Companion.
+[Google Drive][googledrive], [Google Photos][googlephotos], [Google Drive
+Picker][googledrivepicker], [Google Photos Picker][googlephotospicker],
+[Instagram][], [OneDrive][], [Unsplash][], [Import from URL][url], or [Zoom][] —
+you need Companion.
 
 Companion supports the same [uploaders](/docs/guides/choosing-uploader) as Uppy:
 [Tus](/docs/tus), [AWS S3](/docs/aws-s3), and [regular multipart](/docs/tus).
@@ -721,6 +722,11 @@ as well as
 Set this to `true` to enable the [URL functionalily](https://uppy.io/docs/url/).
 Default: `false`.
 
+#### `enableGooglePickerEndpoint` `COMPANION_ENABLE_GOOGLE_PICKER_ENDPOINT`
+
+Set this to `true` to enable the Google Picker (Photos / Drive) functionality.
+Default: `false`.
+
 ### Events
 
 The object returned by `companion.app()` also has a property `companionEmitter`
@@ -981,6 +987,8 @@ automatically restart when files are changed.
 [facebook]: /docs/facebook
 [googledrive]: /docs/google-drive
 [googlephotos]: /docs/google-photos
+[googledrivepicker]: /docs/google-drive-picker
+[googlephotospicker]: /docs/google-photos-picker
 [instagram]: /docs/instagram
 [onedrive]: /docs/onedrive
 [unsplash]: /docs/unsplash
