@@ -7,6 +7,7 @@ import IconReact from '../../../static/img/react.svg';
 import IconVue from '../../../static/img/vue.svg';
 import IconSvelte from '../../../static/img/svelte.svg';
 import IconAngular from '../../../static/img/angular.svg';
+import IconRemix from '../../../static/img/remix.svg';
 
 import styles from './styles.module.css';
 
@@ -43,6 +44,15 @@ export const Frameworks = () => {
 					<div>
 						<Heading as="h2">Next.js</Heading>
 						<p>For App Router or Pages Router</p>
+					</div>
+				</div>
+			</Link>
+
+			<Link to="/docs/remix">
+				<div data-framework="remix" className={styles.item}>
+					<IconRemix />
+					<div>
+						<Heading as="h2">Remix</Heading>
 					</div>
 				</div>
 			</Link>
