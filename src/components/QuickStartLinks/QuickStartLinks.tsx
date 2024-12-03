@@ -37,8 +37,8 @@ export const QuickStartLinks = (props: Props) => {
 export const Frameworks = () => {
 	return (
 		<section className={styles.section}>
-			<Link to="/docs/next.js">
-				<div data-framework="react" className={styles.item}>
+			<Link to="/docs/nextjs">
+				<div data-framework="nextjs" className={styles.item}>
 					<IconNextjs />
 					<div>
 						<Heading as="h2">Next.js</Heading>
