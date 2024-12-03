@@ -49,8 +49,8 @@ export default function UppyDashboard() {
 }
 ```
 
-[`@tus/server`][] does not support remix resource routes yet, which is based on
-the fetch `Request` API instead of `http.IncomingMessage` and
+[`@tus/server`][tus Node.js] does not support remix resource routes yet, which
+is based on the fetch `Request` API instead of `http.IncomingMessage` and
 `http.ServerResponse`.
 
 However we can workaround it by using a custom server, which is a common pattern
@@ -72,12 +72,12 @@ account and a
 
 :::
 
-Transloadit's strength is versatility. By doing video, audio, images, documents,
+Transloadit’s strength is versatility. By doing video, audio, images, documents,
 and more, you only need one vendor for [all your file processing
 needs][transloadit-services]. The [`@uppy/transloadit`](/docs/transloadit)
 plugin directly uploads to Transloadit so you only have to worry about creating
 a [template][transloadit-concepts]. It uses [Tus](#tus) under the hood so you
-don't have to sacrifice reliable, resumable uploads for convenience.
+don’t have to sacrifice reliable, resumable uploads for convenience.
 
 When you go to production always make sure to set the `signature`. **Not using
 [Signature Authentication](https://transloadit.com/docs/topics/signature-authentication/)
