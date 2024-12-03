@@ -4,7 +4,8 @@ Integration guide for using Uppy UI plugins and components with SvelteKit.
 
 :::tip
 
-Uppy can be used with any JavaScript framework. This guide shows how to integrate Uppy with SvelteKit.
+Uppy can be used with any JavaScript framework. This guide shows how to
+integrate Uppy with SvelteKit.
 
 :::
 
@@ -42,12 +43,13 @@ Create a route where you want to handle uploads:
 <Dashboard {uppy} theme="dark" />
 ```
 
-[`@tus/server`][tus Node.js] does not directly support SvelteKit endpoints, which
-use the Fetch API's `Request` and `Response` objects.
+[`@tus/server`][tus Node.js] does not directly support SvelteKit endpoints,
+which use the Fetch API’s `Request` and `Response` objects.
 
-However, you can integrate `@tus/server` by setting up a [custom server](https://svelte.dev/docs/kit/adapter-node#Custom-server). SvelteKit supports multiple
-[adapters](https://kit.svelte.dev/docs/adapters), so choose the one that fits
-your needs.
+However, you can integrate `@tus/server` by setting up a
+[custom server](https://svelte.dev/docs/kit/adapter-node#Custom-server).
+SvelteKit supports multiple [adapters](https://kit.svelte.dev/docs/adapters), so
+choose the one that fits your needs.
 
 The exact code to integrate [tus Node.js][] in your custom server depends on the
 framework you choose. Head over to the `@tus/server` [examples for the most popular Node.js servers](https://github.com/tus/tus-node-server/tree/main/packages/server#examples)
@@ -63,8 +65,8 @@ account and a
 
 :::
 
-Transloadit’s strength is versatility. By handling video, audio, images, documents,
-and more, you only need one vendor for [all your file processing
+Transloadit’s strength is versatility. By handling video, audio, images,
+documents, and more, you only need one vendor for [all your file processing
 needs][transloadit-services]. The [`@uppy/transloadit`](/docs/transloadit)
 plugin directly uploads to Transloadit, so you only have to worry about creating
 a [template][transloadit-concepts]. It uses [Tus](#tus) under the hood, so you
@@ -77,7 +79,8 @@ can prevent outsiders from tampering with your Assembly Instructions.
 
 Generating a signature should be done on the server to avoid leaking secrets.
 
-Start by creating a [server route](https://svelte.dev/docs/kit/routing#server) to generate the signature and params:
+Start by creating a [server route](https://svelte.dev/docs/kit/routing#server)
+to generate the signature and params:
 
 ```ts
 // src/routes/transloadit-params/+server.ts
@@ -85,56 +88,59 @@ import type { RequestHandler } from '@sveltejs/kit';
 import crypto from 'crypto';
 
 function utcDateString(ms: number): string {
-  return new Date(ms)
-    .toISOString()
-    .replace(/-/g, '/')
-    .replace(/T/, ' ')
-    .replace(/\.\d+Z$/, '+00:00');
+	return new Date(ms)
+		.toISOString()
+		.replace(/-/g, '/')
+		.replace(/T/, ' ')
+		.replace(/\.\d+Z$/, '+00:00');
 }
 
 export const POST: RequestHandler = async ({ request }) => {
-  // Expire 1 hour from now (this must be milliseconds)
-  const expires = utcDateString(Date.now() + 1 * 60 * 60 * 1000);
-  const authKey = process.env.TRANSLOADIT_KEY;
-  const authSecret = process.env.TRANSLOADIT_SECRET;
-  const templateId = process.env.TRANSLOADIT_TEMPLATE_ID;
+	// Expire 1 hour from now (this must be milliseconds)
+	const expires = utcDateString(Date.now() + 1 * 60 * 60 * 1000);
+	const authKey = process.env.TRANSLOADIT_KEY;
+	const authSecret = process.env.TRANSLOADIT_SECRET;
+	const templateId = process.env.TRANSLOADIT_TEMPLATE_ID;
 
-  if (!authKey || !authSecret || !templateId) {
-    return new Response(JSON.stringify({ error: 'Missing Transloadit credentials' }), { status: 500 });
-  }
+	if (!authKey || !authSecret || !templateId) {
+		return new Response(
+			JSON.stringify({ error: 'Missing Transloadit credentials' }),
+			{ status: 500 },
+		);
+	}
 
-  const body = await request.json();
-  const params = JSON.stringify({
-    auth: {
-      key: authKey,
-      expires,
-    },
-    template_id: templateId,
-    fields: {
-      // You can use this in your template.
-      customValue: body.customValue,
-    },
-    // Your other params like notify_url, etc.
-  });
+	const body = await request.json();
+	const params = JSON.stringify({
+		auth: {
+			key: authKey,
+			expires,
+		},
+		template_id: templateId,
+		fields: {
+			// You can use this in your template.
+			customValue: body.customValue,
+		},
+		// Your other params like notify_url, etc.
+	});
 
-  const signatureBytes = crypto
-    .createHmac('sha384', authSecret)
-    .update(Buffer.from(params, 'utf-8'));
-  // The final signature needs the hash name in front, so
-  // the hashing algorithm can be updated in a backwards-compatible
-  // way when old algorithms become insecure.
-  const signature = `sha384:${signatureBytes.digest('hex')}`;
+	const signatureBytes = crypto
+		.createHmac('sha384', authSecret)
+		.update(Buffer.from(params, 'utf-8'));
+	// The final signature needs the hash name in front, so
+	// the hashing algorithm can be updated in a backwards-compatible
+	// way when old algorithms become insecure.
+	const signature = `sha384:${signatureBytes.digest('hex')}`;
 
-  return new Response(JSON.stringify({ expires, signature, params }), {
-    headers: { 'Content-Type': 'application/json' },
-  });
+	return new Response(JSON.stringify({ expires, signature, params }), {
+		headers: { 'Content-Type': 'application/json' },
+	});
 };
 ```
 
-On the client, we want to fetch the signature and params from the server. You may
-want to send values from Svelte state along to your endpoint, for instance, to add
-[`fields`](https://transloadit.com/docs/topics/assembly-variables/) which you
-can use in your template as global variables.
+On the client, we want to fetch the signature and params from the server. You
+may want to send values from Svelte state along to your endpoint, for instance,
+to add [`fields`](https://transloadit.com/docs/topics/assembly-variables/) which
+you can use in your template as global variables.
 
 ```svelte
 <script>
@@ -185,23 +191,23 @@ import fs from 'fs';
 import path from 'path';
 
 export const POST: RequestHandler = async ({ request }) => {
-  const user = await requireUser(request); // Your optional logic
+	const user = await requireUser(request); // Your optional logic
 
-  const formData = await request.formData();
-  const files = formData.getAll('files[]'); // Assuming 'files[]' is the field name used
+	const formData = await request.formData();
+	const files = formData.getAll('files[]'); // Assuming 'files[]' is the field name used
 
-  for (const file of files) {
-    if (file instanceof File) {
-      const arrayBuffer = await file.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      const storageKey = `user-${user.id}-avatar-${file.name}`;
-      const uploadPath = path.join('uploads', storageKey);
-      fs.writeFileSync(uploadPath, buffer);
-      console.log(`Saved file to ${uploadPath}`);
-    }
-  }
+	for (const file of files) {
+		if (file instanceof File) {
+			const arrayBuffer = await file.arrayBuffer();
+			const buffer = Buffer.from(arrayBuffer);
+			const storageKey = `user-${user.id}-avatar-${file.name}`;
+			const uploadPath = path.join('uploads', storageKey);
+			fs.writeFileSync(uploadPath, buffer);
+			console.log(`Saved file to ${uploadPath}`);
+		}
+	}
 
-  return new Response(null);
+	return new Response(null);
 };
 ```
 
