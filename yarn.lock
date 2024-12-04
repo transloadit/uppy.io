@@ -13898,7 +13898,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-mdx@npm:^2.1.2, remark-mdx@npm:^2.3.0":
+"remark-mdx@npm:^2.3.0":
   version: 2.3.0
   resolution: "remark-mdx@npm:2.3.0"
   dependencies:
@@ -13915,6 +13915,16 @@ __metadata:
     mdast-util-mdx: "npm:^3.0.0"
     micromark-extension-mdxjs: "npm:^3.0.0"
   checksum: 10/aa1d9b8baf62c98d973ff3538402378ee47eef0e7adb10123421b4fde7e187b9c5820f72a11846193b6fe43983221e1078d97ed9cebbcde0938e55cb159d5455
+  languageName: node
+  linkType: hard
+
+"remark-mdx@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "remark-mdx@npm:3.1.0"
+  dependencies:
+    mdast-util-mdx: "npm:^3.0.0"
+    micromark-extension-mdxjs: "npm:^3.0.0"
+  checksum: 10/9a0a1ba9433f0a9a13ec6b9b185244cb431d3205cc0034ff474b60a13b76095870b8cb6a466cfacf35199ee98e92413fec86fbeb75de3ec3d7bb8f486efc7484
   languageName: node
   linkType: hard
 
@@ -16121,7 +16131,7 @@ __metadata:
     remark-lint-no-undefined-references: "npm:^4.0.0"
     remark-lint-no-unused-definitions: "npm:^4.0.0"
     remark-lint-ordered-list-marker-style: "npm:^3.0.0"
-    remark-mdx: "npm:^2.1.2"
+    remark-mdx: "npm:^3.1.0"
     remark-preset-lint-consistent: "npm:^5.1.1"
     remark-preset-lint-markdown-style-guide: "npm:^5.1.2"
     remark-preset-prettier: "npm:^2.0.1"
