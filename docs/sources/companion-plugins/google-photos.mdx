@@ -11,7 +11,15 @@ import CompanionOptions from './_companion-options.mdx';
 # Google Photos
 
 The `@uppy/google-photos` plugin lets users import files from their
-[Google Photos](https://photos.google.com) account.
+[Google Drive](https://photos.google.com) account.
+
+A [Companion](/docs/companion) instance is required for the Google Drive plugin
+to work. Companion handles authentication with Google Drive, downloads the
+files, and uploads them to the destination. This saves the user bandwidth,
+especially helpful if they are on a mobile connection.
+
+You can self-host Companion or get a hosted version with any
+[Transloadit plan](https://transloadit.com/pricing/).
 
 :::tip
 
@@ -25,13 +33,14 @@ The `@uppy/google-photos` plugin lets users import files from their
 When you want to let users import files from their
 [Google Photos](https://photos.google.com) account.
 
-A [Companion](/docs/companion) instance is required for the Google Photos plugin
-to work. Companion handles authentication with Google Photos, downloads the
-photos/videos, and uploads them to the destination. This saves the user
-bandwidth, especially helpful if they are on a mobile connection.
+You should use this plugin over the
+[Google Photos Picker plugin](/docs/google-photos-picker) if you prefer a UI
+with more controls, the ability to select folders, a leaner bundle size, and a
+more consistent user experience.
 
-You can self-host Companion or get a hosted version with any
-[Transloadit plan](https://transloadit.com/pricing/).
+The downside is it needs a restricted API scope, which requires CASA Tier 2
+compliance. This could take months to obtain and potentially a third-party
+security audit.
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>

@@ -10,19 +10,9 @@ import CompanionOptions from './_companion-options.mdx';
 
 # Google Drive Picker
 
-The `@uppy/google-drive` plugin lets users import files from their
+The `@uppy/google-drive-picker` plugin lets users import files from their
 [Google Drive](https://drive.google.com) account using the new
-[Picker API](https://developers.google.com/drive/picker). The benefit of using
-this API over the traditional Google Drive API (which the
-[Google Drive plugin](./google-drive.mdx) uses) is that the Picker API requires
-less verification from Google. Drawbacks of the Picker API include less control
-and inability to select folders. See also
-[Google Photos Picker](./google-photos-picker.mdx).
-
-## When should I use this?
-
-When you want to let users import files from their
-[Google Drive](https://drive.google.com) account.
+[Picker API](https://developers.google.com/drive/picker).
 
 A [Companion](/docs/companion) instance is required for the Google Drive Picker
 plugin to work. Companion downloads the files from Google Drive, and uploads
@@ -31,6 +21,21 @@ they are on a mobile connection.
 
 You can self-host Companion or get a hosted version with any
 [Transloadit plan](https://transloadit.com/pricing/).
+
+See also [Google Photos Picker](./google-photos-picker.mdx).
+
+## When should I use this?
+
+When you want to let users import files from their
+[Google Drive](https://drive.google.com) account.
+
+You should use this plugin over our other
+[Google Drive plugin](/docs/google-drive) if you want to avoid using a
+restricted API scope, which requires CASA Tier 2 compliance.
+
+The downside of using the Picker UI made by Google is less controls, inability
+to select folders, downloading an additional bundle, and a less consistent user
+experience.
 
 <Tabs>
   <TabItem value="npm" label="NPM" default>
