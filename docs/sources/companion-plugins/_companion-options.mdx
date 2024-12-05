@@ -26,11 +26,28 @@ every request (`Object`, default: `{}`).
 #### `companionAllowedHosts`
 
 The valid and authorised URL(s) from which OAuth responses should be accepted
-(`string` or `RegExp` or `Array`, default: `companionUrl`).
+(`string` or `RegExp` or `Array`). This option is useful when you have your
+[Companion](/docs/companion) running on several hosts. Otherwise, the default
+value should do fine, which uses the origin of `companionUrl`.
 
-This value can be a `string`, a `RegExp` pattern, or an `Array` of both. This is
-useful when you have your [Companion](/docs/companion) running on several hosts.
-Otherwise, the default value should do fine.
+This value can be a `string`, a `RegExp` pattern, or an `Array` of these.
+Strings are evaluated as regular expressions too and will be wrapped in a RegExp
+like so:
+
+```js
+new RegExp(`^${value}$`);
+```
+
+**Important:** You must escape regex characters like `.`, or you might open your
+app up to security vulnerabilities.
+
+- Example correct strings
+  - `'^(?:.*\\.)?example\.com$'` matches `example.com` and all of its
+    subdomains.
+  - `'https://example\.com'` matches `https://example.com` only.
+- Example vulnerability: `'https://www.example.com'` would allow an attacker
+  with the domain `wwwxexample.com` to forge and inject a fraudulent token into
+  Uppy.
 
 #### `companionCookiesRule`
 
