@@ -29,7 +29,7 @@ function Footer() {
 				</Link>
 			</p>
 			<p>
-				© 2023{' '}
+				© 2016-{new Date().getFullYear()}{' '}
 				<Link href="https://transloadit.com" target="_blank">
 					Transloadit
 				</Link>
