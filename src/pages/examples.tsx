@@ -106,12 +106,16 @@ const options = [
 				label: 'Google Drive',
 				value: 'GoogleDrive',
 				type: 'plugins',
+				title:
+					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
 				disabled: true,
 			},
 			{
 				label: 'Google Photos',
 				value: 'GooglePhotos',
 				type: 'plugins',
+				title:
+					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
 				disabled: true,
 			},
 			{
@@ -125,6 +129,7 @@ const options = [
 				type: 'plugins',
 				title:
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
+				disabled: true,
 			},
 			{
 				label: 'Facebook',
@@ -132,6 +137,7 @@ const options = [
 				type: 'plugins',
 				title:
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
+				disabled: true,
 			},
 			{ label: 'Url', value: 'Url', type: 'plugins' },
 			{
