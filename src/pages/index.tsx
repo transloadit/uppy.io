@@ -5,8 +5,8 @@ import Link from '@docusaurus/Link';
 import Dashboard from '@uppy/react/lib/Dashboard';
 import Uppy from '@uppy/core';
 import Webcam from '@uppy/webcam';
-import GoogleDrive from '@uppy/google-drive';
-import Instagram from '@uppy/instagram';
+// import GoogleDrive from '@uppy/google-drive';
+// import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
 import Unsplash from '@uppy/unsplash';
@@ -223,15 +223,15 @@ export default function Home(): JSX.Element {
 										.use(Audio)
 										.use(ImageEditor, {})
 										.use(Tus, { endpoint })
-										.use(GoogleDrive, {
-											companionUrl,
-											companionKeysParams: {
-												key: 'unused-key',
-												credentialsName: 'unused-credentials',
-											},
-										})
+										// .use(GoogleDrive, {
+										// 	companionUrl,
+										// 	companionKeysParams: {
+										// 		key: 'unused-key',
+										// 		credentialsName: 'unused-credentials',
+										// 	},
+										// })
 										.use(Dropbox, { companionUrl })
-										.use(Instagram, { companionUrl })
+										// .use(Instagram, { companionUrl })
 										.use(Url, { companionUrl })
 										.use(OneDrive, { companionUrl })
 										.use(Unsplash, { companionUrl })
@@ -246,9 +246,9 @@ export default function Home(): JSX.Element {
 											height={400}
 											plugins={[
 												'Webcam',
-												'GoogleDrive',
+												// 'GoogleDrive',
 												'Dropbox',
-												'Instagram',
+												// 'Instagram',
 												'Url',
 												'OneDrive',
 												'Unsplash',
