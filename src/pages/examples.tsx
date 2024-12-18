@@ -63,8 +63,8 @@ const initialState: State = {
 	theme: 'light',
 	plugins: [
 		'Webcam',
-		// 'GoogleDrive',
-		// 'GooglePhotos',
+		'GoogleDrivePicker',
+		'GooglePhotosPicker',
 		'Dropbox',
 		'Url',
 		'OneDrive',
@@ -254,7 +254,10 @@ const Uppy = ({ state, locale }) => {
 				},
 			});
 		}
-		if (state.plugins.includes('GoogleDrivePicker') && !disabled('GoogleDrivePicker')) {
+		if (
+			state.plugins.includes('GoogleDrivePicker') &&
+			!disabled('GoogleDrivePicker')
+		) {
 			uppy.use(GoogleDrivePicker, {
 				companionUrl,
 				clientId: googlePickerClientId,
@@ -267,7 +270,10 @@ const Uppy = ({ state, locale }) => {
 				companionUrl,
 			});
 		}
-		if (state.plugins.includes('GooglePhotosPicker') && !disabled('GooglePhotosPicker')) {
+		if (
+			state.plugins.includes('GooglePhotosPicker') &&
+			!disabled('GooglePhotosPicker')
+		) {
 			uppy.use(GooglePhotosPicker, {
 				companionUrl,
 				clientId: googlePickerClientId,
@@ -314,7 +320,8 @@ const Uppy = ({ state, locale }) => {
 const companionUrl = 'https://companion.uppy.io';
 // const companionUrl = 'http://localhost:3020';
 const endpoint = 'https://tusd.tusdemo.net/files/';
-const googlePickerClientId = '1020900325465-7naospne1v7veupmu8rg3a6ipfogr9f0.apps.googleusercontent.com';
+const googlePickerClientId =
+	'1020900325465-7naospne1v7veupmu8rg3a6ipfogr9f0.apps.googleusercontent.com';
 const googlePickerApiKey = 'AIzaSyCItfp_WaGGgbNFoU08LMs21ks-MxIqudo';
 const googlePickerAppId = 'uppy-server-dev';
 
