@@ -5,7 +5,8 @@ import Link from '@docusaurus/Link';
 import Dashboard from '@uppy/react/lib/Dashboard';
 import Uppy from '@uppy/core';
 import Webcam from '@uppy/webcam';
-// import GoogleDrive from '@uppy/google-drive';
+import GoogleDrivePicker from '@uppy/google-drive-picker';
+import GooglePhotosPicker from '@uppy/google-photos-picker';
 // import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
@@ -43,6 +44,10 @@ import styles from './index.module.css';
 
 const companionUrl = 'https://companion.uppy.io';
 const endpoint = 'https://tusd.tusdemo.net/files/';
+const googlePickerClientId =
+	'1020900325465-7naospne1v7veupmu8rg3a6ipfogr9f0.apps.googleusercontent.com';
+const googlePickerApiKey = 'AIzaSyCItfp_WaGGgbNFoU08LMs21ks-MxIqudo';
+const googlePickerAppId = 'uppy-server-dev';
 
 const dashboardCode = `import Uppy  from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
@@ -235,7 +240,17 @@ export default function Home(): JSX.Element {
 										.use(Url, { companionUrl })
 										.use(OneDrive, { companionUrl })
 										.use(Unsplash, { companionUrl })
-										.use(Box, { companionUrl });
+										.use(Box, { companionUrl })
+										.use(GoogleDrivePicker, {
+											companionUrl,
+											clientId: googlePickerClientId,
+											apiKey: googlePickerApiKey,
+											appId: googlePickerAppId,
+										})
+										.use(GooglePhotosPicker, {
+											companionUrl,
+											clientId: googlePickerClientId,
+										});
 
 									// Expose for easier debugging
 									globalThis.uppy = uppy;
