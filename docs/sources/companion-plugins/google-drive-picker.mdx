@@ -81,7 +81,7 @@ Create a project for your app if you don’t have one yet.
 - On the project’s dashboard, enable the
   [Google Picker API](https://console.cloud.google.com/apis/library/picker.googleapis.com)
   (for Google Drive).
-- Create an API key.
+- Create an API key. Restrict your API key to the Google Picker API for safety.
 - Create an OAuth 2.0 Client ID of type Web application with the correct
   Authorized JavaScript origins.
 
@@ -144,5 +144,9 @@ The API key from the [Initial setup](#initial-setup) (`string`).
 
 #### `appId`
 
-The App ID is the project ID which can be found in the URL in the Google
-Developer Console (`string`).
+The App ID can be found in the
+[Google Developer Console](https://console.developers.google.com)
+`Project number` under `IAM & Admin` > `Settings`. Note that if this is set to
+an invalid value it will be ignored by Google when your project is in testing
+mode, but once in production you will get 404 errors when trying to download
+files.
