@@ -239,7 +239,7 @@ export default function Home(): JSX.Element {
 										.use(Url, { companionUrl })
 										.use(OneDrive, { companionUrl })
 										.use(Unsplash, { companionUrl })
-										.use(Box, { companionUrl });
+										.use(Box, { companionUrl })
 										.use(GoogleDrivePicker, {
 											companionUrl,
 											clientId: googlePickerClientId,
