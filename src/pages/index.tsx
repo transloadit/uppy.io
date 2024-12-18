@@ -47,7 +47,7 @@ const endpoint = 'https://tusd.tusdemo.net/files/';
 const googlePickerClientId =
 	'1020900325465-7naospne1v7veupmu8rg3a6ipfogr9f0.apps.googleusercontent.com';
 const googlePickerApiKey = 'AIzaSyCItfp_WaGGgbNFoU08LMs21ks-MxIqudo';
-const googlePickerAppId = 'uppy-server-dev';
+const googlePickerAppId = '1020900325465';
 
 const dashboardCode = `import Uppy  from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
