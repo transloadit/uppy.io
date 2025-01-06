@@ -147,9 +147,6 @@ const options = [
 				label: 'Facebook',
 				value: 'Facebook',
 				type: 'plugins',
-				title:
-					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
 			},
 			{ label: 'Url', value: 'Url', type: 'plugins' },
 			{
