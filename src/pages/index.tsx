@@ -264,6 +264,7 @@ export default function Home(): JSX.Element {
 												// 'GoogleDrive',
 												'Dropbox',
 												// 'Instagram',
+												'Facebook',
 												'Url',
 												'OneDrive',
 												'Unsplash',
