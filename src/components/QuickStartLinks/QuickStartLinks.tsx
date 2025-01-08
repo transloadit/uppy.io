@@ -7,6 +7,7 @@ import IconReact from '../../../static/img/react.svg';
 import IconVue from '../../../static/img/vue.svg';
 import IconSvelte from '../../../static/img/svelte.svg';
 import IconAngular from '../../../static/img/angular.svg';
+import IconReactRouter from '../../../static/img/react-router.svg';
 
 import styles from './styles.module.css';
 
@@ -43,6 +44,26 @@ export const Frameworks = () => {
 					<div>
 						<Heading as="h2">Next.js</Heading>
 						<p>For App Router or Pages Router</p>
+					</div>
+				</div>
+			</Link>
+
+			<Link to="/docs/reactrouter">
+				<div data-framework="reactrouter" className={styles.item}>
+					<IconReactRouter />
+					<div>
+						<Heading as="h2">React Router</Heading>
+						<p>Formerly known as Remix</p>
+					</div>
+				</div>
+			</Link>
+
+			<Link to="/docs/sveltekit">
+				<div data-framework="svelte" className={styles.item}>
+					<IconSvelte />
+					<div>
+						<Heading as="h2">SvelteKit</Heading>
+						<p>The Svelte meta framework</p>
 					</div>
 				</div>
 			</Link>
