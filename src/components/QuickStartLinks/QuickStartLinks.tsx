@@ -57,6 +57,16 @@ export const Frameworks = () => {
 				</div>
 			</Link>
 
+			<Link to="/docs/sveltekit">
+				<div data-framework="svelte" className={styles.item}>
+					<IconSvelte />
+					<div>
+						<Heading as="h2">SvelteKit</Heading>
+						<p>The Svelte meta framework</p>
+					</div>
+				</div>
+			</Link>
+
 			<Link to="/docs/react">
 				<div data-framework="react" className={styles.item}>
 					<IconReact />
