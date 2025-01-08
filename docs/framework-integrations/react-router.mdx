@@ -1,4 +1,8 @@
-# Remix
+---
+slug: /reactrouter
+---
+
+# React Router
 
 Integration guide for the [React][] components for the Uppy UI plugins and
 hooks.
@@ -49,14 +53,13 @@ export default function UppyDashboard() {
 }
 ```
 
-[`@tus/server`][tus Node.js] does not support remix resource routes yet, which
+[`@tus/server`][tus Node.js] does not support react router resource routes yet, which
 is based on the fetch `Request` API instead of `http.IncomingMessage` and
 `http.ServerResponse`.
 
 However we can workaround it by using a custom server, which is a common pattern
-with Remix. Remix supports multiple
-[adapters](https://remix.run/docs/en/main/other-api/adapter), choose the one
-that fits your needs.
+with React Router. The [docs](https://remix.run/docs/en/main/other-api/adapter) 
+for this are still on the Remix site, but the same packages exist under the `@react-router/*` scope.
 
 The exact code to integrate [tus Node.js][] in your custom server depends on the
 framework you choose. Head over to the `@tus/server` [examples for the most popular Node.js servers](https://github.com/tus/tus-node-server/tree/main/packages/server#examples)
@@ -87,12 +90,12 @@ can prevent outsiders from tampering with your Assembly Instructions.
 Generating a signature should be done on the server to avoid leaking secrets.
 
 Start by creating a
-[resource route](https://remix.run/docs/en/main/guides/resource-routes) to
+[resource route](https://reactrouter.com/how-to/resource-routes) to
 generate the signature and params:
 
 ```ts
-import { json } from '@remix-run/node';
-import type { ActionFunction } from '@remix-run/node';
+import { data } from 'react-router';
+import type { ActionFunction } from 'rea';
 import crypto from 'crypto';
 
 function utcDateString(ms: number): string {
@@ -111,7 +114,7 @@ export const action: ActionFunction = async ({ request }) => {
 	const templateId = process.env.TRANSLOADIT_TEMPLATE_ID;
 
 	if (!authKey || !authSecret || !templateId) {
-		throw json({ error: 'Missing Transloadit credentials' }, { status: 500 });
+		throw data({ error: 'Missing Transloadit credentials' }, { status: 500 });
 	}
 
 	const body = await request.json();
@@ -136,7 +139,7 @@ export const action: ActionFunction = async ({ request }) => {
 	// way when old algorithms become insecure.
 	const signature = `sha384:${signatureBytes.digest('hex')}`;
 
-	return json({ expires, signature, params });
+	return data({ expires, signature, params });
 };
 ```
 
@@ -185,13 +188,13 @@ If you want to handle uploads yourself, you can use
 [`@uppy/xhr-upload`](/docs/xhr-upload).
 
 Create a
-[resource route](https://remix.run/docs/en/main/guides/resource-routes), such as
+[resource route](https://reactrouter.com/how-to/resource-routes), such as
 `app/routes/upload/route.ts`:
 
 ```ts
 import { LocalFileStorage } from '@mjackson/file-storage/local';
 import { type FileUpload, parseFormData } from '@mjackson/form-data-parser';
-import { type ActionFunctionArgs } from '@remix-run/node';
+import { type ActionFunctionArgs } from 'react-router';
 
 const fileStorage = new LocalFileStorage('./uploads');
 

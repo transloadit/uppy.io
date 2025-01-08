@@ -7,7 +7,7 @@ import IconReact from '../../../static/img/react.svg';
 import IconVue from '../../../static/img/vue.svg';
 import IconSvelte from '../../../static/img/svelte.svg';
 import IconAngular from '../../../static/img/angular.svg';
-import IconRemix from '../../../static/img/remix.svg';
+import IconReactRouter from '../../../static/img/react-router.svg';
 
 import styles from './styles.module.css';
 
@@ -48,11 +48,12 @@ export const Frameworks = () => {
 				</div>
 			</Link>
 
-			<Link to="/docs/remix">
-				<div data-framework="remix" className={styles.item}>
-					<IconRemix />
+			<Link to="/docs/reactrouter">
+				<div data-framework="reactrouter" className={styles.item}>
+					<IconReactRouter />
 					<div>
-						<Heading as="h2">Remix</Heading>
+						<Heading as="h2">React Router</Heading>
+						<p>Formerly known as Remix</p>
 					</div>
 				</div>
 			</Link>
