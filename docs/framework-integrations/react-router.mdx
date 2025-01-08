@@ -53,13 +53,14 @@ export default function UppyDashboard() {
 }
 ```
 
-[`@tus/server`][tus Node.js] does not support react router resource routes yet, which
-is based on the fetch `Request` API instead of `http.IncomingMessage` and
+[`@tus/server`][tus Node.js] does not support react router resource routes yet,
+which is based on the fetch `Request` API instead of `http.IncomingMessage` and
 `http.ServerResponse`.
 
 However we can workaround it by using a custom server, which is a common pattern
-with React Router. The [docs](https://remix.run/docs/en/main/other-api/adapter) 
-for this are still on the Remix site, but the same packages exist under the `@react-router/*` scope.
+with React Router. The [docs](https://remix.run/docs/en/main/other-api/adapter)
+for this are still on the Remix site, but the same packages exist under the
+`@react-router/*` scope.
 
 The exact code to integrate [tus Node.js][] in your custom server depends on the
 framework you choose. Head over to the `@tus/server` [examples for the most popular Node.js servers](https://github.com/tus/tus-node-server/tree/main/packages/server#examples)
@@ -90,8 +91,8 @@ can prevent outsiders from tampering with your Assembly Instructions.
 Generating a signature should be done on the server to avoid leaking secrets.
 
 Start by creating a
-[resource route](https://reactrouter.com/how-to/resource-routes) to
-generate the signature and params:
+[resource route](https://reactrouter.com/how-to/resource-routes) to generate the
+signature and params:
 
 ```ts
 import { data } from 'react-router';
@@ -187,9 +188,8 @@ function Component({ customValue }) {
 If you want to handle uploads yourself, you can use
 [`@uppy/xhr-upload`](/docs/xhr-upload).
 
-Create a
-[resource route](https://reactrouter.com/how-to/resource-routes), such as
-`app/routes/upload/route.ts`:
+Create a [resource route](https://reactrouter.com/how-to/resource-routes), such
+as `app/routes/upload/route.ts`:
 
 ```ts
 import { LocalFileStorage } from '@mjackson/file-storage/local';
