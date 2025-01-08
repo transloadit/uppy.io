@@ -22,9 +22,10 @@ OAuth.
 ## When should I use it?
 
 If you want to let users download files from [Box][], [Dropbox][], [Facebook][],
-[Google Drive][googledrive], [Google Photos][googlephotos], [Instagram][],
-[OneDrive][], [Unsplash][], [Import from URL][url], or [Zoom][] — you need
-Companion.
+[Google Drive][googledrive], [Google Photos][googlephotos], [Google Drive
+Picker][googledrivepicker], [Google Photos Picker][googlephotospicker],
+[Instagram][], [OneDrive][], [Unsplash][], [Import from URL][url], or [Zoom][] —
+you need Companion.
 
 Companion supports the same [uploaders](/docs/guides/choosing-uploader) as Uppy:
 [Tus](/docs/tus), [AWS S3](/docs/aws-s3), and [regular multipart](/docs/tus).
@@ -638,7 +639,10 @@ Prometheus metrics (by default metrics are enabled.)
 A boolean flag to tell Companion whether to enable streaming uploads. If
 enabled, it will lead to _faster uploads_ because companion will start uploading
 at the same time as downloading using `stream.pipe`. If `false`, files will be
-fully downloaded first, then uploaded. Defaults to `true`.
+fully downloaded first, then uploaded. Note that for Tus to suppport streaming
+files of unknown size, this requires an optional extension on the Tus server if
+using Tus uploads. For form multipart uploads it requres a server that can
+handle `transfer-encoding: chunked`. Defaults to `true`.
 
 #### `maxFileSize` `COMPANION_MAX_FILE_SIZE`
 
@@ -719,6 +723,11 @@ as well as
 #### `enableUrlEndpoint` `COMPANION_ENABLE_URL_ENDPOINT`
 
 Set this to `true` to enable the [URL functionalily](https://uppy.io/docs/url/).
+Default: `false`.
+
+#### `enableGooglePickerEndpoint` `COMPANION_ENABLE_GOOGLE_PICKER_ENDPOINT`
+
+Set this to `true` to enable the Google Picker (Photos / Drive) functionality.
 Default: `false`.
 
 ### Events
@@ -981,6 +990,8 @@ automatically restart when files are changed.
 [facebook]: /docs/facebook
 [googledrive]: /docs/google-drive
 [googlephotos]: /docs/google-photos
+[googledrivepicker]: /docs/google-drive-picker
+[googlephotospicker]: /docs/google-photos-picker
 [instagram]: /docs/instagram
 [onedrive]: /docs/onedrive
 [unsplash]: /docs/unsplash
