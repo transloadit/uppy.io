@@ -7,6 +7,7 @@ import Uppy from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrivePicker from '@uppy/google-drive-picker';
 import GooglePhotosPicker from '@uppy/google-photos-picker';
+import Facebook from '@uppy/facebook';
 // import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
@@ -236,6 +237,7 @@ export default function Home(): JSX.Element {
 										// 	},
 										// })
 										.use(Dropbox, { companionUrl })
+										.use(Facebook, { companionUrl })
 										// .use(Instagram, { companionUrl })
 										.use(Url, { companionUrl })
 										.use(OneDrive, { companionUrl })
