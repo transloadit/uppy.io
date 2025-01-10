@@ -1,0 +1,55 @@
+---
+sidebar_position: 1
+---
+
+# Transloadit Google OAuth2
+
+Google has been tightening their grip on external integrations and apps recently
+by restricting apps and requiring partners to answer ever more complex security
+assessments. This has affected Transloadit which provides the Uppy plugins for
+Google Drive and Google Photos through our hosted Companion, and thus also
+affecting our customers. We have been trying to keep up with Google’s validation
+requirements (that have to be renewed every year), but as a small company we
+eventually realised that we cannot afford this in the long term. For this reason
+Google blocked our app, and this is the reason why our customers using
+_Transloadit’s_ Google OAuth2 app ID (and their end users) are now presented
+with an error like `Google hasn't verified this app` or `This app is blocked`
+from Google. We simply cannot guarantee that our integration with external
+providers will work indefinitely, and now this has proven itself. This is also
+the reason we have recommended customers to use their own credentials, as the
+Transloadit’s app credentials were mostly meant to be used for POC purposes and
+as a way to get started with Uppy without much initial friction.
+
+## Solutions
+
+### Option 1: Use your own OAuth2 credentials
+
+One option is to continue using the existing plugins
+[`@uppy/google-drive`](https://uppy.io/docs/google-drive/) and
+[`@uppy/google-photos`](https://uppy.io/docs/google-photos/). However you then
+have to go through the Google validation process yourself. You can then use Uppy
+with Transloadit’s Companion server using your own OAuth2 credentials. Note that
+this validation process could take up to 8 weeks (according to Google). See
+[this article](https://uppy.io/docs/transloadit/#use-with-companion) for how to
+setup your own credentials for use with Transloadit’s hosted Companion server.
+
+### Option 2: Migrate to the Google Picker plugin(s)
+
+As many companies can’t handle the extensive requirements of getting the token
+with these restrictive scopes, we started work on `@uppy/google-drive-picker`
+and `@uppy/google-photos-picker` in the end of 2024 and have now released these
+plugins (december 2024), which instead use the Google Picker UI to significantly
+reduce the verification process. The downside is less control, inability to
+select folders, downloading an additional bundle, and a less consistent user
+experience.
+
+You may also use Transloadit’s Companion server for the Google Picker plugins if
+you don’t want to run your own Companion server. See the new plugins
+[`@uppy/google-drive-picker`](https://uppy.io/docs/google-drive-picker/) and
+[`@uppy/google-photos-picker`](https://uppy.io/docs/google-photos-picker/) for
+how to get started.
+
+See also
+
+- [Similar story 1](https://ia.net/topics/our-android-app-is-frozen-in-carbonite)
+- [Similar story 2](https://blog.panic.com/end-of-the-road-for-google-drive-and-transmit/)
