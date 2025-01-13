@@ -16,6 +16,7 @@ import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
 import Facebook from '@uppy/facebook';
 import Unsplash from '@uppy/unsplash';
+import Zoom from '@uppy/zoom';
 import Url from '@uppy/url';
 import Box from '@uppy/box';
 import Audio from '@uppy/audio';
@@ -160,6 +161,7 @@ const options = [
 				type: 'plugins',
 			},
 			{ label: 'Box', value: 'Box', type: 'plugins' },
+			{ label: 'Zoom', value: 'Zoom', type: 'plugins' },
 		],
 	},
 	{
@@ -226,6 +228,9 @@ const Uppy = ({ state, locale }) => {
 		}
 		if (state.plugins.includes('Facebook') && !disabled('Facebook')) {
 			uppy.use(Facebook, { companionUrl });
+		}
+		if (state.plugins.includes('Zoom') && !disabled('Zoom')) {
+			uppy.use(Zoom, { companionUrl });
 		}
 		if (state.plugins.includes('OneDrive') && !disabled('OneDrive')) {
 			uppy.use(OneDrive, { companionUrl });

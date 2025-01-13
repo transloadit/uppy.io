@@ -8,6 +8,7 @@ import Webcam from '@uppy/webcam';
 import GoogleDrivePicker from '@uppy/google-drive-picker';
 import GooglePhotosPicker from '@uppy/google-photos-picker';
 import Facebook from '@uppy/facebook';
+import Zoom from '@uppy/zoom';
 // import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
@@ -243,6 +244,7 @@ export default function Home(): JSX.Element {
 										.use(OneDrive, { companionUrl })
 										.use(Unsplash, { companionUrl })
 										.use(Box, { companionUrl })
+										.use(Zoom, { companionUrl })
 										.use(GoogleDrivePicker, {
 											companionUrl,
 											clientId: googlePickerClientId,
