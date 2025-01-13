@@ -16161,6 +16161,7 @@ __metadata:
     "@uppy/unsplash": "npm:latest"
     "@uppy/url": "npm:latest"
     "@uppy/webcam": "npm:latest"
+    "@uppy/zoom": "npm:^3.2.1"
     clsx: "npm:^1.1.1"
     eslint: "npm:^8.19.0"
     eslint-config-prettier: "npm:^8.5.0"
