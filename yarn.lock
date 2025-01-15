@@ -3569,7 +3569,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/companion-client@npm:^4.3.0, @uppy/companion-client@npm:^4.4.1":
+"@uppy/companion-client@npm:^4.4.1":
   version: 4.4.1
   resolution: "@uppy/companion-client@npm:4.4.1"
   dependencies:
@@ -3722,21 +3722,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/google-drive-picker@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@uppy/google-drive-picker@npm:0.2.1"
-  dependencies:
-    "@uppy/companion-client": "npm:^4.3.0"
-    "@uppy/provider-views": "npm:^4.2.0"
-    "@uppy/utils": "npm:^6.0.6"
-    preact: "npm:^10.5.13"
-  peerDependencies:
-    "@uppy/core": ^4.3.1
-  checksum: 10/c404147af6fb3d243c76acb3a44aef0ee80dae5570c475aa7ae8a560b7b08b885e1592d4a8aa02bcb7238b268fa53348da8a33454da8722cc70ddde3dfe8d452
-  languageName: node
-  linkType: hard
-
-"@uppy/google-drive-picker@npm:^0.3.2":
+"@uppy/google-drive-picker@npm:^0.3.2, @uppy/google-drive-picker@npm:latest":
   version: 0.3.2
   resolution: "@uppy/google-drive-picker@npm:0.3.2"
   dependencies:
@@ -3764,21 +3750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/google-photos-picker@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@uppy/google-photos-picker@npm:0.2.1"
-  dependencies:
-    "@uppy/companion-client": "npm:^4.3.0"
-    "@uppy/provider-views": "npm:^4.2.0"
-    "@uppy/utils": "npm:^6.0.6"
-    preact: "npm:^10.5.13"
-  peerDependencies:
-    "@uppy/core": ^4.3.1
-  checksum: 10/de0e8741bdfd4e4ea54a988c400567468ccf160d4f6a8c23c61ea4a01d8e9e7033f1911f3bc8ff0e28eb74ed1cc94312614f4f7e0ca02ce0cc7f659e29c6240b
-  languageName: node
-  linkType: hard
-
-"@uppy/google-photos-picker@npm:^0.3.2":
+"@uppy/google-photos-picker@npm:^0.3.2, @uppy/google-photos-picker@npm:latest":
   version: 0.3.2
   resolution: "@uppy/google-photos-picker@npm:0.3.2"
   dependencies:
@@ -3880,7 +3852,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/provider-views@npm:^4.2.0, @uppy/provider-views@npm:^4.4.1":
+"@uppy/provider-views@npm:^4.4.1":
   version: 4.4.1
   resolution: "@uppy/provider-views@npm:4.4.1"
   dependencies:
@@ -4064,7 +4036,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^6.0.6, @uppy/utils@npm:^6.1.0, @uppy/utils@npm:^6.1.1":
+"@uppy/utils@npm:^6.1.0, @uppy/utils@npm:^6.1.1":
   version: 6.1.1
   resolution: "@uppy/utils@npm:6.1.1"
   dependencies:
@@ -16147,9 +16119,9 @@ __metadata:
     "@uppy/dropbox": "npm:latest"
     "@uppy/golden-retriever": "npm:latest"
     "@uppy/google-drive": "npm:latest"
-    "@uppy/google-drive-picker": "npm:^0.2.1"
+    "@uppy/google-drive-picker": "npm:latest"
     "@uppy/google-photos": "npm:latest"
-    "@uppy/google-photos-picker": "npm:^0.2.1"
+    "@uppy/google-photos-picker": "npm:latest"
     "@uppy/image-editor": "npm:latest"
     "@uppy/instagram": "npm:latest"
     "@uppy/locales": "npm:latest"
