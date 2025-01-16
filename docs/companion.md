@@ -56,7 +56,9 @@ plan.
 Choosing Transloadit for your file services also comes with credentials for all
 remote providers. This means you don’t have to waste time going through the
 approval process of every app. You can still add your own credentials in the
-Transloadit admin page if you want.
+Transloadit admin page if you want. **Note**: This does not apply to the Google
+Drive Picker and Google Photos Picker plugins, because for those plugins you
+instead specify the credentials in your front-end.
 
 :::
 
