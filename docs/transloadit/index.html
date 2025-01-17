@@ -13,7 +13,7 @@
 <meta name="google-site-verification" content="JxARoHXoCI8bD07pLV_u3z6xpuWNcSIZIcHEytyCkUc">
 <script src="https://plausible.io/js/script.js" async defer="defer" data-domain="uppy.io"></script>
 <script src="https://buttons.github.io/buttons.js" async defer="defer"></script><link rel="stylesheet" href="/assets/css/styles.13a575f4.css">
-<script src="/assets/js/runtime~main.bc94d41f.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.234ebd5e.js" defer="defer"></script>
 <script src="/assets/js/main.2e2f1b34.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -28,12 +28,13 @@ more</a>.</p>
 <p>Transloadit’s strength is versatility. By doing video, audio, images, documents,
 and more, you only need one vendor for <a href="https://transloadit.com/services/" target="_blank" rel="noopener noreferrer">all your file processing
 needs</a>. The <code>@uppy/transloadit</code> plugin directly uploads to
-Transloadit so you only have to worry about creating a
-<a href="https://transloadit.com/docs/getting-started/concepts/" target="_blank" rel="noopener noreferrer">Template</a>. Transloadit accepts the files, processes
-according to the instructions in the Template, and stores the results in storage
-of your choosing, such as a self-owned S3 bucket. The Transloadit plugin uses
-<a href="/docs/tus/">Tus</a> under the hood so you don’t have to sacrifice reliable,
-resumable uploads.</p>
+Transloadit so you don’t have to worry about setting up and maintaining your own
+servers, all you have to do is create a <a href="https://transloadit.com/docs/getting-started/concepts/" target="_blank" rel="noopener noreferrer">Template</a> that
+describes what should happen to the uploaded files. Transloadit accepts the
+files, processes according to the instructions in the Template, and stores the
+results in storage of your choosing, such as a self-owned S3 bucket. The
+Transloadit plugin uses <a href="/docs/tus/">Tus</a> under the hood so you don’t have to
+sacrifice reliable, resumable uploads.</p>
 <p>You should use <code>@uppy/transloadit</code> if you don’t want to host your own Tus or
 Companion servers, (optionally) need file processing, and store it in the
 service (such as S3 or GCS) of your liking. All with minimal effort.</p>
