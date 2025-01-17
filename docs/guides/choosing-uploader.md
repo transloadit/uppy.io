@@ -53,12 +53,9 @@ keep uploading without overloading.
 When you prefer a _client-to-storage_ over a _client-to-server-to-storage_ (such
 as [Transloadit](/docs/transloadit) or [Tus](/docs/tus)) setup. This may in some
 cases be preferable, for instance, to reduce costs or the complexity of running
-a server and load balancer with [Tus](/docs/tus).
-
-Uppy has two plugins to make this happen [`@uppy/aws-s3`][] and
-[`@uppy/aws-s3-multipart`][], but we are planning to merge the two plugins in
-the next major. You should use [`@uppy/aws-s3`][] with the new
-`shouldUseMultipart` option.
+a server and load balancer with [Tus](/docs/tus). Uppy has the
+[`@uppy/aws-s3`][] plugin for this. It supports both multipart and non-multipart
+uploads (controlled by the `shouldUseMultipart` option.
 
 :::info
 
@@ -77,7 +74,6 @@ uploads using the HTTP `PUT` method.
 [transloadit-concepts]: https://transloadit.com/docs/getting-started/concepts/
 [`@uppy/transloadit`]: /docs/transloadit
 [`@uppy/tus`]: /docs/tus
-[`@uppy/aws-s3-multipart`]: /docs/aws-s3-multipart
 [`@uppy/aws-s3`]: /docs/aws-s3-multipart
 [`@uppy/xhr-upload`]: /docs/xhr-upload
 [tus]: https://tus.io/
