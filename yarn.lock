@@ -3543,15 +3543,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/aws-s3@npm:^4.2.1":
-  version: 4.2.1
-  resolution: "@uppy/aws-s3@npm:4.2.1"
+"@uppy/aws-s3@npm:^4.2.2":
+  version: 4.2.2
+  resolution: "@uppy/aws-s3@npm:4.2.2"
   dependencies:
     "@uppy/companion-client": "npm:^4.4.1"
     "@uppy/utils": "npm:^6.1.1"
   peerDependencies:
     "@uppy/core": ^4.4.1
-  checksum: 10/4505408371626406a075cd6b95e8bf69120b0450b2562c0289b176ebcb788afb259b014d469fc203332961c3be89a5509785d2980a6af3d5fce03b4a1cc914c9
+  checksum: 10/ef901ba51b83f284841a54f23829cc1a17d02a9878b1da44fecd4072a2422f22777dbb8494888984ea4563ff03864453c49853afcef4003a52aacbed73a60e5f
   languageName: node
   linkType: hard
 
@@ -4008,9 +4008,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/unsplash@npm:^4.3.1, @uppy/unsplash@npm:latest":
-  version: 4.3.1
-  resolution: "@uppy/unsplash@npm:4.3.1"
+"@uppy/unsplash@npm:^4.3.1, @uppy/unsplash@npm:^4.3.2, @uppy/unsplash@npm:latest":
+  version: 4.3.2
+  resolution: "@uppy/unsplash@npm:4.3.2"
   dependencies:
     "@uppy/companion-client": "npm:^4.4.1"
     "@uppy/provider-views": "npm:^4.4.1"
@@ -4018,7 +4018,7 @@ __metadata:
     preact: "npm:^10.5.13"
   peerDependencies:
     "@uppy/core": ^4.4.1
-  checksum: 10/2338203c478952b92446596a90bf63b90d0c36e2560efbfb60e4ca173d0f7793632e978dcc1e8cdb23630dfbd3dcb2ac3299606569810567a5f2f4c90e46fa79
+  checksum: 10/a28dd848af2e39b7c3722cd4545d5106b1f29f46f3f2174fb3851d2c5743725f8f05ab25411a86ba0a5712c1d149ae719012314c48ee2e2658d27c7e4b2a5f0e
   languageName: node
   linkType: hard
 
@@ -16184,11 +16184,11 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 4.12.2
-  resolution: "uppy@npm:4.12.2"
+  version: 4.13.0
+  resolution: "uppy@npm:4.13.0"
   dependencies:
     "@uppy/audio": "npm:^2.1.1"
-    "@uppy/aws-s3": "npm:^4.2.1"
+    "@uppy/aws-s3": "npm:^4.2.2"
     "@uppy/box": "npm:^3.2.1"
     "@uppy/companion-client": "npm:^4.4.1"
     "@uppy/compressor": "npm:^2.2.1"
@@ -16220,13 +16220,13 @@ __metadata:
     "@uppy/thumbnail-generator": "npm:^4.1.1"
     "@uppy/transloadit": "npm:^4.2.1"
     "@uppy/tus": "npm:^4.2.1"
-    "@uppy/unsplash": "npm:^4.3.1"
+    "@uppy/unsplash": "npm:^4.3.2"
     "@uppy/url": "npm:^4.2.1"
     "@uppy/webcam": "npm:^4.1.1"
     "@uppy/webdav": "npm:^0.3.1"
     "@uppy/xhr-upload": "npm:^4.3.2"
     "@uppy/zoom": "npm:^3.2.1"
-  checksum: 10/e10e88708f76e1b0886d611e89cb1fa589dbfcc9b8cf5986f22d3f7e2763ac6303c1f343dade6a872b5be7aa0e551ee8b2a6c6914480a9b07d7cee3d315d3812
+  checksum: 10/c1043f62efaad3b98768380c86d581d2557eac20f631ac5a80a0878f3849f99bcec3daefaa09e8e9420005c032ae3711207c41ebeb9d7c22c706f4aa70a3a93a
   languageName: node
   linkType: hard
 
