@@ -127,7 +127,7 @@
 		"retext-profanities": "^7.1.0",
 		"retext-quotes": "^5.0.0",
 		"retext-syntax-mentions": "^3.1.0",
-		"typescript": "^5.2.2",
+		"typescript": "^5.7.3",
 		"unified": "^10.0.0",
 		"unified-message-control": "^4.0.0",
 		"uppy": "latest"
