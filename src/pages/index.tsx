@@ -47,9 +47,9 @@ import styles from './index.module.css';
 const companionUrl = 'https://companion.uppy.io';
 const endpoint = 'https://tusd.tusdemo.net/files/';
 const googlePickerClientId =
-	'1020900325465-7naospne1v7veupmu8rg3a6ipfogr9f0.apps.googleusercontent.com';
-const googlePickerApiKey = 'AIzaSyCItfp_WaGGgbNFoU08LMs21ks-MxIqudo';
-const googlePickerAppId = '1020900325465';
+	'458443975467-fiplebcb8bdnplqo8hlfs9pagmseo5nk.apps.googleusercontent.com';
+const googlePickerApiKey = 'AIzaSyC6m6CZEFiTtSkBfNf_-PvtCxmDMiAgfag';
+const googlePickerAppId = '458443975467';
 
 const dashboardCode = `import Uppy  from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
