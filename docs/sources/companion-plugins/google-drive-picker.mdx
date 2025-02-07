@@ -81,10 +81,22 @@ Create a project for your app if you don’t have one yet.
 - On the project’s dashboard, enable the
   [Google Picker API](https://console.cloud.google.com/apis/library/picker.googleapis.com)
   (for Google Drive).
-- Create an API key. Restrict your API key to the Google Picker API for safety.
-  This will be your `apiKey` in Uppy.
-- Create an OAuth 2.0 Client ID of type Web application with the correct
-  Authorized JavaScript origins. This will be your `clientId` in Uppy.
+- Create an API key:
+  - Application restrictions: _Websites_
+  - Website restrictions: Add the base URL of the domain name you’re hosting the
+    **frontend web app** on, example: `https://example.com`. Note that if you’re
+    testing locally you need to add `http://localhost:LOCAL_PORT` or similar
+  - API restrictions: Restrict key: Tick _Google Picker API_
+  - Click _Show key_ and use it as the `apiKey` argument to Uppy.
+- Create an OAuth 2.0 Client ID of type Web application:
+  - Authorized JavaScript origins: Add the base URL of the domain name you’re
+    hosting the **frontend web app** on, example: `https://example.com`. Note
+    that if you’re testing locally you need to add `http://localhost:LOCAL_PORT`
+    or similar. This will be your `clientId` in Uppy.
+- For how to find `appId`, [see options below.](#appid)
+- Some users reported that the
+  [Google Drive API](https://console.cloud.google.com/marketplace/product/google/drive.googleapis.com?q=search&referrer=search)
+  must be enabled as well, so if you’re having problems, please try that.
 
 ### Use in Uppy
 
@@ -146,8 +158,15 @@ The API key from the [Initial setup](#initial-setup) (`string`).
 #### `appId`
 
 The App ID can be found in the
-[Google Developer Console](https://console.developers.google.com)
-`Project number` under `IAM & Admin` > `Settings`. Note that if this is set to
-an invalid value it will be ignored by Google when your project is in testing
-mode, but once in production you will get 404 errors when trying to download
-files.
+[Google Developer Console](https://console.developers.google.com): _Project
+number_ under
+[`IAM & Admin` > `Settings`](https://console.cloud.google.com/iam-admin/settings).
+
+:::note
+
+Make sure you use the **project number** (**not** project ID or project name),
+and make sure you’re in the correct project. Note that if this is set to the
+wrong value it will be ignored by Google when your project is in testing mode,
+but once in production users will get 404 errors when trying to download.
+
+:::
