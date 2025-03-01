@@ -119,7 +119,7 @@
 		"remark-lint-ordered-list-marker-style": "^3.0.0",
 		"remark-mdx": "^2.1.2",
 		"remark-preset-lint-consistent": "^5.1.1",
-		"remark-preset-lint-markdown-style-guide": "^5.1.2",
+		"remark-preset-lint-markdown-style-guide": "^6.0.1",
 		"remark-preset-prettier": "^2.0.1",
 		"remark-retext": "^5.0.0",
 		"retext-english": "^4.0.0",
