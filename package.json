@@ -85,7 +85,7 @@
 	},
 	"devDependencies": {
 		"@docusaurus/eslint-plugin": "^3.0.0",
-		"@docusaurus/module-type-aliases": "^3.0.0",
+		"@docusaurus/module-type-aliases": "^3.7.0",
 		"@tsconfig/docusaurus": "^2.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.48.1",
 		"@typescript-eslint/parser": "^5.48.1",
