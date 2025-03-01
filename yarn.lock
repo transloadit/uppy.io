@@ -9405,21 +9405,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-directive@npm:^2.0.0":
-  version: 2.2.4
-  resolution: "mdast-util-directive@npm:2.2.4"
-  dependencies:
-    "@types/mdast": "npm:^3.0.0"
-    "@types/unist": "npm:^2.0.0"
-    mdast-util-from-markdown: "npm:^1.3.0"
-    mdast-util-to-markdown: "npm:^1.5.0"
-    parse-entities: "npm:^4.0.0"
-    stringify-entities: "npm:^4.0.0"
-    unist-util-visit-parents: "npm:^5.1.3"
-  checksum: 10/bbae4390408d758bf94ebeb4301d9327e5864bb78a8b7a9491fe3c3c2528b5d92ece48a179b851660fd2faf3d0964b83a10b5238c4587a7a2c42478b39325129
-  languageName: node
-  linkType: hard
-
 "mdast-util-directive@npm:^3.0.0":
   version: 3.0.0
   resolution: "mdast-util-directive@npm:3.0.0"
@@ -9473,7 +9458,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-from-markdown@npm:^1.0.0, mdast-util-from-markdown@npm:^1.1.0, mdast-util-from-markdown@npm:^1.3.0":
+"mdast-util-from-markdown@npm:^1.0.0, mdast-util-from-markdown@npm:^1.1.0":
   version: 1.3.1
   resolution: "mdast-util-from-markdown@npm:1.3.1"
   dependencies:
@@ -9841,7 +9826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-to-markdown@npm:^1.0.0, mdast-util-to-markdown@npm:^1.3.0, mdast-util-to-markdown@npm:^1.5.0":
+"mdast-util-to-markdown@npm:^1.0.0, mdast-util-to-markdown@npm:^1.3.0":
   version: 1.5.0
   resolution: "mdast-util-to-markdown@npm:1.5.0"
   dependencies:
@@ -10033,21 +10018,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-directive@npm:^2.0.0":
-  version: 2.2.1
-  resolution: "micromark-extension-directive@npm:2.2.1"
-  dependencies:
-    micromark-factory-space: "npm:^1.0.0"
-    micromark-factory-whitespace: "npm:^1.0.0"
-    micromark-util-character: "npm:^1.0.0"
-    micromark-util-symbol: "npm:^1.0.0"
-    micromark-util-types: "npm:^1.0.0"
-    parse-entities: "npm:^4.0.0"
-    uvu: "npm:^0.5.0"
-  checksum: 10/c49b68947382237df2b7a150724157086577059447d7f63642cbc9f0f9cdf3d1fc51f7012538bae2bb5514fa050d5e0aacf8588db4847a97b9e867c4bf71db21
-  languageName: node
-  linkType: hard
-
 "micromark-extension-directive@npm:^3.0.0":
   version: 3.0.0
   resolution: "micromark-extension-directive@npm:3.0.0"
@@ -10060,6 +10030,21 @@ __metadata:
     micromark-util-types: "npm:^2.0.0"
     parse-entities: "npm:^4.0.0"
   checksum: 10/6ed8eb21548d6b3d3efb3f871881559083b11163cab65311d91b3f0d139902d3d20c2b98e12654e8361ac31490d7e3c9eab8a7f8e61036887278ba5f430c8c04
+  languageName: node
+  linkType: hard
+
+"micromark-extension-directive@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "micromark-extension-directive@npm:4.0.0"
+  dependencies:
+    devlop: "npm:^1.0.0"
+    micromark-factory-space: "npm:^2.0.0"
+    micromark-factory-whitespace: "npm:^2.0.0"
+    micromark-util-character: "npm:^2.0.0"
+    micromark-util-symbol: "npm:^2.0.0"
+    micromark-util-types: "npm:^2.0.0"
+    parse-entities: "npm:^4.0.0"
+  checksum: 10/3053b77c9175e9da7886a3af6b2a810358982cc7baabe886dde52d257e3d1b0e0f3c274891a3db7c5d53a8c7688cd915631f43f680e8a88c83f5951a6e5e34c3
   languageName: node
   linkType: hard
 
@@ -13164,18 +13149,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-directive@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "remark-directive@npm:2.0.1"
-  dependencies:
-    "@types/mdast": "npm:^3.0.0"
-    mdast-util-directive: "npm:^2.0.0"
-    micromark-extension-directive: "npm:^2.0.0"
-    unified: "npm:^10.0.0"
-  checksum: 10/6c79551e5c68631169acbb1df1a2e253b0d3df31586d9dc92ff2e622692dae7a858fc9eb6615f3f5ea23547e8b893e5e36af78ec1ffbe4dc74ab688d3895d2a1
-  languageName: node
-  linkType: hard
-
 "remark-directive@npm:^3.0.0":
   version: 3.0.0
   resolution: "remark-directive@npm:3.0.0"
@@ -13185,6 +13158,18 @@ __metadata:
     micromark-extension-directive: "npm:^3.0.0"
     unified: "npm:^11.0.0"
   checksum: 10/fc23794c0996f5a926d4fd759632bd6fcbc8a1a34c47723d03e1a3aa3a1e5389549ae46fd679cd2ab571ca336b7ed53e76c459616559518200d3019984b5e147
+  languageName: node
+  linkType: hard
+
+"remark-directive@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "remark-directive@npm:4.0.0"
+  dependencies:
+    "@types/mdast": "npm:^4.0.0"
+    mdast-util-directive: "npm:^3.0.0"
+    micromark-extension-directive: "npm:^4.0.0"
+    unified: "npm:^11.0.0"
+  checksum: 10/46aa971bdfd627b0de76d74a70188213574bb7b60c41ff6dd3c0c76645752f8bc655f4ae7856acde79783a915ac0293bf96e7241a02bc93b48fa5ab30dab635b
   languageName: node
   linkType: hard
 
@@ -15995,7 +15980,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-visit-parents@npm:^5.0.0, unist-util-visit-parents@npm:^5.1.1, unist-util-visit-parents@npm:^5.1.3":
+"unist-util-visit-parents@npm:^5.0.0, unist-util-visit-parents@npm:^5.1.1":
   version: 5.1.3
   resolution: "unist-util-visit-parents@npm:5.1.3"
   dependencies:
@@ -16148,7 +16133,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     remark-cli: "npm:^11.0.0"
-    remark-directive: "npm:^2.0.1"
+    remark-directive: "npm:^4.0.0"
     remark-frontmatter: "npm:^5.0.0"
     remark-gfm: "npm:^3.0.1"
     remark-lint: "npm:^9.0.0"
