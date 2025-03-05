@@ -53,10 +53,12 @@ plan.
 
 :::tip
 
-Choosing Transloadit for your file services also comes with credentials for all
-remote providers. This means you don’t have to waste time going through the
-approval process of every app. You can still add your own credentials in the
-Transloadit admin page if you want.
+Choosing Transloadit for your file services also comes with temporary
+credentials for all remote providers. This means you don’t have to waste time
+going through the approval process of every app to get started.
+
+When you’re ready, we still expect you to add your own credentials to prevent
+rate limits across our customers.
 
 :::
 
