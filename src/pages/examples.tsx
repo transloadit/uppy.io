@@ -9,7 +9,6 @@ import UppyCore from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrive from '@uppy/google-drive';
 import GoogleDrivePicker from '@uppy/google-drive-picker';
-import GooglePhotos from '@uppy/google-photos';
 import GooglePhotosPicker from '@uppy/google-photos-picker';
 import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
@@ -108,14 +107,6 @@ const options = [
 			{
 				label: 'Google Drive',
 				value: 'GoogleDrive',
-				type: 'plugins',
-				title:
-					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
-			},
-			{
-				label: 'Google Photos',
-				value: 'GooglePhotos',
 				type: 'plugins',
 				title:
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
@@ -265,11 +256,6 @@ const Uppy = ({ state, locale }) => {
 				clientId: googlePickerClientId,
 				apiKey: googlePickerApiKey,
 				appId: googlePickerAppId,
-			});
-		}
-		if (state.plugins.includes('GooglePhotos') && !disabled('GooglePhotos')) {
-			uppy.use(GooglePhotos, {
-				companionUrl,
 			});
 		}
 		if (
