@@ -1,0 +1,30 @@
+| | [Uppy](https://github.com/transloadit/uppy) | [Dropzone](https://www.dropzone.dev/) | [Filepond](https://pqina.nl/filepond/) | [Uploadcare](https://uploadcare.com/) | [Filestack](https://www.filestack.com/) | [Uploader.win](https://www.uploader.win/?) | [UploadThing](https://uploadthing.com/) |
+| - | - | - | - | - | - | - | - |
+| Open source | ✅ | ✅ | ✅ | x | x | x | x |
+| Paid hosted option | ✅ | x | [✅](https://pqina.nl/pintura/?ref=filepond) | ✅ | ✅ | ✅ | ✅ |
+| Google Drive | [✅ ¹](/docs/google-drive/) | x | x | ✅ | ✅ | ⚠️ Broken 2025-03 | x |
+| Google Drive Picker | [✅](/docs/google-drive-picker/) | x | x | x | x | x | x |
+| Google Photos ² | x | x | x | x | x | x | x |
+| Google Photos Picker | [✅](/docs/google-photos-picker/) | x | x | x | x | x | x |
+| Dropbox Personal | [✅](/docs/dropbox/) | x | x | ✅ | ✅ | ⚠️ Broken 2025-03 | x |
+| Dropbox Business Teams | x | x | x | x | x | x | x |
+| Box | [✅](/docs/box/) | x | x | ✅ | ✅ | x | x |
+| OneDrive | [✅](/docs/onedrive/) | x | x | ✅ | ✅ | x | x |
+| Zoom | [✅](/docs/zoom/) | x | x | x | x | x | x |
+| WebDAV | [✅](/docs/webdav/) | x | x | x | x | x | x |
+| Facebook | [✅](/docs/facebook/) | x | x | ✅ | ✅ | ⚠️ Broken 2025-03 | x |
+| Instagram ³ | [⚠️ Disabled 2025-01](https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/) | x | x | x | [⚠️ Disabled 2025-01](https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/) | x | x |
+| Link (URL) | [✅](/docs/url/) | x | x | ✅ | ✅ | ✅ | x |
+| Image search | [✅](/docs/unsplash/) | x | x | x | ✅ | ✅ | x |
+| Webcam | [✅](/docs/webcam/) | x | x | ✅ | ✅ | ✅ | x |
+| Microphone | [✅](/docs/audio/) | x | x | x | ✅ | ✅ | x |
+| Screen capture | [✅](/docs/screen-capture/) | x | x | x | x | x | x |
+| Resumable uploads | [✅](/docs/tus/) | ? | ? | ? | ? | ✅ | ✅ |
+| Edit images | [✅](/docs/image-editor/) | ? | ☑️ ⁴ | ✅ | ✅ | ✅ | ? |
+| Post-processing service | [✅](/docs/transloadit/) | x | x | ✅ | ✅ | ✅ | ? |
+| Custom styles | [Limited](/docs/dashboard/#theme) | ✅ | ? | ✅ | ✅ | ? | ✅ |
+
+¹ Requires your own credentials and Google validation.\
+² API disabled by Google.\
+³ Only Business API (personal API removed by Instagram).\
+⁴ Non-free feature addon to free software.
