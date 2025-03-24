@@ -29,4 +29,5 @@
 ³ Only Business API (personal API removed by Instagram).\
 ⁴ Non-free feature addon to free software.
 
-See something incorrect? [Edit the comparison table](https://github.com/transloadit/uppy.io/edit/main/src/pages/companion.md).
+See something incorrect?
+[Edit the comparison table](https://github.com/transloadit/uppy.io/edit/main/src/pages/companion.md).
