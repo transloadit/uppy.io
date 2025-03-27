@@ -350,7 +350,7 @@ Metadata can also be added from a `<form>` element on your page, through the
 #### `onBeforeFileAdded(file, files)`
 
 A function called before a file is added to Uppy (`Function`, default:
-`(files, file) => !Object.hasOwn(files, file.id)`).
+`(file, files) => !Object.hasOwn(files, file.id)`).
 
 Use this function to run any number of custom checks on the selected file, or
 manipulate it, for instance, by optimizing a file name. You can also allow
