@@ -13779,6 +13779,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remark-lint-no-shortcut-reference-link@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "remark-lint-no-shortcut-reference-link@npm:4.0.1"
+  dependencies:
+    "@types/mdast": "npm:^4.0.0"
+    unified-lint-rule: "npm:^3.0.0"
+    unist-util-visit-parents: "npm:^6.0.0"
+  checksum: 10/f664a7bd1a8235cba50cd44dc24ca2c5b762047b745dca7ad7cb48e242f41bdb87b380bf830f0ab215c0b78fb7c4850bfdd10a1e64df5179aa68d076107b210d
+  languageName: node
+  linkType: hard
+
 "remark-lint-no-table-indentation@npm:^4.0.0":
   version: 4.1.2
   resolution: "remark-lint-no-table-indentation@npm:4.1.2"
@@ -16161,7 +16172,7 @@ __metadata:
     remark-lint-no-inline-padding: "npm:^4.0.0"
     remark-lint-no-literal-urls: "npm:^4.0.0"
     remark-lint-no-shortcut-reference-image: "npm:^3.0.0"
-    remark-lint-no-shortcut-reference-link: "npm:^3.0.0"
+    remark-lint-no-shortcut-reference-link: "npm:^4.0.1"
     remark-lint-no-undefined-references: "npm:^4.0.0"
     remark-lint-no-unused-definitions: "npm:^4.0.0"
     remark-lint-ordered-list-marker-style: "npm:^3.0.0"
