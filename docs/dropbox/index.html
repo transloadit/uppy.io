@@ -13,7 +13,7 @@
 <meta name="google-site-verification" content="JxARoHXoCI8bD07pLV_u3z6xpuWNcSIZIcHEytyCkUc">
 <script src="https://plausible.io/js/script.js" async defer="defer" data-domain="uppy.io"></script>
 <script src="https://buttons.github.io/buttons.js" async defer="defer"></script><link rel="stylesheet" href="/assets/css/styles.5855d191.css">
-<script src="/assets/js/runtime~main.f8ccda1f.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.29931137.js" defer="defer"></script>
 <script src="/assets/js/main.ae23398a.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -54,6 +54,10 @@ to use. Then you can pass the name of the new credentials to that provider:</p>
 <li>Choose the “Dropbox API”, not the business variant.</li>
 <li>Typically you’ll want “Full Dropbox” access, unless you are absolutely certain
 that you need the other one.</li>
+<li>Enable the scopes <code>account_info.read</code>, <code>files.metadata.read</code> and
+<code>files.content.read</code> under “Permissions”. If you want to support
+<a href="https://developers.dropbox.com/dbx-team-files-guide" target="_blank" rel="noopener noreferrer">Team folders / Teams spaces</a>,
+counterintuitively you must <strong>not</strong> enable any Team scopes.</li>
 </ul>
 <p>You’ll be redirected to the app page. This page lists the app key and app
 secret, which you should use to configure Companion as shown above.</p>
