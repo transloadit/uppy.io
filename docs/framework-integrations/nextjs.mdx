@@ -74,12 +74,7 @@ export default function UppyDashboard() {
 }
 ```
 
-[`@tus/server`][] does not not support the Next.js app router yet, which is
-based on the fetch `Request` API instead of `http.IncomingMessage` and
-`http.ServerResponse`.
-
-Even if you are fully comitting to the app router, there is no downside to still
-having the pages router next to it for some Node.js style API routes.
+### Pages router
 
 Attach the tus server handler to a Next.js route handler in an
 [optional catch-all route file](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#optional-catch-all-routes).
@@ -110,6 +105,29 @@ const tusServer = new Server({
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
 	return tusServer.handle(req, res);
 }
+```
+
+### App router
+
+`/app/api/upload/[[...slug]]/route.ts`
+
+```ts
+import { Server } from '@tus/server';
+import { FileStore } from '@tus/file-store';
+
+const server = new Server({
+	// `path` needs to match the route declared by the next file router
+	// ie /api/upload
+	path: '/api/upload',
+	datastore: new FileStore({ directory: './files' }),
+});
+
+export const GET = server.handleWeb;
+export const POST = server.handleWeb;
+export const PATCH = server.handleWeb;
+export const DELETE = server.handleWeb;
+export const OPTIONS = server.handleWeb;
+export const HEAD = server.handleWeb;
 ```
 
 ## Transloadit
