@@ -104,14 +104,14 @@ const options = [
 	{
 		heading: 'Remote sources',
 		options: [
-			{
-				label: 'Google Drive',
-				value: 'GoogleDrive',
-				type: 'plugins',
-				title:
-					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
-			},
+			// {
+			// 	label: 'Google Drive',
+			// 	value: 'GoogleDrive',
+			// 	type: 'plugins',
+			// 	title:
+			// 		'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
+			// 	disabled: true,
+			// },
 			{
 				label: 'Google Drive Picker',
 				value: 'GoogleDrivePicker',
