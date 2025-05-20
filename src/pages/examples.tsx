@@ -104,14 +104,14 @@ const options = [
 	{
 		heading: 'Remote sources',
 		options: [
-			{
-				label: 'Google Drive',
-				value: 'GoogleDrive',
-				type: 'plugins',
-				title:
-					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
-			},
+			// {
+			// 	label: 'Google Drive',
+			// 	value: 'GoogleDrive',
+			// 	type: 'plugins',
+			// 	title:
+			// 		'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
+			// 	disabled: true,
+			// },
 			{
 				label: 'Google Drive Picker',
 				value: 'GoogleDrivePicker',
@@ -184,7 +184,7 @@ const options = [
 		],
 	},
 	{
-		heading: 'Uppy',
+		heading: 'Miscellaneous',
 		options: [
 			{ label: 'Restrictions', type: 'restrictions' },
 			{ label: 'Golden Retriever', value: 'GoldenRetriever', type: 'plugins' },
@@ -403,23 +403,28 @@ function Page() {
 							);
 						})}
 
-						<select
-							name="locale"
-							onChange={(e) => {
-								setLocale(
-									locales.find((locale) => locale.name === e.target.value)
-										.locale,
-								);
-							}}
-						>
-							{locales.map(({ name }) => {
-								return (
-									<option key={name} value={name}>
-										{name}
-									</option>
-								);
-							})}
-						</select>
+						<div className={styles['options-locale']}>
+							<Heading className={styles['h3']} as="h3">
+								Locale
+							</Heading>
+							<select
+								name="locale"
+								onChange={(e) => {
+									setLocale(
+										locales.find((locale) => locale.name === e.target.value)
+											.locale,
+									);
+								}}
+							>
+								{locales.map(({ name }) => {
+									return (
+										<option key={name} value={name}>
+											{name}
+										</option>
+									);
+								})}
+							</select>
+						</div>
 					</div>
 					<div className={styles['dashboard-inner']}>
 						<BrowserOnly>
@@ -428,7 +433,7 @@ function Page() {
 					</div>
 				</section>
 				<Admonition type="note">
-					Checkout our{' '}
+					Check out our{' '}
 					<Link
 						href="https://github.com/transloadit/uppy/tree/main/examples"
 						target="_blank"
