@@ -404,7 +404,9 @@ function Page() {
 						})}
 
 						<div className={styles['options-locale']}>
-							<h3 className={styles['h3']}>Locale</h3>
+							<Heading className={styles['h3']} as="h3">
+								Locale
+							</Heading>
 							<select
 								name="locale"
 								onChange={(e) => {
