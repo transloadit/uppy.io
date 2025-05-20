@@ -184,7 +184,7 @@ const options = [
 		],
 	},
 	{
-		heading: 'Uppy',
+		heading: 'Miscellaneous',
 		options: [
 			{ label: 'Restrictions', type: 'restrictions' },
 			{ label: 'Golden Retriever', value: 'GoldenRetriever', type: 'plugins' },
