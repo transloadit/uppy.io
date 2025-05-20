@@ -428,7 +428,7 @@ function Page() {
 					</div>
 				</section>
 				<Admonition type="note">
-					Checkout our{' '}
+					Check out our{' '}
 					<Link
 						href="https://github.com/transloadit/uppy/tree/main/examples"
 						target="_blank"
