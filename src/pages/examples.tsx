@@ -403,23 +403,26 @@ function Page() {
 							);
 						})}
 
-						<select
-							name="locale"
-							onChange={(e) => {
-								setLocale(
-									locales.find((locale) => locale.name === e.target.value)
-										.locale,
-								);
-							}}
-						>
-							{locales.map(({ name }) => {
-								return (
-									<option key={name} value={name}>
-										{name}
-									</option>
-								);
-							})}
-						</select>
+						<div className={styles['options-locale']}>
+							<h3 className={styles['h3']}>Locale</h3>
+							<select
+								name="locale"
+								onChange={(e) => {
+									setLocale(
+										locales.find((locale) => locale.name === e.target.value)
+											.locale,
+									);
+								}}
+							>
+								{locales.map(({ name }) => {
+									return (
+										<option key={name} value={name}>
+											{name}
+										</option>
+									);
+								})}
+							</select>
+						</div>
 					</div>
 					<div className={styles['dashboard-inner']}>
 						<BrowserOnly>
