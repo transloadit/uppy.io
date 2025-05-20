@@ -43,13 +43,14 @@
 }
 .options input[type='checkbox'] {
 	accent-color: #f37;
-	margin-right: 5px;
+	margin-right: 0.33rem;
 	margin-left: 0;
 }
 .options-inner > div {
-	display: flexl;
-	align-items: center;
-	margin: 0.25rem 0;
+	display: flex;
+	align-items: baseline;
+	margin: 0 0 0.5rem;
+	line-height: 1.3333;
 }
 .options input[type='checkbox']:disabled + label {
 	color: gray;
