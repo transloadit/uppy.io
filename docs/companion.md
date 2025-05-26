@@ -435,10 +435,6 @@ will prefix all events with the name provided and a colon. See also
 
 Maximum allowed length for uploaded filenames. Default: 500. If the max length is set to `0`, the filename will be fully truncated and become an UUID. For example, if the filename is `my-long-filename.txt` and the max length is set to `0`, the filename will become `a7c73ddb-3dd7-404d-937a-8b836ff099d8`.
 
-#### `isFilenameTruncateFromEnd` `COMPANION_FILENAME_TRUNCATE_FROM_END`
-
-If set to `true`, Companion will truncate the filename from the end. If set to `false`, Companion will truncate the filename from the beginning. Default: `true`. For example, if the filename is `my-long-filename.txt` and the max length is set to `5`, the filename will become `my-filenam` if `isFilenameTruncateFromEnd` is set to `true`, or `ng-filename.txt` if it is set to `false`.
-
 #### `server`
 
 Configuration options for the underlying server.
