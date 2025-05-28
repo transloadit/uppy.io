@@ -186,8 +186,7 @@ class MyPlugin extends UIPlugin {
 		this.type = 'example';
 	}
 
-	prepareUpload = (fileIDs) => {
-		// ← this!
+	prepareUpload = (fileIDs) => { // ← this!
 		console.log(this); // `this` refers to the `MyPlugin` instance.
 		return Promise.resolve();
 	};
