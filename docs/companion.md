@@ -433,7 +433,7 @@ will prefix all events with the name provided and a colon. See also
 
 #### `maxFilenameLength` `COMPANION_MAX_FILENAME_LENGTH`
 
-Maximum allowed length for uploaded filenames. Default: 500. If the max length is set to `0`, the filename will be fully truncated and become an UUID. For example, if the filename is `my-long-filename.txt` and the max length is set to `0`, the filename will become `a7c73ddb-3dd7-404d-937a-8b836ff099d8`.
+Maximum allowed length for uploaded filenames. Default: 500. If set, it must be set to a value larger than `0`.
 
 #### `server`
 
