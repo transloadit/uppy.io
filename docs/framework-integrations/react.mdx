@@ -4,6 +4,7 @@ slug: /react
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import UploadButton from '/src/components/UploadButton';
 
 # React
 
@@ -31,30 +32,24 @@ yarn add @uppy/react
 
 :::note
 
-You also need to install the UI plugin you want to use. For instance,
-`@uppy/dashboard`.
+You may also need to install peer dependencies, for instance `@uppy/dashboard`.
 
 :::
 
 ## Use
 
-`@uppy/react` exposes component wrappers for `Dashboard`, `DragDrop`, and all
-other UI elements. The components can be used with either [React][] or
-API-compatible alternatives such as [Preact][].
+Uppy offers three ways to build user interfaces:
 
-:::caution
-
-If you find yourself writing many instances of `useState` and `useEffect` to
-achieve something with Uppy in React, you are most likely breaking React best
-practices. Consider reading
-“[You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)”
-and looking at our examples below.
-
-:::
+1. **Pre-composed, plug-and-play components.** Mainly `<Dashboard />` and
+   `<DragDrop />`. The downside is that you can’t customize the UI.
+2. **Headless components.** Smaller componentes, easier to override the styles
+   or compose them together with your own components.
+3. **Hooks.** Attach our logic to your own components, no restrictions, create a
+   tailor-made UI.
 
 ### Components
 
-The following components are exported from `@uppy/react`:
+Pre-composed, plug-and-play components:
 
 - `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
 - `<DashboardModal />` renders [`@uppy/dashboard`](/docs/dashboard) as a modal
@@ -62,12 +57,141 @@ The following components are exported from `@uppy/react`:
 - `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/progress-bar)
 - `<StatusBar />` renders [`@uppy/status-bar`](/docs/status-bar)
 
+### Headless Components
+
+:::tip
+
+Play around with the React headless components in [StackBlitz](#todo)
+
+:::
+
+:::note
+
+All components must be placed within a `UppyContextProvider`.
+
+:::
+
+Uppy’s headless components are smaller and more flexible. All components must be
+placed within a `UppyContextProvider`. They come styled as well but you can
+override the styles with data attributes, for example with `UploadButton`:
+
+```css
+button[data-uppy-element='upload-button'][data-state='uploading'] {
+	background-color: lightblue;
+}
+```
+
+#### `UppyContextProvider`
+
+Provides Uppy context to child components and manages global upload
+status/progress.
+
+```tsx
+import { useContext, useState } from 'react';
+import { UppyContextProvider, UppyContext } from '@uppy/react';
+
+function YourComponent() {
+	const { uppy } = useContext(UppyContext);
+}
+
+export function App() {
+	const [uppy] = useState(() => new Uppy());
+
+	return (
+		<UppyContextProvider uppy={uppy}>
+			<YourComponent />
+			{/* and/or Uppy components */}
+		</UppyContextProvider>
+	);
+}
+```
+
+**Context Value**:
+
+```typescript
+{
+	uppy: Uppy | undefined;
+	status: 'init' | 'ready' | 'uploading' | 'paused' | 'error' | 'complete';
+	progress: number;
+}
+```
+
+#### `<UploadButton />`
+
+**Attributes**
+
+- `data-uppy-element="upload-button"`
+- `data-state="init" | "uploading" | "paused" | "error" | "complete"`
+
+<UploadButton />
+
+#### `<Thumbnail />`
+
+Component for displaying image thumbnails and/or SVG icons.
+
+**Props**:
+
+- `file: UppyFile<Meta, Body>`
+- `width?: string`
+- `height?: string`
+- `images?: boolean`
+
+#### `<ProviderIcon />`
+
+Common icons, such as a webcam, device, Dropbox, Google Drive, OneDrive, etc.
+
+**Props**:
+
+- `provider`:
+  `'device' | 'camera' | 'screen-capture' | 'audio' | 'dropbox' | 'facebook' | 'instagram' | 'onedrive' | 'googlephotos' | 'googledrive'`
+- `fill?: string`
+
+#### `<FilesList />`
+
+Component for displaying a list view of selected files.
+
+**Props**:
+
+- `editFile?: (file: UppyFile<Meta, Body>) => void`
+
+#### `<Dropzone />`
+
+Drag-and-drop zone component for file uploads.
+
+**Props**:
+
+- `width?: string`
+- `height?: string`
+- `note?: string`
+- `noClick?: boolean`
+
+#### `<FilesGrid />`
+
+Grid layout component for displaying files in a grid format.
+
+**Props**:
+
+- `editFile?: (file: UppyFile<Meta, Body>) => void`
+- `columns?: number`
+
 ### Hooks
+
+:::tip
+
+Play around with the React headless hooks in [StackBlitz](#todo)
+
+:::
+
+:::note
+
+All hooks, except `useUppyState` and `useUppyEvent`, must be used within a
+`UppyContextProvider`.
+
+:::
 
 #### `useUppyState(uppy, selector)`
 
-Use this hook when you need to access Uppy’s state reactively. Most of the
-times, this is needed if you are building a custom UI for Uppy in React.
+Use this hook when you need to access Uppy’s state reactively.
 
 ```js
 // IMPORTANT: passing an initializer function to prevent Uppy from being reinstantiated on every render.
@@ -106,6 +230,105 @@ const [results, clearResults] = useUppyEvent(uppy, 'transloadit:result');
 const [stepName, result, assembly] = results; // strongly typed
 
 useUppyEvent(uppy, 'cancel-all', clearResults);
+```
+
+#### `useDropzone(options?)`
+
+Creates a dropzone for drag-and-drop file uploads using Uppy.
+
+**Arguments**:
+
+- `noClick?: boolean`
+- `onDragOver?: (event: Event) => void`
+- `onDragEnter?: (event: Event) => void`
+- `onDragLeave?: (event: Event) => void`
+- `onDrop?: (files: File[]) => void`
+- `onFileInputChange?: (files: File[]) => void`
+
+**Returns**:
+
+- `getRootProps: Function`
+- `getInputProps: Function`
+
+#### `useFileInput(props?)`
+
+Creates a file input for programmatic file selection using Uppy.
+
+**Arguments**:
+
+- `multiple?: boolean`
+- `accept?: string`
+
+**Returns**:
+
+- `getInputProps: Function`
+- `getButtonProps: Function`
+
+#### `useRemoteSource(sourceId)`
+
+Manages remote source connections (cloud storage providers).
+
+**Arguments**:
+
+- `sourceId: 'Box' | 'Dropbox' | 'Facebook' | 'GoogleDrive' | 'Instagram' | 'OneDrive' | 'Unsplash' | 'Url' | 'Zoom'`
+
+**Returns**:
+
+```typescript
+{
+  state: {
+    authenticated: boolean | undefined
+    didFirstRender: boolean
+    searchString: string
+    loading: boolean | string
+    partialTree: PartialTree
+    currentFolderId: PartialTreeId
+    username: string | null
+    breadcrumbs: PartialTreeFolder[]
+    selectedAmount: number
+    error: string | null
+  }
+  login: Function
+  logout: Function
+  open: Function
+  checkbox: Function
+  done: Function
+  cancel: Function
+}
+```
+
+#### `useWebcam({ onSubmit })`
+
+Manages webcam functionality for capturing photos/videos.
+
+**Arguments**:
+
+- `onSubmit: () => void`
+
+**Returns**:
+
+```typescript
+{
+  state: {
+    hasCamera: boolean
+    cameraReady: boolean
+    cameraError: null | Error
+    recordingLengthSeconds: number
+    videoSources: MediaDeviceInfo[]
+    currentDeviceId: string | MediaStreamTrack | null | undefined
+    recordedVideo: null | string
+    isRecording: boolean
+    status: 'init' | 'ready' | 'recording' | 'captured' | 'error'
+  }
+  stop: Function
+  start: Function
+  getVideoProps: Function
+  getSnapshotButtonProps: Function
+  getRecordButtonProps: Function
+  getStopRecordingButtonProps: Function
+  getSubmitButtonProps: Function
+  getDiscardButtonProps: Function
+}
 ```
 
 ## Examples
@@ -244,4 +467,3 @@ function Component({ userId }) {
 ```
 
 [react]: https://facebook.github.io/react
-[preact]: https://preactjs.com/
