@@ -5,6 +5,11 @@ slug: /react
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import UploadButton from '/src/components/UploadButton';
+import ThumbnailDemo from '/src/components/Thumbnail';
+import ProviderIconDemo from '/src/components/ProviderIcon';
+import FilesListDemo from '/src/components/FilesList';
+import DropzoneDemo from '/src/components/Dropzone';
+import FilesGridDemo from '/src/components/FilesGrid';
 
 # React
 
@@ -136,6 +141,8 @@ Component for displaying image thumbnails and/or SVG icons.
 - `height?: string`
 - `images?: boolean`
 
+<ThumbnailDemo />
+
 #### `<ProviderIcon />`
 
 Common icons, such as a webcam, device, Dropbox, Google Drive, OneDrive, etc.
@@ -146,6 +153,8 @@ Common icons, such as a webcam, device, Dropbox, Google Drive, OneDrive, etc.
   `'device' | 'camera' | 'screen-capture' | 'audio' | 'dropbox' | 'facebook' | 'instagram' | 'onedrive' | 'googlephotos' | 'googledrive'`
 - `fill?: string`
 
+<ProviderIconDemo />
+
 #### `<FilesList />`
 
 Component for displaying a list view of selected files.
@@ -153,6 +162,19 @@ Component for displaying a list view of selected files.
 **Props**:
 
 - `editFile?: (file: UppyFile<Meta, Body>) => void`
+
+<FilesListDemo />
+
+#### `<FilesGrid />`
+
+Grid layout component for displaying files in a grid format.
+
+**Props**:
+
+- `editFile?: (file: UppyFile<Meta, Body>) => void`
+- `columns?: number`
+
+<FilesGridDemo />
 
 #### `<Dropzone />`
 
@@ -165,14 +187,8 @@ Drag-and-drop zone component for file uploads.
 - `note?: string`
 - `noClick?: boolean`
 
-#### `<FilesGrid />`
+<DropzoneDemo />
 
-Grid layout component for displaying files in a grid format.
-
-**Props**:
-
-- `editFile?: (file: UppyFile<Meta, Body>) => void`
-- `columns?: number`
 
 ### Hooks
 
