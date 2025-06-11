@@ -4,6 +4,12 @@ slug: /vue
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import UploadButton from '/src/components/UploadButton';
+import ThumbnailDemo from '/src/components/Thumbnail';
+import ProviderIconDemo from '/src/components/ProviderIcon';
+import FilesListDemo from '/src/components/FilesList';
+import DropzoneDemo from '/src/components/Dropzone';
+import FilesGridDemo from '/src/components/FilesGrid';
 
 # Vue
 
@@ -38,36 +44,267 @@ You also need to install the UI plugin you want to use. For instance,
 
 ## Use
 
-The following plugins are available as Vue component wrappers:
+Uppy offers three ways to build user interfaces:
 
-- `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard) inline
+1. **Pre-composed, plug-and-play components.** Mainly `<Dashboard />` and
+   `<DragDrop />`. The downside is that you can't customize the UI.
+2. **Headless components.** Smaller componentes, easier to override the styles
+   or compose them together with your own components.
+3. **Hooks.** Attach our logic to your own components, no restrictions, create a
+   tailor-made UI.
+
+### Components
+
+Pre-composed, plug-and-play components:
+
+- `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
 - `<DashboardModal />` renders [`@uppy/dashboard`](/docs/dashboard) as a modal
 - `<DragDrop />` renders [`@uppy/drag-drop`](/docs/drag-drop)
 - `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/progress-bar)
 - `<StatusBar />` renders [`@uppy/status-bar`](/docs/status-bar)
 
-Instead of adding a UI plugin to an Uppy instance with `.use()`, the Uppy
-instance can be passed into components as an `uppy` prop. Due to the way Vue
-handles reactivity, you can initialize Uppy the same way you would with vanilla
-JavaScript.
+### Headless Components
 
-```html
+:::tip
+
+Play around with the Vue headless components in [StackBlitz](#todo)
+
+:::
+
+:::note
+
+All components must be placed within a `UppyContextProvider`.
+
+:::
+
+Uppy's headless components are smaller and more flexible. All components must be
+placed within a `UppyContextProvider`. They come styled as well but you can
+override the styles with data attributes, for example with `UploadButton`:
+
+```css
+button[data-uppy-element='upload-button'][data-state='uploading'] {
+	background-color: lightblue;
+}
+```
+
+#### `UppyContextProvider`
+
+Provides Uppy context to child components and manages global upload
+status/progress.
+
+```vue
 <script>
-	import { Dashboard } from '@uppy/vue';
-	import Uppy from '@uppy/core';
-	import Webcam from '@uppy/webcam';
+import { UppyContextProvider } from '@uppy/vue';
+import Uppy from '@uppy/core';
 
-	// Don't forget the CSS: core and UI components + plugins you are using
-	import '@uppy/core/dist/style.css';
-	import '@uppy/dashboard/dist/style.css';
-	import '@uppy/webcam/dist/style.css';
-
-	const uppy = new Uppy().use(Webcam);
+export default {
+	components: {
+		UppyContextProvider,
+	},
+	data() {
+		return {
+			uppy: new Uppy(),
+		};
+	},
+};
 </script>
 
 <template>
-	<Dashboard :uppy="uppy" />
+	<UppyContextProvider :uppy="uppy">
+		<!-- Your components and/or Uppy components -->
+	</UppyContextProvider>
 </template>
+```
+
+**Context Value**:
+
+```typescript
+{
+	uppy: Uppy | undefined;
+	status: 'init' | 'ready' | 'uploading' | 'paused' | 'error' | 'complete';
+	progress: number;
+}
+```
+
+#### `<UploadButton />`
+
+**Attributes**
+
+- `data-uppy-element="upload-button"`
+- `data-state="init" | "uploading" | "paused" | "error" | "complete"`
+
+<UploadButton />
+
+#### `<Thumbnail />`
+
+Component for displaying image thumbnails and/or SVG icons.
+
+**Props**:
+
+- `file: UppyFile<Meta, Body>`
+- `width?: string`
+- `height?: string`
+- `images?: boolean`
+
+<ThumbnailDemo />
+
+#### `<ProviderIcon />`
+
+Common icons, such as a webcam, device, Dropbox, Google Drive, OneDrive, etc.
+
+**Props**:
+
+- `provider`:
+  `'device' | 'camera' | 'screen-capture' | 'audio' | 'dropbox' | 'facebook' | 'instagram' | 'onedrive' | 'googlephotos' | 'googledrive'`
+- `fill?: string`
+
+<ProviderIconDemo />
+
+#### `<FilesList />`
+
+Component for displaying a list view of selected files.
+
+**Props**:
+
+- `editFile?: (file: UppyFile<Meta, Body>) => void`
+
+<FilesListDemo />
+
+#### `<FilesGrid />`
+
+Grid layout component for displaying files in a grid format.
+
+**Props**:
+
+- `editFile?: (file: UppyFile<Meta, Body>) => void`
+- `columns?: number`
+
+<FilesGridDemo />
+
+#### `<Dropzone />`
+
+Drag-and-drop zone component for file uploads.
+
+**Props**:
+
+- `width?: string`
+- `height?: string`
+- `note?: string`
+- `noClick?: boolean`
+
+<DropzoneDemo />
+
+### Hooks
+
+:::tip
+
+Play around with the Vue headless hooks in [StackBlitz](#todo)
+
+:::
+
+:::note
+
+All hooks must be used within a `UppyContextProvider`.
+
+:::
+
+#### `useDropzone(options?)`
+
+Creates a dropzone for drag-and-drop file uploads using Uppy.
+
+**Arguments**:
+
+- `noClick?: boolean`
+- `onDragOver?: (event: Event) => void`
+- `onDragEnter?: (event: Event) => void`
+- `onDragLeave?: (event: Event) => void`
+- `onDrop?: (files: File[]) => void`
+- `onFileInputChange?: (files: File[]) => void`
+
+**Returns**:
+
+- `getRootProps: Function`
+- `getInputProps: Function`
+
+#### `useFileInput(props?)`
+
+Creates a file input for programmatic file selection using Uppy.
+
+**Arguments**:
+
+- `multiple?: boolean`
+- `accept?: string`
+
+**Returns**:
+
+- `getInputProps: Function`
+- `getButtonProps: Function`
+
+#### `useRemoteSource(sourceId)`
+
+Manages remote source connections (cloud storage providers).
+
+**Arguments**:
+
+- `sourceId: 'Box' | 'Dropbox' | 'Facebook' | 'GoogleDrive' | 'Instagram' | 'OneDrive' | 'Unsplash' | 'Url' | 'Zoom'`
+
+**Returns**:
+
+```typescript
+{
+  state: {
+    authenticated: boolean | undefined
+    didFirstRender: boolean
+    searchString: string
+    loading: boolean | string
+    partialTree: PartialTree
+    currentFolderId: PartialTreeId
+    username: string | null
+    breadcrumbs: PartialTreeFolder[]
+    selectedAmount: number
+    error: string | null
+  }
+  login: Function
+  logout: Function
+  open: Function
+  checkbox: Function
+  done: Function
+  cancel: Function
+}
+```
+
+#### `useWebcam({ onSubmit })`
+
+Manages webcam functionality for capturing photos/videos.
+
+**Arguments**:
+
+- `onSubmit: () => void`
+
+**Returns**:
+
+```typescript
+{
+  state: {
+    hasCamera: boolean
+    cameraReady: boolean
+    cameraError: null | Error
+    recordingLengthSeconds: number
+    videoSources: MediaDeviceInfo[]
+    currentDeviceId: string | MediaStreamTrack | null | undefined
+    recordedVideo: null | string
+    isRecording: boolean
+    status: 'init' | 'ready' | 'recording' | 'captured' | 'error'
+  }
+  stop: Function
+  start: Function
+  getVideoProps: Function
+  getSnapshotButtonProps: Function
+  getRecordButtonProps: Function
+  getStopRecordingButtonProps: Function
+  getSubmitButtonProps: Function
+  getDiscardButtonProps: Function
+}
 ```
 
 [vue]: https://vuejs.org
