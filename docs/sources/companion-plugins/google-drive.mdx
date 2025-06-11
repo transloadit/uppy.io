@@ -103,10 +103,8 @@ uppy.use(GoogleDrive, {
 });
 ```
 
-You may also hit rate limits, because the OAuth application is shared between
-everyone using Transloadit.
-
-To solve that, you can use your own OAuth keys with Transloadit’s hosted
+Transloadit's OAuth2 key [no longer works](https://transloadit.com/blog/2025/02/the-new-google-situation/).
+This means that you have to use your own OAuth keys with Transloadit’s hosted
 Companion servers by using Transloadit Template Credentials. [Create a Template
 Credential][template-credentials] on the Transloadit site. Select “Companion
 OAuth” for the service, and enter the key and secret for the provider you want
@@ -125,6 +123,13 @@ uppy.use(GoogleDrive, {
 	},
 });
 ```
+
+Note that even if you use your own credentials, Google's OAuth2 Consent dialog
+will still show "transloadit.com" to your users, e.g.
+"transloadit.com wants to access your Google account".
+This is not the case with the Google Drive Picker plugin - it will show whatever
+you have specified in the "App name" form field at the Google developer console
+(https://console.cloud.google.com/auth/branding).
 
 ### Use in Companion
 
