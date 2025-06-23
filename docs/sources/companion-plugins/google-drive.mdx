@@ -103,7 +103,8 @@ uppy.use(GoogleDrive, {
 });
 ```
 
-Transloadit's OAuth2 key [no longer works](https://transloadit.com/blog/2025/02/the-new-google-situation/).
+Transloadit’s OAuth2 key
+[no longer works](https://transloadit.com/blog/2025/02/the-new-google-situation/).
 This means that you have to use your own OAuth keys with Transloadit’s hosted
 Companion servers by using Transloadit Template Credentials. [Create a Template
 Credential][template-credentials] on the Transloadit site. Select “Companion
@@ -124,11 +125,11 @@ uppy.use(GoogleDrive, {
 });
 ```
 
-Note that even if you use your own credentials, Google's OAuth2 Consent dialog
-will still show "transloadit.com" to your users, e.g.
-"transloadit.com wants to access your Google account" until your app has been
-verified, after which it should show what's in your "App name" form field in
-the [Google developer console](https://console.cloud.google.com/auth/branding).
+Note that even if you use your own credentials, Google’s OAuth2 Consent dialog
+will still show “transloadit.com” to your users, e.g. “transloadit.com wants to
+access your Google account” until your app has been verified, after which it
+should show what’s in your “App name” form field in the
+[Google developer console](https://console.cloud.google.com/auth/branding).
 
 ### Use in Companion
 
