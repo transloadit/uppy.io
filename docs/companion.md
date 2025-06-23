@@ -431,6 +431,10 @@ Use a scope for the companion events at the Redis server. Setting this option
 will prefix all events with the name provided and a colon. See also
 `COMPANION_REDIS_EXPRESS_SESSION_PREFIX`.
 
+#### `maxFilenameLength` `COMPANION_MAX_FILENAME_LENGTH`
+
+Maximum allowed length for uploaded filenames. Default: 500. If set, it must be set to a value larger than `0`.
+
 #### `server`
 
 Configuration options for the underlying server.
