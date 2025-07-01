@@ -103,7 +103,7 @@
 		"remark-gfm": "^3.0.1",
 		"remark-lint": "^9.0.0",
 		"remark-lint-final-newline": "^2.0.0",
-		"remark-lint-hard-break-spaces": "^3.0.0",
+		"remark-lint-hard-break-spaces": "^4.1.1",
 		"remark-lint-list-item-bullet-indent": "^4.0.0",
 		"remark-lint-list-item-indent": "^3.0.0",
 		"remark-lint-no-blockquote-without-marker": "^5.0.0",
