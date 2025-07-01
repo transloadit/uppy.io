@@ -9395,13 +9395,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-comment-marker@npm:^2.0.0, mdast-comment-marker@npm:^2.1.0":
+"mdast-comment-marker@npm:^2.0.0":
   version: 2.1.2
   resolution: "mdast-comment-marker@npm:2.1.2"
   dependencies:
     "@types/mdast": "npm:^3.0.0"
     mdast-util-mdx-expression: "npm:^1.1.0"
   checksum: 10/f88415cda29258df780dae0f4314660fc71ee18dbd0e7fbfc897177d562a1c3a34c650a595a01a1628508088197843424c95938b8980cb1d4ee11fe78c5ce851
+  languageName: node
+  linkType: hard
+
+"mdast-comment-marker@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "mdast-comment-marker@npm:3.0.0"
+  dependencies:
+    "@types/mdast": "npm:^4.0.0"
+    mdast-util-mdx-expression: "npm:^2.0.0"
+  checksum: 10/4a01899f50301c542a054ede974a1bc481de1b7c798c13974bde9e34c006ec744d937c24eb7b7595a26f491f3558848621f6c81e7576702e3b89822b6f923268
   languageName: node
   linkType: hard
 
@@ -16140,7 +16150,7 @@ __metadata:
     eslint-plugin-mdx: "npm:^2.0.4"
     husky: "npm:^8.0.1"
     lint-staged: "npm:^13.0.3"
-    mdast-comment-marker: "npm:^2.1.0"
+    mdast-comment-marker: "npm:^3.0.0"
     npm-run-all: "npm:^4.1.5"
     prettier: "npm:3.3.2"
     prism-react-renderer: "npm:^2.1.0"
