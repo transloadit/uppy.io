@@ -13438,16 +13438,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-lint-list-item-bullet-indent@npm:^4.0.0":
-  version: 4.1.2
-  resolution: "remark-lint-list-item-bullet-indent@npm:4.1.2"
+"remark-lint-list-item-bullet-indent@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "remark-lint-list-item-bullet-indent@npm:5.0.1"
   dependencies:
-    "@types/mdast": "npm:^3.0.0"
+    "@types/mdast": "npm:^4.0.0"
     pluralize: "npm:^8.0.0"
-    unified: "npm:^10.0.0"
-    unified-lint-rule: "npm:^2.0.0"
-    unist-util-visit: "npm:^4.0.0"
-  checksum: 10/0735249b59b6bcbb06058430bce1f26134830855c5102a5ca14b0548c9113bec39ad016d1040ff93c48a5098846acd1e5e033b14d49f53a15f49ab3a43eb8f9f
+    unified-lint-rule: "npm:^3.0.0"
+    unist-util-position: "npm:^5.0.0"
+  checksum: 10/d454de5fbddf42f05616f5b72bb8dae86ecc8a995886de60bc8fd136d109a13c39740b621179e2e4ec968f6c62068f9af6e75f6b940756da9b67684f5e21ed29
   languageName: node
   linkType: hard
 
@@ -16153,7 +16152,7 @@ __metadata:
     remark-lint: "npm:^9.0.0"
     remark-lint-final-newline: "npm:^2.0.0"
     remark-lint-hard-break-spaces: "npm:^3.0.0"
-    remark-lint-list-item-bullet-indent: "npm:^4.0.0"
+    remark-lint-list-item-bullet-indent: "npm:^5.0.1"
     remark-lint-list-item-indent: "npm:^3.0.0"
     remark-lint-no-blockquote-without-marker: "npm:^5.0.0"
     remark-lint-no-duplicate-definitions: "npm:^3.0.0"
