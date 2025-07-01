@@ -13397,6 +13397,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remark-lint-hard-break-spaces@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "remark-lint-hard-break-spaces@npm:4.1.1"
+  dependencies:
+    "@types/mdast": "npm:^4.0.0"
+    unified-lint-rule: "npm:^3.0.0"
+    unist-util-position: "npm:^5.0.0"
+    unist-util-visit: "npm:^5.0.0"
+  checksum: 10/25faa899efb6fe2c10324fa08d186948cef1af3dbbb221f68d92cbef7b700e50ed8287b037499da6f928fc4c16a4275ccad8324c23165e1996b4bab0590273d3
+  languageName: node
+  linkType: hard
+
 "remark-lint-heading-increment@npm:^3.0.0":
   version: 3.1.2
   resolution: "remark-lint-heading-increment@npm:3.1.2"
@@ -16152,7 +16164,7 @@ __metadata:
     remark-gfm: "npm:^3.0.1"
     remark-lint: "npm:^9.0.0"
     remark-lint-final-newline: "npm:^2.0.0"
-    remark-lint-hard-break-spaces: "npm:^3.0.0"
+    remark-lint-hard-break-spaces: "npm:^4.1.1"
     remark-lint-list-item-bullet-indent: "npm:^4.0.0"
     remark-lint-list-item-indent: "npm:^3.0.0"
     remark-lint-no-blockquote-without-marker: "npm:^5.0.0"
