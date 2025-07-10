@@ -93,16 +93,6 @@ new Uppy()
 
 ### Use with Transloadit
 
-```js
-import { COMPANION_URL, COMPANION_ALLOWED_HOSTS } from '@uppy/transloadit';
-import GoogleDrive from '@uppy/google-drive';
-
-uppy.use(GoogleDrive, {
-	companionUrl: COMPANION_URL,
-	companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
-});
-```
-
 Transloadit’s OAuth2 key
 [no longer works](https://transloadit.com/blog/2025/02/the-new-google-situation/).
 This means that you have to use your own OAuth keys with Transloadit’s hosted

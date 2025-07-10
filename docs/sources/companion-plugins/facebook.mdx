@@ -84,20 +84,7 @@ new Uppy()
 
 ### Use with Transloadit
 
-```js
-import { COMPANION_URL, COMPANION_ALLOWED_HOSTS } from '@uppy/transloadit';
-import Facebook from '@uppy/facebook';
-
-uppy.use(Facebook, {
-	companionUrl: COMPANION_URL,
-	companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
-});
-```
-
-You may also hit rate limits, because the OAuth application is shared between
-everyone using Transloadit.
-
-To solve that, you can use your own OAuth keys with Transloadit’s hosted
+You can use your own OAuth keys with Transloadit’s hosted
 Companion servers by using Transloadit Template Credentials. [Create a Template
 Credential][template-credentials] on the Transloadit site. Select “Companion
 OAuth” for the service, and enter the key and secret for the provider you want
