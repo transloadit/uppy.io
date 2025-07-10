@@ -13,7 +13,6 @@ import GooglePhotosPicker from '@uppy/google-photos-picker';
 import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
-import Facebook from '@uppy/facebook';
 import Unsplash from '@uppy/unsplash';
 import Zoom from '@uppy/zoom';
 import Url from '@uppy/url';
@@ -135,11 +134,6 @@ const options = [
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
 				disabled: true,
 			},
-			{
-				label: 'Facebook',
-				value: 'Facebook',
-				type: 'plugins',
-			},
 			{ label: 'Url', value: 'Url', type: 'plugins' },
 			{
 				label: 'OneDrive',
@@ -216,9 +210,6 @@ const Uppy = ({ state, locale }) => {
 		}
 		if (state.plugins.includes('Url') && !disabled('Url')) {
 			uppy.use(Url, { companionUrl });
-		}
-		if (state.plugins.includes('Facebook') && !disabled('Facebook')) {
-			uppy.use(Facebook, { companionUrl });
 		}
 		if (state.plugins.includes('Zoom') && !disabled('Zoom')) {
 			uppy.use(Zoom, { companionUrl });

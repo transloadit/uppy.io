@@ -7,9 +7,7 @@ import Uppy from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrivePicker from '@uppy/google-drive-picker';
 import GooglePhotosPicker from '@uppy/google-photos-picker';
-import Facebook from '@uppy/facebook';
 import Zoom from '@uppy/zoom';
-// import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
 import Unsplash from '@uppy/unsplash';
@@ -134,7 +132,6 @@ const providersIcons = [
 	'googledrive.svg',
 	'dropbox.svg',
 	'instagram.svg',
-	'facebook.svg',
 	'onedrive.svg',
 ];
 
@@ -230,16 +227,7 @@ export default function Home(): JSX.Element {
 										.use(Audio)
 										.use(ImageEditor, {})
 										.use(Tus, { endpoint })
-										// .use(GoogleDrive, {
-										// 	companionUrl,
-										// 	companionKeysParams: {
-										// 		key: 'unused-key',
-										// 		credentialsName: 'unused-credentials',
-										// 	},
-										// })
 										.use(Dropbox, { companionUrl })
-										.use(Facebook, { companionUrl })
-										// .use(Instagram, { companionUrl })
 										.use(Url, { companionUrl })
 										.use(OneDrive, { companionUrl })
 										.use(Unsplash, { companionUrl })
@@ -265,10 +253,7 @@ export default function Home(): JSX.Element {
 											height={400}
 											plugins={[
 												'Webcam',
-												// 'GoogleDrive',
 												'Dropbox',
-												// 'Instagram',
-												'Facebook',
 												'Url',
 												'OneDrive',
 												'Unsplash',
