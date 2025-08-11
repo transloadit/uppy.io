@@ -8,13 +8,19 @@ published: true
 toc_max_heading_level: 2
 ---
 
-Uppy introduces headless components and hooks
+new things:
+- Headless components and hooks, which are backwards compatible and released on 4.0 as well.
+- Export maps for all packages, now optional peer dependencies are truly optional
+- Revamped examples, including new ones such as Next.js, SvelteKit, React Router, and more.
+- and more
 
 <!--truncate-->
 
-## Problem
+## Headless components and hooks
 
-### One size fits no one
+### The problem
+
+#### One size fits no one
 
 Developers starting with Uppy are forced to choose between the full-featured,
 bundle size heavy, and non-customizable `dashboard` or the overly barebones
@@ -37,7 +43,7 @@ Continuing down this path is not maintainable nor will we ever reach a set of
 "toggles" at this granularity level to support a wide range of use cases and
 unique requirements.
 
-### Fake promise of modular UI components
+#### Fake promise of modular UI components
 
 We built `status-bar`, `progress-bar`, `image-editor`, `thumbnail-generator`,
 `informer`, and `provider-views` as separate plugins, communicating on a first
@@ -46,7 +52,7 @@ glance these are standalone components, but they are tightly coupled to
 discouraged, undocumented, and unclear which features won't work outside of
 `dashboard`.
 
-### Modern expectations
+#### Modern expectations
 
 Since Uppy's conception 10 years ago the front-end landscape has significantly
 changed. Uppy is even built with a "vanilla" first approach because that was
@@ -60,10 +66,29 @@ with accessibility kept in mind.
 For Uppy to stay relevant in the coming years a major chance is needed in how we
 let users built their uploading UI.
 
-## Solution
-
-### At a glance
+### Solution
 
 **Composable, headless Uppy UI components**. These would be highly granular and
 without loosing support for our existing frameworks (Angular, Svelte, React,
 Vue).
+
+
+Note to claude: these are the available components, rewrite to succinct prose style overview instead of code.
+
+export { default as Dropzone } from './Dropzone.js'
+export { default as FilesGrid } from './FilesGrid.js'
+export { default as FilesList } from './FilesList.js'
+export { default as ProviderIcon } from './ProviderIcon.js'
+export { default as Thumbnail } from './Thumbnail.js'
+export { default as UploadButton } from './UploadButton.js'
+export {
+  UppyContext,
+  UppyContextProvider,
+} from './headless/UppyContextProvider.js'
+export { useDropzone } from './useDropzone.js'
+export { useFileInput } from './useFileInput.js'
+export { useRemoteSource } from './useRemoteSource.js'
+export { useScreenCapture } from './useScreenCapture.js'
+export { default as useUppyEvent } from './useUppyEvent.js'
+export { default as useUppyState } from './useUppyState.js'
+export { useWebcam } from './useWebcam.js'
