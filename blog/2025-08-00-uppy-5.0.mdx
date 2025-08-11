@@ -1,0 +1,69 @@
+---
+title: 'New Uppy 5.0 major: headless components and hooks'
+date: 2025-08-18
+authors: [mifi, murderlon, prakash]
+image: /img/blog/4.0/preview.jpg
+slug: 'uppy-5.0'
+published: true
+toc_max_heading_level: 2
+---
+
+Uppy introduces headless components and hooks
+
+<!--truncate-->
+
+## Problem
+
+### One size fits no one
+
+Developers starting with Uppy are forced to choose between the full-featured,
+bundle size heavy, and non-customizable `dashboard` or the overly barebones
+`drag-drop`.
+
+After years of speaking to developers on GitHub, the community forum, and with
+Transloadit customers – the reality seems to be that majority of people have
+their needs fall somewhere in between `dashboard` and `drag-drop`. Countless
+issues have been posted about them wanting mostly X but doing Y different for
+their use case.
+
+`@uppy/dashboard` has tried to accommodate for some of these requests over the
+years which introduced overly specific "toggles", such as
+`showLinkToFileUploadResult`, `showProgressDetails`, `hideUploadButton`,
+`hideRetryButton`, `hidePauseResumeButton`, `hideCancelButton`,
+`hideProgressAfterFinish`, `showRemoveButtonAfterComplete`, `disableStatusBar`,
+`disableInformer`, and `disableThumbnailGenerator`.
+
+Continuing down this path is not maintainable nor will we ever reach a set of
+"toggles" at this granularity level to support a wide range of use cases and
+unique requirements.
+
+### Fake promise of modular UI components
+
+We built `status-bar`, `progress-bar`, `image-editor`, `thumbnail-generator`,
+`informer`, and `provider-views` as separate plugins, communicating on a first
+glance these are standalone components, but they are tightly coupled to
+`dashboard`. It's not impossible to use them separately, but this is
+discouraged, undocumented, and unclear which features won't work outside of
+`dashboard`.
+
+### Modern expectations
+
+Since Uppy's conception 10 years ago the front-end landscape has significantly
+changed. Uppy is even built with a "vanilla" first approach because that was
+still popular at the time over front-end frameworks.
+
+These days developers have high expectations for choosing a library. In a world
+where everything is component driven, OSS UI libraries are expected to offer
+truly composable building blocks, which are light on bundle size, and ideally
+with accessibility kept in mind.
+
+For Uppy to stay relevant in the coming years a major chance is needed in how we
+let users built their uploading UI.
+
+## Solution
+
+### At a glance
+
+**Composable, headless Uppy UI components**. These would be highly granular and
+without loosing support for our existing frameworks (Angular, Svelte, React,
+Vue).
