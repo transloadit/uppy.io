@@ -194,3 +194,7 @@ h2[itemprop='headline'] {
 .markdown img.border {
 	border: 1px solid rgba(165, 165, 165, 0.3);
 }
+
+div[data-uppy-element='dropzone'] p {
+	margin-bottom: 0;
+}

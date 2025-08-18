@@ -5,22 +5,31 @@ authors: [mifi, murderlon, prakash]
 image: /img/blog/4.0/preview.jpg
 slug: 'uppy-5.0'
 published: true
-toc_max_heading_level: 2
+toc_max_heading_level: 3
 ---
 
-new things:
-- Headless components and hooks, which are backwards compatible and released on 4.0 as well.
-- Export maps for all packages, now optional peer dependencies are truly optional
-- Revamped examples, including new ones such as Next.js, SvelteKit, React Router, and more.
-- and more
+import HeadlessComponentsShared from '/docs/framework-integrations/_headless-components-shared.mdx';
+
+Uppy 5.0 is here, and our faithful file-uploading companion has been busy
+fetching the most requested feature of all time: truly composable, headless UI
+components. For years, developers have found themselves stuck between
+Dashboard's kitchen-sink approach and the bare-bones drag-drop plugin, with
+little room to build something that fits just right.
+
+This release brings headless components and hooks to address those needs.
+Everything has been backported on 4.0 as well so you don’t need to upgrade
+to get going.
+
+With Uppy 5.0's , you can finally build the exact upload
+experience your users deserve – modular, accessible, and tailored to your needs.
+Whether you need a simple file picker or a complex multi-source interface,
+Uppy's got the building blocks to make it happen.
 
 <!--truncate-->
 
 ## Headless components and hooks
 
-### The problem
-
-#### One size fits no one
+### One size fits no one
 
 Developers starting with Uppy are forced to choose between the full-featured,
 bundle size heavy, and non-customizable `dashboard` or the overly barebones
@@ -43,22 +52,20 @@ Continuing down this path is not maintainable nor will we ever reach a set of
 "toggles" at this granularity level to support a wide range of use cases and
 unique requirements.
 
-#### Fake promise of modular UI components
+### Fake promise of modular UI components
 
 We built `status-bar`, `progress-bar`, `image-editor`, `thumbnail-generator`,
 `informer`, and `provider-views` as separate plugins, communicating on a first
 glance these are standalone components, but they are tightly coupled to
-`dashboard`. It's not impossible to use them separately, but this is
-discouraged, undocumented, and unclear which features won't work outside of
-`dashboard`.
+`dashboard`. It's not impossible to use them separately, but there is little flexibility.
 
-#### Modern expectations
+### Modern expectations
 
 Since Uppy's conception 10 years ago the front-end landscape has significantly
 changed. Uppy is even built with a "vanilla" first approach because that was
 still popular at the time over front-end frameworks.
 
-These days developers have high expectations for choosing a library. In a world
+**These days developers have high expectations for choosing a library**. In a world
 where everything is component driven, OSS UI libraries are expected to offer
 truly composable building blocks, which are light on bundle size, and ideally
 with accessibility kept in mind.
@@ -66,29 +73,144 @@ with accessibility kept in mind.
 For Uppy to stay relevant in the coming years a major chance is needed in how we
 let users built their uploading UI.
 
-### Solution
+### New components and hooks
 
-**Composable, headless Uppy UI components**. These would be highly granular and
-without loosing support for our existing frameworks (Angular, Svelte, React,
-Vue).
+> TODO: pretty image showing all components
 
+**Uppy 5.0 introduces composable, UI components and hooks that provide granular
+control without sacrificing first-class framework support**. These components are designed to
+be lightweight, accessible, and fully customizable while maintaining
+compatibility with **React, Vue, and Svelte**.
 
-Note to claude: these are the available components, rewrite to succinct prose style overview instead of code.
+Uppy now offers three ways to build user interfaces:
 
-export { default as Dropzone } from './Dropzone.js'
-export { default as FilesGrid } from './FilesGrid.js'
-export { default as FilesList } from './FilesList.js'
-export { default as ProviderIcon } from './ProviderIcon.js'
-export { default as Thumbnail } from './Thumbnail.js'
-export { default as UploadButton } from './UploadButton.js'
-export {
-  UppyContext,
-  UppyContextProvider,
-} from './headless/UppyContextProvider.js'
-export { useDropzone } from './useDropzone.js'
-export { useFileInput } from './useFileInput.js'
-export { useRemoteSource } from './useRemoteSource.js'
-export { useScreenCapture } from './useScreenCapture.js'
-export { default as useUppyEvent } from './useUppyEvent.js'
-export { default as useUppyState } from './useUppyState.js'
-export { useWebcam } from './useWebcam.js'
+1. **Pre-composed, plug-and-play components.** Nothing new here, mainly `<Dashboard />` and
+   `<DragDrop />`. The downside is that you can’t customize the UI.
+2. **Headless components 🆕** Smaller componentes, easier to override the styles
+   or compose them together with your own components.
+3. **Hooks 🆕** Attach our logic to your own components, no restrictions, create a
+   tailor-made UI.
+	
+### New components
+
+<HeadlessComponentsShared/>
+
+> TODO: image showing the three levels of integrating
+
+All components work within the `<UppyContextProvider />` and come with sensible
+defaults but expose data attributes for complete styling control. This approach
+delivers the flexibility developers need while maintaining the plug-and-play
+experience Uppy is known for.
+
+Let's explore these components through practical examples that build upon each
+other.
+
+### Example: dropzone, file list, status bar
+
+The simplest upload interface combines three core components: a dropzone for
+file selection, a file list to show selected files, and an upload button to
+start the process.
+
+```jsx
+import Uppy from '@uppy/core';
+import {
+	Dropzone,
+	FilesList,
+	UploadButton,
+	UppyContextProvider,
+} from '@uppy/react';
+import Tus from '@uppy/tus';
+import { useState } from 'react';
+
+function BasicUploadExample() {
+	const [uppy] = useState(() =>
+		new Uppy().use(Tus, {
+			endpoint: 'https://tusd.tusdemo.net/files/',
+		}),
+	);
+
+	return (
+		<UppyContextProvider uppy={uppy}>
+			<Dropzone />
+			<FilesList />
+			<UploadButton />
+		</UppyContextProvider>
+	);
+}
+```
+
+This creates a functional upload interface with just three components. The
+`<Dropzone />` handles file selection through drag-and-drop or clicking,
+`<FilesList />` displays selected files with progress indicators, and
+`<UploadButton />` initiates the upload process.
+
+#### Styling Component States
+
+Components expose their internal state through data attributes, enabling precise
+CSS targeting. The `<UploadButton />` provides different states that you can
+style individually:
+
+```css
+button[data-uppy-element='upload-button'][data-state='init'] {
+	background-color: #3b82f6;
+}
+
+button[data-uppy-element='upload-button'][data-state='uploading'] {
+	background-color: #f59e0b;
+	cursor: wait;
+}
+
+button[data-uppy-element='upload-button'][data-state='complete'] {
+	background-color: #10b981;
+}
+
+button[data-uppy-element='upload-button'][data-state='error'] {
+	background-color: #ef4444;
+}
+```
+
+The state-based styling system allows you to provide visual feedback that
+matches your application's design system while maintaining the component's
+accessibility and functionality.
+
+#### Building Custom Interfaces with Hooks
+
+For maximum flexibility, combine React hooks to create completely custom upload
+interfaces. The `useDropzone()` and `useFileInput()` hooks provide the building
+blocks for custom dropzones that fit your exact requirements:
+
+```jsx
+import { ProviderIcon, useDropzone, useFileInput } from '@uppy/react';
+
+function CustomDropzone() {
+	const { getRootProps, getInputProps } = useDropzone({ noClick: true });
+	const { getButtonProps, getInputProps: getFileInputProps } = useFileInput();
+
+	return (
+		<div>
+			<input {...getInputProps()} className="hidden" />
+			<div
+				{...getRootProps()}
+				className="border-2 border-dashed border-gray-300 rounded-lg p-6 bg-gray-50"
+			>
+				<div className="flex items-center justify-center">
+					<input {...getFileInputProps()} className="hidden" />
+					<button
+						{...getButtonProps()}
+						className="hover:bg-gray-100 p-2 rounded-md flex flex-col items-center gap-2"
+					>
+						<div className="bg-white shadow-md rounded-md p-1">
+							<ProviderIcon provider="device" fill="#1269cf" />
+						</div>
+						Select Files
+					</button>
+				</div>
+			</div>
+		</div>
+	);
+}
+```
+
+This custom dropzone focuses solely on device file selection, giving you
+complete control over the layout and interactions while leveraging Uppy's proven
+drag-and-drop handling.
