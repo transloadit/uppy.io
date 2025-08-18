@@ -41,7 +41,7 @@ jobs:
               git diff --quiet || echo "NEW_VERSION=$(corepack yarn info uppy --json | jq -r .children.Version)" >> "$GITHUB_ENV"
               git add yarn.lock
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
       - run: ${{ matrix.run }}
