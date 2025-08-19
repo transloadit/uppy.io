@@ -3615,7 +3615,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:4.5.2, @uppy/core@npm:^4.4.6, @uppy/core@npm:^4.5.2":
+"@uppy/core@npm:4.5.2, @uppy/core@npm:^4.5.2, @uppy/core@npm:latest":
   version: 4.5.2
   resolution: "@uppy/core@npm:4.5.2"
   dependencies:
@@ -3652,7 +3652,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/drag-drop@npm:4.2.2, @uppy/drag-drop@npm:^4.1.3":
+"@uppy/drag-drop@npm:4.2.2, @uppy/drag-drop@npm:latest":
   version: 4.2.2
   resolution: "@uppy/drag-drop@npm:4.2.2"
   dependencies:
@@ -3703,7 +3703,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/file-input@npm:4.2.2, @uppy/file-input@npm:^4.1.3":
+"@uppy/file-input@npm:4.2.2, @uppy/file-input@npm:latest":
   version: 4.2.2
   resolution: "@uppy/file-input@npm:4.2.2"
   dependencies:
@@ -3843,7 +3843,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/progress-bar@npm:4.3.2, @uppy/progress-bar@npm:^4.2.1":
+"@uppy/progress-bar@npm:4.3.2, @uppy/progress-bar@npm:latest":
   version: 4.3.2
   resolution: "@uppy/progress-bar@npm:4.3.2"
   dependencies:
@@ -3870,7 +3870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/react@npm:^4.3.0":
+"@uppy/react@npm:latest":
   version: 4.5.2
   resolution: "@uppy/react@npm:4.5.2"
   dependencies:
@@ -4096,7 +4096,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/zoom@npm:3.3.2, @uppy/zoom@npm:^3.2.1, @uppy/zoom@npm:^3.3.2":
+"@uppy/zoom@npm:3.3.2, @uppy/zoom@npm:^3.3.2, @uppy/zoom@npm:latest":
   version: 3.3.2
   resolution: "@uppy/zoom@npm:3.3.2"
   dependencies:
@@ -16125,11 +16125,11 @@ __metadata:
     "@uidotdev/usehooks": "npm:^2.4.1"
     "@uppy/audio": "npm:latest"
     "@uppy/box": "npm:latest"
-    "@uppy/core": "npm:^4.4.6"
+    "@uppy/core": "npm:latest"
     "@uppy/dashboard": "npm:latest"
-    "@uppy/drag-drop": "npm:^4.1.3"
+    "@uppy/drag-drop": "npm:latest"
     "@uppy/dropbox": "npm:latest"
-    "@uppy/file-input": "npm:^4.1.3"
+    "@uppy/file-input": "npm:latest"
     "@uppy/golden-retriever": "npm:latest"
     "@uppy/google-drive": "npm:latest"
     "@uppy/google-drive-picker": "npm:latest"
@@ -16138,15 +16138,15 @@ __metadata:
     "@uppy/instagram": "npm:latest"
     "@uppy/locales": "npm:latest"
     "@uppy/onedrive": "npm:latest"
-    "@uppy/progress-bar": "npm:^4.2.1"
-    "@uppy/react": "npm:^4.3.0"
+    "@uppy/progress-bar": "npm:latest"
+    "@uppy/react": "npm:latest"
     "@uppy/remote-sources": "npm:latest"
     "@uppy/screen-capture": "npm:latest"
     "@uppy/tus": "npm:latest"
     "@uppy/unsplash": "npm:latest"
     "@uppy/url": "npm:latest"
     "@uppy/webcam": "npm:latest"
-    "@uppy/zoom": "npm:^3.2.1"
+    "@uppy/zoom": "npm:latest"
     clsx: "npm:^1.1.1"
     eslint: "npm:^8.19.0"
     eslint-config-prettier: "npm:^8.5.0"
