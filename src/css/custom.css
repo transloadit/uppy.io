@@ -101,11 +101,11 @@
 
 code {
 	border: none;
+	vertical-align: initial !important;
 }
 
 p > code {
-	vertical-align: initial;
-	font-size: var(--ifm-font-size-base);
+	vertical-align: initial !important;
 }
 
 /*

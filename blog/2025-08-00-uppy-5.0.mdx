@@ -29,7 +29,7 @@ This release brings headless components and hooks to address those needs.
 Everything has been backported on 4.0 as well so you don’t need to upgrade to
 get going.
 
-With Uppy 5.0’s , you can finally build the exact upload experience your users
+With Uppy 5.0 , you can finally build the exact upload experience your users
 deserve – modular, accessible, and tailored to your needs. Whether you need a
 simple file picker or a complex multi-source interface, Uppy’s got the building
 blocks to make it happen.
@@ -662,13 +662,11 @@ All packages now have export maps. This is a breaking change in two cases:
 1. The css imports have changed from `@uppy[package]/dist/styles.min.css` to `@uppy[package]/css/styles.min.css`
 2. You were importing something that wasn't exported from the root, for instance `@uppy/core/lib/foo.js`. You can now only import things we explicitly exported.
 
-### Changed imports for `@uppy/react`, `@uppy/vue`, and `@uppy/svelte`
+### Changed imports for React, Vue and Svelte
 
 Some components, like Dashboard, require a peer dependency to work but since all components were exported from a single file you were forced to install all peer dependencies. Even if you never imported, for instance, the status bar component.
 
 Every component that requires a peer dependency has now been moved to a subpath, such as `@uppy/react/dashboard`, so you only need to install the peer dependencies you need.
-
-**Example for `@uppy/react`:**
 
 Before:
 
@@ -697,4 +695,22 @@ we want go all in those components and remove the confusing, inflexible ones.
 - `@uppy/progress-bar`, `@uppy/drag-drop`, `@uppy/file-input` and are superseded by the new components and hooks.
 - `@uppy/aws-s3-multipart` has been merged in `@uppy/aws-s3` for over a year now.
 
-## And more
+## Overhauled tooling
+
+Just as the components started to age, so did our tooling. We put a lot of effect into migrating to a more modern monorepo setup.
+
+A fun example is comparing the [before](https://github.com/transloadit/uppy/blob/24fd4158a99aebdb50df8717c9a5d92707d16084/package.json) and [after](https://github.com/transloadit/uppy/blob/main/package.json) of our `package.json`.
+
+- Instead of global build scripts with lots of conditionals for packages, every package now has its own build script.
+- Use TypeScript instead of Babel for compiling.
+- Introduced [Turbo](https://turbo.build/) for faster builds.
+- Migrated from Cypress to [Vitest Browser Mode](https://vitest.dev/guide/browser/).
+- Migrated from Eslint and Prettier to [Biome](https://biomejs.dev/).
+- Migrate from our custom release tooling to [Changesets](https://github.com/changesets/changesets).
+- And more smaller clean ups
+
+--- 
+
+That's it! 
+
+TODO: add funny, dog-memed conclusion
