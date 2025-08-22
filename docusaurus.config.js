@@ -41,6 +41,7 @@ const config = {
 				blog: {
 					showReadingTime: true,
 					editUrl: 'https://github.com/transloadit/uppy.io/tree/main/',
+					blogSidebarCount: 0,
 				},
 				theme: {
 					customCss: require.resolve('./src/css/custom.css'),
