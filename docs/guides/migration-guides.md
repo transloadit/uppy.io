@@ -2,6 +2,247 @@
 
 These cover all the major Uppy versions and how to migrate to them.
 
+## Migrate from Companion 5.x to 6.x
+
+- Option `companionAllowedHosts` no longer wrapped in Regex start/end characters
+  (`^` and `$`). You now need to provide these yourself if you want an exact
+  match.
+- Backwards compat token decryption removed: old Uppy auth tokens (created
+  before
+  [uppy%404.16.0](https://github.com/transloadit/uppy/releases/tag/uppy%404.16.0)
+  06d9a7c689e5123d41b38191074eb8bbd4ff5325) will become invalid and users who
+  have these old toknes will have to re-authenticate.
+- Removed `token` param from `Provider` class methods: `list()`, `download()`,
+  `logout()`, `thumbnail()`. Please use: `providerUserSession`.`accessToken`
+  instead.
+
+## Migrate from Uppy 4.x to 5.x
+
+### @uppy/informer merged into @uppy/dashboard
+
+The `@uppy/informer` plugin has been merged into `@uppy/dashboard` to reduce
+bundle size and improve maintainability. The `@uppy/informer` package is no
+longer maintained as a standalone package and should be removed from your
+dependencies.
+
+### @uppy/progress-bar deprecated
+
+The `@uppy/progress-bar` plugin has been deprecated as it provided minimal
+functionality that can be replicated with Uppy’s built-in state management.
+
+**Before:**
+
+```js
+import ProgressBar from '@uppy/progress-bar';
+
+uppy.use(ProgressBar, { target: '#progress' });
+```
+
+**After:**
+
+```js
+// Custom progress bar using Uppy state
+uppy.on('upload-progress', (file, progress) => {
+	const progressElement = document.getElementById('progress');
+	progressElement.style.width = `${progress.percentage}%`;
+	progressElement.textContent = `${progress.percentage}%`;
+});
+
+// Or listen to total progress
+uppy.on('progress', (progress) => {
+	const progressElement = document.getElementById('progress');
+	progressElement.style.width = `${progress}%`;
+	progressElement.textContent = `${progress}%`;
+});
+```
+
+**Migration steps:**
+
+1. Remove `@uppy/progress-bar` from your dependencies
+2. Create a custom progress indicator using Uppy’s `progress` or
+   `upload-progress` events.
+3. Style your progress bar according to your design system.
+
+### @uppy/drag-drop and @uppy/file-input deprecated
+
+The `@uppy/drag-drop` and `@uppy/file-input` plugins have been deprecated in
+favor of more flexible, headless hooks. These hooks provide the same
+functionality but with maximum customization freedom.
+
+**Before:**
+
+```js
+import DragDrop from '@uppy/drag-drop';
+import FileInput from '@uppy/file-input';
+
+uppy
+	.use(DragDrop, { target: '#drag-drop' })
+	.use(FileInput, { target: '#file-input' });
+```
+
+**After:**
+
+Example is for React but the same components and hooks exist for Vue and Svelte.
+
+```jsx
+import { Dropzone } from '@uppy/react';
+
+function Component() {
+	return <Dropzone />;
+}
+```
+
+Or with hooks
+
+```tsx
+import clsx from 'clsx';
+import { useDropzone } from '@uppy/react';
+
+type DropzoneProps = {
+	note?: string;
+	noClick?: boolean;
+};
+
+export function Dropzone({ note, noClick }: DropzoneProps) {
+	const { getRootProps, getInputProps } = useDropzone({ noClick });
+
+	return (
+		<div data-uppy-element="dropzone" role="presentation">
+			<input
+				{...getInputProps()}
+				tabIndex={-1}
+				name="uppy-dropzone-file-input"
+				className="hidden"
+			/>
+			<div
+				{...getRootProps()}
+				tabIndex={0}
+				className={clsx(
+					'border-2 border-dashed border-gray-300',
+					'rounded-lg p-6 bg-gray-50',
+					'transition-colors duration-200',
+					{
+						'cursor-pointer hover:bg-blue-50': !noClick,
+					},
+				)}
+			>
+				<div className="flex flex-col items-center justify-center h-full space-y-3">
+					<p className="text-gray-600">Drop files here or click to add them</p>
+				</div>
+				{note ?
+					<div className="text-sm text-gray-500">{note}</div>
+				:	null}
+			</div>
+		</div>
+	);
+}
+```
+
+**Alternative: Use Dashboard**
+
+Showing the “vanilla” JS version, Dashboard is also exported for all frameworks.
+
+```js
+// If you want a complete UI solution, use Dashboard instead
+import Dashboard from '@uppy/dashboard';
+
+uppy.use(Dashboard, {
+	target: '#uppy-dashboard',
+	inline: true,
+});
+```
+
+**Migration steps:**
+
+1. Remove `@uppy/drag-drop` and `@uppy/file-input` from your dependencies
+2. Choose one of these approaches:
+   - Use the framework-specific hooks (`@uppy/react`, `@uppy/vue`,
+     `@uppy/svelte`) for maximum flexibility
+   - Use `@uppy/dashboard` for a complete, ready-to-use UI solution
+3. Replace your existing components with custom implementations using the hooks
+   or Dashboard
+4. See [examples/](../examples/) for complete implementation examples
+
+### Export maps for all packages
+
+All packages now have export maps. This is a breaking change in two cases:
+
+1. The css imports have changed from `@uppy[package]/dist/styles.min.css` to
+   `@uppy[package]/css/styles.min.css`
+2. You were importing something that was not exported from the root, for
+   instance `@uppy/core/lib/foo.js`. You can now only import things we
+   explicitly exported.
+
+#### Changed imports for `@uppy/react`, `@uppy/vue`, and `@uppy/svelte`
+
+Some components, like Dashboard, require a peer dependency to work but since all
+components were exported from a single file you were forced to install all peer
+dependencies. Even if you never imported, for instance, the status bar
+component.
+
+Every component that requires a peer dependency has now been moved to a subpath,
+such as `@uppy/react/dashboard`, so you only need to install the peer
+dependencies you need.
+
+**Example for `@uppy/react`:**
+
+**Before:**
+
+```javascript
+import { Dashboard, StatusBar } from '@uppy/react';
+```
+
+**Now:**
+
+```javascript
+import Dashboard from '@uppy/react/dashboard';
+import StatusBar from '@uppy/react/status-bar';
+```
+
+### @uppy/status-bar merged into @uppy/dashboard
+
+The `@uppy/status-bar` package has been merged into `@uppy/dashboard`. The
+plugin gave a false promise of flexibility as a standalone plugin but was always
+built tightly coupled for `@uppy/dashboard`. With the new headless components
+and hooks, we want go all in those components and remove the confusing,
+inflexible ones.
+
+**Migration steps:**
+
+1. Remove `@uppy/status-bar` from your dependencies
+2. Replace StatusBar usage with Dashboard
+3. Move all StatusBar options directly to Dashboard options
+
+All StatusBar configuration options are now available as Dashboard options:
+
+- `hideProgressDetails` - Hide detailed progress information
+- `hideUploadButton` - Hide the upload button
+- `hideAfterFinish` - Hide status bar after upload completion
+- `hideRetryButton` - Hide the retry button
+- `hidePauseResumeButton` - Hide pause/resume controls
+- `hideCancelButton` - Hide the cancel button
+- `doneButtonHandler` - Custom handler for the done button
+
+```js
+// Before - separate StatusBar plugin
+import StatusBar from '@uppy/status-bar';
+uppy.use(StatusBar, {
+	target: '#status-bar',
+	hideProgressDetails: true,
+	hideUploadButton: false,
+	hideAfterFinish: true,
+});
+
+// After - use Dashboard with StatusBar options
+import Dashboard from '@uppy/dashboard';
+uppy.use(Dashboard, {
+	target: '#dashboard',
+	hideProgressDetails: false,
+	hideUploadButton: false,
+	hideAfterFinish: true,
+});
+```
+
 ## Migrate from Companion 4.x to 5.x
 
 - End-of-Life versions of Node.js are no longer supported (use latest 18.x LTS,
