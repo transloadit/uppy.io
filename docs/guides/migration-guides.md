@@ -28,8 +28,7 @@ dependencies.
 ### @uppy/progress-bar deprecated
 
 The `@uppy/progress-bar` plugin has been deprecated as it provided minimal
-functionality that can be easily replicated with Uppy's built-in state
-management.
+functionality that can be replicated with Uppy’s built-in state management.
 
 **Before:**
 
@@ -60,7 +59,7 @@ uppy.on('progress', (progress) => {
 **Migration steps:**
 
 1. Remove `@uppy/progress-bar` from your dependencies
-2. Create a custom progress indicator using Uppy's `progress` or
+2. Create a custom progress indicator using Uppy’s `progress` or
    `upload-progress` events.
 3. Style your progress bar according to your design system.
 
@@ -141,7 +140,7 @@ export function Dropzone({ note, noClick }: DropzoneProps) {
 
 **Alternative: Use Dashboard**
 
-Showing the "vanilla" JS version, Dashboard is also exported for all frameworks.
+Showing the “vanilla” JS version, Dashboard is also exported for all frameworks.
 
 ```js
 // If you want a complete UI solution, use Dashboard instead
@@ -170,9 +169,9 @@ All packages now have export maps. This is a breaking change in two cases:
 
 1. The css imports have changed from `@uppy[package]/dist/styles.min.css` to
    `@uppy[package]/css/styles.min.css`
-2. You were importing something that wasn't exported from the root, for instance
-   `@uppy/core/lib/foo.js`. You can now only import things we explicitly
-   exported.
+2. You were importing something that was not exported from the root, for
+   instance `@uppy/core/lib/foo.js`. You can now only import things we
+   explicitly exported.
 
 #### Changed imports for `@uppy/react`, `@uppy/vue`, and `@uppy/svelte`
 
