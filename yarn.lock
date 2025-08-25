@@ -3531,7 +3531,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/audio@npm:2.2.2, @uppy/audio@npm:^2.2.2, @uppy/audio@npm:latest":
+"@uppy/audio@npm:^2.2.2":
   version: 2.2.2
   resolution: "@uppy/audio@npm:2.2.2"
   dependencies:
@@ -3543,19 +3543,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/aws-s3@npm:4.3.2":
-  version: 4.3.2
-  resolution: "@uppy/aws-s3@npm:4.3.2"
+"@uppy/audio@npm:^3.0.0, @uppy/audio@npm:latest":
+  version: 3.0.0
+  resolution: "@uppy/audio@npm:3.0.0"
   dependencies:
-    "@uppy/companion-client": "npm:^4.5.2"
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/f074eaffb59d7d34e8ade776b98318cc2297fa2917a5e8df3b4f7e4d59647ee1095aabd8a61a7b976d1fb0c24577efcda4d1ca680727e1ace7866e8c28efd3a6
+    "@uppy/core": ^5.0.0
+  checksum: 10/bfb7f0a4e88cbaa4e6c8aefafce953f7f66474db5ef8355d5910d0e2dc8a89d78d8cc1048618e9ded39f41757dda9ad1ed64557667256264ef488295f92448bc
   languageName: node
   linkType: hard
 
-"@uppy/box@npm:3.3.2, @uppy/box@npm:^3.3.2, @uppy/box@npm:latest":
+"@uppy/aws-s3@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/aws-s3@npm:5.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/17a834a993e895896cb984609981a5e00962250273b498ef7d392efaa06c97aab3d7f21e55974c83cc350cb87afbd59d0b19c2ecc5d92a0965b80870874fde9e
+  languageName: node
+  linkType: hard
+
+"@uppy/box@npm:^3.3.2":
   version: 3.3.2
   resolution: "@uppy/box@npm:3.3.2"
   dependencies:
@@ -3569,7 +3581,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/companion-client@npm:4.5.2, @uppy/companion-client@npm:^4.5.2":
+"@uppy/box@npm:^4.0.0, @uppy/box@npm:latest":
+  version: 4.0.0
+  resolution: "@uppy/box@npm:4.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/3b908b0be25be72eb56947217a51f325aa4e5ec4b71f1514e3a8eb6bc9461e38f5987e21a5d5086c23c5e333fac4375d436369235aeb2af4a0db4cadac19e66a
+  languageName: node
+  linkType: hard
+
+"@uppy/companion-client@npm:^4.5.2":
   version: 4.5.2
   resolution: "@uppy/companion-client@npm:4.5.2"
   dependencies:
@@ -3579,6 +3605,19 @@ __metadata:
   peerDependencies:
     "@uppy/core": ^4.5.2
   checksum: 10/81e72674ef35b43def5c84dce48aa11707990316fef5d0318b7537450f7c5d718354b4eb87f1aec7215d8aa90142a17feab7781431d7f43b788328070f415451
+  languageName: node
+  linkType: hard
+
+"@uppy/companion-client@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/companion-client@npm:5.0.0"
+  dependencies:
+    "@uppy/utils": "npm:^7.0.0"
+    namespace-emitter: "npm:^2.0.1"
+    p-retry: "npm:^6.1.0"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/145bcf8a67a861eedaef6fdf32c70bb985347028f9f0867b3bff1bd247a0dd03e5723ead536ea45bf15066eadcb4fde710a2ff0f6be3b93beb768b6df1684a2d
   languageName: node
   linkType: hard
 
@@ -3600,24 +3639,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/compressor@npm:2.3.2":
-  version: 2.3.2
-  resolution: "@uppy/compressor@npm:2.3.2"
+"@uppy/compressor@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@uppy/compressor@npm:3.0.0"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/utils": "npm:^7.0.0"
     compressorjs: "npm:^1.2.1"
     preact: "npm:^10.5.13"
     promise-queue: "npm:^2.2.5"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/0b56b4f64e7c0f15677dacee91796af068ce92035e8b696f43086038ef94908c1c5eaec2befe96e8d92e1c2196f9b8aa94a5431677a19c2db9ec89b89d0885ad
+    "@uppy/core": ^5.0.0
+  checksum: 10/257c9808513f52e4b99d73d65ed2c688df37388aeef31a0cfdf18039c6bcdcf2a41b2ef2492ed703dec1d3896e578849e9a59de596f4c7b4d3fe18c93ff2cf92
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:4.5.2, @uppy/core@npm:^4.4.6, @uppy/core@npm:^4.5.2":
-  version: 4.5.2
-  resolution: "@uppy/core@npm:4.5.2"
+"@uppy/core@npm:^4.4.6, @uppy/core@npm:^4.5.2":
+  version: 4.5.3
+  resolution: "@uppy/core@npm:4.5.3"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
     "@uppy/store-default": "npm:^4.3.2"
@@ -3627,11 +3666,27 @@ __metadata:
     namespace-emitter: "npm:^2.0.1"
     nanoid: "npm:^5.0.9"
     preact: "npm:^10.5.13"
-  checksum: 10/030c32c40f593585665352b2364609f9de5133c9ed005a8f361e5c7d2d916aa1e9ebbc0821164612f2166a4cab04bbab3c9a784259f1a974b742349921708753
+  checksum: 10/291cbcc43cab6dd6ceb5b73d5df1a36a73621ea5af241e957588e7dd77291d2abd9d23ba30c2781cb180dbded3bcc669adde44b415ab7e0c8f15d31d510123a3
   languageName: node
   linkType: hard
 
-"@uppy/dashboard@npm:4.4.3, @uppy/dashboard@npm:^4.4.2, @uppy/dashboard@npm:latest":
+"@uppy/core@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/core@npm:5.0.0"
+  dependencies:
+    "@transloadit/prettier-bytes": "npm:^0.3.4"
+    "@uppy/store-default": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    lodash: "npm:^4.17.21"
+    mime-match: "npm:^1.0.2"
+    namespace-emitter: "npm:^2.0.1"
+    nanoid: "npm:^5.0.9"
+    preact: "npm:^10.5.13"
+  checksum: 10/fc61160d320582269f139e20c6e41df52a50ac206ac2e44860b483df41d183aad2dd050c8e1151397329502f8f958f6c9e22909a042b92ec7fd107ab32e41c7f
+  languageName: node
+  linkType: hard
+
+"@uppy/dashboard@npm:^4.4.2":
   version: 4.4.3
   resolution: "@uppy/dashboard@npm:4.4.3"
   dependencies:
@@ -3652,7 +3707,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/drag-drop@npm:4.2.2, @uppy/drag-drop@npm:^4.1.3":
+"@uppy/dashboard@npm:^5.0.0, @uppy/dashboard@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/dashboard@npm:5.0.0"
+  dependencies:
+    "@transloadit/prettier-bytes": "npm:^0.3.4"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/thumbnail-generator": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    classnames: "npm:^2.2.6"
+    lodash: "npm:^4.17.21"
+    nanoid: "npm:^5.0.9"
+    preact: "npm:^10.5.13"
+    shallow-equal: "npm:^3.0.0"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/b4f609e15cbe382e3452adcaa67d36168258730617cc2d2c0df4ac47beb1a3f2d88dd48f4b3ce181b8c98b848b90cf2faaf4814ef87fb898c04f74eca2854408
+  languageName: node
+  linkType: hard
+
+"@uppy/drag-drop@npm:^4.1.3":
   version: 4.2.2
   resolution: "@uppy/drag-drop@npm:4.2.2"
   dependencies:
@@ -3664,18 +3738,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/drop-target@npm:3.2.2":
-  version: 3.2.2
-  resolution: "@uppy/drop-target@npm:3.2.2"
+"@uppy/drop-target@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@uppy/drop-target@npm:4.0.0"
   dependencies:
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/utils": "npm:^7.0.0"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/1ad46609939268edf527f17c5843478c9ba0d653488722b4292aeb5164e4a3311081ffcf8f5989860914ce7dcd07d783092af2afc24e403b254e1862902bb7cf
+    "@uppy/core": ^5.0.0
+  checksum: 10/8f8e906756f0311c111c8214fd6af6187903e0947907fc58a7584bd82c0575a1dcbb3bbf54c4e5aab0571bbb8cd05d7d3a51c10d0841808b8160dcf40a5c41ef
   languageName: node
   linkType: hard
 
-"@uppy/dropbox@npm:4.3.2, @uppy/dropbox@npm:^4.3.2, @uppy/dropbox@npm:latest":
+"@uppy/dropbox@npm:^4.3.2":
   version: 4.3.2
   resolution: "@uppy/dropbox@npm:4.3.2"
   dependencies:
@@ -3689,7 +3763,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/facebook@npm:4.3.2, @uppy/facebook@npm:^4.3.2":
+"@uppy/dropbox@npm:^5.0.0, @uppy/dropbox@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/dropbox@npm:5.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/3c118b6d8a515fc881676802339b899dc5bb60e77c712356387e812b74b1dbc6003f7e5248e1cf481a028ff05f2f5a2c569ac6f1749b97865ed0db68cf5e4f24
+  languageName: node
+  linkType: hard
+
+"@uppy/facebook@npm:^4.3.2":
   version: 4.3.2
   resolution: "@uppy/facebook@npm:4.3.2"
   dependencies:
@@ -3703,7 +3791,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/file-input@npm:4.2.2, @uppy/file-input@npm:^4.1.3":
+"@uppy/facebook@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/facebook@npm:5.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/5983183a4e41f1b8a987271cf327890a71cbb98565074a13f863f6085437df5e80fa1b460e1cd7be84f734d30f0eab0ef04e9d55e7029f9998e8619c8f736bb6
+  languageName: node
+  linkType: hard
+
+"@uppy/file-input@npm:^4.1.3":
   version: 4.2.2
   resolution: "@uppy/file-input@npm:4.2.2"
   dependencies:
@@ -3715,45 +3817,45 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/form@npm:4.2.2":
-  version: 4.2.2
-  resolution: "@uppy/form@npm:4.2.2"
+"@uppy/form@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/form@npm:5.0.0"
   dependencies:
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/utils": "npm:^7.0.0"
     get-form-data: "npm:^3.0.0"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/0ef4224accb87c6d58802329383e87798be1d2f24b1dddc9f20b618aa95741acb2c4f546c1a6c6a073db311db7f67b7f4ac06d318daab65562ddd838243c58f9
+    "@uppy/core": ^5.0.0
+  checksum: 10/2b9a9049a142f3fee1dc11c21036f86795d6253fc9107cb04b5169b568433008d5ba88a463c5c1bb63f6a37bcc79e5dc917173dc49ab7baa52e3f497a12cc9d8
   languageName: node
   linkType: hard
 
-"@uppy/golden-retriever@npm:4.2.2, @uppy/golden-retriever@npm:latest":
-  version: 4.2.2
-  resolution: "@uppy/golden-retriever@npm:4.2.2"
+"@uppy/golden-retriever@npm:^5.0.0, @uppy/golden-retriever@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/golden-retriever@npm:5.0.0"
   dependencies:
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/utils": "npm:^7.0.0"
     lodash: "npm:^4.17.21"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/b62744e34191f80d9a1c87b54d1b986f5bb19b49e4ba15a1b07917b22aea84c11a844f832067c703d002423edc6542a57e596d6ad80b38b3af840fdefe7ab69b
+    "@uppy/core": ^5.0.0
+  checksum: 10/004ddb48f1baab56e4cc462ce20762cfcc7cc8bb392a2393ac673dc86a5ae3085ceac9f38bd4be58c963db0b00578d398a4a3124734e52da030cc89d5dc80475
   languageName: node
   linkType: hard
 
-"@uppy/google-drive-picker@npm:0.4.2, @uppy/google-drive-picker@npm:latest":
-  version: 0.4.2
-  resolution: "@uppy/google-drive-picker@npm:0.4.2"
+"@uppy/google-drive-picker@npm:^1.0.0, @uppy/google-drive-picker@npm:latest":
+  version: 1.0.0
+  resolution: "@uppy/google-drive-picker@npm:1.0.0"
   dependencies:
-    "@uppy/companion-client": "npm:^4.5.2"
-    "@uppy/provider-views": "npm:^4.5.2"
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/b3fa7a15164e540085f570c948566396e236d7ed8cddc982f2d5dc10db1935378c8ed94d5393ee9d534d08ec31326b9ec9d9710c7c23e6987c9d607ab7246837
+    "@uppy/core": ^5.0.0
+  checksum: 10/4cc26aaadbfb6c847c677ede3d03dfe1fb68994bc761aaf8683d817a6f0d85bec5b7351f98f3a0c03fc78e212dc99b64298160ebb31f2910b5295ad30e8c9567
   languageName: node
   linkType: hard
 
-"@uppy/google-drive@npm:4.4.2, @uppy/google-drive@npm:^4.4.2, @uppy/google-drive@npm:latest":
+"@uppy/google-drive@npm:^4.4.2":
   version: 4.4.2
   resolution: "@uppy/google-drive@npm:4.4.2"
   dependencies:
@@ -3767,21 +3869,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/google-photos-picker@npm:0.4.2, @uppy/google-photos-picker@npm:latest":
-  version: 0.4.2
-  resolution: "@uppy/google-photos-picker@npm:0.4.2"
+"@uppy/google-drive@npm:^5.0.0, @uppy/google-drive@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/google-drive@npm:5.0.0"
   dependencies:
-    "@uppy/companion-client": "npm:^4.5.2"
-    "@uppy/provider-views": "npm:^4.5.2"
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/1ef524add41e7ada82e2161ca96d51da78a655f3506aef0bb69002d7cc286e1431b95b6d576d4d3975827ec034b3506ba870ceb03c2b3bc8634dc2459bec3bc3
+    "@uppy/core": ^5.0.0
+  checksum: 10/3df2516efa4db321679c9e0d47f3a57e46a43e27c078dc806b5c0db728d744c8ee8908973c08bf1776884b4ef67b973c25f5a256e406f2b1b8e62ff74495b400
   languageName: node
   linkType: hard
 
-"@uppy/image-editor@npm:3.4.2, @uppy/image-editor@npm:^3.4.2, @uppy/image-editor@npm:latest":
+"@uppy/google-photos-picker@npm:^1.0.0, @uppy/google-photos-picker@npm:latest":
+  version: 1.0.0
+  resolution: "@uppy/google-photos-picker@npm:1.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/78d6b70f20cf98949879ffecec1cc53c24e489269c9382cd79426019dda670e83a3364537ff7dfd3378bb0e8467cacc9eeacd2df7e2f675b562d6c11e9b232cf
+  languageName: node
+  linkType: hard
+
+"@uppy/image-editor@npm:^3.4.2":
   version: 3.4.2
   resolution: "@uppy/image-editor@npm:3.4.2"
   dependencies:
@@ -3794,7 +3910,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/informer@npm:4.3.2, @uppy/informer@npm:^4.3.2":
+"@uppy/image-editor@npm:^4.0.0, @uppy/image-editor@npm:latest":
+  version: 4.0.0
+  resolution: "@uppy/image-editor@npm:4.0.0"
+  dependencies:
+    "@uppy/utils": "npm:^7.0.0"
+    cropperjs: "npm:^1.6.2"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/8bafd84461be69012cbc0d808b73233b7d25dc0cf05e920266708be7f1ad9716ef587698fc4c588b44d91a3c53f5e27a648d323ceb9bc6dd68647c86a1c03509
+  languageName: node
+  linkType: hard
+
+"@uppy/informer@npm:^4.3.2":
   version: 4.3.2
   resolution: "@uppy/informer@npm:4.3.2"
   dependencies:
@@ -3806,7 +3935,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/instagram@npm:4.3.2, @uppy/instagram@npm:^4.3.2, @uppy/instagram@npm:latest":
+"@uppy/instagram@npm:^4.3.2":
   version: 4.3.2
   resolution: "@uppy/instagram@npm:4.3.2"
   dependencies:
@@ -3820,16 +3949,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/locales@npm:4.8.4, @uppy/locales@npm:latest":
-  version: 4.8.4
-  resolution: "@uppy/locales@npm:4.8.4"
+"@uppy/instagram@npm:^5.0.0, @uppy/instagram@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/instagram@npm:5.0.0"
   dependencies:
-    "@uppy/utils": "npm:^6.2.2"
-  checksum: 10/459e28e57efc7cce17b9fc0e8d077d8a9b3c1ce66e16a77cf1cfdb9e8386c4c932a8b23fe8e27594379a7861f9fa0adc5d3aaafc6faaa664a66e44f78e60fa92
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/c39b052be14e23edbcf0c230b5da174b9379b705a6101f36fc4523b8ce2255668d1f60a0f9836328b01414488ec8d2fb0721b4cc76ab535b3deaa1ee6dfc20b0
   languageName: node
   linkType: hard
 
-"@uppy/onedrive@npm:4.3.2, @uppy/onedrive@npm:^4.3.2, @uppy/onedrive@npm:latest":
+"@uppy/locales@npm:^5.0.0, @uppy/locales@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/locales@npm:5.0.0"
+  dependencies:
+    "@uppy/utils": "npm:^7.0.0"
+  checksum: 10/cbc45b52466ec55f240fb843ba357db550ac17730f4c561fc6ed0d438f2b70106f85c5121c65b6cc4d602811ce953972eb2e40d5a9f5044c935515765342e30b
+  languageName: node
+  linkType: hard
+
+"@uppy/onedrive@npm:^4.3.2":
   version: 4.3.2
   resolution: "@uppy/onedrive@npm:4.3.2"
   dependencies:
@@ -3843,7 +3986,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/progress-bar@npm:4.3.2, @uppy/progress-bar@npm:^4.2.1":
+"@uppy/onedrive@npm:^5.0.0, @uppy/onedrive@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/onedrive@npm:5.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/5b57ce7839c99409aa1b490e6ba6bb79c0a1e3c47c94e8f1d656ca8ce9420ef48d3cf84e8c37becc1155dede5902e285caa501dcd6ceb85bc6f9183745b1b995
+  languageName: node
+  linkType: hard
+
+"@uppy/progress-bar@npm:^4.2.1":
   version: 4.3.2
   resolution: "@uppy/progress-bar@npm:4.3.2"
   dependencies:
@@ -3855,9 +4012,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/provider-views@npm:4.5.2, @uppy/provider-views@npm:^4.5.2":
-  version: 4.5.2
-  resolution: "@uppy/provider-views@npm:4.5.2"
+"@uppy/provider-views@npm:^4.5.2":
+  version: 4.5.3
+  resolution: "@uppy/provider-views@npm:4.5.3"
   dependencies:
     "@uppy/utils": "npm:^6.2.2"
     classnames: "npm:^2.2.6"
@@ -3865,8 +4022,23 @@ __metadata:
     p-queue: "npm:^8.0.0"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/e99420021237b0a05ed23cd9f165daca9fefb0f6adf9a065c10fca536933c9b0b4e1e89e0ccc4903bde3511980f22b8ab0f276c3141e411a0abfcb7ef9859619
+    "@uppy/core": ^4.5.3
+  checksum: 10/fdf6a7ee268e66df5648ec8008c8537c8c56e382de67cc3b3c9fc212c7957f1e25734ad70eb88ac6467c51a69b64a2c0d809a98d7ffc73a8842013db7216c357
+  languageName: node
+  linkType: hard
+
+"@uppy/provider-views@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/provider-views@npm:5.0.0"
+  dependencies:
+    "@uppy/utils": "npm:^7.0.0"
+    classnames: "npm:^2.2.6"
+    nanoid: "npm:^5.0.9"
+    p-queue: "npm:^8.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/65a91063499804b5c23ad502e3c23edfa70b02e61ac91e9a234d42dafd81a28e2d1b592ff205a6d303c37747748847762867bfcf5d6e499fe20e8666a1d3b470
   languageName: node
   linkType: hard
 
@@ -3908,16 +4080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/redux-dev-tools@npm:4.1.3":
-  version: 4.1.3
-  resolution: "@uppy/redux-dev-tools@npm:4.1.3"
-  peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/c895c6f40756539f475836c28d59e3ce6f77a5296c0a79c35258db42edba6706fc8ad2e1a2ad4ac31800f9de2b4b53fd68f417040556e1aa566ee393fd9361c2
-  languageName: node
-  linkType: hard
-
-"@uppy/remote-sources@npm:2.4.2, @uppy/remote-sources@npm:^2.4.2, @uppy/remote-sources@npm:latest":
+"@uppy/remote-sources@npm:^2.4.2":
   version: 2.4.2
   resolution: "@uppy/remote-sources@npm:2.4.2"
   dependencies:
@@ -3937,7 +4100,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/screen-capture@npm:4.4.2, @uppy/screen-capture@npm:^4.4.2, @uppy/screen-capture@npm:latest":
+"@uppy/remote-sources@npm:^3.0.0, @uppy/remote-sources@npm:latest":
+  version: 3.0.0
+  resolution: "@uppy/remote-sources@npm:3.0.0"
+  dependencies:
+    "@uppy/box": "npm:^4.0.0"
+    "@uppy/dashboard": "npm:^5.0.0"
+    "@uppy/dropbox": "npm:^5.0.0"
+    "@uppy/facebook": "npm:^5.0.0"
+    "@uppy/google-drive": "npm:^5.0.0"
+    "@uppy/instagram": "npm:^5.0.0"
+    "@uppy/onedrive": "npm:^5.0.0"
+    "@uppy/unsplash": "npm:^5.0.0"
+    "@uppy/url": "npm:^5.0.0"
+    "@uppy/zoom": "npm:^4.0.0"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/f36829a421a4cbaa1996a63c72ffa8813869d60e0c67792fdcb81e2ab48975d1ac25cc50c42adebf2e99721eb5e761e177c907d8c5d736ab1b75b052ebc94bd8
+  languageName: node
+  linkType: hard
+
+"@uppy/screen-capture@npm:^4.4.2":
   version: 4.4.2
   resolution: "@uppy/screen-capture@npm:4.4.2"
   dependencies:
@@ -3949,7 +4132,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/status-bar@npm:4.2.3, @uppy/status-bar@npm:^4.2.3":
+"@uppy/screen-capture@npm:^5.0.0, @uppy/screen-capture@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/screen-capture@npm:5.0.0"
+  dependencies:
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/7b153813460d0ae84c17313a4832ac53b1e436fb7e73d8ff67f4e6c3bd745dfda65408c7355d9182cc307eca58eeea46e1efb9edd8b524d8667d95d62b6ab5e6
+  languageName: node
+  linkType: hard
+
+"@uppy/status-bar@npm:^4.2.3":
   version: 4.2.3
   resolution: "@uppy/status-bar@npm:4.2.3"
   dependencies:
@@ -3963,63 +4158,73 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/store-default@npm:4.3.2, @uppy/store-default@npm:^4.3.2":
+"@uppy/store-default@npm:^4.3.2":
   version: 4.3.2
   resolution: "@uppy/store-default@npm:4.3.2"
   checksum: 10/f9a4fe27d298fbd8cf314dbb6e7c912519a96d2405b15e557ca69e6239857740a8e493d43bc9c4b108f43064ad268210123492ef5209b3e44c85ae22ecac1ab4
   languageName: node
   linkType: hard
 
-"@uppy/store-redux@npm:4.1.2":
-  version: 4.1.2
-  resolution: "@uppy/store-redux@npm:4.1.2"
-  dependencies:
-    nanoid: "npm:^5.0.9"
-  checksum: 10/efde6dcb3d5a55f6a40c5e4ed019c63f19580a1ba70836b7de4eb4588b5944a43743fe6548bf7fc947ef0264f8aebe62fbd7070bbc2b787b27e1a32205f4532c
+"@uppy/store-default@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/store-default@npm:5.0.0"
+  checksum: 10/1d1ec543fc785108a511699a62ee4a365b1c732a8b8318f8783d9fa52157ef171825812bae10aeb2fb6e9327ff8d64be8d672b57c06e640ac9a5afbce96e3bc9
   languageName: node
   linkType: hard
 
-"@uppy/thumbnail-generator@npm:4.2.2, @uppy/thumbnail-generator@npm:^4.2.2":
-  version: 4.2.2
-  resolution: "@uppy/thumbnail-generator@npm:4.2.2"
+"@uppy/thumbnail-generator@npm:^4.2.2":
+  version: 4.2.3
+  resolution: "@uppy/thumbnail-generator@npm:4.2.3"
   dependencies:
     "@uppy/utils": "npm:^6.2.2"
     exifr: "npm:^7.0.0"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/2da974440b3611a2ba46c0f17cdadc5182a8d5e86b8cddd6678cac6702e61d7011cf99eb2ebdd04fbc32810aae8ddf33d7a5978c96eee0724b40445fbadde8b3
+    "@uppy/core": ^4.5.3
+  checksum: 10/0a8e4cdfce85aa546ad2aa2eec7437d830077553945c960f280fcc172a21e9ef717ecfb45981a000eda5f72d778529b14701ccd91006bbc6656c1836459a84c0
   languageName: node
   linkType: hard
 
-"@uppy/transloadit@npm:4.3.3":
-  version: 4.3.3
-  resolution: "@uppy/transloadit@npm:4.3.3"
+"@uppy/thumbnail-generator@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/thumbnail-generator@npm:5.0.0"
   dependencies:
-    "@uppy/companion-client": "npm:^4.5.2"
-    "@uppy/provider-views": "npm:^4.5.2"
-    "@uppy/tus": "npm:^4.3.2"
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/utils": "npm:^7.0.0"
+    exifr: "npm:^7.0.0"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/8a8255a50e3b1e26b7f45b2275d00120bec573ee4427edfb5e2d4e325203a6fe14115f61cf6ca6383041d3adfc098a35ce17fcb8301587494c5c5b9ef21813e6
+  languageName: node
+  linkType: hard
+
+"@uppy/transloadit@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/transloadit@npm:5.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/tus": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
     component-emitter: "npm:^2.0.0"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/f521170f8db6fd3c4c9cd56fdaeddb0254377cf00db38308525d6381412dde333a7d51acc424ebb292f5a311de7e1abe67af3ed45cf3384d5747bdf34e39cc41
+    "@uppy/core": ^5.0.0
+  checksum: 10/d2cafc3e0146a80d502d56aab2e08cf54af57475cdc81d88d175a5387ce6a909974636c7fee68fcb4a5f3ba9c7c8afe8e9484959b946ad32c42863c0e4a94926
   languageName: node
   linkType: hard
 
-"@uppy/tus@npm:4.3.2, @uppy/tus@npm:^4.3.2, @uppy/tus@npm:latest":
-  version: 4.3.2
-  resolution: "@uppy/tus@npm:4.3.2"
+"@uppy/tus@npm:^5.0.0, @uppy/tus@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/tus@npm:5.0.0"
   dependencies:
-    "@uppy/companion-client": "npm:^4.5.2"
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
     tus-js-client: "npm:^4.2.3"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/a85b44174a30d91d16b56c43d9c1846bc2dd0cfd1447cad9b29dabde076913cbf1cbf39e7683b1659a05d535d948198e5a8cd9c8c854083e4cfc1ee5a22700da
+    "@uppy/core": ^5.0.0
+  checksum: 10/42327f6daff41b0d657f33fce54c184adcc5bb0b214b824beb2c0a09cb01bd2c896559f920d139736330891fc166ffef80e862663c7fa931f0d7e9b572b63306
   languageName: node
   linkType: hard
 
-"@uppy/unsplash@npm:4.4.2, @uppy/unsplash@npm:^4.4.2, @uppy/unsplash@npm:latest":
+"@uppy/unsplash@npm:^4.4.2":
   version: 4.4.2
   resolution: "@uppy/unsplash@npm:4.4.2"
   dependencies:
@@ -4033,7 +4238,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/url@npm:4.3.2, @uppy/url@npm:^4.3.2, @uppy/url@npm:latest":
+"@uppy/unsplash@npm:^5.0.0, @uppy/unsplash@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/unsplash@npm:5.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/570aa9e40e05abf9589f11af9974e273aa2042d6c86d45b0f06fc0a8d970158d40730ea98998e6c65c812a5578ffc18abacddb993471c8012e8b46a309daabb4
+  languageName: node
+  linkType: hard
+
+"@uppy/url@npm:^4.3.2":
   version: 4.3.2
   resolution: "@uppy/url@npm:4.3.2"
   dependencies:
@@ -4047,6 +4266,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uppy/url@npm:^5.0.0, @uppy/url@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/url@npm:5.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    nanoid: "npm:^5.0.9"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/81a647ddc71c7162ad6d84784c172cb22e8640a2c2e80a27cf9a8d5bea76aa8c199f70afd170606772ae55d03e57a59306e2c320bcd1e8d3e4654308e4c098af
+  languageName: node
+  linkType: hard
+
 "@uppy/utils@npm:^6.2.2":
   version: 6.2.2
   resolution: "@uppy/utils@npm:6.2.2"
@@ -4057,7 +4290,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/webcam@npm:4.3.2, @uppy/webcam@npm:^4.3.2, @uppy/webcam@npm:latest":
+"@uppy/utils@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@uppy/utils@npm:7.0.0"
+  dependencies:
+    lodash: "npm:^4.17.21"
+    preact: "npm:^10.5.13"
+  checksum: 10/c3259e49dbd4e118abe86932b876449b4a13ea94e139f06762afe0bed4f3d4b166b07774bb168b925aad11c45945480405da607548d9fee178afe1c26b0fc7b9
+  languageName: node
+  linkType: hard
+
+"@uppy/webcam@npm:^4.3.2":
   version: 4.3.2
   resolution: "@uppy/webcam@npm:4.3.2"
   dependencies:
@@ -4070,33 +4313,46 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/webdav@npm:0.4.2":
-  version: 0.4.2
-  resolution: "@uppy/webdav@npm:0.4.2"
+"@uppy/webcam@npm:^5.0.0, @uppy/webcam@npm:latest":
+  version: 5.0.0
+  resolution: "@uppy/webcam@npm:5.0.0"
   dependencies:
-    "@uppy/companion-client": "npm:^4.5.2"
-    "@uppy/provider-views": "npm:^4.5.2"
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/utils": "npm:^7.0.0"
+    is-mobile: "npm:^4.0.0"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/952c0966525d14eef7bfc5c4dedf567c90da257b4afd9e55e9f8f697d515d6948f9fd15d3deca9fec2bcf1286e7c70c6197dc7d776670d830abd38cf5989e820
+    "@uppy/core": ^5.0.0
+  checksum: 10/792f50c692be048fcfb3c14c2aa0413cedd8c62020baba2a5f33c204cdde582a228df7b7aa7f36117b905298a39972cb07f8aa89d7bc22025aec8af9e4ffbf9f
   languageName: node
   linkType: hard
 
-"@uppy/xhr-upload@npm:4.4.2":
-  version: 4.4.2
-  resolution: "@uppy/xhr-upload@npm:4.4.2"
+"@uppy/webdav@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@uppy/webdav@npm:1.0.0"
   dependencies:
-    "@uppy/companion-client": "npm:^4.5.2"
-    "@uppy/utils": "npm:^6.2.2"
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^4.5.2
-  checksum: 10/ae0e4ce4b181cc8362c8533df3e11c66dd19745728a4bf2cf3c6d8142f3395a0c6e3d75080ba15c759093913d5787b99645d2f580ff3b496dd3b69130342a293
+    "@uppy/core": ^5.0.0
+  checksum: 10/49b7c1ea91075ba7f89f8c26380c96e8f2aa8b985fc4ef29e734eade2d08726fede5dfc28951784ecf3e5789c4beaf42593c40bab2800d2c510f5dcc1442703d
   languageName: node
   linkType: hard
 
-"@uppy/zoom@npm:3.3.2, @uppy/zoom@npm:^3.2.1, @uppy/zoom@npm:^3.3.2":
+"@uppy/xhr-upload@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/xhr-upload@npm:5.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/166c65337404d3e25224e19dbb088c66ef8e4236bc97584ba4ae4df74847bdc727d10dfd7633610a93facffa74ddae9cb3cd23ecd64bcce3074835b946c833f7
+  languageName: node
+  linkType: hard
+
+"@uppy/zoom@npm:^3.2.1, @uppy/zoom@npm:^3.3.2":
   version: 3.3.2
   resolution: "@uppy/zoom@npm:3.3.2"
   dependencies:
@@ -4107,6 +4363,20 @@ __metadata:
   peerDependencies:
     "@uppy/core": ^4.5.2
   checksum: 10/d53d632b2a741d247b958d8fa40e997fdff10ea44c7b8cb56029e6a93cdff896298d28376632f5ee0521615c45beb28051c7f298f79511653616aee7013df68d
+  languageName: node
+  linkType: hard
+
+"@uppy/zoom@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@uppy/zoom@npm:4.0.0"
+  dependencies:
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/utils": "npm:^7.0.0"
+    preact: "npm:^10.5.13"
+  peerDependencies:
+    "@uppy/core": ^5.0.0
+  checksum: 10/da3a8f6c04aa92092f51da2c967e51d42e76a597e8093fe020e8b2bcc4ef155454b64c0297535709fba232a1cfb881dc0517164248e24ee18cb80403d26c0d49
   languageName: node
   linkType: hard
 
@@ -16197,49 +16467,42 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 4.18.2
-  resolution: "uppy@npm:4.18.2"
+  version: 5.0.0
+  resolution: "uppy@npm:5.0.0"
   dependencies:
-    "@uppy/audio": "npm:2.2.2"
-    "@uppy/aws-s3": "npm:4.3.2"
-    "@uppy/box": "npm:3.3.2"
-    "@uppy/companion-client": "npm:4.5.2"
-    "@uppy/compressor": "npm:2.3.2"
-    "@uppy/core": "npm:4.5.2"
-    "@uppy/dashboard": "npm:4.4.3"
-    "@uppy/drag-drop": "npm:4.2.2"
-    "@uppy/drop-target": "npm:3.2.2"
-    "@uppy/dropbox": "npm:4.3.2"
-    "@uppy/facebook": "npm:4.3.2"
-    "@uppy/file-input": "npm:4.2.2"
-    "@uppy/form": "npm:4.2.2"
-    "@uppy/golden-retriever": "npm:4.2.2"
-    "@uppy/google-drive": "npm:4.4.2"
-    "@uppy/google-drive-picker": "npm:0.4.2"
-    "@uppy/google-photos-picker": "npm:0.4.2"
-    "@uppy/image-editor": "npm:3.4.2"
-    "@uppy/informer": "npm:4.3.2"
-    "@uppy/instagram": "npm:4.3.2"
-    "@uppy/locales": "npm:4.8.4"
-    "@uppy/onedrive": "npm:4.3.2"
-    "@uppy/progress-bar": "npm:4.3.2"
-    "@uppy/provider-views": "npm:4.5.2"
-    "@uppy/redux-dev-tools": "npm:4.1.3"
-    "@uppy/remote-sources": "npm:2.4.2"
-    "@uppy/screen-capture": "npm:4.4.2"
-    "@uppy/status-bar": "npm:4.2.3"
-    "@uppy/store-default": "npm:4.3.2"
-    "@uppy/store-redux": "npm:4.1.2"
-    "@uppy/thumbnail-generator": "npm:4.2.2"
-    "@uppy/transloadit": "npm:4.3.3"
-    "@uppy/tus": "npm:4.3.2"
-    "@uppy/unsplash": "npm:4.4.2"
-    "@uppy/url": "npm:4.3.2"
-    "@uppy/webcam": "npm:4.3.2"
-    "@uppy/webdav": "npm:0.4.2"
-    "@uppy/xhr-upload": "npm:4.4.2"
-    "@uppy/zoom": "npm:3.3.2"
-  checksum: 10/7906497cafedfe682c10bb5b849990c416565ad9e650a811b359a57bdfa74c5057706e394415e37f9091cdb8146c0b124b8d600d392bcca68c47b4e7c5b55115
+    "@uppy/audio": "npm:^3.0.0"
+    "@uppy/aws-s3": "npm:^5.0.0"
+    "@uppy/box": "npm:^4.0.0"
+    "@uppy/companion-client": "npm:^5.0.0"
+    "@uppy/compressor": "npm:^3.0.0"
+    "@uppy/core": "npm:^5.0.0"
+    "@uppy/dashboard": "npm:^5.0.0"
+    "@uppy/drop-target": "npm:^4.0.0"
+    "@uppy/dropbox": "npm:^5.0.0"
+    "@uppy/facebook": "npm:^5.0.0"
+    "@uppy/form": "npm:^5.0.0"
+    "@uppy/golden-retriever": "npm:^5.0.0"
+    "@uppy/google-drive": "npm:^5.0.0"
+    "@uppy/google-drive-picker": "npm:^1.0.0"
+    "@uppy/google-photos-picker": "npm:^1.0.0"
+    "@uppy/image-editor": "npm:^4.0.0"
+    "@uppy/instagram": "npm:^5.0.0"
+    "@uppy/locales": "npm:^5.0.0"
+    "@uppy/onedrive": "npm:^5.0.0"
+    "@uppy/provider-views": "npm:^5.0.0"
+    "@uppy/remote-sources": "npm:^3.0.0"
+    "@uppy/screen-capture": "npm:^5.0.0"
+    "@uppy/store-default": "npm:^5.0.0"
+    "@uppy/thumbnail-generator": "npm:^5.0.0"
+    "@uppy/transloadit": "npm:^5.0.0"
+    "@uppy/tus": "npm:^5.0.0"
+    "@uppy/unsplash": "npm:^5.0.0"
+    "@uppy/url": "npm:^5.0.0"
+    "@uppy/webcam": "npm:^5.0.0"
+    "@uppy/webdav": "npm:^1.0.0"
+    "@uppy/xhr-upload": "npm:^5.0.0"
+    "@uppy/zoom": "npm:^4.0.0"
+  checksum: 10/7531b3ea865552b1529e2b58afbb0c701fbcf23449055cf038fff9558ae75286086774cc15d9a3aac89d6a06e4a7d5fbe5117e7b2393df2430551964a6a211bc
   languageName: node
   linkType: hard
 
