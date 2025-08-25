@@ -22,6 +22,8 @@ import ScreenCapture from '@uppy/screen-capture';
 import ImageEditor from '@uppy/image-editor';
 import Tus from '@uppy/tus';
 import GoldenRetriever from '@uppy/golden-retriever';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 import locales from '../locales.js';
 
@@ -320,31 +322,6 @@ function Page() {
 		[state],
 	);
 
-	const [activeTab, setActiveTab] = useState('react-example');
-
-	const examples = [
-		{
-			id: 'react-example',
-			name: 'React',
-			url: 'https://stackblitz.com/github/qxprakash/uppy/tree/modify_examples_for_embed/examples/react-example?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1',
-		},
-		{
-			id: 'vue3',
-			name: 'Vue',
-			url: 'https://stackblitz.com/github/qxprakash/uppy/tree/modify_examples_for_embed/examples/vue3?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1',
-		},
-		{
-			id: 'svelte-example',
-			name: 'Svelte',
-			url: 'https://stackblitz.com/github/qxprakash/uppy/tree/modify_examples_for_embed/examples/svelte-example?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1',
-		},
-		{
-			id: 'aws-nodejs',
-			name: 'AWS Node.js',
-			url: 'https://stackblitz.com/github/qxprakash/uppy/tree/modify_examples_for_embed/examples/aws-nodejs?file=index.js&embed=1&view=editor&showSidebar=1&hideTerminal=1',
-		},
-	];
-
 	return (
 		<Layout>
 			<main className={styles['main']}>
@@ -456,42 +433,37 @@ function Page() {
 						the results instantly.
 					</p>
 
-					<div className={styles['stackblitz-tabs']}>
-						<BrowserOnly>
-							{() => {
-								return (
-									<>
-										<div className={styles['stackblitz-nav']}>
-											{examples.map((example) => (
-												<button
-													key={example.id}
-													className={`${styles['stackblitz-tab']} ${activeTab === example.id ? styles['stackblitz-tab-active'] : ''}`}
-													onClick={() => setActiveTab(example.id)}
-												>
-													{example.name}
-												</button>
-											))}
-										</div>
-										<div className={styles['stackblitz-container']}>
-											{examples.map((example) => (
-												<div
-													key={example.id}
-													className={`${styles['stackblitz-frame']} ${activeTab === example.id ? styles['stackblitz-frame-active'] : ''}`}
-												>
-													<iframe
-														src={example.url}
-														className={styles['stackblitz-iframe']}
-														title={`Uppy ${example.name} Example on Stackblitz`}
-														allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-														sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-													></iframe>
-												</div>
-											))}
-										</div>
-									</>
-								);
-							}}
-						</BrowserOnly>
+					<div>
+						<Tabs>
+							<TabItem value="react" label="React">
+								<iframe
+									title="React Example"
+									style={{ width: '100%', height: '500px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/react?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+								></iframe>
+							</TabItem>
+							<TabItem value="vue" label="Vue">
+								<iframe
+									title="Vue Example"
+									style={{ width: '100%', height: '500px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/vue?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+								></iframe>
+							</TabItem>
+							<TabItem value="svelte" label="Svelte">
+								<iframe
+									title="Svelte Example"
+									style={{ width: '100%', height: '500px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/sveltekit?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+								></iframe>
+							</TabItem>
+							<TabItem value="aws-nodejs" label="AWS Node.js">
+								<iframe
+									title="AWS Node.js Example"
+									style={{ width: '100%', height: '500px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/aws-nodejs?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+								></iframe>
+							</TabItem>
+						</Tabs>
 					</div>
 				</section>
 				<Admonition type="note">
