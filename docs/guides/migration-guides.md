@@ -504,11 +504,11 @@ import Transloadit, {
 	COMPANION_ALLOWED_HOSTS,
 } from '@uppy/transloadit';
 
-import '@uppy/core/dist/style.css';
-import '@uppy/dashboard/dist/style.css';
-import '@uppy/audio/dist/style.css';
-import '@uppy/screen-capture/dist/style.css';
-import '@uppy/image-editor/dist/style.css';
+import '@uppy/core/css/style.css';
+import '@uppy/dashboard/css/style.css';
+import '@uppy/audio/css/style.css';
+import '@uppy/screen-capture/css/style.css';
+import '@uppy/image-editor/css/style.css';
 
 new Uppy()
 	.use(Dashboard, {

@@ -32,13 +32,13 @@ import IconFolder from '../../static/img/folder.svg';
 import IconWrench from '../../static/img/wrench.svg';
 import IconUppy from '../../static/img/uppy.svg';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
-import '@uppy/audio/dist/style.min.css';
-import '@uppy/screen-capture/dist/style.min.css';
-import '@uppy/image-editor/dist/style.min.css';
-import '@uppy/webcam/dist/style.min.css';
-import '@uppy/url/dist/style.min.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/dashboard/css/style.min.css';
+import '@uppy/audio/css/style.min.css';
+import '@uppy/screen-capture/css/style.min.css';
+import '@uppy/image-editor/css/style.min.css';
+import '@uppy/webcam/css/style.min.css';
+import '@uppy/url/css/style.min.css';
 
 import styles from './index.module.css';
 
