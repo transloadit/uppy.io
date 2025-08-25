@@ -4,7 +4,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import Layout from '@theme/Layout';
 import Admonition from '@theme/Admonition';
 import BrowserOnly from '@docusaurus/BrowserOnly';
-import Dashboard from '@uppy/react/lib/Dashboard';
+import Dashboard from '@uppy/react/dashboard';
 import UppyCore from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrive from '@uppy/google-drive';
@@ -13,7 +13,6 @@ import GooglePhotosPicker from '@uppy/google-photos-picker';
 import Instagram from '@uppy/instagram';
 import Dropbox from '@uppy/dropbox';
 import OneDrive from '@uppy/onedrive';
-import Facebook from '@uppy/facebook';
 import Unsplash from '@uppy/unsplash';
 import Zoom from '@uppy/zoom';
 import Url from '@uppy/url';
@@ -26,13 +25,13 @@ import GoldenRetriever from '@uppy/golden-retriever';
 
 import locales from '../locales.js';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
-import '@uppy/audio/dist/style.min.css';
-import '@uppy/screen-capture/dist/style.min.css';
-import '@uppy/image-editor/dist/style.min.css';
-import '@uppy/webcam/dist/style.min.css';
-import '@uppy/url/dist/style.min.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/dashboard/css/style.min.css';
+import '@uppy/audio/css/style.min.css';
+import '@uppy/screen-capture/css/style.min.css';
+import '@uppy/image-editor/css/style.min.css';
+import '@uppy/webcam/css/style.min.css';
+import '@uppy/url/css/style.min.css';
 
 import styles from './examples.module.css';
 import Heading from '@theme/Heading';
@@ -104,14 +103,14 @@ const options = [
 	{
 		heading: 'Remote sources',
 		options: [
-			{
-				label: 'Google Drive',
-				value: 'GoogleDrive',
-				type: 'plugins',
-				title:
-					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
-			},
+			// {
+			// 	label: 'Google Drive',
+			// 	value: 'GoogleDrive',
+			// 	type: 'plugins',
+			// 	title:
+			// 		'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
+			// 	disabled: true,
+			// },
 			{
 				label: 'Google Drive Picker',
 				value: 'GoogleDrivePicker',
@@ -134,11 +133,6 @@ const options = [
 				title:
 					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
 				disabled: true,
-			},
-			{
-				label: 'Facebook',
-				value: 'Facebook',
-				type: 'plugins',
 			},
 			{ label: 'Url', value: 'Url', type: 'plugins' },
 			{
@@ -184,7 +178,7 @@ const options = [
 		],
 	},
 	{
-		heading: 'Uppy',
+		heading: 'Miscellaneous',
 		options: [
 			{ label: 'Restrictions', type: 'restrictions' },
 			{ label: 'Golden Retriever', value: 'GoldenRetriever', type: 'plugins' },
@@ -216,9 +210,6 @@ const Uppy = ({ state, locale }) => {
 		}
 		if (state.plugins.includes('Url') && !disabled('Url')) {
 			uppy.use(Url, { companionUrl });
-		}
-		if (state.plugins.includes('Facebook') && !disabled('Facebook')) {
-			uppy.use(Facebook, { companionUrl });
 		}
 		if (state.plugins.includes('Zoom') && !disabled('Zoom')) {
 			uppy.use(Zoom, { companionUrl });
@@ -428,23 +419,28 @@ function Page() {
 							);
 						})}
 
-						<select
-							name="locale"
-							onChange={(e) => {
-								setLocale(
-									locales.find((locale) => locale.name === e.target.value)
-										.locale,
-								);
-							}}
-						>
-							{locales.map(({ name }) => {
-								return (
-									<option key={name} value={name}>
-										{name}
-									</option>
-								);
-							})}
-						</select>
+						<div className={styles['options-locale']}>
+							<Heading className={styles['h3']} as="h3">
+								Locale
+							</Heading>
+							<select
+								name="locale"
+								onChange={(e) => {
+									setLocale(
+										locales.find((locale) => locale.name === e.target.value)
+											.locale,
+									);
+								}}
+							>
+								{locales.map(({ name }) => {
+									return (
+										<option key={name} value={name}>
+											{name}
+										</option>
+									);
+								})}
+							</select>
+						</div>
 					</div>
 					<div className={styles['dashboard-inner']}>
 						<BrowserOnly>
@@ -499,7 +495,7 @@ function Page() {
 					</div>
 				</section>
 				<Admonition type="note">
-					Checkout our{' '}
+					Check out our{' '}
 					<Link
 						href="https://github.com/transloadit/uppy/tree/main/examples"
 						target="_blank"
