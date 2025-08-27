@@ -328,7 +328,32 @@ function Page() {
 				<Heading className={styles['h1']} as="h1">
 					Examples
 				</Heading>
-
+				<Admonition type="note">
+					Check out our{' '}
+					<Link
+						href="https://github.com/transloadit/uppy/tree/main/examples"
+						target="_blank"
+						rel="noopener"
+					>
+						GitHub examples
+					</Link>{' '}
+					folder for many more examples.
+				</Admonition>
+				<p>Uppy offers three ways to build user interfaces:</p>
+				<ul>
+					<li>
+						<b>Pre-composed, plug-and-play components.</b> Mainly Dashboard and
+						DragDrop. The downside is that you can’t customize the UI.
+					</li>
+					<li>
+						<b>Headless components.</b> Smaller componentes, easier to override
+						the styles or compose them together with your own components.
+					</li>
+					<li>
+						<b>Hooks.</b> Attach our logic to your own components, no
+						restrictions, create a tailor-made UI.
+					</li>
+				</ul>
 				<div className={styles['dashboard-docs-stackblitz']}>
 					<Heading as="h2">Dashboard</Heading>
 					<p>
@@ -426,12 +451,8 @@ function Page() {
 					</div>
 				</section>
 				<section className={styles['stackblitz-section']}>
-					<Heading as="h2">Try Uppy in Stackblitz</Heading>
-					<p>
-						Want to experiment with Uppy right away? Use these embedded editors
-						to play with different Uppy setups. You can modify the code and see
-						the results instantly.
-					</p>
+					<Heading as="h2">Headless components and hooks</Heading>
+					<p>For when you want a more custom, flexible UI.</p>
 
 					<div>
 						<Tabs>
@@ -456,27 +477,9 @@ function Page() {
 									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/sveltekit?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1"
 								></iframe>
 							</TabItem>
-							<TabItem value="aws-nodejs" label="AWS Node.js">
-								<iframe
-									title="AWS Node.js Example"
-									style={{ width: '100%', height: '500px' }}
-									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/aws-nodejs?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1"
-								></iframe>
-							</TabItem>
 						</Tabs>
 					</div>
 				</section>
-				<Admonition type="note">
-					Check out our{' '}
-					<Link
-						href="https://github.com/transloadit/uppy/tree/main/examples"
-						target="_blank"
-						rel="noopener"
-					>
-						GitHub examples
-					</Link>{' '}
-					folder for many more examples.
-				</Admonition>
 			</main>
 		</Layout>
 	);
