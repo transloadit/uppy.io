@@ -1,5 +1,5 @@
 ---
-title: 'New Uppy 5.0 major: headless components and hooks'
+title: 'Announcing Uppy 5.0: headless components and hooks'
 date: 2025-08-25
 authors: [mifi, murderlon, prakash]
 image: /img/blog/5.0/preview.png
@@ -19,15 +19,17 @@ import DropzoneDemo from '/src/components/Dropzone';
 import FilesGridDemo from '/src/components/FilesGrid';
 import { BrowserWindow } from '/src/components/BrowserWindow';
 
-Uppy 5.0 is here, and our faithful file-uploading companion has been busy
-fetching the most requested feature of all time: truly composable, headless UI
-components. For years, developers have found themselves stuck between
+The dog didn't eat _our_ homework, so we're here to show you what we've been up
+to over the past year. We are proud to announce Uppy 5.0! Our faithful
+file-uploading companion has been attending all the training courses and is now
+equipped with the most requested feature of all time: truly composable, headless
+UI components. For years, developers have found themselves stuck between
 Dashboard’s kitchen-sink approach and the bare-bones drag-drop plugin, with
 little room to build something that fits just right.
 
-This release brings headless components and hooks to address those needs.
-Everything has been backported on 4.0 as well so you don’t need to upgrade to
-get going.
+This major release brings headless components and hooks to address those needs.
+Everything has been backported to 4.0 as well, so it's easy to get going without
+the need to upgrade.
 
 With Uppy 5.0 , you can finally build the exact upload experience your users
 deserve – modular, accessible, and tailored to your needs. Whether you need a
@@ -36,71 +38,70 @@ blocks to make it happen.
 
 {/* truncate */}
 
-## Headless components and hooks
+## Building your UI: the need for something new
 
 ### One size fits no one
 
-Developers starting with Uppy are forced to choose between the full-featured,
-bundle size heavy, and non-customizable `dashboard` or the overly barebones
-`drag-drop`.
+Until now, developers starting with Uppy were forced to choose between either
+the full-featured, bundle-size-heavy, and non-customizable `dashboard` or the
+overly barebones `drag-drop`.
 
-After years of speaking to developers on GitHub, the community forum, and with
-Transloadit customers – the reality seems to be that majority of people have
-their needs fall somewhere in between `dashboard` and `drag-drop`. Countless
-issues have been posted about them wanting mostly X but doing Y different for
-their use case.
+After years of talking to developers on GitHub and the community forum, and
+feedback from Transloadit customers, the reality seems to be that the needs of
+the majority of people fall somewhere _in between_ `dashboard` and `drag-drop`.
+Countless issues have been posted about users wanting mostly X, but doing Y
+differently for their use case.
 
-`@uppy/dashboard` has tried to accommodate for some of these requests over the
-years which introduced overly specific “toggles”, such as
+`@uppy/dashboard` has tried to accommodate some of these requests over the
+years, which introduced overly specific “toggles”, such as
 `showLinkToFileUploadResult`, `showProgressDetails`, `hideUploadButton`,
 `hideRetryButton`, `hidePauseResumeButton`, `hideCancelButton`,
 `hideProgressAfterFinish`, `showRemoveButtonAfterComplete`, `disableStatusBar`,
 `disableInformer`, and `disableThumbnailGenerator`.
 
-Continuing down this path is not maintainable nor will we ever reach a set of
-toggles at this granularity level to support a wide range of use cases and
+Continuing down this path is not maintainable, nor will we ever reach a set of
+toggles at this level of granularity to support a wide range of use cases and
 unique requirements.
 
-### Fake promise of modular UI components
+### Fake promises of modular UI components
 
 We built `status-bar`, `progress-bar`, `image-editor`, `thumbnail-generator`,
-`informer`, and `provider-views` as separate plugins, communicating on a first
-glance these are standalone components, but they are tightly coupled to
-`dashboard`. It’s not impossible to use them separately, but there is little
-flexibility.
+`informer`, and `provider-views` as separate plugins. At first glance, these
+look to be standalone components, but they are tightly coupled to `dashboard`.
+It’s not impossible to use them separately, but there is little flexibility.
 
 ### Modern expectations
 
-Since Uppy’s conception 10 years ago the front-end landscape has significantly
-changed. Uppy is even built with a “vanilla” first approach because that was
-still popular at the time over front-end frameworks.
+Since Uppy’s conception ten years ago, the front-end landscape has changed
+significantly. Uppy is even built with a “vanilla-first" approach, because that
+was still popular at the time over front-end frameworks.
 
-**These days developers have high expectations for choosing a library**. In a
+**These days, developers have high expectations for choosing a library**. In a
 world where everything is component driven, OSS UI libraries are expected to
-offer truly composable building blocks, which are light on bundle size, and
-ideally with accessibility kept in mind.
+offer truly composable building blocks that are light on bundle size, and
+ideally keep accessibility in mind.
 
-For Uppy to stay relevant in the coming years a major change is needed in how we
-let users build their uploading UI.
+If Uppy is to stay relevant in the coming years, a major change is needed in
+the way we let users build their uploading UI.
 
-### The new ways to build your UI
+## Create the UI of your dreams using headless components and hooks
 
 > TODO: pretty image showing all components
 
-**Uppy 5.0 introduces composable, UI components and hooks that provide granular
+**Uppy 5.0 introduces composable UI components and hooks that provide granular
 control without sacrificing first-class framework support**. These components
-are designed to be lightweight, accessible, and fully customizable while
+are designed to be lightweight, accessible, and fully customizable, while
 maintaining compatibility with **React, Vue, and Svelte**.
 
 Uppy now offers three ways to build user interfaces:
 
-1. **Pre-composed, plug-and-play components.** Nothing new here, mainly
-   `<Dashboard />` and `<DragDrop />`. The downside is that you can’t customize
-   the UI.
-2. **Headless components 🆕** Smaller components, easier to override the styles
-   or compose them together with your own components.
-3. **Hooks 🆕** Attach our logic to your own components, no restrictions, create
-   a tailor-made UI.
+1. **Pre-composed, plug-and-play components.** Nothing new here. These are
+	basically the old `<Dashboard />` and `<DragDrop />`. The downside of this
+	option is that you cannot customize the UI.
+2. **Headless components 🆕** These new components are smaller, with styles that
+   are easier to override. You can compose these together with your own components.
+3. **Hooks 🆕** Use hooks to attach our logic to your own components. There are no
+	restrictions. Enjoy the freedom to create a truly tailor-made UI.
 
 When using the new components or hooks, you can use the
 **`<UppyContextProvider />`** to provide the Uppy instance to the components and
@@ -161,8 +162,8 @@ function App() {
 
 ### New components
 
-All components come with sensible defaults but expose data attributes for
-complete styling control. This approach delivers the flexibility developers need
+All components come with sensible defaults, but expose data attributes for
+complete styling control. This approach delivers the flexibility developers need,
 while maintaining the plug-and-play experience Uppy is known for.
 
 <Tabs>
@@ -248,7 +249,7 @@ Common icons, such as a webcam, device, Dropbox, Google Drive, OneDrive, etc.
 
 </Tabs>
 
-#### Styling Component States
+#### Styling component states
 
 Components expose their internal state through data attributes, enabling precise
 CSS targeting.
@@ -279,8 +280,7 @@ Examples are shown in React, but the same hooks are available in Vue and Svelte.
 <Tabs>
   <TabItem value="use-dropzone" label="useDropzone">
 
-Here is an example exactly mimicking the `<Dropzone />` component, but with
-hooks.
+Here is an example that uses hooks to exactly mimic the `<Dropzone />` component.
 
 ```tsx
 import clsx from 'clsx';
@@ -357,13 +357,13 @@ export function FileInput({ multiple, accept }: FileInputProps) {
 
   <TabItem value="use-remote-source" label="useRemoteSource">
 
-This hook can be used to build a UI for remote sources, such as Dropbox, Google
-Drive, etc. It is a bit more complex than the other hooks because remote sources
-are more complex.
+This hook can be used to build a UI for remote sources, such as Dropbox or Google
+Drive. It is a bit more complex than the other hooks, because remote sources
+involve more moving parts.
 
-For this to work you need to have the
+For this hook to work, you must have the
 [`@uppy/remote-sources`](/docs/remote-sources/) or the specific provider plugin
-(such as `@uppy/dropbox`) installed as well as a [Companion](/docs/companion)
+(such as `@uppy/dropbox`) installed, as well as a [Companion](/docs/companion)
 instance.
 
 <BrowserWindow>
@@ -666,8 +666,8 @@ export function ScreenCapture() {
 
 ### Putting it all together
 
-Here you can play around in all three frameworks with the new components and
-hooks. These examples are also available on Uppy’s
+Here you can play around with the new components and hooks in all three
+frameworks. These examples are also available on Uppy’s
 [GitHub](https://github.com/transloadit/uppy/tree/main/examples).
 
 <Tabs>
@@ -703,13 +703,13 @@ All packages now have export maps. This is a breaking change in two cases:
 
 ### Changed imports for React, Vue and Svelte
 
-Some components, like Dashboard, require a peer dependency to work but since all
-components were exported from a single file you were forced to install all peer
-dependencies. Even if you never imported, for instance, the status bar
+Some components, like Dashboard, require a peer dependency to work. However, since
+all components were exported from a single file, you were forced to install all
+peer dependencies – even if you never imported, for instance, the status bar
 component.
 
 Every component that requires a peer dependency has now been moved to a subpath,
-such as `@uppy/react/dashboard`, so you only need to install the peer
+such as `@uppy/react/dashboard`. As a result, you only have to install the peer
 dependencies you need.
 
 Before:
@@ -744,7 +744,7 @@ components and remove the confusing, inflexible ones.
 
 ## Overhauled tooling
 
-Just as the components started to age, so did our tooling. We put a lot of
+As the components started to age, so did our tooling. We put a lot of
 effect into migrating to a more modern monorepo setup.
 
 A fun example is comparing the
@@ -759,12 +759,14 @@ and [after](https://github.com/transloadit/uppy/blob/main/package.json) of our
 - Migrated from Cypress to
   [Vitest Browser Mode](https://vitest.dev/guide/browser/).
 - Migrated from Eslint and Prettier to [Biome](https://biomejs.dev/).
-- Migrate from our custom release tooling to
+- Migrated from our custom release tooling to
   [Changesets](https://github.com/changesets/changesets).
 - And more smaller clean ups
 
 ---
 
-That’s it!
+That’s all we have for you today! We hope you're excited to play around with this
+latest version of your favorite file uploading companion that loves to play fetch,
+and doesn't chew on your shoes.
 
-TODO: add funny, dog-memed conclusion
+TODO: add funny, dog-memed conclusion (+ invite feedback?)
