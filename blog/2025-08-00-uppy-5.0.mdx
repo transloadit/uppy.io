@@ -1,8 +1,8 @@
 ---
 title: 'Announcing Uppy 5.0: headless components and hooks'
-date: 2025-08-25
+date: 2025-09-01
 authors: [mifi, murderlon, prakash]
-image: /img/blog/5.0/preview.png
+image: /img/blog/5.0/og-image.png
 slug: 'uppy-5.0'
 published: true
 toc_max_heading_level: 3
@@ -19,7 +19,12 @@ import DropzoneDemo from '/src/components/Dropzone';
 import FilesGridDemo from '/src/components/FilesGrid';
 import { BrowserWindow } from '/src/components/BrowserWindow';
 
-The dog didn't eat _our_ homework, so we're here to show you what we've been up
+<img
+	src="/img/blog/5.0/og-image.png"
+	alt="Annoucement image for 5.0, showing a new component in the background"
+/>
+
+The dog didn’t eat _our_ homework, so we’re here to show you what we’ve been up
 to over the past year. We are proud to announce Uppy 5.0! Our faithful
 file-uploading companion has been attending all the training courses and is now
 equipped with the most requested feature of all time: truly composable, headless
@@ -28,8 +33,8 @@ Dashboard’s kitchen-sink approach and the bare-bones drag-drop plugin, with
 little room to build something that fits just right.
 
 This major release brings headless components and hooks to address those needs.
-Everything has been backported to 4.0 as well, so it's easy to get going without
-the need to upgrade.
+Everything has been backported to 4.0 as well, so you can get going without the
+need to upgrade.
 
 With Uppy 5.0 , you can finally build the exact upload experience your users
 deserve – modular, accessible, and tailored to your needs. Whether you need a
@@ -73,20 +78,18 @@ It’s not impossible to use them separately, but there is little flexibility.
 ### Modern expectations
 
 Since Uppy’s conception ten years ago, the front-end landscape has changed
-significantly. Uppy is even built with a “vanilla-first" approach, because that
+significantly. Uppy is even built with a “vanilla-first” approach, because that
 was still popular at the time over front-end frameworks.
 
-**These days, developers have high expectations for choosing a library**. In a
-world where everything is component driven, OSS UI libraries are expected to
-offer truly composable building blocks that are light on bundle size, and
-ideally keep accessibility in mind.
+**These days, developers have high expectations when it comes to choosing a
+library**. In a world where everything is component driven, OSS UI libraries are
+expected to offer truly composable building blocks that are light on bundle
+size, and ideally keep accessibility in mind.
 
-If Uppy is to stay relevant in the coming years, a major change is needed in
-the way we let users build their uploading UI.
+If Uppy is to stay relevant in the coming years, a major change is needed in the
+way we let users build their uploading UI.
 
 ## Create the UI of your dreams using headless components and hooks
-
-> TODO: pretty image showing all components
 
 **Uppy 5.0 introduces composable UI components and hooks that provide granular
 control without sacrificing first-class framework support**. These components
@@ -95,13 +98,14 @@ maintaining compatibility with **React, Vue, and Svelte**.
 
 Uppy now offers three ways to build user interfaces:
 
-1. **Pre-composed, plug-and-play components.** Nothing new here. These are
-	basically the old `<Dashboard />` and `<DragDrop />`. The downside of this
-	option is that you cannot customize the UI.
+1. **Pre-composed, plug-and-play components.** Nothing new here. These are the
+   old `<Dashboard />` and `<DragDrop />`. The downside of this option is that
+   you cannot customize the UI.
 2. **Headless components 🆕** These new components are smaller, with styles that
-   are easier to override. You can compose these together with your own components.
-3. **Hooks 🆕** Use hooks to attach our logic to your own components. There are no
-	restrictions. Enjoy the freedom to create a truly tailor-made UI.
+   are easier to override. You can compose these together with your own
+   components.
+3. **Hooks 🆕** Use hooks to attach our logic to your own components. There are
+   no restrictions. Enjoy the freedom to create a truly tailor-made UI.
 
 When using the new components or hooks, you can use the
 **`<UppyContextProvider />`** to provide the Uppy instance to the components and
@@ -163,11 +167,13 @@ function App() {
 ### New components
 
 All components come with sensible defaults, but expose data attributes for
-complete styling control. This approach delivers the flexibility developers need,
-while maintaining the plug-and-play experience Uppy is known for.
+complete styling control. This approach delivers the flexibility developers
+need, while maintaining the plug-and-play experience Uppy is known for.
 
 <Tabs>
   <TabItem value="upload-button" label="UploadButton" default>
+
+Upload button with inner progres bar and conditional pause/resume buttons
 
 **Attributes**
 
@@ -280,7 +286,8 @@ Examples are shown in React, but the same hooks are available in Vue and Svelte.
 <Tabs>
   <TabItem value="use-dropzone" label="useDropzone">
 
-Here is an example that uses hooks to exactly mimic the `<Dropzone />` component.
+Here is an example that uses hooks to exactly mimic the `<Dropzone />`
+component.
 
 ```tsx
 import clsx from 'clsx';
@@ -357,9 +364,9 @@ export function FileInput({ multiple, accept }: FileInputProps) {
 
   <TabItem value="use-remote-source" label="useRemoteSource">
 
-This hook can be used to build a UI for remote sources, such as Dropbox or Google
-Drive. It is a bit more complex than the other hooks, because remote sources
-involve more moving parts.
+This hook can be used to build a UI for remote sources, such as Dropbox or
+Google Drive. It is a bit more complex than the other hooks, because remote
+sources involve more moving parts.
 
 For this hook to work, you must have the
 [`@uppy/remote-sources`](/docs/remote-sources/) or the specific provider plugin
@@ -673,23 +680,28 @@ frameworks. These examples are also available on Uppy’s
 <Tabs>
 	<TabItem value="react" label="React">
 		<iframe
-			style={{ width: '100%', height: '500px' }}
-			src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/react?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+			style={{ width: '100%', height: '600px' }}
+			src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/react?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1"
 		></iframe>
 	</TabItem>
 	<TabItem value="vue" label="Vue">
 		<iframe
-			style={{ width: '100%', height: '500px' }}
-			src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/vue?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+			style={{ width: '100%', height: '600px' }}
+			src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/vue?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1"
 		></iframe>
 	</TabItem>
 	<TabItem value="svelte" label="Svelte">
 		<iframe
-			style={{ width: '100%', height: '500px' }}
-			src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/sveltekit?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+			style={{ width: '100%', height: '600px' }}
+			src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/sveltekit?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1"
 		></iframe>
 	</TabItem>
 </Tabs>
+
+### Give feedback
+
+It is still early days with the new components and hooks and we are looking for
+feedback to improve. Don’t hesitate to reach out to us!
 
 ## Export maps for all packages
 
@@ -698,15 +710,15 @@ All packages now have export maps. This is a breaking change in two cases:
 1. The css imports have changed from `@uppy[package]/dist/styles.min.css` to
    `@uppy[package]/css/styles.min.css`
 2. You were importing something that wasn’t exported from the root, for instance
-   `@uppy/core/lib/foo.js`. You can now only import things we explicitly
-   exported.
+   `@uppy/core/lib/foo.js`. You can now only import things the packages
+   explicitly export.
 
 ### Changed imports for React, Vue and Svelte
 
-Some components, like Dashboard, require a peer dependency to work. However, since
-all components were exported from a single file, you were forced to install all
-peer dependencies – even if you never imported, for instance, the status bar
-component.
+Some components, like Dashboard, require a peer dependency to work. However,
+since all components were exported from a single file, you were forced to
+install all peer dependencies – even if you never imported, for instance, the
+status bar component.
 
 Every component that requires a peer dependency has now been moved to a subpath,
 such as `@uppy/react/dashboard`. As a result, you only have to install the peer
@@ -730,7 +742,7 @@ import Dashboard from '@uppy/react/dashboard';
 
 `@uppy/status-bar` and `@uppy/informer` have been merged into `@uppy/dashboard`.
 These components have always been tightly coupled to `@uppy/dashboard` and with
-the advent of the new headless components and hooks, we want go all in those
+the advent of the new headless components and hooks, we want to go all-in those
 components and remove the confusing, inflexible ones.
 
 ### Old plugins
@@ -744,8 +756,8 @@ components and remove the confusing, inflexible ones.
 
 ## Overhauled tooling
 
-As the components started to age, so did our tooling. We put a lot of
-effect into migrating to a more modern monorepo setup.
+As the components started to age, so did our tooling. We put a lot of effort
+into migrating to a more modern monorepo setup.
 
 A fun example is comparing the
 [before](https://github.com/transloadit/uppy/blob/24fd4158a99aebdb50df8717c9a5d92707d16084/package.json)
@@ -754,7 +766,7 @@ and [after](https://github.com/transloadit/uppy/blob/main/package.json) of our
 
 - Instead of global build scripts with lots of conditionals for packages, every
   package now has its own build script.
-- Use TypeScript instead of Babel for compiling.
+- Use the TypeScript compiler instead of Babel for transpiling.
 - Introduced [Turbo](https://turbo.build/) for faster builds.
 - Migrated from Cypress to
   [Vitest Browser Mode](https://vitest.dev/guide/browser/).
@@ -765,8 +777,6 @@ and [after](https://github.com/transloadit/uppy/blob/main/package.json) of our
 
 ---
 
-That’s all we have for you today! We hope you're excited to play around with this
-latest version of your favorite file uploading companion that loves to play fetch,
-and doesn't chew on your shoes.
-
-TODO: add funny, dog-memed conclusion (+ invite feedback?)
+That’s all we have for you today! We hope you’re excited to play around with
+this latest version of your favorite file uploading companion that loves to play
+fetch, and doesn’t chew on your shoes.
