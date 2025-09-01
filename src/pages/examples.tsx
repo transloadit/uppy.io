@@ -458,23 +458,20 @@ function Page() {
 						<Tabs>
 							<TabItem value="react" label="React">
 								<iframe
-									title="React Example"
-									style={{ width: '100%', height: '500px' }}
-									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/react?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+									style={{ width: '100%', height: '600px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/react?embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1&file=src%2FApp.tsx"
 								></iframe>
 							</TabItem>
 							<TabItem value="vue" label="Vue">
 								<iframe
-									title="Vue Example"
-									style={{ width: '100%', height: '500px' }}
-									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/vue?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+									style={{ width: '100%', height: '600px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/vue?embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1&file=src%2FApp.vue"
 								></iframe>
 							</TabItem>
 							<TabItem value="svelte" label="Svelte">
 								<iframe
-									title="Svelte Example"
-									style={{ width: '100%', height: '500px' }}
-									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/sveltekit?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+									style={{ width: '100%', height: '600px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/sveltekit?embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1&file=src%2Froutes%2F%2Bpage.svelte"
 								></iframe>
 							</TabItem>
 						</Tabs>
