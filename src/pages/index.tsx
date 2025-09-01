@@ -414,8 +414,7 @@ export default function Home(): JSX.Element {
 
 				<section>
 					<Heading as="h2">Comparison of uploaders</Heading>
-					<p>Uppy compared to other open source and paid upload services.</p>
-					<Comparison />
+					<Link to="/docs/comparison">View full comparison table</Link>
 				</section>
 			</main>
 		</Layout>
