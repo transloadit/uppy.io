@@ -79,3 +79,9 @@ tim:
   id: 'tim'
   tagline: 'Transloadit co-founder'
   image_url: 'https://github.com/tim-kos.png'
+prakash:
+  email: 'prakash@transloadit.com'
+  name: 'Prakash'
+  id: 'prakash'
+  tagline: 'Developer'
+  image_url: 'https://github.com/qxprakash.png'

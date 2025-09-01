@@ -10,20 +10,33 @@ import styles from './files-list.module.css';
 
 const fakeFiles = [
 	{
-		id: 'fake-pdf-1',
-		name: 'business-plan.pdf',
-		type: 'application/pdf',
-		size: 1234567,
-		data: new Blob(['fake pdf data'], { type: 'application/pdf' }),
+		id: '1',
+		name: 'sexy-dogs.jpg',
+		type: 'image/jpg',
+		size: 1024 * 1024,
+		data: new Blob([new ArrayBuffer(1024 * 1024)], { type: 'image/jpg' }),
 		source: 'Local',
 		isRemote: false,
 	},
 	{
-		id: 'fake-video-1',
-		name: 'tutorial.mp4',
+		id: '2',
+		name: 'how-to-talk-to-cats.pdf',
+		type: 'application/pdf',
+		size: 1024 * 1024 * 0.5,
+		data: new Blob([new ArrayBuffer(1024 * 1024 * 0.5)], {
+			type: 'application/pdf',
+		}),
+		source: 'Local',
+		isRemote: false,
+	},
+	{
+		id: '3',
+		name: 'tutorial-running-arch-linux-as-a-dog.mp4',
 		type: 'video/mp4',
-		size: 8765432,
-		data: new Blob(['fake video data'], { type: 'video/mp4' }),
+		size: 1024 * 1024 * 23,
+		data: new Blob([new ArrayBuffer(1024 * 1024 * 23)], {
+			type: 'video/mp4',
+		}),
 		source: 'Local',
 		isRemote: false,
 	},
