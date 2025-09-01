@@ -59,8 +59,8 @@ import Dashboard from '@uppy/react/lib/Dashboard';
 import Tus from '@uppy/tus';
 import { useState } from 'react';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/dashboard/css/style.min.css';
 
 function createUppy() {
 	return new Uppy().use(Tus, { endpoint: '/api/upload' });
@@ -416,8 +416,8 @@ import Dashboard from '@uppy/react/lib/Dashboard';
 import Xhr from '@uppy/xhr-upload';
 import { useState } from 'react';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/dashboard/css/style.min.css';
 
 function createUppy() {
 	return new Uppy().use(Xhr, { endpoint: '/api/upload' });

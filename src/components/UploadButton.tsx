@@ -9,7 +9,7 @@ import Tus from '@uppy/tus';
 
 import { BrowserWindow } from './BrowserWindow';
 
-import '@uppy/react/dist/styles.css';
+import '@uppy/react/css/style.css';
 
 import styles from './button.module.css';
 

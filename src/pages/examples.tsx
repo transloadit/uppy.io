@@ -4,7 +4,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import Layout from '@theme/Layout';
 import Admonition from '@theme/Admonition';
 import BrowserOnly from '@docusaurus/BrowserOnly';
-import Dashboard from '@uppy/react/lib/Dashboard';
+import Dashboard from '@uppy/react/dashboard';
 import UppyCore from '@uppy/core';
 import Webcam from '@uppy/webcam';
 import GoogleDrive from '@uppy/google-drive';
@@ -22,16 +22,18 @@ import ScreenCapture from '@uppy/screen-capture';
 import ImageEditor from '@uppy/image-editor';
 import Tus from '@uppy/tus';
 import GoldenRetriever from '@uppy/golden-retriever';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 import locales from '../locales.js';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
-import '@uppy/audio/dist/style.min.css';
-import '@uppy/screen-capture/dist/style.min.css';
-import '@uppy/image-editor/dist/style.min.css';
-import '@uppy/webcam/dist/style.min.css';
-import '@uppy/url/dist/style.min.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/dashboard/css/style.min.css';
+import '@uppy/audio/css/style.min.css';
+import '@uppy/screen-capture/css/style.min.css';
+import '@uppy/image-editor/css/style.min.css';
+import '@uppy/webcam/css/style.min.css';
+import '@uppy/url/css/style.min.css';
 
 import styles from './examples.module.css';
 import Heading from '@theme/Heading';
@@ -326,7 +328,32 @@ function Page() {
 				<Heading className={styles['h1']} as="h1">
 					Examples
 				</Heading>
-
+				<Admonition type="note">
+					Check out our{' '}
+					<Link
+						href="https://github.com/transloadit/uppy/tree/main/examples"
+						target="_blank"
+						rel="noopener"
+					>
+						GitHub examples
+					</Link>{' '}
+					folder for many more examples.
+				</Admonition>
+				<p>Uppy offers three ways to build user interfaces:</p>
+				<ul>
+					<li>
+						<b>Pre-composed, plug-and-play components.</b> Mainly Dashboard and
+						DragDrop. The downside is that you can’t customize the UI.
+					</li>
+					<li>
+						<b>Headless components.</b> Smaller componentes, easier to override
+						the styles or compose them together with your own components.
+					</li>
+					<li>
+						<b>Hooks.</b> Attach our logic to your own components, no
+						restrictions, create a tailor-made UI.
+					</li>
+				</ul>
 				<div className={styles['dashboard-docs-stackblitz']}>
 					<Heading as="h2">Dashboard</Heading>
 					<p>
@@ -423,17 +450,36 @@ function Page() {
 						</BrowserOnly>
 					</div>
 				</section>
-				<Admonition type="note">
-					Check out our{' '}
-					<Link
-						href="https://github.com/transloadit/uppy/tree/main/examples"
-						target="_blank"
-						rel="noopener"
-					>
-						GitHub examples
-					</Link>{' '}
-					folder for many more examples.
-				</Admonition>
+				<section className={styles['stackblitz-section']}>
+					<Heading as="h2">Headless components and hooks</Heading>
+					<p>For when you want a more custom, flexible UI.</p>
+
+					<div>
+						<Tabs>
+							<TabItem value="react" label="React">
+								<iframe
+									title="React Example"
+									style={{ width: '100%', height: '500px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/react?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+								></iframe>
+							</TabItem>
+							<TabItem value="vue" label="Vue">
+								<iframe
+									title="Vue Example"
+									style={{ width: '100%', height: '500px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/vue?file=package.json&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+								></iframe>
+							</TabItem>
+							<TabItem value="svelte" label="Svelte">
+								<iframe
+									title="Svelte Example"
+									style={{ width: '100%', height: '500px' }}
+									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/sveltekit?file=server.js&embed=1&view=editor&showSidebar=1&hideTerminal=1"
+								></iframe>
+							</TabItem>
+						</Tabs>
+					</div>
+				</section>
 			</main>
 		</Layout>
 	);

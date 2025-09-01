@@ -4,7 +4,7 @@ import Uppy from '@uppy/core';
 
 import { BrowserWindow } from './BrowserWindow';
 
-import '@uppy/react/dist/styles.css';
+import '@uppy/react/css/style.css';
 
 import styles from './provider-icon.module.css';
 
