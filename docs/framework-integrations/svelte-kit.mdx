@@ -38,8 +38,8 @@ Create a route where you want to handle uploads:
   import { Dashboard } from '@uppy/svelte';
   import Tus from '@uppy/tus';
 
-  import '@uppy/core/dist/style.min.css';
-  import '@uppy/dashboard/dist/style.min.css';
+  import '@uppy/core/css/style.min.css';
+  import '@uppy/dashboard/css/style.min.css';
 
   let uppy = new Uppy().use(Tus, { endpoint: '/api/upload' });
 </script>
@@ -223,8 +223,8 @@ Create a page with your Uppy instance:
   import { Dashboard } from '@uppy/svelte';
   import XHRUpload from '@uppy/xhr-upload';
 
-  import '@uppy/core/dist/style.min.css';
-  import '@uppy/dashboard/dist/style.min.css';
+  import '@uppy/core/css/style.min.css';
+  import '@uppy/dashboard/css/style.min.css';
 
   let uppy = new Uppy().use(XHRUpload, { endpoint: '/upload' });
 </script>
@@ -243,8 +243,8 @@ If you want to send along other form fields with your upload, you can use
   import XHRUpload from '@uppy/xhr-upload';
   import Form from '@uppy/form';
 
-  import '@uppy/core/dist/style.min.css';
-  import '@uppy/dashboard/dist/style.min.css';
+  import '@uppy/core/css/style.min.css';
+  import '@uppy/dashboard/css/style.min.css';
 
   const uppy = new Uppy().use(XHRUpload, { endpoint: '/upload' });
 

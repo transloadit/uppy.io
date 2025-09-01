@@ -53,8 +53,8 @@ yarn add @uppy/file-input
 import Uppy from '@uppy/core';
 import FileInput from '@uppy/file-input';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/file-input/dist/style.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/file-input/css/style.css';
 
 new Uppy().use(FileInput, { target: '#uppy-file-input' });
 ```
@@ -66,8 +66,8 @@ The `@uppy/file-input` plugin includes some basic styles for use with the
 [example](/examples/xhrupload). You can also choose not to use it and provide
 your own styles instead.
 
-Import general Core styles from `@uppy/core/dist/style.css` first, then add the
-File Input styles from `@uppy/file-input/dist/style.css`. A minified version is
+Import general Core styles from `@uppy/core/css/style.css` first, then add the
+File Input styles from `@uppy/file-input/css/style.css`. A minified version is
 also available as `style.min.css` at the same path. The way to do import depends
 on your build system.
 

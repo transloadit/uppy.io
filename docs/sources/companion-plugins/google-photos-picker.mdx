@@ -29,14 +29,6 @@ See also [Google Drive Picker](./google-drive-picker.mdx).
 When you want to let users import files from their
 [Google Photos](https://photos.google.com) account.
 
-You should use this plugin over our other
-[Google Photos plugin](/docs/google-photos) if you want to avoid using a
-restricted API scope, which requires CASA Tier 2 compliance.
-
-The downside of using the Picker UI made by Google is less controls, inability
-to select folders, downloading an additional bundle, and a less consistent user
-experience.
-
 <Tabs>
   <TabItem value="npm" label="NPM" default>
 
@@ -90,8 +82,8 @@ import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import GooglePhotosPicker from '@uppy/google-photos-picker';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/dashboard/css/style.min.css';
 
 new Uppy()
 	.use(Dashboard, { inline: true, target: '#dashboard' })

@@ -83,8 +83,8 @@ import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import GoogleDrive from '@uppy/google-drive';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/dashboard/css/style.min.css';
 
 new Uppy()
 	.use(Dashboard, { inline: true, target: '#dashboard' })
@@ -93,20 +93,9 @@ new Uppy()
 
 ### Use with Transloadit
 
-```js
-import { COMPANION_URL, COMPANION_ALLOWED_HOSTS } from '@uppy/transloadit';
-import GoogleDrive from '@uppy/google-drive';
-
-uppy.use(GoogleDrive, {
-	companionUrl: COMPANION_URL,
-	companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
-});
-```
-
-You may also hit rate limits, because the OAuth application is shared between
-everyone using Transloadit.
-
-To solve that, you can use your own OAuth keys with Transloadit’s hosted
+Transloadit’s OAuth2 key
+[no longer works](https://transloadit.com/blog/2025/02/the-new-google-situation/).
+This means that you have to use your own OAuth keys with Transloadit’s hosted
 Companion servers by using Transloadit Template Credentials. [Create a Template
 Credential][template-credentials] on the Transloadit site. Select “Companion
 OAuth” for the service, and enter the key and secret for the provider you want
@@ -125,6 +114,12 @@ uppy.use(GoogleDrive, {
 	},
 });
 ```
+
+Note that even if you use your own credentials, Google’s OAuth2 Consent dialog
+will still show “transloadit.com” to your users, e.g. “transloadit.com wants to
+access your Google account” until your app has been verified, after which it
+should show what’s in your “App name” form field in the
+[Google developer console](https://console.cloud.google.com/auth/branding).
 
 ### Use in Companion
 

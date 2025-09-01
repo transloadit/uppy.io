@@ -73,8 +73,8 @@ yarn add @uppy/core @uppy/dashboard
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/core/css/style.min.css';
+import '@uppy/dashboard/css/style.min.css';
 
 new Uppy().use(Dashboard, { inline: true, target: '#uppy-dashboard' });
 ```
@@ -730,8 +730,6 @@ all Uppy plugins.
   [Facebook](https://facebook.com).
 - [`@uppy/google-drive`](/docs/google-drive) — import from
   [Google Drive](https://drive.google.com).
-- [`@uppy/google-photos`](/docs/google-photos) — import from
-  [Google Photos](https://photos.google.com).
 - [`@uppy/google-drive-picker`](/docs/google-drive-picker) — import from
   [Google Drive](https://drive.google.com) using the new Picker API.
 - [`@uppy/google-photos-picker`](/docs/google-photos-picker) — import from
