@@ -13745,15 +13745,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-lint-no-unused-definitions@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "remark-lint-no-unused-definitions@npm:4.0.0"
+"remark-lint-no-unused-definitions@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "remark-lint-no-unused-definitions@npm:4.0.2"
   dependencies:
     "@types/mdast": "npm:^4.0.0"
     devlop: "npm:^1.0.0"
     unified-lint-rule: "npm:^3.0.0"
-    unist-util-visit: "npm:^5.0.0"
-  checksum: 10/cd8ef0d0bfbdee19cdd35efb1e35bd8123266ef3527e7b30111b0d5c0ecbe7381009da4204db79a5dd0aa5c24390d839f23a6f7f4d3462ad132148e3a91ab94f
+    unist-util-visit-parents: "npm:^6.0.0"
+  checksum: 10/fce0d8cc23b39481584ecc3b0a282210fdda59d7742138bc30ea7f2464624940276e17f67e9b9d0d13c0ff54f36ea33717aa65bd8dbdb0666f131c8943288fcc
   languageName: node
   linkType: hard
 
@@ -16101,7 +16101,7 @@ __metadata:
     remark-lint-no-shortcut-reference-image: "npm:^3.0.0"
     remark-lint-no-shortcut-reference-link: "npm:^3.0.0"
     remark-lint-no-undefined-references: "npm:^4.0.0"
-    remark-lint-no-unused-definitions: "npm:^4.0.0"
+    remark-lint-no-unused-definitions: "npm:^4.0.2"
     remark-lint-ordered-list-marker-style: "npm:^3.0.0"
     remark-mdx: "npm:^2.1.2"
     remark-preset-lint-consistent: "npm:^5.1.1"
