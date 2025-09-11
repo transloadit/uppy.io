@@ -67,7 +67,6 @@ const config = {
 						from: [
 							'/docs/react/status-bar',
 							'/docs/react/drag-drop',
-							'/docs/react/file-input',
 							'/docs/react/progress-bar',
 							'/docs/react/dashboard',
 							'/docs/react/dashboard-modal',
