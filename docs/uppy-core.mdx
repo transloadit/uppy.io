@@ -1165,7 +1165,7 @@ uppy.on('upload-success', (file, response) => {
 
 #### `complete`
 
-Fired when all uploads are complete.
+Fired when an upload is complete and all files belonging to that upload have completed uploading. Note that this event also gets fired if some or all files have failed. It is emitted once per upload and contains the unique ID of the particular upload.
 
 The `result` parameter is an object with arrays of `successful` and `failed`
 files, as in [`uppy.upload()`](#upload)’s return value.
