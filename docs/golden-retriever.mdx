@@ -117,7 +117,7 @@ store references to large files.
 
    if ('serviceWorker' in navigator) {
    	navigator.serviceWorker
-   		.register('/sw.js') // path to your bundled service worker with GoldenRetriever service worker
+   		.register('/sw.js', { type: 'module' }) // path to your bundled service worker which imports GoldenRetriever service worker
    		.then((registration) => {
    			console.log(
    				'ServiceWorker registration successful with scope: ',
