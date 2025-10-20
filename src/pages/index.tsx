@@ -19,6 +19,7 @@ import ImageEditor from '@uppy/image-editor';
 import Tus from '@uppy/tus';
 import CodeBlock from '@theme/CodeBlock';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import Comparison from './comparison.md';
 
 import IconReact from '../../static/img/react.svg';
 import IconVue from '../../static/img/vue.svg';
@@ -409,6 +410,11 @@ export default function Home(): JSX.Element {
 							Get started
 						</Link>
 					</div>
+				</section>
+
+				<section>
+					<Heading as="h2">Comparison of uploaders</Heading>
+					<Link to="/docs/comparison">View full comparison table</Link>
 				</section>
 			</main>
 		</Layout>
