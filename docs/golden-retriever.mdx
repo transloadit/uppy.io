@@ -103,6 +103,23 @@ store references to large files.
    For Webpack, check out
    [serviceworker-webpack-plugin](https://github.com/oliviertassinari/serviceworker-webpack-plugin).
 
+   For vite, you can add this to your `vite.config.ts`:
+   ```ts
+     build: {
+      rollupOptions: {
+        input: {
+          main: './index.html',
+          sw: './sw.js',
+        },
+        output: {
+          entryFileNames: (chunk) => {
+            if (chunk.name === 'sw') return 'sw.js' // force predictable filename
+            return 'assets/[name].[hash].js'
+          },
+        },
+      },
+    },
+   ```
    :::
 
    ```js title="sw.js"
