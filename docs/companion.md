@@ -730,6 +730,14 @@ Default: `false`.
 Set this to `true` to enable the Google Picker (Photos / Drive) functionality.
 Default: `false`.
 
+#### `uploadHeaders` `COMPANION_UPLOAD_HEADERS`
+
+An object with key-value pairs of static headers that will be passed along from
+Companion to the upload *destination*. Can be used for authenticating requests.
+For the environment variable, use a JSON-encoded string.
+
+Default: `{}`.
+
 ### Events
 
 The object returned by `companion.app()` also has a property `companionEmitter`
