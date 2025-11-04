@@ -13,7 +13,7 @@
 <meta name="google-site-verification" content="JxARoHXoCI8bD07pLV_u3z6xpuWNcSIZIcHEytyCkUc">
 <script src="https://plausible.io/js/script.js" async defer="defer" data-domain="uppy.io"></script>
 <script src="https://buttons.github.io/buttons.js" async defer="defer"></script><link rel="stylesheet" href="/assets/css/styles.1a478289.css">
-<script src="/assets/js/runtime~main.0e5ae910.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.b8019479.js" defer="defer"></script>
 <script src="/assets/js/main.da26fa0f.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -475,6 +475,11 @@ Default: <code>false</code>.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="enablegooglepickerendpoint-companion_enable_google_picker_endpoint"><code>enableGooglePickerEndpoint</code> <code>COMPANION_ENABLE_GOOGLE_PICKER_ENDPOINT</code><a class="hash-link" aria-label="Direct link to enablegooglepickerendpoint-companion_enable_google_picker_endpoint" title="Direct link to enablegooglepickerendpoint-companion_enable_google_picker_endpoint" href="/docs/companion/#enablegooglepickerendpoint-companion_enable_google_picker_endpoint">​</a></h4>
 <p>Set this to <code>true</code> to enable the Google Picker (Photos / Drive) functionality.
 Default: <code>false</code>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="uploadheaders-companion_upload_headers"><code>uploadHeaders</code> <code>COMPANION_UPLOAD_HEADERS</code><a class="hash-link" aria-label="Direct link to uploadheaders-companion_upload_headers" title="Direct link to uploadheaders-companion_upload_headers" href="/docs/companion/#uploadheaders-companion_upload_headers">​</a></h4>
+<p>An object with key-value pairs of static headers that will be passed along from
+Companion to the upload <em>destination</em>. Can be used for authenticating requests.
+For the environment variable, use a JSON-encoded string.</p>
+<p>Default: <code>{}</code>.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="events">Events<a class="hash-link" aria-label="Direct link to Events" title="Direct link to Events" href="/docs/companion/#events">​</a></h3>
 <p>The object returned by <code>companion.app()</code> also has a property <code>companionEmitter</code>
 which is an <code>EventEmitter</code> that emits the following events:</p>
