@@ -4958,14 +4958,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/dashboard@npm:5.0.3, @uppy/dashboard@npm:^5.0.0, @uppy/dashboard@npm:^5.0.2":
-  version: 5.0.3
-  resolution: "@uppy/dashboard@npm:5.0.3"
+"@uppy/dashboard@npm:5.0.4, @uppy/dashboard@npm:^5.0.0, @uppy/dashboard@npm:^5.0.2":
+  version: 5.0.4
+  resolution: "@uppy/dashboard@npm:5.0.4"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
-    "@uppy/provider-views": "npm:^5.1.1"
+    "@uppy/provider-views": "npm:^5.1.2"
     "@uppy/thumbnail-generator": "npm:^5.0.2"
-    "@uppy/utils": "npm:^7.1.1"
+    "@uppy/utils": "npm:^7.1.3"
     classnames: "npm:^2.2.6"
     lodash: "npm:^4.17.21"
     nanoid: "npm:^5.0.9"
@@ -4973,7 +4973,7 @@ __metadata:
     shallow-equal: "npm:^3.0.0"
   peerDependencies:
     "@uppy/core": ^5.1.1
-  checksum: 10/7af27925363299a4481e283a51030393aa5728fedb9b464796726f141e29378290f43d2fb0151499a7d990b486d11503e715f87823226a14b3fe1271d057966f
+  checksum: 10/1a3b74c1ee7415edc3d2c16c2999593f0ff42d79018f9d6030bb307a521f6275abec9144bb2e97e934fe069c0758053b80232db0d00e72a5843319d0148e219a
   languageName: node
   linkType: hard
 
@@ -5153,7 +5153,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/provider-views@npm:5.1.2, @uppy/provider-views@npm:^5.0.2, @uppy/provider-views@npm:^5.1.1":
+"@uppy/provider-views@npm:5.1.2, @uppy/provider-views@npm:^5.0.2, @uppy/provider-views@npm:^5.1.1, @uppy/provider-views@npm:^5.1.2":
   version: 5.1.2
   resolution: "@uppy/provider-views@npm:5.1.2"
   dependencies:
@@ -5317,13 +5317,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^7.0.0, @uppy/utils@npm:^7.0.2, @uppy/utils@npm:^7.1.1, @uppy/utils@npm:^7.1.2":
-  version: 7.1.2
-  resolution: "@uppy/utils@npm:7.1.2"
+"@uppy/utils@npm:^7.0.0, @uppy/utils@npm:^7.0.2, @uppy/utils@npm:^7.1.1, @uppy/utils@npm:^7.1.2, @uppy/utils@npm:^7.1.3":
+  version: 7.1.3
+  resolution: "@uppy/utils@npm:7.1.3"
   dependencies:
     lodash: "npm:^4.17.21"
     preact: "npm:^10.5.13"
-  checksum: 10/43e025ace686d0a32eb0ea3332aff0e1eeec4d323305ffeb4839747b7ee4d20a8d30c768153ce8712e5faf2ede81debec4a98dd9a2761e440b5a8faab3931f0c
+  checksum: 10/835e4ff805aab77c849473722d8879e49fcd73d9c47df7a1dabe85773ae90ff4a6a5007c21a522b7abbca6f14d093a9df376a782ae11ea0e0dbd607fea7517c4
   languageName: node
   linkType: hard
 
@@ -17788,8 +17788,8 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 5.1.10
-  resolution: "uppy@npm:5.1.10"
+  version: 5.1.11
+  resolution: "uppy@npm:5.1.11"
   dependencies:
     "@uppy/audio": "npm:3.0.1"
     "@uppy/aws-s3": "npm:5.0.2"
@@ -17797,7 +17797,7 @@ __metadata:
     "@uppy/companion-client": "npm:5.1.1"
     "@uppy/compressor": "npm:3.0.2"
     "@uppy/core": "npm:5.1.1"
-    "@uppy/dashboard": "npm:5.0.3"
+    "@uppy/dashboard": "npm:5.0.4"
     "@uppy/drag-drop": "npm:5.0.2"
     "@uppy/drop-target": "npm:4.0.1"
     "@uppy/dropbox": "npm:5.0.1"
@@ -17825,7 +17825,7 @@ __metadata:
     "@uppy/webdav": "npm:1.0.1"
     "@uppy/xhr-upload": "npm:5.0.2"
     "@uppy/zoom": "npm:4.0.1"
-  checksum: 10/2bc0aba8147b727a9ae0cbbfc07d6659541da9393025f02e8bb66ecacd5871a305a26a8ec4b1865ed99f63fd4f7daa0e290ed8705ef9813bd68a2090bd902533
+  checksum: 10/dc3a1e993fe4326dd278601365660c475539c19914fae192f08d23cd3a02a837d0d0c15132c68856cabc44d581034dcb6f8dd9416750729719c8fca28b50f253
   languageName: node
   linkType: hard
 
