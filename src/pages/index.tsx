@@ -1,24 +1,29 @@
 import React, { useState, Fragment } from 'react';
+
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
-import Dashboard from '@uppy/react/dashboard';
-import Uppy from '@uppy/core';
-import Webcam from '@uppy/webcam';
-import GoogleDrivePicker from '@uppy/google-drive-picker';
-import GooglePhotosPicker from '@uppy/google-photos-picker';
-import Zoom from '@uppy/zoom';
-import Dropbox from '@uppy/dropbox';
-import OneDrive from '@uppy/onedrive';
-import Unsplash from '@uppy/unsplash';
-import Url from '@uppy/url';
-import Box from '@uppy/box';
-import Audio from '@uppy/audio';
-import ScreenCapture from '@uppy/screen-capture';
-import ImageEditor from '@uppy/image-editor';
-import Tus from '@uppy/tus';
 import CodeBlock from '@theme/CodeBlock';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+
+import Dashboard from '@uppy/react/dashboard';
+import {
+	Uppy,
+	Webcam,
+	Zoom,
+	Dropbox,
+	OneDrive,
+	Unsplash,
+	Url,
+	Box,
+	Audio,
+	ScreenCapture,
+	ImageEditor,
+	Tus,
+} from 'uppy';
+import GoogleDrivePicker from '@uppy/google-drive-picker';
+import GooglePhotosPicker from '@uppy/google-photos-picker';
+
 import Comparison from './comparison.md';
 
 import IconReact from '../../static/img/react.svg';
