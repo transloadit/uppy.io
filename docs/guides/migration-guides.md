@@ -161,7 +161,7 @@ uppy.use(Dashboard, {
    - Use `@uppy/dashboard` for a complete, ready-to-use UI solution
 3. Replace your existing components with custom implementations using the hooks
    or Dashboard
-4. See [examples/](../examples/) for complete implementation examples
+4. See the live [examples](/examples) for complete implementation examples
 
 ### Export maps for all packages
 
@@ -360,10 +360,9 @@ const { someThingMyBackendReturns } = uppy.getFile(id).response.body!;
 
 - `@uppy/aws-s3` and `@uppy/aws-s3-multipart` have been combined into a single
   plugin. You should now only use `@uppy/aws-s3` with the new option,
-  [`shouldUseMultipart()`](/docs/aws-s3-multipart/#shouldusemultipartfile), to
-  allow you to switch between regular and multipart uploads. You can read more
-  about this in the
-  [plugin docs](https://uppy.io/docs/aws-s3-multipart/#when-should-i-use-it).
+  [`shouldUseMultipart()`](/docs/aws-s3/#shouldusemultipartfile), to allow you
+  to switch between regular and multipart uploads. You can read more about this
+  in the [plugin docs](/docs/aws-s3/#when-should-i-use-it).
 - Remove deprecated `prepareUploadParts` option.
 - Companion’s options (`companionUrl`, `companionHeaders`, and
   `companionCookieRules`) are renamed to more generic names (`endpoint`,
@@ -563,7 +562,7 @@ gist for added information and help on how to do that.
 
 ### Robodog is deprecated
 
-See the [Robodog migration guide](#Migrate-from-Robodog-to-Uppy-plugins).
+See the [Robodog migration guide](#migrate-from-robodog-to-uppy-plugins).
 
 ### `@uppy/core`
 
@@ -621,7 +620,7 @@ uppy.use(Dropbox, {
 
 ### `@uppy/aws-s3-multipart`
 
-#### Make `headers` inside the return value of [`prepareUploadParts`](/docs/aws-s3-multipart/#prepareUploadParts-file-partData) part-indexed too.
+#### Make `headers` inside the return value of [`signPart`](/docs/aws-s3/#signpartfile-partdata) part-indexed too.
 
 This is to allow custom headers to be set per part. See this
 [issue](https://github.com/transloadit/uppy/issues/3881) for details.
@@ -641,7 +640,7 @@ Rename `metaFields` option to `allowedMetaFields`. Counter intuitively,
 `metaFields` is for _filtering_ which `metaFields` to send along with the
 request, not for adding extra meta fields to a request. As a lot of people were
 confused by this, and the name overlaps with the
-[`metaFields` option from Dashboard](/docs/dashboard/#metaFields), we renamed
+[`metaFields` option from Dashboard](/docs/dashboard/#metafields), we renamed
 it.
 
 To migrate: use `allowedMetaFields`.
@@ -730,8 +729,8 @@ confusion we moved the `s3` settings to the root settings object.
 
 ### Removed compatibility for legacy Custom Provider implementations
 
-[Custom Provider](/docs/companion/#Adding-custom-providers) implementations must
-use the Promise API. The callback API is no longer supported.
+[Custom Provider](/docs/companion/#how-to-add-custom-providers) implementations
+must use the Promise API. The callback API is no longer supported.
 
 ### Default to no ACL for AWS S3
 
@@ -976,9 +975,9 @@ import type { PluginOptions, UIPlugin, PluginTarget } from '@uppy/core';
 
 #### Event types
 
-[`@uppy/core`][core] provides an [`.on`](/docs/uppy/#uppy-on-39-event-39-action)
-method to listen to [events](/docs/uppy/#Events). The types for these events
-were loose and allowed for invalid events to be passed, such as
+[`@uppy/core`][core] provides an [`.on`](/docs/uppy/#onevent-action) method to
+listen to [events](/docs/uppy/#events). The types for these events were loose
+and allowed for invalid events to be passed, such as
 `uppy.on('upload-errrOOOoooOOOOOrrrr')`.
 
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
@@ -1023,14 +1022,14 @@ uppy.on('dashboard:file-edit-start', (file) => {
 });
 ```
 
-### Changes to pre-signing URLs for [`@uppy/aws-s3-multipart`][aws-s3-multipart]
+### Changes to pre-signing URLs for [`@uppy/aws-s3`][aws-s3]
 
 See the Uppy 2.0.0 announcement post about the batch
-[pre-signing URLs change](/blog/2021/08/2.0/#Batch-pre-signing-URLs-for-AWS-S3-Multipart).
+[pre-signing URLs change](/blog/2021/08/2.0/#batch-pre-signing-urls-for-aws-s3-multipart).
 
 `prepareUploadPart` has been renamed to
-[`prepareUploadParts`](/docs/aws-s3-multipart/#prepareUploadParts-file-partData)
-(plural). See the documentation link on how to use this function.
+[`signPart`](/docs/aws-s3/#signpartfile-partdata). See the documentation link on
+how to use this function.
 
 ### Removed the `.run` method from [`@uppy/core`][core]
 
@@ -1070,7 +1069,7 @@ Since v2, you now need to be running `node.js >= v10.20.1` to use Companion.
 
 ### ProviderOptions
 
-In v2 the `google` and `microsoft` [providerOptions](/docs/companion/#Options)
+In v2 the `google` and `microsoft` [providerOptions](/docs/companion/#options)
 have been changed to `drive` and `onedrive` respectively.
 
 ### OAuth Redirect URIs
@@ -1105,5 +1104,5 @@ to:
 [core]: /docs/uppy/
 [xhr]: /docs/xhr-upload/
 [dashboard]: /docs/dashboard/
-[aws-s3-multipart]: /docs/aws-s3-multipart/
+[aws-s3]: /docs/aws-s3/
 [tus]: /docs/tus/

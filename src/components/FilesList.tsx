@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { UppyContextProvider, FilesList } from '@uppy/react';
-import Uppy, { MinimalRequiredUppyFile, UppyFile } from '@uppy/core';
+import { Uppy } from 'uppy';
 
 import { BrowserWindow } from './BrowserWindow';
 
 import '@uppy/react/css/style.css';
 
 import styles from './files-list.module.css';
+
+type UploadableFile = Parameters<InstanceType<typeof Uppy>['addFile']>[0];
 
 const fakeFiles = [
 	{
@@ -41,12 +43,11 @@ const fakeFiles = [
 		isRemote: false,
 	},
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-] satisfies MinimalRequiredUppyFile<any, any>[];
+] satisfies UploadableFile[];
 
 export default function FilesListDemo() {
 	const [uppy] = useState(() => new Uppy());
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const [files, setFiles] = useState<MinimalRequiredUppyFile<any, any>[]>([]);
+	const [files, setFiles] = useState<UploadableFile[]>([]);
 
 	useEffect(() => {
 		setFiles(fakeFiles);

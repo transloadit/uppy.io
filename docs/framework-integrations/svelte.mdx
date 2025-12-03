@@ -45,10 +45,10 @@ Uppy offers three ways to build user interfaces:
 
 1. **Pre-composed, plug-and-play components.** Mainly `<Dashboard />` and
    `<DragDrop />`. The downside is that you can’t customize the UI.
-2. **Headless components.** Smaller componentes, easier to override the styles
-   or compose them together with your own components.
-3. **Hooks.** Attach our logic to your own components, no restrictions, create a
-   tailor-made UI.
+2. **Headless components** (Svelte 5 only). Smaller componentes, easier to
+   override the styles or compose them together with your own components.
+3. **Hooks** (Svelte 5 only). Attach our logic to your own components, no
+   restrictions, create a tailor-made UI.
 
 ### Components
 
@@ -56,21 +56,24 @@ Pre-composed, plug-and-play components:
 
 - `<Dashboard />` renders [`@uppy/dashboard`](/docs/dashboard)
 - `<DashboardModal />` renders [`@uppy/dashboard`](/docs/dashboard) as a modal
-- `<DragDrop />` renders [`@uppy/drag-drop`](/docs/drag-drop)
-- `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/progress-bar)
+- `<DragDrop />` renders [`@uppy/drag-drop`](/docs/drag-drop) - Removed in favor
+  of Dropzone and useDropzone in Uppy 5.0
+- `<ProgressBar />` renders [`@uppy/progress-bar`](/docs/progress-bar) - Removed
+  in Uppy 5.0
 - `<StatusBar />` renders [`@uppy/status-bar`](/docs/status-bar)
 
 ### Headless Components
 
 :::tip
 
-Play around with the Svelte headless components in [StackBlitz](#todo)
+Play around with the Svelte headless components in StackBlitz
 
 :::
 
 :::note
 
-All components must be placed within a `UppyContextProvider`.
+All components must be placed within a `UppyContextProvider`. Headless
+components only work with Svelte 5
 
 :::
 
@@ -110,13 +113,14 @@ status/progress.
 
 :::tip
 
-Play around with the Svelte headless hooks in [StackBlitz](#todo)
+Play around with the Svelte headless hooks in StackBlitz
 
 :::
 
 :::note
 
-All hooks must be used within a `UppyContextProvider`.
+All hooks must be used within a `UppyContextProvider`. Hooks only work in
+Svelte 5.
 
 :::
 

@@ -18,8 +18,8 @@ You can also use a third-party store:
 
 ## Using stores
 
-To use a store, pass an instance to the
-[`store` option](/docs/uppy#store-defaultstore) in the Uppy constructor:
+To use a store, pass an instance to the [`store` option](/docs/uppy/#store) in
+the Uppy constructor:
 
 ```js
 import DefaultStore from '@uppy/store-default';

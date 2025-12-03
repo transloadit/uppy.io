@@ -1,24 +1,29 @@
 import React, { useState, Fragment } from 'react';
+
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
-import Dashboard from '@uppy/react/dashboard';
-import Uppy from '@uppy/core';
-import Webcam from '@uppy/webcam';
-import GoogleDrivePicker from '@uppy/google-drive-picker';
-import GooglePhotosPicker from '@uppy/google-photos-picker';
-import Zoom from '@uppy/zoom';
-import Dropbox from '@uppy/dropbox';
-import OneDrive from '@uppy/onedrive';
-import Unsplash from '@uppy/unsplash';
-import Url from '@uppy/url';
-import Box from '@uppy/box';
-import Audio from '@uppy/audio';
-import ScreenCapture from '@uppy/screen-capture';
-import ImageEditor from '@uppy/image-editor';
-import Tus from '@uppy/tus';
 import CodeBlock from '@theme/CodeBlock';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+
+import {
+	Uppy,
+	Webcam,
+	Zoom,
+	Dropbox,
+	OneDrive,
+	Unsplash,
+	Url,
+	Box,
+	Audio,
+	ScreenCapture,
+	ImageEditor,
+	Tus,
+	GoogleDrivePicker,
+	GooglePhotosPicker,
+} from 'uppy';
+import Dashboard from '@uppy/react/dashboard';
+
 import Comparison from './comparison.md';
 
 import IconReact from '../../static/img/react.svg';
@@ -33,13 +38,7 @@ import IconFolder from '../../static/img/folder.svg';
 import IconWrench from '../../static/img/wrench.svg';
 import IconUppy from '../../static/img/uppy.svg';
 
-import '@uppy/core/css/style.min.css';
-import '@uppy/dashboard/css/style.min.css';
-import '@uppy/audio/css/style.min.css';
-import '@uppy/screen-capture/css/style.min.css';
-import '@uppy/image-editor/css/style.min.css';
-import '@uppy/webcam/css/style.min.css';
-import '@uppy/url/css/style.min.css';
+import 'uppy/dist/uppy.min.css';
 
 import styles from './index.module.css';
 
@@ -50,12 +49,7 @@ const googlePickerClientId =
 const googlePickerApiKey = 'AIzaSyC6m6CZEFiTtSkBfNf_-PvtCxmDMiAgfag';
 const googlePickerAppId = '458443975467';
 
-const dashboardCode = `import Uppy  from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import RemoteSources from '@uppy/google-drive'
-import ImageEditor from '@uppy/image-editor'
-import Webcam from '@uppy/webcam'
-import Tus from '@uppy/tus'
+const dashboardCode = `import { Uppy, Dashboard, RemoteSources, ImageEditor, Webcam, Tus } from 'uppy'
 
 const uppy = new Uppy()
   .use(Dashboard, { target: '.DashboardContainer', inline: true })
@@ -66,8 +60,7 @@ const uppy = new Uppy()
 `;
 
 const reactCode = `import React, { useEffect } from 'react'
-import Uppy from '@uppy/core'
-import Webcam from '@uppy/webcam'
+import { Uppy, Webcam } from 'uppy'
 import { Dashboard } from '@uppy/react'
 
 const uppy = new Uppy().use(Webcam)
@@ -78,8 +71,7 @@ function Component () {
 `;
 
 const vueCode = `<script setup>
-import Uppy from '@uppy/core'
-import Webcam from '@uppy/webcam'
+import { Uppy, Webcam } from 'uppy'
 import { Dashboard } from '@uppy/vue'
 
 const uppy = new Uppy().use(Webcam)
@@ -120,8 +112,7 @@ const svelteCode = `<main>
 <script>
 import { Dashboard } from '@uppy/svelte'
 
-import Uppy from '@uppy/core'
-import Webcam from '@uppy/webcam'
+import { Uppy, Webcam } from 'uppy'
 
 const uppy = new Uppy().use(Webcam);
 </script>

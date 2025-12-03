@@ -5,35 +5,31 @@ import Layout from '@theme/Layout';
 import Admonition from '@theme/Admonition';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import Dashboard from '@uppy/react/dashboard';
-import UppyCore from '@uppy/core';
-import Webcam from '@uppy/webcam';
-import GoogleDrive from '@uppy/google-drive';
-import GoogleDrivePicker from '@uppy/google-drive-picker';
-import GooglePhotosPicker from '@uppy/google-photos-picker';
-import Instagram from '@uppy/instagram';
-import Dropbox from '@uppy/dropbox';
-import OneDrive from '@uppy/onedrive';
-import Unsplash from '@uppy/unsplash';
-import Zoom from '@uppy/zoom';
-import Url from '@uppy/url';
-import Box from '@uppy/box';
-import Audio from '@uppy/audio';
-import ScreenCapture from '@uppy/screen-capture';
-import ImageEditor from '@uppy/image-editor';
-import Tus from '@uppy/tus';
-import GoldenRetriever from '@uppy/golden-retriever';
+import {
+	Audio,
+	Box,
+	Dropbox,
+	GoogleDrive,
+	GoogleDrivePicker,
+	GooglePhotosPicker,
+	GoldenRetriever,
+	ImageEditor,
+	Instagram,
+	OneDrive,
+	ScreenCapture,
+	Tus,
+	Unsplash,
+	Uppy as UppyCore,
+	Url,
+	Webcam,
+	Zoom,
+} from 'uppy';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 import locales from '../locales.js';
 
-import '@uppy/core/css/style.min.css';
-import '@uppy/dashboard/css/style.min.css';
-import '@uppy/audio/css/style.min.css';
-import '@uppy/screen-capture/css/style.min.css';
-import '@uppy/image-editor/css/style.min.css';
-import '@uppy/webcam/css/style.min.css';
-import '@uppy/url/css/style.min.css';
+import 'uppy/dist/uppy.min.css';
 
 import styles from './examples.module.css';
 import Heading from '@theme/Heading';

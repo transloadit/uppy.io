@@ -214,7 +214,7 @@ The object you can pass or return from a function has this structure:
   - `notify_url` _(optional)_ is a pingback with the assembly status as JSON.
     For instance, if you don’t want to block the user experience by letting them
     wait for your template to complete with
-    [`waitForEncoding`](#waitForEncoding), but you do want to want to
+    [`waitForEncoding`](#waitforencoding), but you do want to want to
     asynchrounously have an update, you can provide an URL which will be
     “pinged” with the assembly status.
 - `signature` _(optional, but recommended)_ is a cryptographic signature to
@@ -474,8 +474,8 @@ uppy.use(Transloadit, {
 You can also pass an array of field names to send global or file metadata along
 to the Assembly. Global metadata is set using the
 [`meta` option](/docs/uppy/#meta) in the Uppy constructor, or using the
-[`setMeta` method](/docs/uppy/#uppy-setMeta-data). File metadata is set using
-the [`setFileMeta`](/docs/uppy/#uppy-setFileMeta-fileID-data) method. The
+[`setMeta` method](/docs/uppy/#setmetadata). File metadata is set using the
+[`setFileMeta`](/docs/uppy/#setfilemetafileid-data) method. The
 [Form](/docs/form) plugin also sets global metadata based on the values of
 `<input />`s in the form, providing a handy way to use values from HTML form
 fields:
@@ -491,7 +491,7 @@ uppy.use(Transloadit, {
 ```
 
 Form fields can also be computed dynamically using custom logic, by using the
-[`getAssemblyOptions(file)`](/docs/transloadit/#getAssemblyOptions-file) option.
+[`getAssemblyOptions(file)`](/docs/transloadit/#getassemblyoptions) option.
 
 </details>
 
@@ -619,7 +619,7 @@ uppy.on('transloadit:result', (stepName, result) => {
 
 #### `transloadit:complete`
 
-Fired when an Assembly completed. Requires [`waitForEncoding`](#waitForEncoding)
+Fired when an Assembly completed. Requires [`waitForEncoding`](#waitforencoding)
 to be set.
 
 **Parameters**

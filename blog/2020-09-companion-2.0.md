@@ -1,7 +1,8 @@
 ---
 title: 'Companion 2.0 is here'
 date: 2020-09-09
-author: ife
+authors:
+  - ife
 published: true
 slug: '2020/09/companion-2.0'
 ---
