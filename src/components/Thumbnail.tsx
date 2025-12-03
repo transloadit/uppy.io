@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { UppyContextProvider, Thumbnail, useUppyState } from '@uppy/react';
-import Uppy from '@uppy/core';
+import { Uppy } from 'uppy';
 
 import { BrowserWindow } from './BrowserWindow';
 

@@ -56,8 +56,6 @@
 		"@docusaurus/preset-classic": "^3.0.0",
 		"@mdx-js/react": "^3.0.0",
 		"@uidotdev/usehooks": "^2.4.1",
-		"@uppy/google-drive-picker": "^1.0.0",
-		"@uppy/google-photos-picker": "^1.0.0",
 		"@uppy/react": "^5.0.0",
 		"clsx": "^1.1.1",
 		"prism-react-renderer": "^2.1.0",

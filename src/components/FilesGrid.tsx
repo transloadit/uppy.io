@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { UppyContextProvider, FilesGrid } from '@uppy/react';
-import Uppy, { MinimalRequiredUppyFile, UppyFile } from '@uppy/core';
+import { Uppy } from 'uppy';
 
 import { BrowserWindow } from './BrowserWindow';
 
 import '@uppy/react/css/style.css';
 
 import styles from './files-grid.module.css';
+
+type UploadableFile = Parameters<InstanceType<typeof Uppy>['addFile']>[0];
 
 const fakeFiles = [
 	{
@@ -32,11 +34,10 @@ const fakeFiles = [
 		isRemote: false,
 	},
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-] satisfies MinimalRequiredUppyFile<any, any>[];
+] satisfies UploadableFile[];
 
 export default function FilesGridDemo() {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const [files, setFiles] = useState<MinimalRequiredUppyFile<any, any>[]>([]);
+	const [files, setFiles] = useState<UploadableFile[]>([]);
 	const [uppy] = useState(() => {
 		const uppy = new Uppy();
 		return uppy;
