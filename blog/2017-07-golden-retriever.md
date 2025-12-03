@@ -15,8 +15,9 @@ launching an Uppy feature that also makes it resilient to browser crashes, which
 we believe is an industry first. We’re sharing a quick
 [demo](/blog/2017/07/golden-retriever/#demo) video, a bit of
 [background](/blog/2017/07/golden-retriever/#uppy),
-[how](/blog/2017/07/golden-retriever/#how) exactly we achieved this, and how you
-can [try](/blog/2017/07/golden-retriever/#try) it yourself.
+[how it works](/blog/2017/07/golden-retriever/#-how-it-works) exactly we
+achieved this, and how you can
+[try it](/blog/2017/07/golden-retriever/#-give-it-a-try-in-alpha) yourself.
 
 \*\*\*
 
@@ -111,8 +112,6 @@ upset - combined, now amount to a pretty sweet user experience for the majority
 of cases. And in the end, that is what Uppy is all about: pleasing and
 delighting its users.
 
-<a name="how"></a>
-
 ## 👻 How it works
 
 If you really want to know...
@@ -167,8 +166,6 @@ for example), Golden Retriever just picks up from where it all went south. Our
 Golden Retriever will also clean up after herself: when files are successfully
 uploaded, or you decide to delete them, they will be removed from all
 “permanent” storages.
-
-<a name="try"></a>
 
 ## 🚦 Give it a try in alpha
 

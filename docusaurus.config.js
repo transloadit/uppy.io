@@ -11,13 +11,15 @@ const config = {
 	url: 'https://uppy.io',
 	baseUrl: '/',
 	onBrokenLinks: 'warn',
-	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/logo.svg',
 	organizationName: 'transloadit', // Usually your GitHub org/user name.
 	projectName: 'uppy.io', // Usually your repo name.
 	trailingSlash: true,
 	markdown: {
 		format: 'detect',
+		hooks: {
+			onBrokenMarkdownLinks: 'warn',
+		},
 	},
 	headTags: [
 		{
@@ -55,14 +57,6 @@ const config = {
 			{
 				redirects: [
 					{
-						to: '/docs/aws-s3',
-						from: ['/docs/aws-s3-multipart'],
-					},
-					{
-						to: '/docs/guides/migration-guides',
-						from: ['/docs/migration-guides.html'],
-					},
-					{
 						to: '/docs/react',
 						from: [
 							'/docs/react/status-bar',
@@ -74,24 +68,24 @@ const config = {
 						],
 					},
 					{
-						to: '/examples',
-						from: [
-							'/examples/dashboard',
-							'/examples/dragdrop',
-							'/examples/xhrupload',
-							'/examples/i18n',
-							'/examples/statusbar',
-							'/examples/markdown-snippets',
-							'/examples/transloadit',
-						],
+						to: '/docs/status-bar',
+						from: ['/docs/statusbar'],
 					},
-					{ to: '/docs/status-bar', from: '/docs/statusbar' },
-					{ to: '/docs/xhr-upload', from: '/docs/xhrupload' },
-					{ to: '/docs/transloadit', from: '/docs/robodog' },
-					{ to: '/docs/quick-start', from: '/docs/' },
+					{
+						to: '/docs/xhr-upload',
+						from: ['/docs/xhrupload'],
+					},
+					{
+						to: '/docs/google-photos-picker',
+						from: ['/docs/google-photos'],
+					},
+					{
+						to: '/docs/transloadit',
+						from: ['/docs/robodog'],
+					},
 					{
 						to: '/docs/guides/building-plugins',
-						from: '/docs/writing-plugins',
+						from: ['/docs/writing-plugins'],
 					},
 				],
 			},

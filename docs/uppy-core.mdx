@@ -1605,9 +1605,9 @@ const debugLogger = {
 ### How do I allow duplicate files?
 
 You can allow all files, even duplicate files, with
-[`onBeforeFileAdded`](#onbeforefileadded). This will override the file if it has
-not been uploaded. If you upload a duplicate file again it depends on your
-upload plugin and backend how it is handled.
+[`onBeforeFileAdded`](#onbeforefileaddedfile-files). This will override the file
+if it has not been uploaded. If you upload a duplicate file again it depends on
+your upload plugin and backend how it is handled.
 
 ```js
 const uppy = new Uppy({

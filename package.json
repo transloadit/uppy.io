@@ -51,9 +51,9 @@
 		]
 	},
 	"dependencies": {
-		"@docusaurus/core": "^3.0.0",
-		"@docusaurus/plugin-client-redirects": "^3.0.0",
-		"@docusaurus/preset-classic": "^3.0.0",
+		"@docusaurus/core": "^3.9.2",
+		"@docusaurus/plugin-client-redirects": "^3.9.2",
+		"@docusaurus/preset-classic": "^3.9.2",
 		"@mdx-js/react": "^3.0.0",
 		"@uidotdev/usehooks": "^2.4.1",
 		"@uppy/react": "^5.0.0",
@@ -63,8 +63,8 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@docusaurus/eslint-plugin": "^3.0.0",
-		"@docusaurus/module-type-aliases": "^3.0.0",
+		"@docusaurus/eslint-plugin": "^3.9.2",
+		"@docusaurus/module-type-aliases": "^3.9.2",
 		"@tsconfig/docusaurus": "^2.0.2",
 		"@types/react": "^18.2.0",
 		"@types/react-dom": "^18.2.0",

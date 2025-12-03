@@ -56,7 +56,7 @@ All the below methods are optional! Only define the methods you need.
 #### `install()`
 
 Called when the plugin is `.use`d. Do any setup work here, like attaching events
-or adding [upload hooks](#Upload-Hooks).
+or adding [upload hooks](#upload-hooks).
 
 ```js
 export default class MyPlugin extends UIPlugin {
