@@ -433,7 +433,8 @@ will prefix all events with the name provided and a colon. See also
 
 #### `maxFilenameLength` `COMPANION_MAX_FILENAME_LENGTH`
 
-Maximum allowed length for uploaded filenames. Default: 500. If set, it must be set to a value larger than `0`.
+Maximum allowed length for uploaded filenames. Default: 500. If set, it must be
+set to a value larger than `0`.
 
 #### `server`
 
