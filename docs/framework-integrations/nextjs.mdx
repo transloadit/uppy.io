@@ -145,9 +145,8 @@ Transloadit’s strength is versatility. By doing video, audio, images, document
 and more, you only need one vendor for [all your file processing
 needs][transloadit-services]. The [`@uppy/transloadit`](/docs/transloadit)
 plugin directly uploads to Transloadit so you only have to worry about creating
-a [template][transloadit-concepts]. It uses
-[Tus](#i-want-reliable-resumable-uploads) under the hood so you don’t have to
-sacrifice reliable, resumable uploads for convenience.
+a [template][transloadit-concepts]. It uses [Tus](#tus) under the hood so you
+don’t have to sacrifice reliable, resumable uploads for convenience.
 
 When you go to production always make sure to set the `signature`. **Not using
 [Signature Authentication](https://transloadit.com/docs/topics/signature-authentication/)
@@ -436,9 +435,9 @@ export default function UppyDashboard() {
 - Add client-side file [restrictions](/docs/uppy/#restrictions).
 - Upload files together with other form fields with [`@uppy/form`](/docs/form).
 - Use your [language of choice](/docs/locales) instead of English.
-- Add an [image editor](docs/image-editor) for cropping and resizing images.
-- Download files from remote sources, such as [Google Drive](docs/google-drive)
-  and [Dropbox](docs/dropbox), with [Companion](/docs/companion).
+- Add an [image editor](/docs/image-editor) for cropping and resizing images.
+- Download files from remote sources, such as [Google Drive](/docs/google-drive)
+  and [Dropbox](/docs/dropbox), with [Companion](/docs/companion).
 - Add [Golden Retriever](/docs/golden-retriever) to save selected files in your
   browser cache, so that if the browser crashes, or the user accidentally closes
   the tab, Uppy can restore everything and continue uploading as if nothing

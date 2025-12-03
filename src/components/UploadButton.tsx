@@ -4,8 +4,7 @@ import {
 	UploadButton as UppyUploadButton,
 	useFileInput,
 } from '@uppy/react';
-import Uppy from '@uppy/core';
-import Tus from '@uppy/tus';
+import { Tus, Uppy } from 'uppy';
 
 import { BrowserWindow } from './BrowserWindow';
 
