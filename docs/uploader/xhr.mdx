@@ -109,8 +109,8 @@ separate form fields. When set to `false`, only the file contents are sent.
 
 #### `fieldName`
 
-When [`formData`](#formData-true) is set to true, this is used as the form field
-name for the file to be uploaded.
+When [`formData`](#formdata) is set to true, this is used as the form field name
+for the file to be uploaded.
 
 It defaults to `'files[]'` if `bundle` option is set to `true`, otherwise it
 defaults to `'file'`.
@@ -124,8 +124,7 @@ upload.
 - Set it to `['name']` to only send the `name` field.
 - Set it to `true` (the default) to send _all_ metadata fields.
 
-If the [`formData`](#formData-true) option is set to false, `metaFields` is
-ignored.
+If the [`formData`](#formdata) option is set to false, `metaFields` is ignored.
 
 #### `headers`
 
@@ -161,7 +160,7 @@ The function syntax is not available when [`bundle`](#bundle) is set to `true`.
 
 Failed requests are retried with the same headers. If you want to change the
 headers on retry,
-[such as refreshing an auth token](#how-can-I-refresh-auth-tokens-after-they-expire),
+[such as refreshing an auth token](#how-can-i-refresh-auth-tokens-after-they-expire),
 you can use [`onBeforeRequest`](#onbeforerequest).
 
 :::
@@ -176,7 +175,7 @@ All files will be appended to the provided `fieldName` field in the request.
 
 When `bundle` is set to `true`:
 
-- [`formData`](#formData-true) must also be set to `true`.
+- [`formData`](#formdata) must also be set to `true`.
 - Uppy won’t be able to bundle remote files (such as Google Drive) and will
   throw an error in this case.
 - Only [global uppy metadata](/docs/uppy/#meta) is sent to the endpoint.
@@ -185,7 +184,7 @@ When `bundle` is set to `true`:
 :::
 
 To upload files on different fields, use
-[`uppy.setFileState()`](/docs/uppy#uppy-setFileState-fileID-state) to set the
+[`uppy.setFileState()`](/docs/uppy/#setfilestatefileid-state) to set the
 `xhrUpload.fieldName` property on the file:
 
 ```js
@@ -213,10 +212,10 @@ The response type expected from the server, determining how the `xhr.response`
 property should be filled (`string`, default: `'text'`).
 
 The `xhr.response` property can be accessed in a custom
-[`getResponseData()`](#getResponseData-responseText-response) callback. This
-option sets the [`XMLHttpRequest.responseType`][xhr.responsetype] property. Only
-`''`, `'text'`, `'arraybuffer'`, `'blob'` and `'document'` are widely supported
-by browsers, so it’s recommended to use one of those.
+[`getResponseData()`](#getresponsedata) callback. This option sets the
+[`XMLHttpRequest.responseType`][xhr.responsetype] property. Only `''`, `'text'`,
+`'arraybuffer'`, `'blob'` and `'document'` are widely supported by browsers, so
+it’s recommended to use one of those.
 
 #### `withCredentials`
 
@@ -302,16 +301,15 @@ new Uppy().use(XHR, {
 
 ### How to send along meta data with the upload?
 
-When using XHRUpload with [`formData: true`](#formData-true), file metadata is
-sent along with each upload request. You can set metadata for a file using
-[`uppy.setFileMeta(fileID, data)`](/docs/uppy#uppy-setFileMeta-fileID-data), or
-for all files simultaneously using
-[`uppy.setMeta(data)`](/docs/uppy#uppy-setMeta-data).
+When using XHRUpload with [`formData: true`](#formdata), file metadata is sent
+along with each upload request. You can set metadata for a file using
+[`uppy.setFileMeta(fileID, data)`](/docs/uppy/#setfilemetafileid-data), or for
+all files simultaneously using [`uppy.setMeta(data)`](/docs/uppy/#setmetadata).
 
 It may be useful to set metadata depending on some file properties, such as the
 size. You can use the [`file-added`](/docs/uppy/#file-added) event and the
-[`uppy.setFileMeta(fileID, data)`](/docs/uppy#uppy-setFileMeta-fileID-data)
-method to do this:
+[`uppy.setFileMeta(fileID, data)`](/docs/uppy/#setfilemetafileid-data) method to
+do this:
 
 ```js
 uppy.on('file-added', (file) => {
@@ -321,13 +319,14 @@ uppy.on('file-added', (file) => {
 });
 ```
 
-Now, a form field named `size` will be sent along to the
-[`endpoint`](#endpoint-39-39) once the upload starts.
+Now, a form field named `size` will be sent along to the [`endpoint`](#endpoint)
+once the upload starts.
 
 By default, all metadata is sent, including Uppy’s default `name` and `type`
 metadata. If you do not want the `name` and `type` metadata properties to be
-sent to your upload endpoint, you can use the [`metaFields`](#metaFields-null)
-option to restrict the field names that should be sent.
+sent to your upload endpoint, you can use the
+[`allowedMetaFields`](#allowedmetafields) option to restrict the field names
+that should be sent.
 
 ```js
 uppy.use(XHRUpload, {
@@ -384,7 +383,7 @@ move_uploaded_file($file_path, $_SERVER['DOCUMENT_ROOT'] . '/img/' . basename($f
 	https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
 [xhr.responsetype]:
 	https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType
-[uppy file]: /docs/uppy#working-with-uppy-files
+[uppy file]: /docs/uppy/#working-with-uppy-files
 [php.file-upload]: https://secure.php.net/manual/en/features.file-upload.php
 [php.multiple]:
 	https://secure.php.net/manual/en/features.file-upload.multiple.php

@@ -99,6 +99,12 @@ and make sure to include styles for them as well.
 
 :::
 
+## Restrictions
+
+Dashboard follows the core [`restrictions`](/docs/uppy/#restrictions) option
+(file size, type filters, counts, etc.). Configure restrictions on your Uppy
+instance and they will automatically apply to the Dashboard UI.
+
 ## API
 
 ### Options
@@ -402,8 +408,9 @@ different set of files instead.
 :::info
 
 You can use this together with the
-[`allowMultipleUploads: false`](/docs/uppy/#allowmultipleuploads) option in Uppy
-Core to create a smooth experience when uploading a single (batch of) file(s).
+[`allowMultipleUploadBatches: false`](/docs/uppy/#allowmultipleuploadbatches)
+option in Uppy Core to create a smooth experience when uploading a single (batch
+of) file(s).
 
 This is recommended. With several upload batches, the auto-closing behavior can
 be quite confusing for users.

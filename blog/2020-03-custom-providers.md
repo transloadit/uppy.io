@@ -1,7 +1,8 @@
 ---
 title: 'Adding Custom Providers: Step by Step Tutorial to add Custom Providers'
 date: 2020-06-08
-author: ife
+authors:
+  - ife
 published: false
 slug: '2020/03/custom-providers'
 ---
@@ -166,8 +167,8 @@ Back to our project directory, we are going to create a
 Unsplash provider.
 
 According to
-[the docs](https://uppy.io/docs/companion/#Adding-custom-providers), we need to
-create a class that implements the methods `list`, `download`, and `size`.
+[the docs](https://uppy.io/docs/companion/#how-to-add-custom-providers), we need
+to create a class that implements the methods `list`, `download`, and `size`.
 
 The constructor of our class will look something like this:
 
@@ -444,8 +445,8 @@ Now we need to implement the client part of this. To do this we need to
 implement an Uppy Plugin.
 
 First, we'll create a `client/MyCustomProvider.js` file. Following the
-instructions [here](https://uppy.io/docs/writing-plugins/), our Uppy Plugin (aka
-`client/MyCustomProvider.js` file) could look something like this:
+instructions [here](https://uppy.io/docs/guides/building-plugins/), our Uppy
+Plugin (aka `client/MyCustomProvider.js` file) could look something like this:
 
 ```js
 const { UIPlugin } = require('@uppy/core');
