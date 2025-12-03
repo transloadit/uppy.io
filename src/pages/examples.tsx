@@ -293,6 +293,9 @@ const Uppy = ({ state, locale }) => {
 						'Images and video only, 2–3 files, up to 1 MB'
 					:	null
 				}
+				metaFields={state.restrictions ? [
+					{ id: 'caption', name: 'Caption', placeholder: 'Add a Caption' }
+				  ] : undefined}
 			/>
 		</div>
 	);
