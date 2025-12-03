@@ -1,5 +1,5 @@
 import { unified } from 'unified';
-import unifiedMessageControl from 'unified-message-control';
+import { messageControl } from 'unified-message-control';
 
 import { commentMarker } from 'mdast-comment-marker';
 
@@ -38,14 +38,13 @@ const retextPreset = [
 		.use(retextSyntaxMentions),
 ];
 
-const messageControlPreset = [
-	unifiedMessageControl,
-	{
+const messageControlPreset = () => (tree, file) =>
+	messageControl(tree, {
+		file,
 		name: 'retext-simplify',
 		marker: commentMarker,
 		test: 'html',
-	},
-];
+	});
 
 export default {
 	settings: {
