@@ -53,32 +53,41 @@ const dashboardCode = `import { Uppy, Dashboard, RemoteSources, ImageEditor, Web
 
 const uppy = new Uppy()
   .use(Dashboard, { target: '.DashboardContainer', inline: true })
-  .use(RemoteSources, { companionUrl: '${companionUrl}' })
-  .use(Webcam, { target: Dashboard })
-  .use(ImageEditor, { target: Dashboard })
   .use(Tus, { endpoint: '${endpoint}' })
+  .use(RemoteSources, { companionUrl: '${companionUrl}' })
+  .use(Webcam)
+  .use(ImageEditor)
 `;
 
-const reactCode = `import React, { useEffect } from 'react'
-import { Uppy, Webcam } from 'uppy'
-import { Dashboard } from '@uppy/react'
-
-const uppy = new Uppy().use(Webcam)
+const reactCode = `import React, { useState } from 'react'
+import { Uppy } from '@uppy/core'
+import { UppyContextProvider, Dropzone, FilesList, UploadButton } from '@uppy/react'
 
 function Component () {
-  return <Dashboard uppy={uppy} plugins={['Webcam']} />
+  const [uppy] = useState(() => new Uppy())
+  return (
+    <UppyContextProvider value={uppy}>
+      <Dropzone />
+      <FilesList />
+      <UploadButton />
+    </UppyContextProvider>
+  )
 }
 `;
 
 const vueCode = `<script setup>
-import { Uppy, Webcam } from 'uppy'
-import { Dashboard } from '@uppy/vue'
+import { Uppy } from '@uppy/core'
+import { UppyContextProvider, Dropzone, FilesList, UploadButton } from '@uppy/vue'
 
-const uppy = new Uppy().use(Webcam)
+const uppy = new Uppy()
 </script>
 
 <template>
-  <Dashboard :uppy="uppy" :plugins="['Webcam']" />
+  <UppyContextProvider :uppy="uppy">
+    <Dropzone />
+    <FilesList />
+    <UploadButton />
+  </UppyContextProvider>
 </template>
 `;
 
@@ -102,20 +111,21 @@ import { AppComponent } from './app.component'
 class {}
 `;
 
-const svelteCode = `<main>
-  <Dashboard
-      uppy={uppy}
-      plugins={["Webcam"]}
-  />
-</main>
+const svelteCode = `
+<script lang="ts">
+import { Uppy } from '@uppy/core'
+import { UppyContextProvider, Dropzone, FilesList, UploadButton } from '@uppy/vue'
 
-<script>
-import { Dashboard } from '@uppy/svelte'
-
-import { Uppy, Webcam } from 'uppy'
-
-const uppy = new Uppy().use(Webcam);
+const uppy = new Uppy()
 </script>
+
+<template>
+  <UppyContextProvider {uppy}>
+    <Dropzone />
+    <FilesList />
+    <UploadButton />
+  </UppyContextProvider>
+</template>
 `;
 
 const providersIcons = [
