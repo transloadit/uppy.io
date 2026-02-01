@@ -70,7 +70,7 @@
 		"@types/react-dom": "^19.2.3",
 		"@typescript-eslint/eslint-plugin": "^8.48.1",
 		"@typescript-eslint/parser": "^8.48.1",
-		"eslint": "^8.0.0",
+		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-markdown": "^5.1.0",
 		"eslint-plugin-mdx": "^3.6.2",
