@@ -301,6 +301,11 @@ files.
 [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Limiting_accepted_file_types)
 accept attribute, so only types supported by the browser will work.
 
+Uppy does not do content-based file type sniffing by default. For local files,
+it relies on the browser-provided `File.type`, and if that is unavailable, it
+falls back to the file extension. This means `allowedFileTypes` is best used as
+client-side guidance and UX, not as authoritative validation.
+
 :::
 
 :::tip
@@ -355,6 +360,10 @@ A function called before a file is added to Uppy (`Function`, default:
 Use this function to run any number of custom checks on the selected file, or
 manipulate it, for instance, by optimizing a file name. You can also allow
 duplicate files with this.
+
+If you need stricter client-side checks than `allowedFileTypes` provides, this
+is the right place to add them. Even then, you should still validate file types
+on the server.
 
 You can return `true` to keep the file as is, `false` to remove the file, or
 return a modified file.
