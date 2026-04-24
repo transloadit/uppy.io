@@ -649,10 +649,10 @@ for the file that was added.
 checks failed. It throws on the first error, including restriction errors.
 
 Every `addFile` call emits both `file-added` and `files-added`, with
-`files-added` carrying a single-element array. When adding more than one file
-at a time, prefer [`addFiles(files)`](#addfilesfiles) so that batch listeners
-on `files-added` fire exactly once and a single failing file does not abort
-the whole batch.
+`files-added` carrying a single-element array. When adding more than one file at
+a time, prefer [`addFiles(files)`](#addfilesfiles) so that batch listeners on
+`files-added` fire exactly once and a single failing file does not abort the
+whole batch.
 
 ```js
 uppy.addFile({
