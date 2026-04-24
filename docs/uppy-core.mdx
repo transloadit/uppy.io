@@ -646,7 +646,13 @@ for the file that was added.
 
 `addFile` gives an error if the file cannot be added, either because
 `onBeforeFileAdded(file)` gave an error, or because `uppy.opts.restrictions`
-checks failed.
+checks failed. It throws on the first error, including restriction errors.
+
+Every `addFile` call emits both `file-added` and `files-added`, with
+`files-added` carrying a single-element array. When adding more than one file
+at a time, prefer [`addFiles(files)`](#addfilesfiles) so that batch listeners
+on `files-added` fire exactly once and a single failing file does not abort
+the whole batch.
 
 ```js
 uppy.addFile({
@@ -700,6 +706,34 @@ achieved by
 [looping through files and setting `uploadComplete: true, uploadStarted: true` on them](https://github.com/transloadit/uppy/issues/1112#issuecomment-432339569)
 
 :::
+
+#### `addFiles(files)`
+
+Add multiple files to Uppy’s internal state in one call. Each entry in `files`
+takes the same shape as the argument to [`addFile`](#addfilefile).
+
+```js
+uppy.addFiles([
+	{ name: 'photo-1.jpg', type: 'image/jpeg', data: blob1 },
+	{ name: 'photo-2.jpg', type: 'image/jpeg', data: blob2 },
+]);
+```
+
+Events and errors behave differently from a loop of `addFile` calls, which is
+the main reason to use this method for batch adds:
+
+- Emits `file-added` once per accepted file.
+- Emits `files-added` **once** for the whole batch, with the array of accepted
+  files.
+- Restriction failures (file too big, wrong type, too many files, etc.) emit
+  `restriction-failed` for each failing file and surface an info message —
+  **they do not throw**, and valid files in the same batch are still added.
+- Any remaining non-restriction errors are aggregated into an `AggregateError`
+  (available on the thrown error’s `.errors` property) and thrown.
+
+Prefer `addFiles` over calling `addFile` in a loop when adding multiple files:
+batch listeners on `files-added` fire exactly once, and a single bad file does
+not abort the batch.
 
 #### `removeFile(fileID)`
 
@@ -1028,7 +1062,11 @@ uppy.on('file-added', (file) => {
 - `files` - Array of [Uppy files](#working-with-uppy-files) which were added at
   once, in a batch.
 
-Fired each time when one or more files are added — one event, for all files
+Fired each time one or more files are added. A single
+[`addFiles`](#addfilesfiles) call emits one `files-added` event for the whole
+batch; an [`addFile`](#addfilefile) call emits one `files-added` event with a
+single-element array. Looping `addFile` therefore produces N `files-added`
+events — use `addFiles` instead if you want a single batch event.
 
 #### `file-removed`
 
