@@ -731,8 +731,8 @@ the main reason to use this method for batch adds:
 - Any non-restriction error (for example, an exception thrown from
   `onBeforeFileAdded`) is aggregated into an `AggregateError` (available on the
   thrown error’s `.errors` property) and thrown **before state is updated** —
-  when this happens, **no files from the batch are added** and `files-added`
-  is not emitted.
+  when this happens, **no files from the batch are added** and `files-added` is
+  not emitted.
 
 Prefer `addFiles` over calling `addFile` in a loop when adding multiple files:
 batch listeners on `files-added` fire exactly once, and restriction failures on
