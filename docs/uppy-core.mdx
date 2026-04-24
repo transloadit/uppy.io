@@ -651,8 +651,8 @@ checks failed. It throws on the first error, including restriction errors.
 Every `addFile` call emits both `file-added` and `files-added`, with
 `files-added` carrying a single-element array. When adding more than one file at
 a time, prefer [`addFiles(files)`](#addfilesfiles) so that batch listeners on
-`files-added` fire exactly once and a single failing file does not abort the
-whole batch.
+`files-added` fire exactly once and a restriction failure on one file does not
+abort the whole batch.
 
 ```js
 uppy.addFile({
@@ -728,12 +728,18 @@ the main reason to use this method for batch adds:
 - Restriction failures (file too big, wrong type, too many files, etc.) emit
   `restriction-failed` for each failing file and surface an info message —
   **they do not throw**, and valid files in the same batch are still added.
-- Any remaining non-restriction errors are aggregated into an `AggregateError`
-  (available on the thrown error’s `.errors` property) and thrown.
+- Any non-restriction error (for example, an exception thrown from
+  `onBeforeFileAdded`) is aggregated into an `AggregateError` (available on the
+  thrown error’s `.errors` property) and thrown **before state is updated** —
+  when this happens, **no files from the batch are added** and `files-added`
+  is not emitted.
 
 Prefer `addFiles` over calling `addFile` in a loop when adding multiple files:
-batch listeners on `files-added` fire exactly once, and a single bad file does
-not abort the batch.
+batch listeners on `files-added` fire exactly once, and restriction failures on
+individual files do not abort the batch. Note that non-restriction errors still
+abort the batch before any files are added, so if you need partial-success
+semantics for arbitrary failures you’ll need to call `addFile` per file with
+your own error handling.
 
 #### `removeFile(fileID)`
 
