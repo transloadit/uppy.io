@@ -14,7 +14,6 @@ import {
 	GooglePhotosPicker,
 	GoldenRetriever,
 	ImageEditor,
-	Instagram,
 	OneDrive,
 	ScreenCapture,
 	Tus,
@@ -44,6 +43,13 @@ const restrictions = {
 };
 
 type Action = { type: string; checked?: boolean; value: string };
+type Option = {
+	label: string;
+	value?: string;
+	type: string;
+	disabled?: boolean;
+	title?: string;
+};
 type State = {
 	small: boolean;
 	restrictions?: typeof restrictions;
@@ -97,7 +103,7 @@ function reducer(state: State, action: Action) {
 	}
 }
 
-const options = [
+const options: { heading: string; options: Option[] }[] = [
 	{
 		heading: 'Remote sources',
 		options: [
@@ -123,14 +129,6 @@ const options = [
 				label: 'Dropbox',
 				value: 'Dropbox',
 				type: 'plugins',
-			},
-			{
-				label: 'Instagram',
-				value: 'Instagram',
-				type: 'plugins',
-				title:
-					'Temporarily disabled until our credentials are approved again. You can still use the plugin yourself.',
-				disabled: true,
 			},
 			{ label: 'Url', value: 'Url', type: 'plugins' },
 			{
@@ -202,9 +200,6 @@ const Uppy = ({ state, locale }) => {
 
 		if (state.plugins.includes('Box') && !disabled('Box')) {
 			uppy.use(Box, { companionUrl });
-		}
-		if (state.plugins.includes('Instagram') && !disabled('Instagram')) {
-			uppy.use(Instagram, { companionUrl });
 		}
 		if (state.plugins.includes('Url') && !disabled('Url')) {
 			uppy.use(Url, { companionUrl });

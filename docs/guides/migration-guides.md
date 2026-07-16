@@ -1095,7 +1095,6 @@ to:
 | OneDrive      | `https://$COMPANION_HOST_NAME/onedrive/redirect`     |
 | Box           | `https://$YOUR_COMPANION_HOST_NAME/box/redirect`     |
 | Facebook      | `https://$COMPANION_HOST_NAME/facebook/redirect`     |
-| Instagram     | `https://$COMPANION_HOST_NAME/instagram/redirect`    |
 
 </div>
 

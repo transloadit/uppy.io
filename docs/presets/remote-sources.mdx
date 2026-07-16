@@ -11,8 +11,8 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 # Remote sources
 
 `@uppy/remote-sources` is a preset plugin (meaning it bundles and sets up other
-plugins) to add all the available remote sources, such Instagram, Google Drive,
-Dropbox, and others to Uppy Dashboard in one package.
+plugins) to add remote sources such as Google Drive, Dropbox, and others to Uppy
+Dashboard in one package.
 
 :::note
 
@@ -128,7 +128,7 @@ A unique identifier for this plugin (`string`, default: `RemoteSources`).
 #### `sources`
 
 List of remote sources that will be enabled (`array`, default:
-`['Box', 'Dropbox', 'Facebook', 'GoogleDrive','Instagram', 'OneDrive', 'Unsplash', 'Url', 'Zoom']`).
+`['Box', 'Dropbox', 'Facebook', 'GoogleDrive', 'OneDrive', 'Unsplash', 'Url', 'Zoom']`).
 
 You don’t need to specify them manually or change them, but if you want to alter
 the order in which they appear in the Dashboard, or disable some sources, this
@@ -137,7 +137,7 @@ option is for you.
 ```js
 uppy.use(RemoteSources, {
 	companionUrl: 'https://your-companion-url',
-	sources: ['Instagram', 'GoogleDrive', 'Unsplash', 'Url'],
+	sources: ['GoogleDrive', 'Unsplash', 'Url'],
 });
 ```
 

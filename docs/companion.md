@@ -6,7 +6,7 @@ sidebar_position: 4
 
 Companion is an open source server application which **takes away the complexity
 of authentication and the cost of downloading files from remote sources**, such
-as Instagram, Google Drive, and others. Companion is a server-to-server
+as Google Drive, Dropbox, and others. Companion is a server-to-server
 orchestrator that streams files from a source to a destination, and files are
 never stored in Companion. Companion can run either as a standalone
 (self-hosted) application, [Transloadit-hosted](#hosted), or plugged in as an
@@ -23,8 +23,8 @@ OAuth.
 
 If you want to let users download files from [Box][], [Dropbox][], [Facebook][],
 [Google Drive][googledrive], [Google Drive Picker][googledrivepicker], [Google
-Photos Picker][googlephotospicker], [Instagram][], [OneDrive][], [Unsplash][],
-[Import from URL][url], or [Zoom][] — you need Companion.
+Photos Picker][googlephotospicker], [OneDrive][], [Unsplash][], [Import from
+URL][url], or [Zoom][] — you need Companion.
 
 Companion supports the same [uploaders](/docs/guides/choosing-uploader) as Uppy:
 [Tus](/docs/tus), [AWS S3](/docs/aws-s3), and [regular multipart](/docs/tus).
@@ -478,22 +478,21 @@ the secret, nothing else.
 
 :::
 
-| Service      | Key         | Environment variables                                                                                                                                                                                                                  |
-| ------------ | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Box          | `box`       | `COMPANION_BOX_KEY`, `COMPANION_BOX_SECRET`, `COMPANION_BOX_SECRET_FILE`                                                                                                                                                               |
-| Dropbox      | `dropbox`   | `COMPANION_DROPBOX_KEY`, `COMPANION_DROPBOX_SECRET`, `COMPANION_DROPBOX_SECRET_FILE`                                                                                                                                                   |
-| Facebook     | `facebook`  | `COMPANION_FACEBOOK_KEY`, `COMPANION_FACEBOOK_SECRET`, `COMPANION_FACEBOOK_SECRET_FILE`                                                                                                                                                |
-| Google Drive | `drive`     | `COMPANION_GOOGLE_KEY`, `COMPANION_GOOGLE_SECRET`, `COMPANION_GOOGLE_SECRET_FILE`                                                                                                                                                      |
-| Instagram    | `instagram` | `COMPANION_INSTAGRAM_KEY`, `COMPANION_INSTAGRAM_SECRET`, `COMPANION_INSTAGRAM_SECRET_FILE`                                                                                                                                             |
-| OneDrive     | `onedrive`  | `COMPANION_ONEDRIVE_KEY`, `COMPANION_ONEDRIVE_SECRET`, `COMPANION_ONEDRIVE_SECRET_FILE`, `COMPANION_ONEDRIVE_DOMAIN_VALIDATION` (Settings this variable to `true` enables a route that can be used to validate your app with OneDrive) |
-| Zoom         | `zoom`      | `COMPANION_ZOOM_KEY`, `COMPANION_ZOOM_SECRET`, `COMPANION_ZOOM_SECRET_FILE`, `COMPANION_ZOOM_VERIFICATION_TOKEN`                                                                                                                       |
+| Service      | Key        | Environment variables                                                                                                                                                                                                                  |
+| ------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Box          | `box`      | `COMPANION_BOX_KEY`, `COMPANION_BOX_SECRET`, `COMPANION_BOX_SECRET_FILE`                                                                                                                                                               |
+| Dropbox      | `dropbox`  | `COMPANION_DROPBOX_KEY`, `COMPANION_DROPBOX_SECRET`, `COMPANION_DROPBOX_SECRET_FILE`                                                                                                                                                   |
+| Facebook     | `facebook` | `COMPANION_FACEBOOK_KEY`, `COMPANION_FACEBOOK_SECRET`, `COMPANION_FACEBOOK_SECRET_FILE`                                                                                                                                                |
+| Google Drive | `drive`    | `COMPANION_GOOGLE_KEY`, `COMPANION_GOOGLE_SECRET`, `COMPANION_GOOGLE_SECRET_FILE`                                                                                                                                                      |
+| OneDrive     | `onedrive` | `COMPANION_ONEDRIVE_KEY`, `COMPANION_ONEDRIVE_SECRET`, `COMPANION_ONEDRIVE_SECRET_FILE`, `COMPANION_ONEDRIVE_DOMAIN_VALIDATION` (Settings this variable to `true` enables a route that can be used to validate your app with OneDrive) |
+| Zoom         | `zoom`     | `COMPANION_ZOOM_KEY`, `COMPANION_ZOOM_SECRET`, `COMPANION_ZOOM_SECRET_FILE`, `COMPANION_ZOOM_VERIFICATION_TOKEN`                                                                                                                       |
 
 #### `s3`
 
 Companion comes with signature endpoints for AWS S3. These can be used by the
 Uppy client to sign requests to upload files directly to S3, without exposing
 secret S3 keys in the browser. Companion also supports uploading files from
-providers like Dropbox and Instagram directly into S3.
+providers like Dropbox and Google Drive directly into S3.
 
 ##### `s3.key` `COMPANION_AWS_KEY`
 
@@ -790,8 +789,8 @@ An example server is running at <https://companion.uppy.io>.
 ### How does the Authentication and Token mechanism work?
 
 This section describes how Authentication works between Companion and Providers.
-While this behaviour is the same for all Providers (Dropbox, Instagram, Google
-Drive, etc.), we are going to be referring to Dropbox in place of any Provider
+While this behaviour is the same for all Providers (Dropbox, Google Drive,
+etc.), we are going to be referring to Dropbox in place of any Provider
 throughout this section.
 
 The following steps describe the actions that take place when a user
@@ -1004,7 +1003,6 @@ automatically restart when files are changed.
 [googledrive]: /docs/google-drive
 [googledrivepicker]: /docs/google-drive-picker
 [googlephotospicker]: /docs/google-photos-picker
-[instagram]: /docs/instagram
 [onedrive]: /docs/onedrive
 [unsplash]: /docs/unsplash
 [url]: /docs/url
