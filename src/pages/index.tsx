@@ -133,7 +133,6 @@ const providersIcons = [
 	'unsplash.svg',
 	'googledrive.svg',
 	'dropbox.svg',
-	'instagram.svg',
 	'onedrive.svg',
 ];
 
@@ -155,9 +154,9 @@ export default function Home(): JSX.Element {
 				</Heading>
 
 				<p>
-					Uppy fetches files locally and from remote places like Dropbox or
-					Instagram. With its seamless integration, reliability and ease of use,
-					Uppy is truly your best friend in file uploading.
+					Uppy fetches files locally and from remote places like Dropbox and
+					Google Drive. With its seamless integration, reliability and ease of
+					use, Uppy is truly your best friend in file uploading.
 				</p>
 
 				<Link className={styles.button} to="/docs/quick-start">
@@ -301,7 +300,7 @@ export default function Home(): JSX.Element {
 							take away the complexity of authentication and the cost of
 							downloading files
 						</strong>{' '}
-						from remote sources, such as Instagram, Google Drive, and others.
+						from remote sources, such as Google Drive, Dropbox, and others.
 					</p>
 					<p>
 						This means a 5GB video isn’t eating into your users’ data plans and
