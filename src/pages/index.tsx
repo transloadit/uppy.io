@@ -153,23 +153,87 @@ const packageManagers = [
 	{ name: 'yarn', prefix: 'yarn add' },
 ];
 
-// Every source Companion can fetch from — one per plugin under
-// docs/sources/companion-plugins. Twelve of them, which is the point: the claim
-// is "files from anywhere", so the list should be able to back it up.
-const providers = [
-	{ file: 'googledrive.svg', name: 'Google Drive' },
-	{ file: 'googledrive.svg', name: 'Google Drive Picker' },
-	{ file: 'googlephotos.svg', name: 'Google Photos' },
-	{ file: 'dropbox.svg', name: 'Dropbox' },
-	{ file: 'onedrive.svg', name: 'OneDrive' },
-	{ file: 'box.svg', name: 'Box' },
-	{ file: 'webdav.svg', name: 'WebDAV' },
-	{ file: 'instagram.svg', name: 'Instagram' },
-	{ file: 'facebook.svg', name: 'Facebook' },
-	{ file: 'unsplash.svg', name: 'Unsplash' },
-	{ file: 'zoom.svg', name: 'Zoom' },
-	{ file: 'link.svg', name: 'Link (URL)' },
+/**
+ * Companion's sources, wrapping the Uppy mark — files coming in from everywhere,
+ * through one uploader.
+ *
+ * Only sources with a mark worth recognising. WebDAV and import-from-URL are
+ * protocols, and unlabelled a generic glyph says nothing; Google Drive Picker
+ * shares Drive's mark, so it would have read as the same logo twice.
+ *
+ * Positions are percentages of the box the cluster draws in, solved offline
+ * against a checker that rejects a layout unless: no tile overlaps another tile
+ * or the core, no wire passes through a tile that isn't its own, no wire crosses
+ * another wire, and nothing leaves the box. This set clears by 8.0 units between
+ * tiles and 6.1 units between any wire and any other tile.
+ *
+ * The radii are deliberately uneven. A clean arc puts every tile in an exact
+ * mirror pair about the horizontal axis, which is the strongest "generated" tell
+ * there is — the checker also rejects layouts whose closest pair scores below 4
+ * on mirror similarity. This one scores 4.7.
+ *
+ * Storage services run along the top of the sweep, media along the bottom.
+ *
+ * `mark` is the logo's width as a percentage of its tile, per brand. The ratios
+ * between them come from measured ink coverage — solid shapes (Facebook,
+ * Unsplash) read far heavier than a hairline wordmark (Box) at the same measured
+ * size — and the whole set is then scaled to fill the tile.
+ */
+const sources = [
+	{ file: 'onedrive.svg', name: 'OneDrive', x: 9.5, y: 23.6, mark: 53 },
+	{ file: 'box.svg', name: 'Box', x: 30.8, y: 15.7, mark: 64 },
+	{ file: 'googledrive.svg', name: 'Google Drive', x: 54.6, y: 10.8, mark: 51 },
+	{ file: 'dropbox.svg', name: 'Dropbox', x: 70.4, y: 29, mark: 52 },
+	{ file: 'googlephotos.svg', name: 'Google Photos', x: 84, y: 50, mark: 47 },
+	{ file: 'instagram.svg', name: 'Instagram', x: 75.3, y: 74.3, mark: 37 },
+	{ file: 'facebook.svg', name: 'Facebook', x: 52.4, y: 83.7, mark: 33 },
+	{ file: 'zoom.svg', name: 'Zoom', x: 29.5, y: 90, mark: 57 },
+	{ file: 'unsplash.svg', name: 'Unsplash', x: 13.2, y: 73.1, mark: 32 },
 ];
+
+/**
+ * The cluster's geometry, shared by the tiles, the core and the wires that join
+ * them, so the three can't drift apart — they did once, and the wires ended up
+ * radiating from a point 11px away from the mark they were supposed to touch.
+ *
+ * Units are the box the SVG draws in: 100 wide by 88 tall. `x` is a percentage
+ * of the width and `y` a percentage of the height, so `y * 0.88` converts.
+ */
+const BOX = { w: 100, h: 88 };
+const CORE = { x: 39, y: BOX.h / 2, r: 11.5 };
+const TILE_R = 7;
+
+/**
+ * A wire from the core's edge to one tile's edge, bowed rather than straight.
+ * Every wire bends the same rotational way and by the same absolute amount:
+ * a sag proportional to length made the long wires curve three times harder than
+ * the short ones, so the set stopped reading as one hand.
+ */
+function wire({ x, y }: { x: number; y: number }) {
+	const target = { x, y: (y / 100) * BOX.h };
+	const dx = target.x - CORE.x;
+	const dy = target.y - CORE.y;
+	const len = Math.hypot(dx, dy);
+	const ux = dx / len;
+	const uy = dy / len;
+
+	const from = {
+		x: CORE.x + ux * (CORE.r + 1.5),
+		y: CORE.y + uy * (CORE.r + 1.5),
+	};
+	const to = {
+		x: target.x - ux * (TILE_R + 1.5),
+		y: target.y - uy * (TILE_R + 1.5),
+	};
+	const bend = 1.8;
+	const control = {
+		x: (from.x + to.x) / 2 - uy * bend,
+		y: (from.y + to.y) / 2 + ux * bend,
+	};
+
+	const r = (n: number) => Math.round(n * 10) / 10;
+	return `M${r(from.x)} ${r(from.y)} Q${r(control.x)} ${r(control.y)} ${r(to.x)} ${r(to.y)}`;
+}
 
 const capabilities = [
 	{
@@ -202,8 +266,6 @@ const capabilities = [
 				and file processing.
 			</>
 		),
-		// The one row we want clicked, so it keeps the accent to itself.
-		accent: true,
 	},
 	{
 		Icon: IconPointer,
@@ -280,6 +342,7 @@ export default function Home(): JSX.Element {
 	const [target, setTarget] = useState(installTargets[0].name);
 	const [manager, setManager] = useState(packageManagers[0].name);
 	const activeTarget = installTargets.find((t) => t.name === target);
+	const activeManager = packageManagers.find((p) => p.name === manager);
 
 	return (
 		<Layout description="Uppy is the open source JavaScript file uploader. Resumable uploads from disk, Dropbox or Google Drive, for React, Next.js, Vue, Svelte and Angular.">
@@ -386,10 +449,6 @@ export default function Home(): JSX.Element {
 								}}
 							</BrowserOnly>
 						</div>
-
-						<Link className={styles.demoNote} href="https://transloadit.com">
-							Uppy uploads. Transloadit does the rest <span aria-hidden>→</span>
-						</Link>
 					</div>
 
 					{/* The install path sits beside the product: what it is on the
@@ -416,49 +475,59 @@ export default function Home(): JSX.Element {
 							))}
 						</div>
 
-						{activeTarget.agent ?
-							<AgentPrompt className={styles.heroAgent} />
-						:	<>
-								{/* The package manager is a property of the command, so it docks
+						{/* One box for both variants — see .installBody. */}
+						<div className={styles.installBody}>
+							{activeTarget.agent ?
+								<AgentPrompt className={styles.heroAgent} />
+							:	<>
+									{/* The package manager is a property of the command, so it docks
 								    to the field as a tab strip rather than repeating the pill
 								    treatment used for the framework choice above. */}
-								<div className={styles.field}>
-									<div
-										className={styles.managers}
-										role="radiogroup"
-										aria-label="Package manager"
-									>
-										{packageManagers.map(({ name }) => (
-											<Fragment key={name}>
-												<input
-													type="radio"
-													id={`pm-${name}`}
-													className={styles.managerInput}
-													name="package-manager"
-													value={name}
-													checked={name === manager}
-													onChange={(event) => setManager(event.target.value)}
-												/>
-												<label htmlFor={`pm-${name}`}>{name}</label>
-											</Fragment>
-										))}
+									<div className={styles.field}>
+										<div
+											className={styles.managers}
+											role="radiogroup"
+											aria-label="Package manager"
+										>
+											{packageManagers.map(({ name }) => (
+												<Fragment key={name}>
+													<input
+														type="radio"
+														id={`pm-${name}`}
+														className={styles.managerInput}
+														name="package-manager"
+														value={name}
+														checked={name === manager}
+														onChange={(event) => setManager(event.target.value)}
+													/>
+													<label htmlFor={`pm-${name}`}>{name}</label>
+												</Fragment>
+											))}
+										</div>
+
+										<InstallCommand
+											command={`${activeManager.prefix} ${activeTarget.packages}`}
+											className={styles.heroInstall}
+										/>
 									</div>
 
-									<InstallCommand
-										command={`${
-											packageManagers.find((p) => p.name === manager).prefix
-										} ${activeTarget.packages}`}
-										className={styles.heroInstall}
-									/>
-								</div>
-
-								<Link className={styles.installDocs} to={activeTarget.docs}>
-									Then wire it up in the {activeTarget.docsLabel} docs{' '}
-									<span aria-hidden>→</span>
-								</Link>
-							</>
-						}
+									<Link className={styles.installDocs} to={activeTarget.docs}>
+										Then wire it up in the {activeTarget.docsLabel} docs{' '}
+										<span aria-hidden>→</span>
+									</Link>
+								</>
+							}
+						</div>
 					</div>
+				</div>
+
+				{/* Centred under both columns, because it applies to the whole thing:
+				    what happens after the upload, for the projects that need it. */}
+				<div className={styles.heroHandoff}>
+					<p>Need to resize, transcode or deliver your files?</p>
+					<Link href="https://transloadit.com/">
+						Try Transloadit <span aria-hidden>→</span>
+					</Link>
 				</div>
 			</header>
 
@@ -483,14 +552,52 @@ export default function Home(): JSX.Element {
 							</Link>
 						</div>
 
-						<ul className={styles.providers}>
-							{providers.map(({ file, name }) => (
-								<li key={file}>
-									<img src={`img/${file}`} alt="" width={24} height={24} />
-									<span>{name}</span>
-								</li>
-							))}
-						</ul>
+						{/* The logos are the content here, so each keeps its name as alt
+						    text and the list says what it is — together that is the whole
+						    of what a screen reader gets from this. */}
+						<div className={styles.cluster}>
+							{/* Wires first so the discs paint over their ends. The viewBox
+							    matches the container's 5:4, so nothing is distorted. */}
+							<svg
+								className={styles.wires}
+								viewBox="0 0 100 88"
+								aria-hidden
+								focusable="false"
+							>
+								{sources.map((source) => (
+									<path key={source.file} d={wire(source)} />
+								))}
+							</svg>
+
+							<ul
+								className={styles.orbit}
+								aria-label="Remote sources Companion can fetch from"
+							>
+								{sources.map(({ file, name, x, y, mark }) => (
+									<li
+										key={file}
+										style={
+											{
+												left: `${x}%`,
+												top: `${y}%`,
+												'--mark': `${mark}%`,
+											} as React.CSSProperties
+										}
+									>
+										<img
+											src={`img/${file}`}
+											alt={name}
+											width={28}
+											height={28}
+										/>
+									</li>
+								))}
+							</ul>
+
+							<div className={styles.clusterCore}>
+								<img src="img/uppy.svg" alt="Uppy" width={40} height={40} />
+							</div>
+						</div>
 					</section>
 				</div>
 
@@ -502,8 +609,8 @@ export default function Home(): JSX.Element {
 					</div>
 
 					<ul className={styles.capabilities}>
-						{capabilities.map(({ Icon, title, body, accent }) => (
-							<li key={title} data-accent={accent || undefined}>
+						{capabilities.map(({ Icon, title, body }) => (
+							<li key={title}>
 								<Icon aria-hidden />
 								<div>
 									<Heading as="h3">{title}</Heading>

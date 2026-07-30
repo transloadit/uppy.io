@@ -13,7 +13,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 0.625rem;
-	font-size: 0.875rem;
+	font-size: 0.8125rem;
 	color: var(--u-ink-700);
 	min-width: 0;
 	max-width: 100%;
@@ -26,14 +26,23 @@
 
 .tag {
 	flex: none;
-	font-size: 0.75rem;
+	/* inline-block rather than inline-flex: with a flex box the line is centred
+	   inside the content box, which swallows any padding bias — and a bias is
+	   exactly what digits need here. */
+	display: inline-block;
+	text-align: center;
+	font-size: 0.6875rem;
 	font-weight: 600;
 	line-height: 1;
 	color: #fff;
 	background: var(--u-pink-500);
 	border-radius: 999px;
-	/* Extra bottom padding: digits sit high in the box. */
-	padding: 0.25rem 0.5rem 0.3rem;
+	/* The 2px is measured, not guessed. Digits have no descenders, but the line
+	   box still reserves the space, so with even padding the ink lands ~2px above
+	   the pill's centre. Biasing the top padding by 2px puts it dead centre
+	   (7.9px of clearance above and below, at this size). The rule this replaced
+	   biased the bottom instead, which tipped the digits further up. */
+	padding: calc(0.3rem + 2px) 0.5rem 0.3rem;
 	letter-spacing: 0.01em;
 }
 

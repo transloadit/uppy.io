@@ -8,8 +8,13 @@
 	padding: 0 1rem;
 }
 
+/* Matched to a blog post's title — same scale, same tracking. 3rem was a size
+   the rest of the site stopped using. */
 .h1 {
-	font-size: 3rem;
+	font-size: clamp(1.875rem, 3.6vw, 2.5rem);
+	line-height: 1.12;
+	letter-spacing: -0.032em;
+	text-wrap: balance;
 }
 
 .h3 {

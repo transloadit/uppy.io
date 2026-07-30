@@ -43,47 +43,6 @@
 	src: url('/fonts/InterVariable-Italic.woff2') format('woff2');
 }
 
-@font-face {
-	font-family: 'IBM Plex Sans';
-	font-style: normal;
-	font-weight: 500;
-	font-display: swap;
-	src:
-		local('IBM Plex Sans Regular'),
-		local('IBMPlexSans-Regular'),
-		url('/fonts/IBMPlexSans-Regular.woff2') format('woff2');
-}
-@font-face {
-	font-family: 'IBM Plex Sans';
-	font-style: italic;
-	font-weight: 500;
-	font-display: swap;
-	src:
-		local('IBM Plex Sans Italic'),
-		local('IBMPlexSans-Italic'),
-		url('/fonts/IBMPlexSans-Italic.woff2') format('woff2');
-}
-@font-face {
-	font-family: 'IBM Plex Sans';
-	font-style: normal;
-	font-weight: 600;
-	font-display: swap;
-	src:
-		local('IBM Plex Sans SemiBold'),
-		local('IBMPlexSans-SemiBold'),
-		url('/fonts/IBMPlexSans-SemiBold.woff2') format('woff2');
-}
-@font-face {
-	font-family: 'IBM Plex Sans';
-	font-style: italic;
-	font-weight: 600;
-	font-display: swap;
-	src:
-		local('IBM Plex Sans SemiBoldItalic'),
-		local('IBMPlexSans-SemiBoldItalic'),
-		url('/fonts/IBMPlexSans-SemiBoldItalic.woff2') format('woff2');
-}
-
 /* ==========================================================================
    Design tokens
    One accent (Uppy pink) on a slate-tinted neutral ramp shared with
@@ -187,6 +146,10 @@
 
 	--ifm-heading-color: var(--u-ink-900);
 	--ifm-font-color-base: var(--u-ink-700);
+	/* Infima ships this as `transparent`, so the page was white only because
+	   that's what the browser canvas defaults to. Anything reading the variable
+	   for an opaque fill — a sticky table column, say — got nothing. */
+	--ifm-background-color: #fff;
 	--ifm-navbar-height: 4rem;
 	--ifm-navbar-shadow: none;
 	--ifm-toc-border-color: var(--u-line);
@@ -300,9 +263,11 @@ div[class*=' admonitionHeading'] {
 	}
 }
 
+/* Inter Medium, a step down from the old 16.875px: the nav is orientation, not
+   content, so it shouldn't compete with the page's own type. */
 .navbar__item,
 .navbar__link {
-	font-size: 0.9375rem;
+	font-size: 0.875rem;
 	font-weight: 500;
 	color: var(--u-ink-600);
 }
@@ -1057,7 +1022,6 @@ div[data-uppy-element='dropzone'] p {
 
 .docs-wrapper .theme-doc-markdown table:has(th:nth-child(6)) :is(th, td) {
 	white-space: nowrap;
-	overflow-wrap: normal;
 }
 
 /* Every column but the label column holds a single status icon, which belongs
@@ -1078,11 +1042,11 @@ div[data-uppy-element='dropzone'] p {
 	position: sticky;
 	left: 0;
 	z-index: 2;
-	/* Opaque, and deliberately not --ifm-background-color: Infima sets that to
-	   `transparent`, which let the scrolling cells show straight through. The
-	   shadow gives the column an edge for them to disappear under, which also
-	   hints there is more table to the right. */
-	background: #fff;
+	/* Has to be opaque or the scrolling cells show straight through — which they
+	   did, until the page background stopped being `transparent` (see the token
+	   block). The shadow gives the column an edge for them to disappear under,
+	   which also hints there is more table to the right. */
+	background: var(--ifm-background-color);
 	border-right: 1px solid var(--u-line);
 	box-shadow: 6px 0 8px -6px rgb(13 21 38 / 12%);
 }

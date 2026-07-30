@@ -9,6 +9,7 @@
  * cell, so prose that happens to contain "x" or "?" is left alone.
  */
 
+/** U+FE0F, which trails the emoji markers and would break an equality check. */
 const VARIATION_SELECTOR = /️/g;
 
 const MARKERS = [
