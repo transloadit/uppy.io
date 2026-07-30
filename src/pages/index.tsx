@@ -524,7 +524,7 @@ export default function Home(): JSX.Element {
 				{/* Centred under both columns, because it applies to the whole thing:
 				    what happens after the upload, for the projects that need it. */}
 				<div className={styles.heroHandoff}>
-					<p>Need to resize, encode and deliver those files too?</p>
+					<p>Need to resize, encode, optimize, store or deliver your files?</p>
 					<Link href="https://transloadit.com/">
 						Try Transloadit <span aria-hidden>→</span>
 					</Link>
