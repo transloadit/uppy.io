@@ -1,9 +1,9 @@
 import React, { useState, Fragment } from 'react';
 
 import Layout from '@theme/Layout';
+import Head from '@docusaurus/Head';
 import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
-import CodeBlock from '@theme/CodeBlock';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 
 import {
@@ -24,19 +24,20 @@ import {
 } from 'uppy';
 import Dashboard from '@uppy/react/dashboard';
 
-import Comparison from './comparison.md';
+import InstallCommand from '../components/InstallCommand';
+import AgentPrompt from '../components/AgentPrompt';
+import GitHubStars from '../components/GitHubStars';
 
-import IconReact from '../../static/img/react.svg';
-import IconVue from '../../static/img/vue.svg';
-import IconSvelte from '../../static/img/svelte.svg';
-import IconAngular from '../../static/img/angular.svg';
 import IconUpload from '../../static/img/upload.svg';
 import IconChat from '../../static/img/chat.svg';
 import IconLanguage from '../../static/img/language.svg';
 import IconSparkles from '../../static/img/sparkles.svg';
 import IconFolder from '../../static/img/folder.svg';
 import IconWrench from '../../static/img/wrench.svg';
-import IconUppy from '../../static/img/uppy.svg';
+import IconPencil from '../../static/img/pencil.svg';
+import IconPointer from '../../static/img/pointer.svg';
+import IconBlocks from '../../static/img/blocks.svg';
+import IconBolt from '../../static/img/bolt.svg';
 
 import 'uppy/dist/uppy.min.css';
 
@@ -49,178 +50,295 @@ const googlePickerClientId =
 const googlePickerApiKey = 'AIzaSyC6m6CZEFiTtSkBfNf_-PvtCxmDMiAgfag';
 const googlePickerAppId = '458443975467';
 
-const dashboardCode = `import { Uppy, Dashboard, RemoteSources, ImageEditor, Webcam, Tus } from 'uppy'
-
-const uppy = new Uppy()
-  .use(Dashboard, { target: '.DashboardContainer', inline: true })
-  .use(Tus, { endpoint: '${endpoint}' })
-  .use(RemoteSources, { companionUrl: '${companionUrl}' })
-  .use(Webcam)
-  .use(ImageEditor)
-`;
-
-const reactCode = `import React, { useState } from 'react'
-import { Uppy } from '@uppy/core'
-import { UppyContextProvider, Dropzone, FilesList, UploadButton } from '@uppy/react'
-
-function Component () {
-  const [uppy] = useState(() => new Uppy())
-  return (
-    <UppyContextProvider value={uppy}>
-      <Dropzone />
-      <FilesList />
-      <UploadButton />
-    </UppyContextProvider>
-  )
-}
-`;
-
-const vueCode = `<script setup>
-import { Uppy } from '@uppy/core'
-import { UppyContextProvider, Dropzone, FilesList, UploadButton } from '@uppy/vue'
-
-const uppy = new Uppy()
-</script>
-
-<template>
-  <UppyContextProvider :uppy="uppy">
-    <Dropzone />
-    <FilesList />
-    <UploadButton />
-  </UppyContextProvider>
-</template>
-`;
-
-const angularCode = `import { NgModule } from '@angular/core'
-import { UppyAngularDashboardModule } from '@uppy/angular'
-
-import { BrowserModule } from '@angular/platform-browser'
-import { AppComponent } from './app.component'
-
-@NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    UppyAngularDashboardModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-})
-class {}
-`;
-
-const svelteCode = `
-<script lang="ts">
-import { Uppy } from '@uppy/core'
-import { UppyContextProvider, Dropzone, FilesList, UploadButton } from '@uppy/vue'
-
-const uppy = new Uppy()
-</script>
-
-<template>
-  <UppyContextProvider {uppy}>
-    <Dropzone />
-    <FilesList />
-    <UploadButton />
-  </UppyContextProvider>
-</template>
-`;
-
-const providersIcons = [
-	'box.svg',
-	'unsplash.svg',
-	'googledrive.svg',
-	'dropbox.svg',
-	'instagram.svg',
-	'onedrive.svg',
+/**
+ * Package sets are taken verbatim from each framework's own docs page, so the
+ * command here is the command you'd be told to run when you get there.
+ */
+const installTargets = [
+	// No packages of its own: this one hands the whole job to an agent, so it
+	// swaps the command line for the prompt panel.
+	{ name: 'Build with Agents', agent: true },
+	{
+		name: 'Next.js',
+		packages: '@uppy/core @uppy/dashboard @uppy/react',
+		docs: '/docs/nextjs',
+		docsLabel: 'Next.js',
+	},
+	{
+		name: 'React',
+		packages: '@uppy/react',
+		docs: '/docs/react',
+		docsLabel: 'React',
+	},
+	{
+		name: 'Vue',
+		packages: '@uppy/vue',
+		docs: '/docs/vue',
+		docsLabel: 'Vue',
+	},
+	{
+		name: 'Svelte',
+		packages: '@uppy/svelte',
+		docs: '/docs/svelte',
+		docsLabel: 'Svelte',
+	},
+	{
+		name: 'Angular',
+		packages: '@uppy/angular',
+		docs: '/docs/angular',
+		docsLabel: 'Angular',
+	},
+	{
+		name: 'Vanilla',
+		packages: '@uppy/core @uppy/dashboard',
+		docs: '/docs/dashboard',
+		docsLabel: 'Dashboard',
+	},
 ];
 
-const frameworks = [
-	{ name: 'React', Icon: IconReact, code: reactCode },
-	{ name: 'Vue', Icon: IconVue, code: vueCode },
-	{ name: 'Svelte', Icon: IconSvelte, code: svelteCode },
-	{ name: 'Angular', Icon: IconAngular, code: angularCode },
+/**
+ * Ambient upload sparks: 1px pink lines rising behind the hero.
+ *
+ * Hand-authored so SSR and hydration agree, and clustered rather than evenly
+ * pitched — an even pitch reads as a comb, which is the giveaway.
+ *
+ * Two rules hold across the set:
+ *  - Length is motion blur, so it tracks speed: travel is a fixed 52rem, which
+ *    makes `len ≈ 208 / dur`. Long lines are the fast ones.
+ *  - Peak opacity is deliberately uncorrelated with length, so bright doesn't
+ *    always mean long.
+ *
+ * A scattered quarter run at 2px rather than 1px: thicker reads as nearer, so
+ * the field gets some depth instead of sitting on one plane.
+ *
+ * x = left %, len/w = px, dur/delay = seconds, o = peak opacity.
+ */
+const sparks = [
+	{ x: 4, len: 65, dur: 3.2, delay: 0.0, o: 0.55, w: 1 },
+	{ x: 6, len: 39, dur: 5.4, delay: 1.3, o: 0.9, w: 2 },
+	{ x: 9, len: 51, dur: 4.1, delay: 2.9, o: 0.45, w: 1 },
+	{ x: 11, len: 74, dur: 2.8, delay: 4.6, o: 0.7, w: 1 },
+	{ x: 13, len: 35, dur: 6.0, delay: 5.8, o: 0.5, w: 2 },
+	{ x: 19, len: 58, dur: 3.6, delay: 7.7, o: 0.85, w: 1 },
+	{ x: 21, len: 42, dur: 4.9, delay: 9.1, o: 0.6, w: 1 },
+	{ x: 24, len: 69, dur: 3.0, delay: 10.4, o: 0.55, w: 1 },
+	{ x: 26, len: 80, dur: 2.6, delay: 12.0, o: 0.9, w: 1 },
+	{ x: 31, len: 34, dur: 6.2, delay: 13.7, o: 0.45, w: 2 },
+	{ x: 33, len: 56, dur: 3.7, delay: 14.9, o: 0.7, w: 1 },
+	{ x: 36, len: 65, dur: 3.2, delay: 16.8, o: 0.5, w: 1 },
+	{ x: 38, len: 39, dur: 5.4, delay: 18.2, o: 0.85, w: 2 },
+	{ x: 44, len: 51, dur: 4.1, delay: 19.5, o: 0.6, w: 1 },
+	{ x: 47, len: 74, dur: 2.8, delay: 21.1, o: 0.55, w: 1 },
+	{ x: 49, len: 35, dur: 6.0, delay: 22.8, o: 0.9, w: 1 },
+	{ x: 51, len: 58, dur: 3.6, delay: 24.0, o: 0.45, w: 1 },
+	{ x: 55, len: 42, dur: 4.9, delay: 25.9, o: 0.7, w: 2 },
+	{ x: 57, len: 69, dur: 3.0, delay: 27.3, o: 0.5, w: 1 },
+	{ x: 60, len: 80, dur: 2.6, delay: 28.6, o: 0.85, w: 1 },
+	{ x: 62, len: 34, dur: 6.2, delay: 30.2, o: 0.6, w: 1 },
+	{ x: 68, len: 56, dur: 3.7, delay: 31.9, o: 0.55, w: 2 },
+	{ x: 70, len: 65, dur: 3.2, delay: 33.1, o: 0.9, w: 1 },
+	{ x: 73, len: 39, dur: 5.4, delay: 35.0, o: 0.45, w: 1 },
+	{ x: 75, len: 51, dur: 4.1, delay: 36.4, o: 0.7, w: 1 },
+	{ x: 79, len: 74, dur: 2.8, delay: 37.7, o: 0.5, w: 1 },
+	{ x: 81, len: 35, dur: 6.0, delay: 39.3, o: 0.85, w: 2 },
+	{ x: 84, len: 58, dur: 3.6, delay: 41.0, o: 0.6, w: 1 },
+	{ x: 86, len: 42, dur: 4.9, delay: 42.2, o: 0.55, w: 1 },
+	{ x: 91, len: 69, dur: 3.0, delay: 44.1, o: 0.9, w: 1 },
+	{ x: 93, len: 80, dur: 2.6, delay: 45.5, o: 0.45, w: 2 },
+	{ x: 96, len: 34, dur: 6.2, delay: 46.8, o: 0.7, w: 1 },
+];
+
+const packageManagers = [
+	{ name: 'npm', prefix: 'npm install' },
+	{ name: 'yarn', prefix: 'yarn add' },
+];
+
+// Every source Companion can fetch from — one per plugin under
+// docs/sources/companion-plugins. Twelve of them, which is the point: the claim
+// is "files from anywhere", so the list should be able to back it up.
+const providers = [
+	{ file: 'googledrive.svg', name: 'Google Drive' },
+	{ file: 'googledrive.svg', name: 'Google Drive Picker' },
+	{ file: 'googlephotos.svg', name: 'Google Photos' },
+	{ file: 'dropbox.svg', name: 'Dropbox' },
+	{ file: 'onedrive.svg', name: 'OneDrive' },
+	{ file: 'box.svg', name: 'Box' },
+	{ file: 'webdav.svg', name: 'WebDAV' },
+	{ file: 'instagram.svg', name: 'Instagram' },
+	{ file: 'facebook.svg', name: 'Facebook' },
+	{ file: 'unsplash.svg', name: 'Unsplash' },
+	{ file: 'zoom.svg', name: 'Zoom' },
+	{ file: 'link.svg', name: 'Link (URL)' },
+];
+
+const capabilities = [
+	{
+		Icon: IconUpload,
+		title: 'Resumable uploads',
+		body: (
+			<>
+				Large uploads survive network hiccups, thanks to the open{' '}
+				<Link href="https://tus.io/">Tus</Link> standard.
+			</>
+		),
+	},
+	{
+		Icon: IconFolder,
+		title: 'Crash recovery',
+		body: (
+			<>
+				Files come back after a browser crash or an accidental navigation, via{' '}
+				<Link to="/docs/golden-retriever">Golden Retriever</Link>.
+			</>
+		),
+	},
+	{
+		Icon: IconSparkles,
+		title: 'Hand off to Transloadit',
+		body: (
+			<>
+				Send files straight to{' '}
+				<Link href="https://transloadit.com/">Transloadit</Link> for encoding
+				and file processing.
+			</>
+		),
+		// The one row we want clicked, so it keeps the accent to itself.
+		accent: true,
+	},
+	{
+		Icon: IconPointer,
+		title: 'Drag and drop',
+		body: (
+			<>
+				Built into the Dashboard, or take{' '}
+				<Link to="/docs/drag-drop">DragDrop</Link> on its own — and{' '}
+				<Link to="/docs/drop-target">DropTarget</Link> makes any element a drop
+				zone.
+			</>
+		),
+	},
+	{
+		Icon: IconPencil,
+		title: 'Edit before uploading',
+		body: (
+			<>
+				Crop, rotate and resize in the browser with the{' '}
+				<Link to="/docs/image-editor">Image Editor</Link>, and shrink files with{' '}
+				<Link to="/docs/compressor">Compressor</Link>.
+			</>
+		),
+	},
+	{
+		Icon: IconLanguage,
+		// 40 packs in @uppy/locales, some of which are regional variants of the
+		// same language — hence "locales" rather than a language count.
+		title: 'Ships in 40 locales',
+		body: (
+			<>
+				Drop in a <Link to="/docs/locales">locale pack</Link>, or override
+				single strings to match your own copy.
+			</>
+		),
+	},
+	{
+		Icon: IconBlocks,
+		title: 'Modular by design',
+		body: (
+			<>
+				Every part is a <Link to="/docs/uppy">plugin</Link>. Take the whole
+				Dashboard, or wire up only the pieces you need.
+			</>
+		),
+	},
+	{
+		Icon: IconBolt,
+		title: 'No build step needed',
+		body: (
+			<>
+				Load Uppy from the CDN with a <code>{'<script>'}</code> tag and skip the
+				bundler entirely.
+			</>
+		),
+	},
+	{
+		Icon: IconWrench,
+		title: 'Accessible by default',
+		body: (
+			<>
+				Keyboard navigation and screen readers are designed for, not bolted on.
+			</>
+		),
+	},
+	{
+		Icon: IconChat,
+		title: 'Open source since 2016',
+		body: <>MIT licensed, every plugin included. There is no paid edition.</>,
+	},
 ];
 
 export default function Home(): JSX.Element {
-	const [framework, setFramework] = useState(frameworks[0].name);
+	const [target, setTarget] = useState(installTargets[0].name);
+	const [manager, setManager] = useState(packageManagers[0].name);
+	const activeTarget = installTargets.find((t) => t.name === target);
 
 	return (
-		<Layout description="Description will go into a meta tag in <head />">
-			<header className={styles.header}>
-				<Heading as="h1">
-					Sleek, modular open source JavaScript file uploader
-				</Heading>
+		<Layout description="Uppy is the open source JavaScript file uploader. Resumable uploads from disk, Dropbox or Google Drive, for React, Next.js, Vue, Svelte and Angular.">
+			{/* Title is set verbatim rather than through Layout's title prop, which
+			    would append " | Uppy" and undo the lockup. */}
+			<Head>
+				<title>
+					{'Uppy by Transloadit - Open source JavaScript file uploader'}
+				</title>
+			</Head>
 
-				<p>
-					Uppy fetches files locally and from remote places like Dropbox or
-					Instagram. With its seamless integration, reliability and ease of use,
-					Uppy is truly your best friend in file uploading.
-				</p>
+			{/* ---------------------------------------------------------------- Hero */}
+			<header className={styles.hero}>
+				<div className={styles.glow} aria-hidden />
 
-				<Link className={styles.button} to="/docs/quick-start">
-					Get started
-				</Link>
+				<div className={styles.sparks} aria-hidden>
+					{sparks.map(({ x, len, dur, delay, o, w }) => (
+						<span
+							key={x}
+							className={styles.spark}
+							style={
+								{
+									left: `${x}%`,
+									width: `${w}px`,
+									height: `${len}px`,
+									animationDuration: `${dur}s`,
+									// Negative delay starts each track mid-flight, so the
+									// field is already populated on first paint.
+									animationDelay: `-${delay}s`,
+									'--peak': o,
+								} as React.CSSProperties
+							}
+						/>
+					))}
+				</div>
 
-				<figure className={styles.quote}>
-					<blockquote cite="https://stackshare.io/posts/top-developer-tools-2017">
-						<p>“Top 10 tools of the year”</p>
-					</blockquote>
-					<figcaption>
-						<Link
-							href="https://stackshare.io/posts/top-developer-tools-2017"
-							rel="noopener"
-							target="_blank"
-						>
-							Stackshare
-						</Link>
-					</figcaption>
-				</figure>
+				<div className={styles.heroInner}>
+					<img
+						className={styles.mark}
+						src="/img/logo.svg"
+						alt=""
+						width={64}
+						height={64}
+					/>
 
-				<figure className={styles.quote}>
-					<blockquote cite="https://books.producthunt.com/bestof2017">
-						<p>“The best product launches”</p>
-					</blockquote>
-					<figcaption>
-						<Link
-							href="https://books.producthunt.com/bestof2017"
-							rel="noopener"
-							target="_blank"
-						>
-							Product Hunt
-						</Link>
-					</figcaption>
-				</figure>
-
-				<figure className={styles.quote}>
-					<blockquote cite="https://twitter.com/smashingmag/status/1097870169043546112">
-						<p>“Soooo useful”</p>
-					</blockquote>
-					<figcaption>
-						<Link
-							href="https://twitter.com/smashingmag/status/1097870169043546112"
-							rel="noopener"
-							target="_blank"
-						>
-							Smashing Magazine
-						</Link>
-					</figcaption>
-				</figure>
-			</header>
-
-			<main className={styles.main}>
-				<section className={styles['section-dashboard']}>
-					<Heading as="h2">
-						The all you need Dashboard — powerful, responsive, and pluggable.
+					<Heading as="h1" className={styles.title}>
+						The open source JavaScript file uploader
 					</Heading>
-					<p>
-						Add files from remote sources, edit images, generate thumbnails, and
-						more.
+
+					<p className={styles.lede}>
+						Sleek, modular and open source. Pulls files from disk, Dropbox or
+						Drive, and resumes if the connection drops.
 					</p>
-					<div className={styles.dashboard}>
-						<div className={styles['dashboard-inner']}>
+				</div>
+
+				{/* The product is the hero — it sits above the fold, working. */}
+				<div className={styles.showcase}>
+					<div className={styles.demoCol}>
+						<div className={styles.demo}>
 							<BrowserOnly>
 								{() => {
 									const uppy = new Uppy({ debug: true })
@@ -252,7 +370,8 @@ export default function Home(): JSX.Element {
 									return (
 										<Dashboard
 											uppy={uppy}
-											height={400}
+											width="100%"
+											height={460}
 											plugins={[
 												'Webcam',
 												'Dropbox',
@@ -267,157 +386,159 @@ export default function Home(): JSX.Element {
 								}}
 							</BrowserOnly>
 						</div>
-						<CodeBlock language="js">{dashboardCode}</CodeBlock>
-					</div>
-					<div
-						aria-hidden
-						className={`${styles.upload} ${styles['upload-one']}`}
-					>
-						<IconUppy />
-						<div></div>
-					</div>
-					<div
-						aria-hidden
-						className={`${styles.upload} ${styles['upload-two']}`}
-					>
-						<div></div>
-					</div>
-				</section>
 
-				<section className={styles['section-companion']}>
-					<div className={styles.companion}>
-						{providersIcons.map((file) => (
-							<div className={styles.provider} key={file}>
-								<img src={`img/${file}`} />
-							</div>
-						))}
-					</div>
-					<Heading as="h2">
-						Bring in the files from the cloud with Companion.
-					</Heading>
-					<p>
-						Companion is a hosted, standalone, or middleware server to{' '}
-						<strong>
-							take away the complexity of authentication and the cost of
-							downloading files
-						</strong>{' '}
-						from remote sources, such as Instagram, Google Drive, and others.
-					</p>
-					<p>
-						This means a 5GB video isn’t eating into your users’ data plans and
-						you don’t have to worry about OAuth.
-					</p>
-					<Link className={styles.button} to="/docs/companion">
-						Learn more
-					</Link>
-				</section>
-
-				<section className={styles['section-stack']}>
-					<div>
-						<Heading as="h2">Integrate Uppy into your existing stack.</Heading>
-						<p>
-							Uppy can seamlessly integrate in your existing stack. Plug the pup
-							in the framework of your choosing.
-						</p>
-						<Link
-							className={styles.button}
-							to={`/docs/${framework.toLowerCase()}`}
-						>
-							{framework} docs
+						<Link className={styles.demoNote} href="https://transloadit.com">
+							Uppy uploads. Transloadit does the rest <span aria-hidden>→</span>
 						</Link>
 					</div>
-					<div className={styles['frameworks-wrapper']}>
-						<div className={styles.frameworks}>
-							{frameworks.map(({ name, Icon }) => (
+
+					{/* The install path sits beside the product: what it is on the
+					    left, how you get it on the right. */}
+					<div className={styles.install}>
+						<div
+							className={styles.targets}
+							role="radiogroup"
+							aria-label="Framework"
+						>
+							{installTargets.map(({ name }) => (
 								<Fragment key={name}>
 									<input
 										type="radio"
-										id={name}
-										className={styles['framework-input']}
-										name="framework"
+										id={`target-${name}`}
+										className={styles.targetInput}
+										name="install-target"
 										value={name}
-										checked={name === framework}
-										onChange={(event) => setFramework(event.target.value)}
+										checked={name === target}
+										onChange={(event) => setTarget(event.target.value)}
 									/>
-									<label htmlFor={name}>
-										<Icon />
-										<span>{name}</span>
-									</label>
+									<label htmlFor={`target-${name}`}>{name}</label>
 								</Fragment>
 							))}
 						</div>
-						<CodeBlock language="js">
-							{frameworks.find((f) => f.name === framework).code}
-						</CodeBlock>
-					</div>
-				</section>
 
-				<section className={styles['section-much-more']}>
-					<Heading as="h2">And much more</Heading>
-					<ul>
-						<li>
-							<span>
-								<IconUpload />
-							</span>
-							<span>
-								Large uploads survive network hiccups thanks to resumable file
-								uploads via the open <Link href="https://tus.io/">Tus</Link>{' '}
-								standard
-							</span>
-						</li>
-						<li>
-							<span>
-								<IconSparkles />
-							</span>
-							<span>
-								Works great with the file encoding and processing backend from{' '}
-								<Link href="https://transloadit.com/">Transloadit</Link>.
-							</span>
-						</li>
-						<li>
-							<span>
-								<IconChat />
-							</span>
-							<span>
-								Open source and driven by the community. We listen closely and
-								adjust the project based on your feedback
-							</span>
-						</li>
-						<li>
-							<span>
-								<IconFolder />
-							</span>
-							<span>
-								File recovery, such as after a browser crash or accidental
-								navigation, via{' '}
-								<Link to="/docs/golden-retriever">Golden Retriever</Link>
-							</span>
-						</li>
-						<li>
-							<span>
-								<IconLanguage />
-							</span>
-							<span>Speaks multiple languages (i18n)</span>
-						</li>
-						<li>
-							<span>
-								<IconWrench />
-							</span>
-							<span>Built with accessibility in mind</span>
-						</li>
+						{activeTarget.agent ?
+							<AgentPrompt className={styles.heroAgent} />
+						:	<>
+								{/* The package manager is a property of the command, so it docks
+								    to the field as a tab strip rather than repeating the pill
+								    treatment used for the framework choice above. */}
+								<div className={styles.field}>
+									<div
+										className={styles.managers}
+										role="radiogroup"
+										aria-label="Package manager"
+									>
+										{packageManagers.map(({ name }) => (
+											<Fragment key={name}>
+												<input
+													type="radio"
+													id={`pm-${name}`}
+													className={styles.managerInput}
+													name="package-manager"
+													value={name}
+													checked={name === manager}
+													onChange={(event) => setManager(event.target.value)}
+												/>
+												<label htmlFor={`pm-${name}`}>{name}</label>
+											</Fragment>
+										))}
+									</div>
+
+									<InstallCommand
+										command={`${
+											packageManagers.find((p) => p.name === manager).prefix
+										} ${activeTarget.packages}`}
+										className={styles.heroInstall}
+									/>
+								</div>
+
+								<Link className={styles.installDocs} to={activeTarget.docs}>
+									Then wire it up in the {activeTarget.docsLabel} docs{' '}
+									<span aria-hidden>→</span>
+								</Link>
+							</>
+						}
+					</div>
+				</div>
+			</header>
+
+			<main className={styles.main}>
+				{/* ----------------------------------------------------- Companion */}
+				{/* The page's one horizontal break: a change of ground marks the
+				    shift from "here's the thing" to "here's how it gets files". */}
+				<div className={styles.band}>
+					<section className={`${styles.section} ${styles.split}`}>
+						<div className={styles.sectionHead}>
+							<p className={styles.eyebrow}>Companion</p>
+							<Heading as="h2">Files from anywhere, without the OAuth</Heading>
+							<p>
+								Companion is a hosted, standalone or middleware server that
+								takes away the complexity of authentication and the cost of
+								downloading files from remote sources. A 5&nbsp;GB video never
+								touches your user’s data plan, and you never touch an OAuth
+								flow.
+							</p>
+							<Link className={styles.textLink} to="/docs/companion">
+								Set up Companion <span aria-hidden>→</span>
+							</Link>
+						</div>
+
+						<ul className={styles.providers}>
+							{providers.map(({ file, name }) => (
+								<li key={file}>
+									<img src={`img/${file}`} alt="" width={24} height={24} />
+									<span>{name}</span>
+								</li>
+							))}
+						</ul>
+					</section>
+				</div>
+
+				{/* -------------------------------------------------- Capabilities */}
+				<section className={styles.section}>
+					<div className={styles.sectionHead}>
+						<p className={styles.eyebrow}>What ships with it</p>
+						<Heading as="h2">The parts you’d otherwise build twice</Heading>
+					</div>
+
+					<ul className={styles.capabilities}>
+						{capabilities.map(({ Icon, title, body, accent }) => (
+							<li key={title} data-accent={accent || undefined}>
+								<Icon aria-hidden />
+								<div>
+									<Heading as="h3">{title}</Heading>
+									<p>{body}</p>
+								</div>
+							</li>
+						))}
 					</ul>
-					<div>
-						<Link className={styles.button} to="/docs/quick-start">
-							Get started
-						</Link>
-					</div>
-				</section>
-
-				<section>
-					<Heading as="h2">Comparison of uploaders</Heading>
-					<Link to="/docs/comparison">View full comparison table</Link>
 				</section>
 			</main>
+
+			{/* -------------------------------------------------------- Closing */}
+			<section className={styles.closing}>
+				<div className={styles.closingInner}>
+					<Heading as="h2">Start uploading in a minute</Heading>
+					<p>One npm install, one plugin, and files are moving.</p>
+					<div className={styles.actions}>
+						<Link className={styles.primary} to="/docs/quick-start">
+							Get started
+							<svg viewBox="0 0 24 24" className={styles.chevron} aria-hidden>
+								<path
+									d="m9 6 6 6-6 6"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								/>
+							</svg>
+						</Link>
+
+						<GitHubStars size="lg" />
+					</div>
+				</div>
+			</section>
 		</Layout>
 	);
 }

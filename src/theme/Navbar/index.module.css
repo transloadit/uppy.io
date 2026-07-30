@@ -1,9 +1,79 @@
-.header {
-	margin: 0;
-	padding: 0.5rem;
+.banner {
 	display: flex;
 	justify-content: center;
+	background: var(--u-pink-50);
+	border-bottom: 1px solid var(--u-pink-100);
+	padding: 0.5rem 1rem;
+	/* The headline never wraps on desktop, so the bar — not the document —
+	   absorbs any overflow. */
+	overflow: hidden;
+}
+
+.link {
+	display: inline-flex;
 	align-items: center;
-	border-bottom: 1px solid var(--ifm-color-emphasis-200);
-	z-index: var(--ifm-z-index-fixed);
+	gap: 0.625rem;
+	font-size: 0.875rem;
+	color: var(--u-ink-700);
+	min-width: 0;
+	max-width: 100%;
+}
+
+.link:hover {
+	text-decoration: none;
+	color: var(--u-ink-900);
+}
+
+.tag {
+	flex: none;
+	font-size: 0.75rem;
+	font-weight: 600;
+	line-height: 1;
+	color: #fff;
+	background: var(--u-pink-500);
+	border-radius: 999px;
+	/* Extra bottom padding: digits sit high in the box. */
+	padding: 0.25rem 0.5rem 0.3rem;
+	letter-spacing: 0.01em;
+}
+
+.text {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.arrow {
+	flex: none;
+	color: var(--u-pink-600);
+	transition: transform 150ms var(--u-ease);
+}
+
+.link:hover .arrow {
+	transform: translateX(2px);
+}
+
+/* Never ellipsis the announcement — a truncated launch message loses exactly
+   the words it was written for. Let it wrap instead. */
+@media screen and (max-width: 34rem) {
+	.link {
+		align-items: flex-start;
+	}
+
+	.text {
+		white-space: normal;
+		overflow: visible;
+	}
+
+	.tag,
+	.arrow {
+		margin-top: 0.1rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.arrow {
+		transition: none;
+	}
 }

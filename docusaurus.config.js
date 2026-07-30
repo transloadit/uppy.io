@@ -7,7 +7,7 @@ const lightCodeTheme = themes.github;
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: 'Uppy',
-	tagline: 'Sleek, modular open source JavaScript file uploader',
+	tagline: 'The open source JavaScript file uploader',
 	url: 'https://uppy.io',
 	baseUrl: '/',
 	onBrokenLinks: 'warn',
@@ -37,6 +37,7 @@ const config = {
 			({
 				docs: {
 					breadcrumbs: false,
+					remarkPlugins: [require('./src/remark/comparison-icons.cjs')],
 					sidebarPath: require.resolve('./sidebars.js'),
 					editUrl: 'https://github.com/transloadit/uppy.io/blob/main/',
 				},
@@ -107,17 +108,25 @@ const config = {
 			image: 'img/og_image.jpg',
 			metadata: [
 				{ property: 'og:type', content: 'website' },
-				{ property: 'og:title', content: 'Uppy' },
+				{
+					property: 'og:title',
+					content: 'Uppy by Transloadit - Open source JavaScript file uploader',
+				},
 				{
 					property: 'og:description',
-					content: 'Sleek, modular open source JavaScript file uploader',
+					content:
+						'The open source JavaScript file uploader. Resumable uploads from disk, Dropbox or Google Drive, for React, Next.js, Vue, Svelte and Angular.',
 				},
 				{ name: 'twitter:card', content: 'summary_large_image' },
 				{ name: 'twitter:domain', content: 'uppy.io' },
-				{ name: 'twitter:title', content: 'Uppy' },
+				{
+					name: 'twitter:title',
+					content: 'Uppy by Transloadit - Open source JavaScript file uploader',
+				},
 				{
 					name: 'twitter:description',
-					content: 'Sleek, modular open source JavaScript file uploader',
+					content:
+						'The open source JavaScript file uploader. Resumable uploads from disk, Dropbox or Google Drive, for React, Next.js, Vue, Svelte and Angular.',
 				},
 			],
 			docs: { sidebar: { autoCollapseCategories: true } },
@@ -138,11 +147,6 @@ const config = {
 					{ to: '/examples', label: 'Examples', position: 'left' },
 					{ to: '/blog', label: 'Blog', position: 'left' },
 					{
-						href: 'https://github.com/transloadit/uppy',
-						label: 'GitHub',
-						position: 'left',
-					},
-					{
 						href: 'https://community.transloadit.com/',
 						label: 'Forum',
 						position: 'left',
@@ -152,6 +156,7 @@ const config = {
 						label: 'Support',
 						position: 'left',
 					},
+					{ type: 'custom-githubStars', position: 'right' },
 				],
 			},
 			algolia: {

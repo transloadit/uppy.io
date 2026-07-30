@@ -1,5 +1,9 @@
+/* 52rem lands the prose at roughly the same measure as a docs page (~85
+   characters at this root size); 60rem ran to ~100, which is past the point
+   where the eye loses the line. The demo below still has room to sit
+   side-by-side. */
 .main {
-	max-width: 60rem;
+	max-width: 52rem;
 	margin: 4rem auto;
 	padding: 0 1rem;
 }

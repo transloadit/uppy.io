@@ -20,7 +20,7 @@ software and services.
 | Client-side restrictions                                                                           | ✅                                                         | ?                                                                               | ?                                                                          | ?                                                             | ?                                                                                 | ?                                         | ?                                                       |
 
 ¹ Non-free feature addon to free software.\
-² No multi-file select inside folder (with checkbox).\
+² No multi-file select inside folder (with checkbox).
 
 ## Framework support
 

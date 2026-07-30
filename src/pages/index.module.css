@@ -1,432 +1,1011 @@
-/* ----- Elements ------  */
+/* ==========================================================================
+   Homepage
+   Light throughout. One accent (Uppy pink), one light source (from above),
+   one card treatment reused everywhere.
+   ========================================================================== */
 
-:root {
-	--pink: #f37;
-	--blue: #2563eb;
-	--bg-blue: #e0f2fe;
-}
+/* ------------------------------------------------------------------ Shared */
 
-.main code {
-	font-size: 0.8rem !important;
-}
-
-.main {
-	margin: 1rem;
-}
-
-.main > section {
-	max-width: 50rem;
-	margin: 0 auto;
-	margin-top: 5rem;
-}
-
-.main section h2,
-.main section p {
-	max-width: 30rem;
-}
-
-.button {
-	color: var(--blue);
+.eyebrow {
+	font-size: 0.875rem;
 	font-weight: 600;
-	background-color: var(--bg-blue);
-	padding: 0.5rem 1rem;
-	border-radius: 5px;
-	transition: filter 150ms ease-in-out;
+	color: var(--u-pink-600);
+	margin: 0 0 0.75rem;
 }
 
-.button:hover,
-.button:focus {
-	text-decoration: none;
-	color: var(--blue);
-	filter: brightness(95%);
+.primary,
+.secondary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	height: 3rem;
+	padding: 0 1.5rem;
+	border-radius: var(--u-radius-md);
+	font-size: 1rem;
+	font-weight: 600;
+	white-space: nowrap;
+	transition:
+		background-color 150ms var(--u-ease),
+		border-color 150ms var(--u-ease),
+		box-shadow 150ms var(--u-ease),
+		transform 150ms var(--u-ease);
 }
 
-/* ----- Intro ------  */
-
-.header {
-	margin: 1rem auto;
-	padding: 0 1rem;
-	margin-top: 7rem;
-	text-align: center;
-	max-width: 30rem;
-}
-@media screen and (min-width: 40rem) {
-	.header {
-		padding-top: 5rem;
-		min-height: 75vh;
-	}
+/* A trailing chevron carries its own whitespace, so the right padding is cut
+   back to make the two sides *look* equal rather than measure equal. */
+.primary {
+	padding-right: 1.15rem;
+	gap: 0.3rem;
 }
 
-.quote:first-of-type {
-	margin-top: 2rem;
+.chevron {
+	width: 1.0625rem;
+	height: 1.0625rem;
+	flex: none;
+	opacity: 0.75;
 }
 
-.quote blockquote {
-	margin: 0;
-	padding: 0;
-	border: none;
-	font-style: italic;
-}
-
-.quote figcaption a {
-	font-size: 0.85rem;
-	color: #6b7280;
-	text-decoration: underline;
-}
-
-/* ----- Dashboard ------  */
-
-.dashboard {
-	position: relative;
-}
-
-.dashboard-inner {
-	position: relative;
-	z-index: 1;
-	background-color: #fff;
-	padding: 5px;
-	border-radius: 10px;
+/* The one emitting element on the page. */
+.primary {
+	color: #fff;
+	background: linear-gradient(180deg, #ff4a86, var(--u-pink-500));
 	box-shadow:
-		0 1px 2px rgba(0, 0, 0, 0.1),
-		0 2px 5px rgba(0, 0, 0, 0.05);
+		inset 0 1px 0 rgb(255 255 255 / 28%),
+		0 1px 2px rgb(184 0 74 / 30%),
+		0 6px 18px rgb(255 51 119 / 24%);
 }
 
-@media screen and (min-width: 50rem) {
-	.dashboard-inner {
-		background-color: transparent;
-		padding: 0;
-		border-radius: 0;
-		box-shadow: none;
-	}
+.primary:hover {
+	color: #fff;
+	text-decoration: none;
+	transform: translateY(-1px);
+	box-shadow:
+		inset 0 1px 0 rgb(255 255 255 / 28%),
+		0 1px 2px rgb(184 0 74 / 30%),
+		0 10px 24px rgb(255 51 119 / 30%);
 }
 
-.main .section-dashboard {
-	max-width: 65rem;
+.primary:active {
+	transform: translateY(0);
+	box-shadow:
+		inset 0 1px 2px rgb(184 0 74 / 25%),
+		0 1px 1px rgb(184 0 74 / 20%);
 }
 
-.dashboard::after {
-	position: absolute;
-	content: '';
-	top: 0;
-	right: 0;
-	z-index: -1;
-	height: 100%;
-	width: 100%;
-	margin: 0 auto;
-	filter: blur(60px);
-	background: linear-gradient(90deg, rgb(255, 51, 119, 0.2), #fbcfe8);
-	background-size: 200% 200%;
-	background-position: 100% 50%;
+.secondary {
+	color: var(--u-ink-800);
+	background: #fff;
+	border: 1px solid var(--u-line);
+	box-shadow: var(--u-shadow-xs);
 }
 
-/* Don't show code example on mobile, it's too big */
-.dashboard div[class*='codeBlockContainer'] {
-	display: none;
-}
-@media screen and (min-width: 40rem) {
-	.dashboard div[class*='codeBlockContainer'] {
-		display: block;
-	}
-}
-@media screen and (min-width: 50rem) {
-	.dashboard {
-		display: grid;
-		grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-		align-items: center;
-	}
-	.dashboard::after {
-		width: 300px;
-		right: calc(50% - 300px / 2);
-	}
+.secondary:hover {
+	color: var(--u-ink-900);
+	text-decoration: none;
+	border-color: var(--u-line-strong);
+	background: var(--u-ink-50);
+	transform: translateY(-1px);
 }
 
-.upload {
-	position: absolute;
-	z-index: -10;
-	content: '';
+.secondary:active {
+	transform: translateY(0);
+	background: var(--u-ink-100);
 }
 
-.upload-one {
-	transform: rotate(5deg) translateY(30px);
-	top: 60px;
-	right: 50px;
-	height: 130%;
-	width: 150px;
-}
-
-.upload-two {
-	transform: rotate(-10deg) translateY(30px);
-	top: 20px;
-	left: 400px;
-	height: 130%;
-	width: 150px;
-	display: none;
-}
-
-.upload svg {
-	transform: rotate(7deg) translateY(55px) translateX(-10px);
-	width: 100%;
-}
-
-.upload div {
-	background: rgb(255, 255, 255);
-	background: linear-gradient(
-		0deg,
-		rgba(255, 255, 255, 0) 0%,
-		rgba(255, 51, 119, 0.15) 80%
-	);
-	width: 110px;
-	height: 100%;
-}
-
-.upload-two div {
-	background: linear-gradient(
-		0deg,
-		rgba(255, 255, 255, 0) 0%,
-		rgba(255, 51, 119, 0.1) 100%
-	);
-}
-
-@media screen and (min-width: 50rem) {
-	.upload-one {
-		right: calc(50% - 640px / 2);
-		height: 90%;
-		transform: rotate(10deg) translateY(30px);
-	}
-	.upload-two {
-		display: block;
-		left: calc(50% - 500px / 2);
-	}
-}
-
-/* ----- Companion ------  */
-
-.companion {
+.actions {
 	display: flex;
-	width: 100%;
-	margin-top: 7rem;
-	margin-bottom: -3rem;
-}
-
-@media screen and (min-width: 50rem) {
-	.companion {
-		margin-top: 10rem;
-	}
-}
-
-.companion .provider {
-	background: linear-gradient(rgb(255, 51, 119, 0.2), #ffff 90%);
-	border-radius: 5px 5px 0 0;
-	height: 150px;
-	flex: 1;
-	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
 	justify-content: center;
 }
 
-.provider img {
-	margin: 0.7rem;
-	max-width: 1.5rem;
-	max-height: 1.5rem;
+.textLink {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-weight: 600;
+	font-size: 1rem;
+	color: var(--ifm-color-primary);
 }
 
-.companion .provider:nth-of-type(2) {
-	margin-top: 1.5rem;
-}
-.companion .provider:nth-of-type(3) {
-	margin-top: 3rem;
-}
-.companion .provider:nth-of-type(4) {
-	margin-top: 4.5rem;
-}
-.companion .provider:nth-of-type(5) {
-	margin-top: 3rem;
-}
-.companion .provider:nth-of-type(6) {
-	margin-top: 1.5rem;
-}
-@media screen and (min-width: 50rem) {
-	.provider img {
-		margin-top: 2rem;
-	}
-	.companion .provider {
-		height: 250px;
-	}
-	.companion .provider:nth-of-type(2) {
-		margin-top: 3rem;
-	}
-	.companion .provider:nth-of-type(3) {
-		margin-top: 6rem;
-	}
-	.companion .provider:nth-of-type(4) {
-		margin-top: 9rem;
-	}
-	.companion .provider:nth-of-type(5) {
-		margin-top: 6rem;
-	}
-	.companion .provider:nth-of-type(6) {
-		margin-top: 3rem;
-	}
+.textLink span {
+	transition: transform 150ms var(--u-ease);
 }
 
-/* ----- Frameworks ------  */
-.section-stack {
+.textLink:hover {
+	text-decoration: none;
+}
+
+.textLink:hover span {
+	transform: translateX(3px);
+}
+
+/* -------------------------------------------------------------------- Hero */
+
+.hero {
 	position: relative;
-	padding: 1rem 0;
-	background-image: url('/img/grid-8.svg');
-	background-position: center;
-	background-repeat: repeat-y;
-	background-size: 100%;
+	isolation: isolate;
+	/* Bottom padding is not decoration: the hero clips overflow (for .glow), and
+	   without it the uploader card's drop shadow is cut off along its bottom
+	   edge and the card stops reading as lifted. */
+	/* The hero owns the run-out to the next section, so the ambient layers have
+	   room to dissolve instead of stopping on a hard edge. */
+	padding: 5rem 1.5rem 9rem;
+	text-align: center;
+	overflow: hidden;
 }
-.section-stack::after {
+
+@media screen and (max-width: 45rem) {
+	.hero {
+		padding: 3.25rem 1.5rem 5rem;
+	}
+}
+
+/* The light source: a soft pink wash behind the headline, falling off fast. */
+.glow {
+	position: absolute;
+	z-index: -3;
+	top: -24rem;
+	left: 50%;
+	width: min(78rem, 150vw);
+	height: 46rem;
+	transform: translateX(-50%);
+	background: radial-gradient(
+		closest-side,
+		rgb(255 51 119 / 20%),
+		rgb(255 51 119 / 7%) 55%,
+		rgb(255 51 119 / 0%) 100%
+	);
+	pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ Sparks */
+
+/* Uploads, made ambient: 1px lines drifting up behind the hero. The field is
+   masked at both ends so sparks emerge and dissolve instead of clipping. */
+.sparks {
+	position: absolute;
+	z-index: -1;
+	inset: 0;
+	overflow: hidden;
+	pointer-events: none;
+	contain: layout paint;
+	/* Two masks intersected: sparks dissolve at the top and bottom of the band,
+	   and also toward the left and right edges so no lone 1px tick is left
+	   stranded in the page margin looking like a stray border. */
+	mask-image:
+		linear-gradient(
+			to bottom,
+			transparent 0%,
+			#000 7%,
+			#000 84%,
+			transparent 100%
+		),
+		linear-gradient(
+			to right,
+			transparent 0%,
+			#000 8%,
+			#000 92%,
+			transparent 100%
+		);
+	mask-composite: intersect;
+	-webkit-mask-image:
+		linear-gradient(
+			to bottom,
+			transparent 0%,
+			#000 7%,
+			#000 84%,
+			transparent 100%
+		),
+		linear-gradient(
+			to right,
+			transparent 0%,
+			#000 8%,
+			#000 92%,
+			transparent 100%
+		);
+	-webkit-mask-composite: source-in;
+}
+
+.spark {
+	position: absolute;
+	top: 100%;
+	width: 1px;
+	/* Four stops: transparent tail, body, bright head, then back to transparent
+	   so the leading tip fades instead of ending on a guillotined 1px cap. */
+	background: linear-gradient(
+		to top,
+		rgb(255 51 119 / 0%) 0%,
+		rgb(255 51 119 / 45%) 55%,
+		rgb(255 51 119 / 100%) 90%,
+		rgb(255 51 119 / 0%) 100%
+	);
+	opacity: 0;
+	animation-name: rise;
+	/* Launch and settle, like an ember losing momentum. */
+	animation-timing-function: cubic-bezier(0.05, 0.72, 0.28, 1);
+	animation-iteration-count: infinite;
+}
+
+/* Brightness decays to nothing by 62%, leaving each track dark for the rest of
+   its cycle — otherwise the field is a set of permanently lit columns. */
+@keyframes rise {
+	0% {
+		transform: translate3d(0, 0, 0);
+		opacity: 0;
+	}
+	6% {
+		opacity: var(--peak, 0.6);
+	}
+	45% {
+		opacity: calc(var(--peak, 0.6) * 0.55);
+	}
+	70% {
+		opacity: 0;
+	}
+	100% {
+		transform: translate3d(0, -62rem, 0);
+		opacity: 0;
+	}
+}
+
+/* Below this the uploader card spans nearly the full width, so the field would
+   be paid for and never seen. */
+@media screen and (max-width: 58rem) {
+	.sparks {
+		display: none;
+	}
+}
+
+/* Motion is the whole point here, so it goes away entirely rather than
+   freezing into a set of stray lines. */
+@media (prefers-reduced-motion: reduce) {
+	.sparks {
+		display: none;
+	}
+}
+
+/* Grain — kills the gradient banding and adds tooth. Felt, not seen. Sits
+   above the glow it de-bands, but below the sparks: noise over a 1px hairline
+   makes a clean line look like sensor dirt. */
+.hero::after {
 	content: '';
 	position: absolute;
-	top: 0;
-	left: 0;
+	z-index: -2;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0.035;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	/* Without this the texture ends on the hero's bottom edge and draws a
+	   visible seam across the page. It has to dissolve, not stop. */
+	mask-image: linear-gradient(to bottom, #000 45%, transparent 92%);
+	-webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 92%);
+}
+
+.heroInner {
+	/* Wide enough to hold the headline on one line at its largest size. */
+	max-width: 52rem;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.mark {
 	display: block;
+	margin: 0 auto 1.5rem;
+	width: 3.5rem;
+	height: auto;
+}
+
+.title {
+	font-size: clamp(2.125rem, 5vw, 3.25rem);
+	font-weight: 600;
+	line-height: 1.08;
+	/* Inter needs a firmer negative track at display sizes than Plex did. */
+	letter-spacing: -0.032em;
+	color: var(--u-ink-900);
+	margin: 0;
+	text-wrap: balance;
+}
+
+.lede {
+	margin: 1.5rem 0 0;
+	font-size: 1.1875rem;
+	line-height: 1.6;
+	color: var(--u-ink-600);
+	max-width: 36rem;
+	text-wrap: pretty;
+}
+
+/* ----------------------------------------------------------------- Install */
+
+/* Sits on the page, not in a panel — it's the caption to the uploader. */
+.install {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	min-width: 0;
+}
+
+.targets {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	margin: 0 -0.5rem;
+}
+
+/* ---- The command field: tab strip docked to the input it configures ---- */
+
+.field {
 	width: 100%;
-	height: 100%;
-	background: radial-gradient(
-		circle,
-		rgba(255, 255, 255, 0) 0%,
-		rgba(255, 255, 255, 1) 75%
-	);
+	margin-top: 1rem;
+	background: #fff;
+	border: 1px solid var(--u-line);
+	border-radius: var(--u-radius-md);
 }
 
-.section-stack > div {
-	position: inherit;
-	z-index: 10;
-}
-.section-stack h2,
-.section-stack p {
-	background-color: white;
-}
-
-.frameworks {
-	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	margin: 2rem 0;
-}
-@media screen and (min-width: 50rem) {
-	.section-stack {
-		padding: 8rem 0;
-		background-image: url('/img/grid-12.svg');
-	}
-	.frameworks-wrapper {
-		display: grid;
-		grid-template-columns: repeat(12, minmax(0, 1fr));
-		align-items: start;
-	}
-	.frameworks-wrapper div:first-of-type {
-		grid-column: 1 / 6;
-	}
-	.frameworks-wrapper div:nth-of-type(2) {
-		grid-column: 7 / 13;
-		box-shadow:
-			0 1px 1px rgba(0, 0, 0, 0.12),
-			0 2px 2px rgba(0, 0, 0, 0.12),
-			0 4px 4px rgba(0, 0, 0, 0.12),
-			0 8px 8px rgba(0, 0, 0, 0.12),
-			0 16px 16px rgba(0, 0, 0, 0.12);
-	}
+.managers {
+	display: flex;
+	background: var(--u-ink-50);
+	border-bottom: 1px solid var(--u-line);
+	border-radius: var(--u-radius-md) var(--u-radius-md) 0 0;
+	overflow: hidden;
 }
 
-.framework-input {
+.managerInput {
 	position: absolute;
 	clip: rect(0, 0, 0, 0);
 }
-.framework-input + label svg {
-	width: 2rem;
-}
-.framework-input + label {
-	display: flex;
-	padding: 1rem;
-	border: 2px solid lightgray;
-	background-color: white;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
-	font-weight: 600;
+
+.managerInput + label {
+	padding: 0.4rem 0.95rem;
 	font-family: var(--ifm-font-family-monospace);
-	font-size: 0.85rem;
+	font-size: 0.75rem;
+	color: var(--u-ink-500);
 	cursor: pointer;
-}
-.framework-input:not(:first-of-type) + label {
-	border-left: none;
-}
-.framework-input + label:first-of-type {
-	border-radius: 5px 0px 0px 5px;
-}
-.framework-input + label:last-of-type {
-	border-radius: 0px 5px 5px 0px;
-}
-.framework-input:checked + label {
-	border: 2px solid var(--blue);
-}
-.framework-input:not(:first-child):checked + label {
-	margin-left: -2px;
-}
-.framework-input:not(:checked) + label {
-	color: darkgray;
-}
-.framework-input:not(:checked) + label:hover {
-	color: gray;
-}
-.framework-input:checked + label span {
-	color: black;
-}
-.framework-input[value='React']:checked + label {
-	color: #61dafb;
-}
-.framework-input[value='Vue']:checked + label {
-	color: #4fc08d;
-}
-.framework-input[value='Svelte']:checked + label {
-	color: #ff3e00;
-}
-.framework-input[value='Angular']:checked + label {
-	color: #dd0031;
+	/* Covers the strip's bottom hairline so the active tab merges into the
+	   field below it. */
+	margin-bottom: -1px;
+	padding-bottom: calc(0.4rem + 1px);
+	border-right: 1px solid var(--u-line);
+	transition:
+		background-color 150ms var(--u-ease),
+		color 150ms var(--u-ease);
 }
 
-/* ----- And much more ------  */
-
-.section-much-more ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+.managerInput:not(:checked) + label:hover {
+	color: var(--u-ink-800);
 }
 
-@media screen and (min-width: 50rem) {
-	.section-much-more ul {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0 1rem;
-		align-items: start;
+.managerInput:checked + label {
+	background: #fff;
+	color: var(--u-ink-900);
+	font-weight: 600;
+}
+
+.managerInput:focus-visible + label {
+	outline: 2px solid var(--u-pink-500);
+	outline-offset: -2px;
+}
+
+.targetInput {
+	position: absolute;
+	clip: rect(0, 0, 0, 0);
+}
+
+.targetInput + label {
+	padding: 0.3rem 0.625rem;
+	border-radius: 999px;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--u-ink-500);
+	cursor: pointer;
+	white-space: nowrap;
+	transition:
+		background-color 150ms var(--u-ease),
+		color 150ms var(--u-ease);
+}
+
+.targetInput:not(:checked) + label:hover {
+	color: var(--u-ink-800);
+	background: var(--u-ink-100);
+}
+
+.targetInput:checked + label {
+	color: var(--u-pink-700);
+	background: var(--u-pink-100);
+}
+
+.targetInput:focus-visible + label {
+	outline: 2px solid var(--u-pink-500);
+	outline-offset: 2px;
+}
+
+/* The field owns the border now, so the input inside is chromeless. */
+.heroInstall {
+	width: 100%;
+	justify-content: space-between;
+	border: none;
+	border-radius: 0 0 var(--u-radius-md) var(--u-radius-md);
+	background: transparent;
+	box-shadow: none;
+}
+
+.heroAgent {
+	width: 100%;
+	margin-top: 1rem;
+}
+
+/* Inline, not flex: when this wraps to two lines the arrow must follow the
+   last word rather than float to the far edge. */
+.installDocs {
+	display: inline;
+	margin-top: 1rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	line-height: 1.5;
+	color: var(--ifm-color-primary);
+}
+
+.installDocs span {
+	display: inline-block;
+	transition: transform 150ms var(--u-ease);
+}
+
+.installDocs:hover {
+	text-decoration: none;
+}
+
+.installDocs:hover span {
+	transform: translateX(3px);
+}
+
+@media screen and (max-width: 58rem) {
+	.install {
+		margin-top: 2.5rem;
+		align-items: center;
+		text-align: center;
+	}
+
+	.targets {
+		justify-content: center;
 	}
 }
 
-.section-much-more ul + div {
+/* ---------------------------------------------------------------- Showcase */
+
+/* No tray. The uploader is the object; the install block is text beside it. */
+.showcase {
+	max-width: var(--u-container);
+	margin: 3.5rem auto 0;
+	text-align: left;
+}
+
+@media screen and (min-width: 58rem) {
+	.showcase {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 3.5rem;
+		align-items: center;
+	}
+
+	/* Optical, not structural: dead-centre against the uploader sits a touch low
+	   next to the framework pills, so the block rides 12px high. Deliberately px
+	   — the root font-size is 18px here, so 0.75rem would have been 13.5. And a
+	   transform rather than a margin because the column is centred: a margin
+	   would only move it half as far, being shared between the two sides. */
+	.showcase .install {
+		transform: translateY(-12px);
+	}
+}
+
+.demoCol {
+	min-width: 0;
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* The handoff to Transloadit, stated once under the product. It's a caption
+   to the uploader, so it reads as one: centred on a hairline that fades out at
+   both ends, rather than a link or a button competing with the real CTA. */
+.demoNote {
+	display: flex;
+	align-items: center;
 	justify-content: center;
-	margin: 4rem 0;
+	gap: 0.375rem;
+	width: 100%;
+	margin-top: 1.5rem;
+	font-size: 0.8125rem;
+	color: var(--u-ink-500);
+	transition: color 150ms var(--u-ease);
 }
 
-.section-much-more ul span:first-of-type {
+.demoNote::before,
+.demoNote::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	min-width: 1rem;
+}
+
+.demoNote::before {
+	margin-right: 1rem;
+	background: linear-gradient(to right, transparent, var(--u-line));
+}
+
+.demoNote::after {
+	margin-left: 1rem;
+	background: linear-gradient(to left, transparent, var(--u-line));
+}
+
+.demoNote:hover {
+	color: var(--u-ink-900);
+	text-decoration: none;
+}
+
+.demoNote span {
+	color: var(--u-pink-600);
+	transition: transform 150ms var(--u-ease);
+}
+
+.demoNote:hover span {
+	transform: translateX(3px);
+}
+
+.demoNote span {
+	transition: transform 150ms var(--u-ease);
+}
+
+.demoNote:hover span {
+	transform: translateX(3px);
+}
+
+/* The one lifted surface on the page: faint top-lit gradient, hairline rim,
+   and a two-part shadow so it sits above the page rather than on it. */
+.demo {
+	width: 100%;
+	background: linear-gradient(180deg, #fff, #fdfdfe);
+	border: 1px solid var(--u-line);
+	border-radius: var(--u-radius-xl);
+	overflow: hidden;
+	box-shadow:
+		inset 0 1px 0 #fff,
+		0 1px 2px rgb(13 21 38 / 5%),
+		0 10px 28px rgb(13 21 38 / 7%),
+		0 32px 64px rgb(13 21 38 / 5%);
+}
+
+/* Uppy ships its own chrome and a fixed 650px width; the tray is the frame
+   here, so let the Dashboard fill it edge to edge. */
+.demo :global(.uppy-Dashboard-inner) {
+	border: none;
+	border-radius: var(--u-radius-md);
+	background-color: #fff;
+}
+
+/* The 460px height is a desktop figure, set inline by the plugin — once the
+   card goes full width a shorter box suits the stacked source list. */
+@media screen and (max-width: 58rem) {
+	.demo :global(.uppy-Dashboard-inner) {
+		height: 380px !important;
+	}
+}
+
+/* Uppy's stock accent is blue. Inside the hero it sits two inches from the
+   brand pink, so re-tint it here only — docs and examples keep the default. */
+.demo :global(.uppy-Dashboard-browse) {
+	color: var(--ifm-color-primary);
+}
+
+.demo :global(.uppy-Dashboard-browse:hover) {
+	border-bottom-color: var(--ifm-color-primary);
+}
+
+.demo :global(.uppy-c-btn-primary) {
+	background-color: var(--u-pink-500);
+}
+
+/* Uppy's dashed drop outline would be a fourth nested rectangle inside 20px.
+   The panel edge already says "this is the drop area". */
+.demo :global(.uppy-Dashboard-AddFiles) {
+	border-color: transparent;
+}
+
+@media screen and (max-width: 45rem) {
+	.showcase {
+		padding: 0.5rem;
+		margin-top: 2rem;
+	}
+}
+
+/* -------------------------------------------------------------------- Main */
+
+.main {
+	padding: 0 1.5rem;
+}
+
+.section {
+	max-width: var(--u-container);
+	margin: 6rem auto 0;
+}
+
+/* A full-bleed change of ground. Breaks out of .main's gutter, then puts the
+   content back on the shared container. */
+.band {
+	margin: 6rem -1.5rem 0;
+	padding: 5rem 1.5rem;
+	background: var(--u-ink-50);
+	border-block: 1px solid var(--u-line);
+}
+
+.band .section {
+	margin-top: 0;
+}
+
+/* The band now follows the hero directly, and the hero already carries the
+   run-out — stacking its own top margin on top left a dead white slab. */
+.main > .band:first-child {
+	margin-top: 0;
+}
+
+/* Companion and Integrations are one idea — where files come from, where the
+   code goes — so they sit closer together than the sections around them. */
+.band + .section {
+	margin-top: 6rem;
+}
+
+.sectionHead {
+	max-width: 36rem;
+}
+
+.sectionHead h2 {
+	font-size: clamp(1.75rem, 3.5vw, 2.375rem);
+	line-height: 1.15;
+	letter-spacing: -0.025em;
+	color: var(--u-ink-900);
+	margin: 0 0 1rem;
+	text-wrap: balance;
+}
+
+.sectionHead p {
+	color: var(--u-ink-600);
+	line-height: 1.65;
+	margin: 0 0 1.25rem;
+}
+
+.sectionHead .eyebrow {
+	margin-bottom: 0.75rem;
+}
+
+@media screen and (min-width: 62rem) {
+	.section {
+		margin-top: 8rem;
+	}
+
+	.band {
+		margin-top: 8rem;
+	}
+
+	.band + .section {
+		margin-top: 6rem;
+	}
+}
+
+/* ------------------------------------------------------------------- Proof */
+
+.proof {
+	max-width: var(--u-container);
+	margin: 4rem auto 0;
+	padding-top: 2.5rem;
+	border-top: 1px solid var(--u-line);
+}
+
+/* Three explicit columns at every width — auto-fit resolved to five tracks in
+   the container and left the three stats floating on a 360px pitch. */
+.stats {
+	margin: 0;
+	display: grid;
+	gap: 2rem 1.5rem;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stats div {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	min-width: 0;
+}
+
+.stats dt {
+	font-size: clamp(1.625rem, 5vw, 2.25rem);
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: -0.03em;
+	color: var(--u-ink-900);
+	font-variant-numeric: tabular-nums;
+}
+
+.stats dd {
+	margin: 0;
+	font-size: 0.9375rem;
+	color: var(--u-ink-500);
+}
+
+/* The citation rides in the same column as its number, one rhythm not two. */
+.stats figure {
+	margin: 1.25rem 0 0;
+	font-size: 0.8125rem;
+	line-height: 1.5;
+}
+
+.stats blockquote {
+	margin: 0;
+	padding: 0;
+	border: none;
+	font-size: inherit;
+	color: var(--u-ink-500);
+}
+
+.stats figcaption a {
+	color: var(--u-ink-500);
+}
+
+.stats figcaption a:hover {
+	color: var(--u-ink-900);
+	text-decoration: none;
+}
+
+/* --------------------------------------------------------------- Providers */
+
+/* Two explicit columns: auto-fit's 11rem minimum collapsed these to one
+   full-width row per provider on a phone — 70% dead width. */
+.providers {
+	list-style: none;
+	margin: 2.5rem 0 0;
+	padding: 0;
+	display: grid;
+	gap: 0.625rem;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.providers li {
 	display: flex;
 	align-items: center;
+	gap: 0.75rem;
+	padding: 0.875rem 1rem;
+	background: #fff;
+	border: 1px solid var(--u-line);
+	border-radius: var(--u-radius-md);
+	box-shadow: var(--u-shadow-xs);
+	font-size: 0.9375rem;
+	font-weight: 500;
+	color: var(--u-ink-700);
 }
 
-.section-much-more svg {
-	width: 2rem;
-	height: 2rem;
-	color: var(--pink);
-	background-color: rgb(255, 51, 119, 20%);
-	padding: 0.4rem;
-	border-radius: 50%;
+.providers img {
+	width: 1.25rem;
+	height: 1.25rem;
+	object-fit: contain;
+	flex: none;
 }
 
-.section-much-more li {
+/* ------------------------------------------------- Two-column text + panel */
+
+@media screen and (min-width: 58rem) {
+	.split {
+		display: grid;
+		grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+		gap: 4.5rem;
+		/* Top-aligned: centring left a short panel floating in dead white. */
+		align-items: start;
+	}
+
+	/* Twelve sources: three columns keeps the panel roughly as tall as the text
+	   beside it, where two would have run half the page long. */
+	.split .providers {
+		margin-top: 0;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	/* Here the panel is the tall column, so the text centres against it. */
+	.band .split {
+		align-items: center;
+	}
+}
+
+.stackPanel {
+	margin-top: 2.5rem;
+	min-width: 0;
+}
+
+@media screen and (min-width: 58rem) {
+	.stackPanel {
+		margin-top: 0;
+	}
+}
+
+.segmented {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 0.25rem;
+	padding: 0.25rem;
+	/* A step darker than the band it sits on, or the track vanishes. */
+	background: var(--u-ink-200);
+	border-radius: var(--u-radius-lg);
+	margin-bottom: 1rem;
+}
+
+.segmentInput {
+	position: absolute;
+	clip: rect(0, 0, 0, 0);
+}
+
+.segmentInput + label {
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.5rem 0.25rem;
+	/* Concentric with the 10px track minus 4px padding. */
+	border-radius: var(--u-radius-sm);
+	font-size: 0.875rem;
+	font-weight: 600;
+	/* ink-500 on the ink-200 track is only 3.98:1. */
+	color: var(--u-ink-600);
+	cursor: pointer;
+	transition:
+		background-color 150ms var(--u-ease),
+		color 150ms var(--u-ease);
+}
+
+.segmentInput + label svg {
+	width: 1.125rem;
+	height: 1.125rem;
+	flex: none;
+	opacity: 0.55;
+	transition: opacity 150ms var(--u-ease);
+}
+
+.segmentInput:not(:checked) + label:hover {
+	color: var(--u-ink-700);
+}
+
+.segmentInput:checked + label {
+	background: #fff;
+	color: var(--u-ink-900);
+	box-shadow: var(--u-shadow-xs);
+}
+
+.segmentInput:checked + label svg {
+	opacity: 1;
+}
+
+.segmentInput:focus-visible + label {
+	outline: 2px solid var(--u-pink-500);
+	outline-offset: 2px;
+}
+
+@media screen and (max-width: 26rem) {
+	.segmentInput + label span {
+		display: none;
+	}
+}
+
+/* Prism's github theme paints code #f6f8fa, two values off the ink-50 band —
+   so the panel needs a white ground to read as a panel at all. */
+.stackPanel :global(div[class*='codeBlockContainer']) {
+	margin: 0;
+	border-radius: var(--u-radius-lg);
+	border: 1px solid var(--u-line);
+	background: #fff;
+	box-shadow: var(--u-shadow-md);
+}
+
+.stackPanel :global(pre) {
+	background: transparent !important;
+	font-size: 0.8125rem;
+}
+
+/* ------------------------------------------------------------ Capabilities */
+
+/* Six items, so three columns: auto-fit was choosing four on a wide viewport
+   and leaving the second row half empty. */
+.capabilities {
+	list-style: none;
+	margin: 3rem 0 0;
+	padding: 0;
+	display: grid;
+	gap: 2.5rem 3rem;
+	grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+@media screen and (min-width: 58rem) {
+	.capabilities {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+.capabilities li {
+	display: flex;
 	gap: 1rem;
-	margin: 1rem 0;
+	align-items: flex-start;
+}
+
+/* Bare icons — no conjured tile. Softer than the text they sit beside, and
+   deliberately quiet: accent on all six would be accent on none. */
+.capabilities li > svg {
+	width: 1.375rem;
+	height: 1.375rem;
+	flex: none;
+	color: var(--u-ink-400);
+	margin-top: 0.15rem;
+}
+
+.capabilities li[data-accent] > svg {
+	color: var(--u-pink-500);
+}
+
+.capabilities h3 {
+	font-size: 1.0625rem;
+	font-weight: 600;
+	color: var(--u-ink-900);
+	margin: 0 0 0.375rem;
+	letter-spacing: -0.01em;
+}
+
+.capabilities p {
+	margin: 0;
+	font-size: 0.9375rem;
+	line-height: 1.6;
+	color: var(--u-ink-600);
+}
+
+/* ----------------------------------------------------------------- Closing */
+
+/* Full-bleed and lit, so the close has more presence than the footer under it. */
+.closing {
+	margin-top: 8rem;
+	padding: 6rem 1.5rem;
+	text-align: center;
+	/* Light from above, same as the hero. The ground change is the separator —
+	   no hairline needed at either end. */
+	background: linear-gradient(180deg, var(--u-pink-50), #fff);
+}
+
+.closingInner {
+	max-width: 38rem;
+	margin: 0 auto;
+}
+
+.closingInner h2 {
+	font-size: clamp(1.75rem, 3.5vw, 2.375rem);
+	line-height: 1.15;
+	letter-spacing: -0.025em;
+	color: var(--u-ink-900);
+	margin: 0 0 1rem;
+}
+
+.closingInner p {
+	color: var(--u-ink-600);
+	line-height: 1.65;
+	margin: 0 0 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.primary,
+	.secondary,
+	.textLink span,
+	.segmentInput + label,
+	.segmentInput + label svg {
+		transition: none;
+	}
+
+	.primary:hover,
+	.secondary:hover,
+	.textLink:hover span {
+		transform: none;
+	}
 }
