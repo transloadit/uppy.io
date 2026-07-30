@@ -286,7 +286,13 @@ div[class*=' admonitionHeading'] {
    navbar keeps its own vertical padding (9px at this root size) below the inner
    row. Both have to be crossed, and the padding is read from the variable so it
    still lands when the root font-size steps down at mid widths. */
-.navbar__link--active::after {
+/* Every internal item carries the indicator, clipped shut, and the active one
+   reveals it. Clipping rather than animating width keeps the bar at full length
+   throughout, so it wipes in instead of growing out of a stub.
+
+   Forum and Support are `target="_blank"`: they leave the page, so there is no
+   state to animate and they never take an indicator. */
+.navbar__items > .navbar__link:not([target='_blank'])::after {
 	content: '';
 	position: absolute;
 	inset-inline: 0.75rem;
@@ -294,6 +300,28 @@ div[class*=' admonitionHeading'] {
 	height: 2px;
 	border-radius: 2px 2px 0 0;
 	background: var(--u-pink-500);
+	clip-path: inset(0 100% 0 0);
+}
+
+/* An animation, not a transition: Docusaurus replaces every navbar link on a
+   route change, so the newly active one is created already active and a
+   transition has no previous value to run from. A keyframe animation plays on
+   mount, which is exactly when the wipe should happen. */
+.navbar__items > .navbar__link--active:not([target='_blank'])::after {
+	clip-path: inset(0 0 0 0);
+	animation: navbar-underline 260ms var(--u-ease) both;
+}
+
+@keyframes navbar-underline {
+	from {
+		clip-path: inset(0 100% 0 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.navbar__items > .navbar__link--active:not([target='_blank'])::after {
+		animation: none;
+	}
 }
 
 .navbar__link {
