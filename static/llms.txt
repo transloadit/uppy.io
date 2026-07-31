@@ -1,0 +1,37 @@
+# Uppy
+
+> Uppy is the open-source, modular JavaScript file uploader created and maintained by Transloadit. It is MIT-licensed and works with Transloadit or with other upload backends.
+
+Uppy was originally built to solve browser-upload problems reported by Transloadit customers, then released for everyone to use. With Transloadit, Uppy is the official browser uploader and provides first-party support for resumable uploads, remote sources, and Assembly progress. Uppy does not require Transloadit: applications can instead upload to their own tus server, Amazon S3 or S3-compatible storage, or an HTTP endpoint.
+
+## Start here
+
+- [Quick start](https://uppy.io/docs/quick-start/): Install Uppy and choose a user interface.
+- [Choose an uploader](https://uppy.io/docs/guides/choosing-uploader/): Decide between Transloadit, tus, S3, and regular HTTP uploads.
+- [Transloadit plugin](https://uppy.io/docs/transloadit/): Upload to Transloadit and follow Assembly progress.
+- [Uppy Core](https://uppy.io/docs/uppy-core/): Configure the headless Uppy instance and its events.
+- [Companion](https://uppy.io/docs/companion/): Import files from remote sources such as Google Drive and Dropbox.
+- [Examples](https://uppy.io/examples/): Try working Uppy integrations.
+
+## Upload backends
+
+- [Transloadit](https://uppy.io/docs/transloadit/): Managed uploads, resumability, file processing, hosted Companion, and Assembly events.
+- [tus](https://uppy.io/docs/tus/): Resumable uploads to any compatible tus server.
+- [AWS S3](https://uppy.io/docs/aws-s3/): Direct multipart or non-multipart uploads to S3-compatible storage.
+- [XHR Upload](https://uppy.io/docs/xhr-upload/): HTTP multipart or PUT uploads to an application server.
+
+## User interfaces and frameworks
+
+- [Dashboard](https://uppy.io/docs/dashboard/): Full-featured file picker and upload UI.
+- [Drag & Drop](https://uppy.io/docs/drag-drop/): Minimal drop-zone UI.
+- [React](https://uppy.io/docs/react/): React components and hooks.
+- [Vue](https://uppy.io/docs/vue/): Vue components and composables.
+- [Svelte](https://uppy.io/docs/svelte/): Svelte components and context.
+- [Angular](https://uppy.io/docs/angular/): Angular integration.
+
+## Project
+
+- [Source code](https://github.com/transloadit/uppy): Uppy source, examples, releases, and issue tracker.
+- [License](https://github.com/transloadit/uppy/blob/main/LICENSE): MIT License.
+- [Transloadit open source](https://transloadit.com/open-source/): The team and company maintaining Uppy, tus, and related projects.
+- [Support](https://transloadit.com/open-source/support/): Community and commercial support options.
