@@ -4,6 +4,57 @@
 const { themes } = require('prism-react-renderer');
 const lightCodeTheme = themes.github;
 
+const uppyStructuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@id': 'https://uppy.io/#software',
+			'@type': 'SoftwareApplication',
+			applicationCategory: 'DeveloperApplication',
+			applicationSubCategory: 'File uploader',
+			creator: { '@id': 'https://transloadit.com/#organization' },
+			description:
+				'Uppy is an open-source, modular JavaScript file uploader created and maintained by Transloadit.',
+			downloadUrl: 'https://www.npmjs.com/package/@uppy/core',
+			isAccessibleForFree: true,
+			license: 'https://opensource.org/license/mit/',
+			name: 'Uppy',
+			offers: {
+				'@type': 'Offer',
+				price: '0',
+				priceCurrency: 'USD',
+			},
+			operatingSystem: 'Any',
+			publisher: { '@id': 'https://transloadit.com/#organization' },
+			sameAs: [
+				'https://github.com/transloadit/uppy',
+				'https://www.npmjs.com/package/@uppy/core',
+			],
+			url: 'https://uppy.io/',
+		},
+		{
+			'@id': 'https://uppy.io/#source',
+			'@type': 'SoftwareSourceCode',
+			codeRepository: 'https://github.com/transloadit/uppy',
+			creator: { '@id': 'https://transloadit.com/#organization' },
+			description:
+				'The MIT-licensed source code for Uppy, a backend-independent web file uploader.',
+			license: 'https://opensource.org/license/mit/',
+			name: 'Uppy',
+			programmingLanguage: ['TypeScript', 'JavaScript'],
+			runtimePlatform: 'Web browser',
+			url: 'https://uppy.io/',
+		},
+		{
+			'@id': 'https://transloadit.com/#organization',
+			'@type': 'Organization',
+			name: 'Transloadit',
+			sameAs: ['https://github.com/transloadit'],
+			url: 'https://transloadit.com/',
+		},
+	],
+};
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: 'Uppy',
@@ -22,6 +73,13 @@ const config = {
 		},
 	},
 	headTags: [
+		{
+			tagName: 'script',
+			attributes: {
+				type: 'application/ld+json',
+			},
+			innerHTML: JSON.stringify(uppyStructuredData),
+		},
 		{
 			tagName: 'meta',
 			attributes: {
