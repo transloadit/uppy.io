@@ -746,30 +746,32 @@ export default function Home(): JSX.Element {
 						</figcaption>
 					</figure>
 				</section>
-			</main>
 
-			{/* -------------------------------------------------------- Closing */}
-			<section className={styles.closing}>
-				<div className={styles.closingInner}>
-					<Heading as="h2">Start uploading in a minute</Heading>
-					<p>One npm install, one plugin, and files are moving.</p>
-					<div className={styles.actions}>
-						<Link className={styles.primary} to="/docs/quick-start">
-							Get started
-							<svg viewBox="0 0 24 24" className={styles.chevron} aria-hidden>
-								<path
-									d="m9 6 6 6-6 6"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2.5"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								/>
-							</svg>
-						</Link>
+				{/* ------------------------------------------------------- Closing */}
+				{/* Inside <main>: left as a sibling it was page content sitting outside
+				    every landmark, so landmark navigation skipped straight past it. */}
+				<section className={styles.closing}>
+					<div className={styles.closingInner}>
+						<Heading as="h2">Start uploading in a minute</Heading>
+						<p>One npm install, one plugin, and files are moving.</p>
+						<div className={styles.actions}>
+							<Link className={styles.primary} to="/docs/quick-start">
+								Get started
+								<svg viewBox="0 0 24 24" className={styles.chevron} aria-hidden>
+									<path
+										d="m9 6 6 6-6 6"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth="2.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+								</svg>
+							</Link>
+						</div>
 					</div>
-				</div>
-			</section>
+				</section>
+			</main>
 		</Layout>
 	);
 }

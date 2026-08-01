@@ -35,7 +35,9 @@
 	font-weight: 600;
 	line-height: 1;
 	color: #fff;
-	background: var(--u-pink-500);
+	/* pink-600, not the mark's pink-500: white on pink-500 is 3.5:1, and at 11px
+	   this is small text needing 4.5:1. pink-600 clears it at 4.65. */
+	background: var(--u-pink-600);
 	border-radius: 999px;
 	/* The 2px is measured, not guessed. Digits have no descenders, but the line
 	   box still reserves the space, so with even padding the ink lands ~2px above

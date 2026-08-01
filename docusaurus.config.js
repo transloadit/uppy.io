@@ -2,7 +2,40 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const { themes } = require('prism-react-renderer');
-const lightCodeTheme = themes.github;
+
+/**
+ * prism-react-renderer's github theme sets five token colours that miss 4.5:1
+ * against the code block's own #f6f8fa ground: properties at 2.58, keywords at
+ * 2.68, comments at 2.71, functions at 4.29, strings at 4.32. Every code sample
+ * in the docs and the blog is affected, which is most of the site.
+ *
+ * Same hues, darkened until they clear 4.5:1 on the code block's own ground and
+ * on the #dddfe1 a highlighted line sits on — the darker of the two is what sets
+ * each value here, so the line-highlight keeps its default strength. The two
+ * that already pass — function-variable at 6.1 and the blue tag/selector at
+ * 13.2 — are untouched.
+ *
+ * Patched here rather than in CSS because prism-react-renderer writes these as
+ * inline styles on each span, which no stylesheet can override without
+ * `!important` on every token type.
+ */
+const accessibleTokenColors = {
+	'#999988': '#575f69', // comment, prolog, doctype, cdata
+	'#e3116c': '#8a0f4d', // string, attr-value
+	'#36acaa': '#16605e', // number, boolean, constant, property, regex…
+	'#00a4db': '#00618a', // atrule, keyword, attr-name, selector
+	'#d73a49': '#c11a26', // function, deleted, tag
+};
+
+const lightCodeTheme = {
+	...themes.github,
+	styles: themes.github.styles.map((entry) => {
+		const replacement = accessibleTokenColors[entry.style.color];
+		return replacement ?
+				{ ...entry, style: { ...entry.style, color: replacement } }
+			:	entry;
+	}),
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {

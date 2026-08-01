@@ -65,7 +65,7 @@ limo rides, Indian food and Mario Kart 64. More on that on the
 [Transloadit blog](https://transloadit.com/blog/2017/08/team-meetup-2017/).
 
 <figure class="wide">
-  <img src="/img/blog/golden-retriever/uppy-team-kong.jpg" />
+  <img alt="The Uppy team at the 2017 Transloadit meetup" src="/img/blog/golden-retriever/uppy-team-kong.jpg" />
 </figure>
 
 While enjoying some world-famous-in-Germany “Flammkuchen”, we were thinking

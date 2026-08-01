@@ -9,7 +9,9 @@
 .eyebrow {
 	font-size: 0.875rem;
 	font-weight: 600;
-	color: var(--u-pink-600);
+	/* pink-700, not pink-600: at 14px this is small text, so it needs 4.5:1, and
+	   pink-600 lands on 4.44 against the band's ink-50 ground. */
+	color: var(--u-pink-700);
 	margin: 0 0 0.75rem;
 }
 
@@ -684,7 +686,7 @@
    the section eyebrows were rendering slate and the copy column had no accent in
    it at all. */
 .sectionHead .eyebrow {
-	color: var(--u-pink-600);
+	color: var(--u-pink-700);
 	margin-bottom: 0.75rem;
 }
 
@@ -891,6 +893,31 @@
 	font-size: 0.9375rem;
 	line-height: 1.6;
 	color: var(--u-ink-600);
+}
+
+/* Same reasoning as the prose-link rule in custom.css: these sit inside
+   sentences, so colour alone can't carry them. The standalone links elsewhere on
+   this page — the section CTAs, the hand-off, the install docs line — are not in
+   a block of text and are deliberately left undecorated. */
+.capabilities p a,
+.provenance p a {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.16em;
+	text-decoration-color: color-mix(in srgb, currentcolor 40%, transparent);
+	transition: text-decoration-color 150ms var(--u-ease);
+}
+
+.capabilities p a:hover,
+.provenance p a:hover {
+	text-decoration-color: currentcolor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.capabilities p a,
+	.provenance p a {
+		transition: none;
+	}
 }
 
 /* -------------------------------------------------------------- Provenance */
@@ -1539,7 +1566,9 @@
 
 /* Full-bleed and lit, so the close has more presence than the footer under it. */
 .closing {
-	margin-top: 8rem;
+	/* Inside <main> now, so it breaks out of .main's gutter the way .band does —
+	   otherwise the ground change stops 1.5rem short of each edge. */
+	margin: 8rem -1.5rem 0;
 	padding: 6rem 1.5rem;
 	text-align: center;
 	/* Light from above, same as the hero. The ground change is the separator —

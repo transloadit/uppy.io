@@ -423,11 +423,14 @@ function Page() {
 						})}
 
 						<div className={styles['options-locale']}>
-							<Heading className={styles['h3']} as="h3">
+							{/* The visible heading is the field's name, so it is pointed at
+							    rather than duplicated in an aria-label. */}
+							<Heading className={styles['h3']} as="h3" id="locale-label">
 								Locale
 							</Heading>
 							<select
 								name="locale"
+								aria-labelledby="locale-label"
 								onChange={(e) => {
 									setLocale(
 										locales.find((locale) => locale.name === e.target.value)
@@ -457,20 +460,25 @@ function Page() {
 
 					<div>
 						<Tabs>
+							{/* Each frame needs its own name — three untitled editors are
+							    three identical "frame" entries in a screen reader's list. */}
 							<TabItem value="react" label="React">
 								<iframe
+									title="React headless components example on StackBlitz"
 									style={{ width: '100%', height: '600px' }}
 									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/react?embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1&file=src%2FApp.tsx"
 								></iframe>
 							</TabItem>
 							<TabItem value="vue" label="Vue">
 								<iframe
+									title="Vue headless components example on StackBlitz"
 									style={{ width: '100%', height: '600px' }}
 									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/vue?embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1&file=src%2FApp.vue"
 								></iframe>
 							</TabItem>
 							<TabItem value="svelte" label="Svelte">
 								<iframe
+									title="Svelte headless components example on StackBlitz"
 									style={{ width: '100%', height: '600px' }}
 									src="https://stackblitz.com/github/transloadit/uppy/tree/main/examples/sveltekit?embed=1&view=editor&showSidebar=1&hideTerminal=1&ctl=1&file=src%2Froutes%2F%2Bpage.svelte"
 								></iframe>

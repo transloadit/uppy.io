@@ -140,6 +140,9 @@
 		'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 	/* Semibold, not bold — Inter's 700 is heavy enough to shout at display sizes. */
 	--ifm-heading-font-weight: 600;
+	/* Left at Infima's default: 10% black over the code block's #f6f8fa lands on
+	   #dddfe1, and the palette in docusaurus.config.js is picked to clear 4.5:1
+	   on that darker ground as well as on the code block's own. */
 	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 	--ifm-avatar-photo-size: 1.2rem;
 	--ifm-avatar-intro-margin: 0.5rem;
@@ -180,6 +183,80 @@ html {
 	outline: 2px solid var(--u-pink-500);
 	outline-offset: 2px;
 	border-radius: var(--u-radius-sm);
+}
+
+/* @uppy/dashboard ships its "Powered by Uppy" credit at #939393 on the panel's
+   #f4f4f4 footer — 2.79:1, and at 11px it needs 4.5. Darkened here rather than
+   left to the library, so the two Dashboards this site embeds pass. */
+/* Uppy's headless components set --uppy-color-blue-500 to #3280ff and use it as
+   link text on white, which is 3.71:1. Stepped to the library's own blue-600,
+   which is 5.25:1 either way round — as text on white, and behind white text.
+   Uppy declares its tokens inside a cascade layer, so this unlayered rule wins
+   without needing a specificity fight. */
+:root {
+	--uppy-color-blue-500: #155dfc;
+}
+
+/* DocSearch's muted grey is #9698c3 — 2.77:1 on white, and it sets the search
+   page's "Powered by" attribution. Stepped to DocSearch's own secondary text
+   colour, same violet family, 6:1.
+   `html:root` rather than `:root`: @docsearch/css declares this on :root too and
+   loads after this file, so an equal-specificity rule here would lose the tie. */
+html:root {
+	--docsearch-muted-color: #5a5e9a;
+}
+
+/* The `html` prefix is doing real work: uppy.min.css is imported from the page
+   components, so it lands in a chunk that loads after this file, and matching
+   its `a.uppy-Dashboard-poweredBy` specificity would lose the later-wins tie. */
+html a.uppy-Dashboard-poweredBy,
+html .uppy-Dashboard-poweredByUppy {
+	color: #6b6b6b;
+}
+
+/* The arrow glyph sits inside the same lockup, so it tracks the text it's set
+   with rather than staying at the lighter grey. */
+html .uppy-Dashboard-poweredByIcon {
+	stroke: #6b6b6b;
+}
+
+/* A link sitting inside a sentence can't be signalled by colour alone (WCAG
+   1.4.1). The escape hatch is 3:1 between link and body text, and pink on slate
+   is 1.37:1 — no pink that clears 3:1 against slate is still legible on white —
+   so running text takes an underline instead.
+
+   Scoped to running text on purpose: nav, footer, cards, pills and the standalone
+   "Set up Companion →" links are not links *in a block of text*, so the rule
+   doesn't reach them and they keep the undecorated treatment.
+
+   Hairline at rest and full-strength on hover, so the signal is always present
+   but only asserts itself under the cursor. `:has(img)` opts out the links that
+   wrap a logo or screenshot, where an underline would just underline the image. */
+.markdown :is(p, li, td, th, blockquote) a:not(:has(img)),
+[class*='mdxPageWrapper']
+	article
+	:is(p, li, td, th, blockquote)
+	a:not(:has(img)) {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.16em;
+	text-decoration-color: color-mix(in srgb, currentcolor 40%, transparent);
+	transition: text-decoration-color 150ms var(--u-ease);
+}
+
+.markdown :is(p, li, td, th, blockquote) a:not(:has(img)):hover,
+[class*='mdxPageWrapper']
+	article
+	:is(p, li, td, th, blockquote)
+	a:not(:has(img)):hover {
+	text-decoration-color: currentcolor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.markdown :is(p, li, td, th, blockquote) a,
+	[class*='mdxPageWrapper'] article :is(p, li, td, th, blockquote) a {
+		transition: none;
+	}
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1300px) {
@@ -816,6 +893,16 @@ div[data-uppy-element='dropzone'] p {
 	line-height: 1.45;
 }
 
+/* An inline-code chip inside a TOC line drops the ground under ink-500 from
+   white to #f6f7f8, which is the difference between 4.76:1 and 4.44:1. The
+   entry is one 12px line either way, so the chip goes rather than the colour —
+   it was noise at this size. */
+.docs-wrapper .table-of-contents__link code {
+	background: none;
+	border: 0;
+	padding: 0;
+}
+
 .docs-wrapper .table-of-contents__link:hover {
 	color: var(--u-ink-900);
 	text-decoration: none;
@@ -1003,7 +1090,8 @@ div[data-uppy-element='dropzone'] p {
 
 /* warning */
 .docs-wrapper .theme-admonition.alert--warning {
-	--u-adm: #b3760f;
+	/* Was #b3760f — 3.63:1 on this admonition's own #fff9ef ground. */
+	--u-adm: #8a5a00;
 	--u-adm-bg: #fff9ef;
 	--u-adm-border: #f7e6c8;
 }
