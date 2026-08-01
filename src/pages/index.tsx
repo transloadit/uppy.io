@@ -26,10 +26,8 @@ import Dashboard from '@uppy/react/dashboard';
 
 import InstallCommand from '../components/InstallCommand';
 import AgentPrompt from '../components/AgentPrompt';
-import GitHubStars from '../components/GitHubStars';
 
 import IconUpload from '../../static/img/upload.svg';
-import IconChat from '../../static/img/chat.svg';
 import IconLanguage from '../../static/img/language.svg';
 import IconSparkles from '../../static/img/sparkles.svg';
 import IconFolder from '../../static/img/folder.svg';
@@ -146,6 +144,50 @@ const sparks = [
 	{ x: 91, len: 69, dur: 3.0, delay: 44.1, o: 0.9, w: 1 },
 	{ x: 93, len: 80, dur: 2.6, delay: 45.5, o: 0.45, w: 2 },
 	{ x: 96, len: 34, dur: 6.2, delay: 46.8, o: 0.7, w: 1 },
+];
+
+/**
+ * The hand-off, drawn. The diagram is two owned lanes rather than one neutral
+ * track, because the question it has to answer is "who does what": each lane is
+ * a card holding its own logo and its own steps, so a step is read as that
+ * side's work instead of floating between two marks. The mark alone heads the
+ * lane — where the work runs is what the two cards and the hand-off already
+ * say, so spelling it out in a caption was one label too many.
+ *
+ * A lane owning its logo is also what lets the pair stack on a narrow screen —
+ * each lane is self-contained, so the row just becomes a column.
+ *
+ * `at` is how far along that lane's own rail the step sits. It is the only
+ * number here: when the file gets there is derived from it in CSS, off the
+ * lane's leg of the shared loop, so a station cannot light before the file
+ * arrives and the two layouts can time themselves differently without this
+ * having to know.
+ *
+ * Uppy's lone station sits at the middle of its rail, under the mark centred
+ * above it, so the short lane reads as one deliberate step rather than as a
+ * step that has drifted off-centre; Transloadit's three sixth the long rail,
+ * which leaves the same margin at both ends of it.
+ */
+const lanes = [
+	{
+		owner: 'uppy',
+		logo: { src: 'img/uppy.svg', alt: 'Uppy', width: 28, height: 28 },
+		steps: [{ label: 'Upload', at: 50 }],
+	},
+	{
+		owner: 'transloadit',
+		logo: {
+			src: 'img/transloadit.svg',
+			alt: 'Transloadit',
+			width: 112,
+			height: 18,
+		},
+		steps: [
+			{ label: 'Resize', at: 100 / 6 },
+			{ label: 'Encode', at: 50 },
+			{ label: 'Deliver', at: 500 / 6 },
+		],
+	},
 ];
 
 const packageManagers = [
@@ -305,10 +347,14 @@ const capabilities = [
 	{
 		Icon: IconBlocks,
 		title: 'Modular by design',
+		// Carries the "no paid edition" claim that left with the dropped tenth
+		// item: MIT in the provenance note implies free, but it doesn't rule out
+		// an enterprise tier, which is a live question when picking an uploader.
 		body: (
 			<>
-				Every part is a <Link to="/docs/uppy">plugin</Link>. Take the whole
-				Dashboard, or wire up only the pieces you need.
+				Every part is a <Link to="/docs/uppy">plugin</Link>, all of them
+				included — there is no paid edition. Take the whole Dashboard, or wire
+				up only the pieces you need.
 			</>
 		),
 	},
@@ -330,11 +376,6 @@ const capabilities = [
 				Keyboard navigation and screen readers are designed for, not bolted on.
 			</>
 		),
-	},
-	{
-		Icon: IconChat,
-		title: 'Open source since 2016',
-		body: <>MIT licensed, every plugin included. There is no paid edition.</>,
 	},
 ];
 
@@ -620,6 +661,91 @@ export default function Home(): JSX.Element {
 						))}
 					</ul>
 				</section>
+
+				{/* ------------------------------------------------------ Provenance */}
+				{/* The page's own section signature — pink eyebrow, ink-900 heading,
+				    ink-600 prose — at a smaller heading step, above a rule.
+				
+				    The card on the right draws the division of labour the paragraph
+				    describes: two owned lanes with a file crossing them. */}
+				<section className={`${styles.section} ${styles.provenance}`}>
+					<div>
+						<p className={styles.eyebrow}>Who makes Uppy</p>
+						<Heading as="h2">Made by Transloadit</Heading>
+						<p>
+							Uppy is the open-source file uploader created and maintained by{' '}
+							<Link href="https://transloadit.com/">Transloadit</Link>. We
+							originally built it to solve browser-upload problems reported by
+							Transloadit customers, then released it under the MIT License for
+							everyone to use. Uppy works with many upload backends; with
+							Transloadit, it is the official browser uploader and provides
+							first-party support for resumable uploads, remote sources, and
+							Assembly progress.
+						</p>
+					</div>
+
+					<figure className={styles.lineage}>
+						{/* Two territories with one line running through them: Uppy uploads
+						    from the browser, then hands the file to Transloadit, which
+						    resizes, encodes and delivers it. Not "the file arrives at
+						    Transloadit" — that reading is what the lanes exist to prevent. */}
+						<div className={styles.line}>
+							{lanes.map(({ owner, logo, steps }) => (
+								<div
+									key={owner}
+									className={styles.lineLane}
+									data-owner={owner}
+									// Where the file rests when motion is off — the lane's last
+									// step, so the still frame reads as work completed.
+									style={
+										{
+											'--park': `${steps[steps.length - 1].at}%`,
+										} as React.CSSProperties
+									}
+								>
+									{/* Mark then rail, the same way round in both lanes: each reads
+									    "[who] — [what they do]". */}
+									<span className={styles.lineLogo}>
+										<img {...logo} />
+									</span>
+
+									<span className={styles.lineRail}>
+										{steps.map(({ label, at }) => (
+											<span
+												key={label}
+												className={styles.lineStation}
+												style={
+													{
+														'--at-pos': `${at}%`,
+														'--at-frac': at / 100,
+													} as React.CSSProperties
+												}
+											>
+												<i />
+												<em>{label}</em>
+											</span>
+										))}
+
+										<span className={styles.lineFile} aria-hidden>
+											<svg viewBox="0 0 16 16">
+												<path
+													d="M3.5 1.5h5l4 4v9a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1Z"
+													fill="currentColor"
+												/>
+												<path d="M8.5 1.5v4h4" fill="rgb(255 255 255 / 45%)" />
+											</svg>
+										</span>
+									</span>
+								</div>
+							))}
+						</div>
+
+						<figcaption className={styles.srOnly}>
+							Uppy uploads a file from the browser, then hands it to
+							Transloadit, which resizes, encodes and delivers it in the cloud.
+						</figcaption>
+					</figure>
+				</section>
 			</main>
 
 			{/* -------------------------------------------------------- Closing */}
@@ -641,8 +767,6 @@ export default function Home(): JSX.Element {
 								/>
 							</svg>
 						</Link>
-
-						<GitHubStars size="lg" />
 					</div>
 				</div>
 			</section>

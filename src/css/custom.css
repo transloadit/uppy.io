@@ -309,7 +309,12 @@ div[class*=' admonitionHeading'] {
    mount, which is exactly when the wipe should happen. */
 .navbar__items > .navbar__link--active:not([target='_blank'])::after {
 	clip-path: inset(0 0 0 0);
-	animation: navbar-underline 260ms var(--u-ease) both;
+	/* Longhands: a `var()` inside the `animation` shorthand is opaque to the CSS
+	   minifier, which warns and skips the declaration. */
+	animation-name: navbar-underline;
+	animation-duration: 260ms;
+	animation-timing-function: var(--u-ease);
+	animation-fill-mode: both;
 }
 
 @keyframes navbar-underline {
