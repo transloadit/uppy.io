@@ -126,11 +126,11 @@ corners disappear.
   <tbody>
   <tr>
   <td width="50%">
-    <img style={{ maxWidth: 300 }} src="/img/blog/2023-10-25-image-editor/1a.jpg" />
+    <img alt="Diagram: an image rotated inside the cropbox, leaving empty corners" style={{ maxWidth: 300 }} src="/img/blog/2023-10-25-image-editor/1a.jpg" />
   </td>
 
   <td width="50%">
-    <img style={{ maxWidth: 340 }} src="/img/blog/2023-10-25-image-editor/1b.jpg" />
+    <img alt="Diagram: green arrows showing the directions the image is scaled in to fill those corners" style={{ maxWidth: 340 }} src="/img/blog/2023-10-25-image-editor/1b.jpg" />
   </td>
   </tr>
   </tbody>
@@ -158,11 +158,11 @@ our image, we only need to find `H` to complete our scaling function.
   <tbody>
   <tr>
   <td width="50%">
-    <img src="/img/blog/2023-10-25-image-editor/2a.jpg" />
+    <img alt="Diagram: the rotated image, with the height H to be found marked on it" src="/img/blog/2023-10-25-image-editor/2a.jpg" />
   </td>
 
   <td width="50%">
-    <img src="/img/blog/2023-10-25-image-editor/2b.jpg" />
+    <img alt="Diagram: the same rotation with the known image height h marked" src="/img/blog/2023-10-25-image-editor/2b.jpg" />
   </td>
   </tr>
   </tbody>
@@ -186,7 +186,7 @@ for <code>90 - α</code>:</p>
   <tbody style={{ display: "table", width: "100%" }}>
   <tr>
   <td>
-    <img style={{ width: 500 }} src="/img/blog/2023-10-25-image-editor/3.jpg" />
+    <img alt="Diagram: every angle in the rotated figure coloured to show which are equal" style={{ width: 500 }} src="/img/blog/2023-10-25-image-editor/3.jpg" />
   </td>
   </tr>
   </tbody>
@@ -202,11 +202,11 @@ We can then find `H`, by adding the two outer sides of these triangles.
   <tbody>
   <tr>
   <td width="50%">
-    <img src="/img/blog/2023-10-25-image-editor/4a.jpg" />
+    <img alt="Diagram: the first of the two triangle sides that add up to H" src="/img/blog/2023-10-25-image-editor/4a.jpg" />
   </td>
 
   <td width="50%">
-    <img src="/img/blog/2023-10-25-image-editor/4b.jpg" />
+    <img alt="Diagram: the second of the two triangle sides that add up to H" src="/img/blog/2023-10-25-image-editor/4b.jpg" />
   </td>
   </tr>
   </tbody>
@@ -252,5 +252,5 @@ You can see the full version
 
 <details>
   <summary>Bonus content: our founder’s (Tim Koschuetzki) initial scribbled notes with the solution</summary>
-  <img src="/img/blog/2023-10-25-image-editor/tim.jpg"/>
+  <img alt="Tim Koschuetzki's handwritten notes working through the scaling maths" src="/img/blog/2023-10-25-image-editor/tim.jpg"/>
 </details>

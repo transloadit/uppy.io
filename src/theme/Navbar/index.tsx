@@ -11,11 +11,20 @@ type Props = WrapperProps<typeof NavbarType>;
 export default function NavbarWrapper(props: Props): JSX.Element {
 	return (
 		<>
-			<p className={styles.header}>
-				<Link to="/blog/uppy-5.0">
-					Uppy 5.0 is here with headless components and hooks
+			{/* A landmark rather than a bare div: the bar sits above the navbar, so
+			    outside one it is page content belonging to no region at all, and
+			    landmark navigation jumps over it. */}
+			<aside className={styles.banner} aria-label="Announcement">
+				<Link to="/blog/uppy-5.0" className={styles.link}>
+					<span className={styles.tag}>5.0</span>
+					<span className={styles.text}>
+						Headless components and hooks are here
+					</span>
+					<span className={styles.arrow} aria-hidden>
+						→
+					</span>
 				</Link>
-			</p>
+			</aside>
 			<Navbar {...props} />
 		</>
 	);
