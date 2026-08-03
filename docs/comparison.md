@@ -20,7 +20,7 @@ software and services.
 | Client-side restrictions                                                                           | ✅                                                         | ?                                                                               | ?                                                                          | ?                                                             | ?                                                                                 | ?                                         | ?                                                       |
 
 ¹ Non-free feature addon to free software.\
-² No multi-file select inside folder (with checkbox).\
+² No multi-file select inside folder (with checkbox).
 
 ## Framework support
 
@@ -39,7 +39,7 @@ We consider uploades that provide supported wrappers for each framework.
 
 Upload sources are where the uploaded file originates from.
 
-|                        | [Uppy](https://github.com/transloadit/uppy)                                                                        | [Dropzone](https://www.dropzone.dev/) | [Filepond](https://pqina.nl/filepond/) | [Uploadcare](https://uploadcare.com/) | [Filestack](https://www.filestack.com/)                                                                            | [Uploader.win](https://www.uploader.win/) | [UploadThing](https://uploadthing.com/) |
+| Source                 | [Uppy](https://github.com/transloadit/uppy)                                                                        | [Dropzone](https://www.dropzone.dev/) | [Filepond](https://pqina.nl/filepond/) | [Uploadcare](https://uploadcare.com/) | [Filestack](https://www.filestack.com/)                                                                            | [Uploader.win](https://www.uploader.win/) | [UploadThing](https://uploadthing.com/) |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------- | -------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------- | --------------------------------------- |
 | Google Drive           | [✅ ¹](/docs/google-drive/)                                                                                        | x                                     | x                                      | ✅                                    | ✅                                                                                                                 | ⚠️ Broken 2025-03                         | x                                       |
 | Google Drive Picker    | [✅](/docs/google-drive-picker/)                                                                                   | x                                     | x                                      | x                                     | x                                                                                                                  | x                                         | x                                       |
@@ -68,7 +68,7 @@ Upload sources are where the uploaded file originates from.
 We only consider those destinations that the uploader can upload to directly
 (without first uploading to a managed service).
 
-|                        | [Uppy](https://github.com/transloadit/uppy) | [Dropzone](https://www.dropzone.dev/)                                            | [Filepond](https://pqina.nl/filepond/)            | [Uploadcare](https://uploadcare.com/) | [Filestack](https://www.filestack.com/) | [Uploader.win](https://www.uploader.win/) | [UploadThing](https://uploadthing.com/) |
+| Destination            | [Uppy](https://github.com/transloadit/uppy) | [Dropzone](https://www.dropzone.dev/)                                            | [Filepond](https://pqina.nl/filepond/)            | [Uploadcare](https://uploadcare.com/) | [Filestack](https://www.filestack.com/) | [Uploader.win](https://www.uploader.win/) | [UploadThing](https://uploadthing.com/) |
 | ---------------------- | ------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------- | --------------------------------------- | ----------------------------------------- | --------------------------------------- |
 | Custom HTTP backend    | [✅](/docs/xhr-upload/)                     | [✅](https://docs.dropzone.dev/getting-started/setup/server-side-implementation) | [✅](https://pqina.nl/filepond/docs/api/server/)  | x                                     | x                                       | ⚠️ Broken 2025-03                         | x                                       |
 | AWS S3                 | [✅](/docs/aws-s3/)                         | x                                                                                | [✅](https://github.com/pqina/filepond/issues/55) | x                                     | x                                       | ⚠️ Broken 2025-03                         | x                                       |

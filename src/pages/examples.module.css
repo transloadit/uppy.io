@@ -1,11 +1,20 @@
+/* 52rem lands the prose at roughly the same measure as a docs page (~85
+   characters at this root size); 60rem ran to ~100, which is past the point
+   where the eye loses the line. The demo below still has room to sit
+   side-by-side. */
 .main {
-	max-width: 60rem;
+	max-width: 52rem;
 	margin: 4rem auto;
 	padding: 0 1rem;
 }
 
+/* Matched to a blog post's title — same scale, same tracking. 3rem was a size
+   the rest of the site stopped using. */
 .h1 {
-	font-size: 3rem;
+	font-size: clamp(1.875rem, 3.6vw, 2.5rem);
+	line-height: 1.12;
+	letter-spacing: -0.032em;
+	text-wrap: balance;
 }
 
 .h3 {
