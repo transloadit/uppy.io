@@ -46,6 +46,9 @@ jobs:
           persist-credentials: false
       - run: ${{ matrix.run }}
       - name: Create or update pull request
+        # pull_request runs only validate the workflow; their GITHUB_TOKEN is
+        # read-only, so publishing the update must be skipped.
+        if: github.event_name != 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: actions/tools-update-${{ matrix.id }}
