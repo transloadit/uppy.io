@@ -8,7 +8,7 @@ Code for [uppy.io/docs](https://uppy.io/docs/quick-start) lives in
 
 ## Developer guide
 
-If you want to edit [uppy.io/blog](https://uppy.io/blog), just edit the files in
+If you want to edit [uppy.io/blog](https://uppy.io/blog), edit the files in
 this repo.
 
 If you want to edit [uppy.io/docs](https://uppy.io/docs/quick-start), then you
