@@ -332,8 +332,8 @@ once instead of once per request. When S3 answers with `ExpiredToken` or
 `InvalidAccessKeyId`, the plugin drops the cache, calls `getCredentials()`
 again, and retries the request once.
 
-Note that AWS STS returns `AccessKeyId`, `SecretAccessKey`, and `SessionToken`
-in PascalCase — map them to the camelCase keys above, as in the
+AWS STS returns `AccessKeyId`, `SecretAccessKey`, and `SessionToken` in
+PascalCase; map them to the camelCase keys above, as in the
 [example](#sign-on-the-client).
 
 #### `s3Endpoint`
@@ -440,9 +440,9 @@ The configuration required for Uppy is this:
 
 A good practice is to use two CORS rules: one for uploading files (the first
 object in the array) and one for viewing them from the browser (the second).
-Note that CORS only controls which origins the browser lets read the responses —
-whether an object can be viewed at all is decided by your bucket policy and
-ACLs, not by this rule.
+CORS only controls which origins the browser lets read the responses. Whether an
+object can be viewed at all is decided by your bucket policy and ACLs, not by
+this rule.
 
 `ExposeHeaders` has to include `ETag`, or multipart uploads cannot be completed:
 the browser needs to read the `ETag` of every part it uploads. `DELETE` is used
