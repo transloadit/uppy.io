@@ -193,7 +193,7 @@ module in your project, because Companion already includes it. Use the
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import companion from '@uppy/companion';
+import * as companion from '@uppy/companion';
 
 const app = express();
 
@@ -206,6 +206,11 @@ app.use(bodyParser.json());
 app.use(session({ secret: 'some secrety secret' }));
 
 const companionOptions = {
+	secret: 'some secret',
+	// the origin(s) your Uppy app runs on; required
+	corsOrigins: ['https://my-app.com'],
+	// where uploads are allowed to go; required in production
+	uploadUrls: ['https://my-app.com/uploads'],
 	providerOptions: {
 		drive: {
 			key: 'GOOGLE_DRIVE_KEY',
@@ -245,9 +250,6 @@ As of Companion 7 the second argument is required, and it must be the same
 options object you passed to `companion.app()`.
 
 :::
-
-If WebSockets fail for some reason Uppy and Companion will fallback to HTTP
-polling.
 
 ### Running many instances
 
