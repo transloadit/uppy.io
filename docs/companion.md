@@ -707,7 +707,7 @@ this if you’re serving Companion and Uppy from the same domain name.
 As of Companion 7 the auth token is sent over the WebSocket connection, and
 `postMessage` is only used as a fallback for Uppy clients older than 6.0. See
 [How does the Authentication and Token mechanism work?](#how-does-the-authentication-and-token-mechanism-work).
-This allow-list gates both paths.
+The allow-list applies to both paths.
 
 :::
 
