@@ -63,8 +63,8 @@ where it lives next to `RequestClient`:
 
 `CompanionClientProvider` and `CompanionClientSearchProvider` are removed. They
 were hand-maintained stand-ins that existed only because `@uppy/utils` could not
-see the real provider classes. Import `Provider` instead — it is a _named_
-export:
+see the real provider classes. Import `Provider` (or `SearchProvider` in place
+of `CompanionClientSearchProvider`) instead — both are _named_ exports:
 
 ```diff
 - import type { CompanionClientProvider } from '@uppy/utils';
@@ -72,11 +72,15 @@ export:
 
 - const provider: CompanionClientProvider = createProvider();
 + const provider: Provider<MyMeta, MyBody> = createProvider();
+
+- import type { CompanionClientSearchProvider } from '@uppy/utils';
++ import type { SearchProvider } from '@uppy/core/companion-client';
 ```
 
-`UnknownProviderPlugin['provider']` is typed as a structural subset of
-`Provider` (through `Pick`), so a custom provider that matches the public
-surface still fits without subclassing the class itself.
+`UnknownProviderPlugin['provider']` and
+`UnknownSearchProviderPlugin['provider']` are typed as structural subsets of
+`Provider` and `SearchProvider` (through `Pick`), so a custom provider that
+matches the public surface still fits without subclassing either class.
 
 #### `isTouchDevice` is removed
 
@@ -101,9 +105,9 @@ import { DefaultStore, server, Uppy, views } from 'uppy'; // still works
 
 ### `@uppy/aws-s3` rewritten
 
-`@uppy/aws-s3` has been rewritten on top of a standalone S3 client. Every option
-you passed in 5.x is gone. Configuration is now three mutually exclusive signing
-modes:
+`@uppy/aws-s3` has been rewritten on top of a standalone S3 client. Most options
+you passed in 5.x are gone (the full lists are below). Configuration is now
+three mutually exclusive signing modes:
 
 - `getCredentials` — client-side SigV4 signing with temporary credentials.
 - `signRequest` — bring your own signer, client side or server side.
@@ -165,8 +169,8 @@ uppy.use(AwsS3, {
 	s3Endpoint: 'https://my-bucket.s3.us-east-1.amazonaws.com',
 	region: 'us-east-1',
 	shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
-	async getCredentials({ signal } = {}) {
-		const response = await fetch('/sts-token', { signal });
+	async getCredentials() {
+		const response = await fetch('/sts-token');
 		if (!response.ok) throw new Error('Failed to fetch STS');
 		const { credentials } = await response.json();
 		return {
@@ -192,9 +196,10 @@ The credential fields are camelCase now:
 | `credentials.Expiration`      | `credentials.expiration`      |
 | `bucket`                      | part of the `s3Endpoint` URL  |
 
-The region is no longer inferred for you: the client takes `region` from the
-`getCredentials` response, falls back to the `region` option, and then to
-`auto`. Set it in one of those two places.
+The region is no longer inferred for you. Return it from `getCredentials` — the
+response type requires it. At runtime the client prefers the response value,
+then the `region` option, then `auto`, but a callback that omits `region` does
+not type-check.
 
 #### Custom signing: six callbacks become `signRequest`
 
@@ -271,7 +276,8 @@ replacement provider.
 
 1. Remove `@uppy/instagram` from your dependencies and drop the
    `uppy.use(Instagram, …)` call.
-2. Remove `instagram` from the `sources` list if you use `@uppy/remote-sources`.
+2. Remove `'Instagram'` from the `sources` list if you use
+   `@uppy/remote-sources` — Uppy 6 throws on unknown source keys.
 3. Remove the Instagram credentials from your Companion configuration
    (`COMPANION_INSTAGRAM_KEY`, `COMPANION_INSTAGRAM_SECRET`) and the Instagram
    redirect URI from your provider setup.
@@ -286,8 +292,9 @@ relied on the old behaviour needs updating:
 ```diff
  uppy.on('upload-error', (file, error, response) => {
 -	// response was always status 0 with no body
-+	// response.status and response.body now hold what the server sent
- 	console.log(response?.status, response?.body);
++	// response.status now holds what the server sent, and
++	// response.body.xhr is the underlying XMLHttpRequest
+ 	console.log(response?.status, response?.body?.xhr.responseText);
  });
 ```
 
@@ -295,7 +302,9 @@ relied on the old behaviour needs updating:
 
 The recovery metadata store moved from localStorage to IndexedDB, and falls back
 to localStorage when `window.indexedDB` is unavailable. The fallback is a
-one-time capability check made when the plugin starts. No action needed.
+one-time capability check made when the plugin starts. No code changes are
+needed, but recovery snapshots written by 5.x (in localStorage) are not read by
+6.x, so an upload interrupted before the upgrade cannot be restored after it.
 
 ## Migrate from Companion 6.x to 7.x
 
@@ -935,7 +944,7 @@ uppy.use(Dropbox, {
 
 ### `@uppy/aws-s3-multipart`
 
-#### Make `headers` inside the return value of [`signPart`](/docs/aws-s3/#signpartfile-partdata) part-indexed too.
+#### Make `headers` inside the return value of `signPart` part-indexed too.
 
 This is to allow custom headers to be set per part. See this
 [issue](https://github.com/transloadit/uppy/issues/3881) for details.
@@ -1342,9 +1351,8 @@ uppy.on('dashboard:file-edit-start', (file) => {
 See the Uppy 2.0.0 announcement post about the batch
 [pre-signing URLs change](/blog/2021/08/2.0/#batch-pre-signing-urls-for-aws-s3-multipart).
 
-`prepareUploadPart` has been renamed to
-[`signPart`](/docs/aws-s3/#signpartfile-partdata). See the documentation link on
-how to use this function.
+`prepareUploadPart` has been renamed to `signPart`. See the documentation link
+on how to use this function.
 
 ### Removed the `.run` method from [`@uppy/core`][core]
 
