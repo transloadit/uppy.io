@@ -6,7 +6,7 @@ sidebar_position: 4
 
 Companion is an open source server application which **takes away the complexity
 of authentication and the cost of downloading files from remote sources**, such
-as Instagram, Google Drive, and others. Companion is a server-to-server
+as Google Drive, Dropbox, and others. Companion is a server-to-server
 orchestrator that streams files from a source to a destination, and files are
 never stored in Companion. Companion can run either as a standalone
 (self-hosted) application, [Transloadit-hosted](#hosted), or plugged in as an
@@ -23,8 +23,8 @@ OAuth.
 
 If you want to let users download files from [Box][], [Dropbox][], [Facebook][],
 [Google Drive][googledrive], [Google Drive Picker][googledrivepicker], [Google
-Photos Picker][googlephotospicker], [Instagram][], [OneDrive][], [Unsplash][],
-[Import from URL][url], or [Zoom][] — you need Companion.
+Photos Picker][googlephotospicker], [OneDrive][], [Unsplash][], [Import from
+URL][url], or [Zoom][] — you need Companion.
 
 Companion supports the same [uploaders](/docs/guides/choosing-uploader) as Uppy:
 [Tus](/docs/tus), [AWS S3](/docs/aws-s3), and [regular multipart](/docs/tus).
@@ -116,10 +116,7 @@ server code.
 
 :::note
 
-Since v2, you need to be running `node.js >= v10.20.1` to use Companion. More
-information in the
-[migrating to 2.0](/docs/guides/migration-guides/#migrate-from-uppy-1x-to-2x)
-guide.
+Companion 7 requires Node.js `^20.19.3 || >=22.0.0`.
 
 Windows is not a supported platform right now. It may work, and we’re happy to
 accept improvements in this area, but we can’t provide support.
@@ -176,6 +173,9 @@ You may also want to run Companion in a process manager like
 crashing as well as allowing scaling to many instances.
 
 ### Express middleware mode
+
+Companion 7 is built on Express 5. Mounting Companion into an Express 4 app is
+no longer supported.
 
 First install it into your Node.js project with your favorite package manager:
 
@@ -236,8 +236,15 @@ Add the Companion WebSocket server using the `companion.socket` function:
 ```js
 const server = app.listen(PORT);
 
-companion.socket(server);
+companion.socket(server, companionOptions);
 ```
+
+:::note
+
+As of Companion 7 the second argument is required, and it must be the same
+options object you passed to `companion.app()`.
+
+:::
 
 If WebSockets fail for some reason Uppy and Companion will fallback to HTTP
 polling.
@@ -478,22 +485,21 @@ the secret, nothing else.
 
 :::
 
-| Service      | Key         | Environment variables                                                                                                                                                                                                                  |
-| ------------ | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Box          | `box`       | `COMPANION_BOX_KEY`, `COMPANION_BOX_SECRET`, `COMPANION_BOX_SECRET_FILE`                                                                                                                                                               |
-| Dropbox      | `dropbox`   | `COMPANION_DROPBOX_KEY`, `COMPANION_DROPBOX_SECRET`, `COMPANION_DROPBOX_SECRET_FILE`                                                                                                                                                   |
-| Facebook     | `facebook`  | `COMPANION_FACEBOOK_KEY`, `COMPANION_FACEBOOK_SECRET`, `COMPANION_FACEBOOK_SECRET_FILE`                                                                                                                                                |
-| Google Drive | `drive`     | `COMPANION_GOOGLE_KEY`, `COMPANION_GOOGLE_SECRET`, `COMPANION_GOOGLE_SECRET_FILE`                                                                                                                                                      |
-| Instagram    | `instagram` | `COMPANION_INSTAGRAM_KEY`, `COMPANION_INSTAGRAM_SECRET`, `COMPANION_INSTAGRAM_SECRET_FILE`                                                                                                                                             |
-| OneDrive     | `onedrive`  | `COMPANION_ONEDRIVE_KEY`, `COMPANION_ONEDRIVE_SECRET`, `COMPANION_ONEDRIVE_SECRET_FILE`, `COMPANION_ONEDRIVE_DOMAIN_VALIDATION` (Settings this variable to `true` enables a route that can be used to validate your app with OneDrive) |
-| Zoom         | `zoom`      | `COMPANION_ZOOM_KEY`, `COMPANION_ZOOM_SECRET`, `COMPANION_ZOOM_SECRET_FILE`, `COMPANION_ZOOM_VERIFICATION_TOKEN`                                                                                                                       |
+| Service      | Key        | Environment variables                                                                                                                                                                                                                  |
+| ------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Box          | `box`      | `COMPANION_BOX_KEY`, `COMPANION_BOX_SECRET`, `COMPANION_BOX_SECRET_FILE`                                                                                                                                                               |
+| Dropbox      | `dropbox`  | `COMPANION_DROPBOX_KEY`, `COMPANION_DROPBOX_SECRET`, `COMPANION_DROPBOX_SECRET_FILE`                                                                                                                                                   |
+| Facebook     | `facebook` | `COMPANION_FACEBOOK_KEY`, `COMPANION_FACEBOOK_SECRET`, `COMPANION_FACEBOOK_SECRET_FILE`                                                                                                                                                |
+| Google Drive | `drive`    | `COMPANION_GOOGLE_KEY`, `COMPANION_GOOGLE_SECRET`, `COMPANION_GOOGLE_SECRET_FILE`                                                                                                                                                      |
+| OneDrive     | `onedrive` | `COMPANION_ONEDRIVE_KEY`, `COMPANION_ONEDRIVE_SECRET`, `COMPANION_ONEDRIVE_SECRET_FILE`, `COMPANION_ONEDRIVE_DOMAIN_VALIDATION` (Settings this variable to `true` enables a route that can be used to validate your app with OneDrive) |
+| Zoom         | `zoom`     | `COMPANION_ZOOM_KEY`, `COMPANION_ZOOM_SECRET`, `COMPANION_ZOOM_SECRET_FILE`, `COMPANION_ZOOM_VERIFICATION_TOKEN`                                                                                                                       |
 
 #### `s3`
 
 Companion comes with signature endpoints for AWS S3. These can be used by the
 Uppy client to sign requests to upload files directly to S3, without exposing
 secret S3 keys in the browser. Companion also supports uploading files from
-providers like Dropbox and Instagram directly into S3.
+providers like Dropbox and Google Drive directly into S3.
 
 ##### `s3.key` `COMPANION_AWS_KEY`
 
@@ -694,6 +700,15 @@ Setting it to `true` treats any origin as a trusted one, making it easier to
 impersonate your brand. Setting it to `false` disables cross-origin support, use
 this if you’re serving Companion and Uppy from the same domain name.
 
+:::note
+
+As of Companion 7 the auth token is sent over the WebSocket connection, and
+`postMessage` is only used as a fallback for Uppy clients older than 6.0. See
+[How does the Authentication and Token mechanism work?](#how-does-the-authentication-and-token-mechanism-work).
+This allow-list gates both paths.
+
+:::
+
 ##### `COMPANION_CLIENT_ORIGINS`
 
 Stand-alone alternative to the `corsOrigins` option. A comma-separated string of
@@ -790,8 +805,8 @@ An example server is running at <https://companion.uppy.io>.
 ### How does the Authentication and Token mechanism work?
 
 This section describes how Authentication works between Companion and Providers.
-While this behaviour is the same for all Providers (Dropbox, Instagram, Google
-Drive, etc.), we are going to be referring to Dropbox in place of any Provider
+While this behaviour is the same for all Providers (Dropbox, Google Drive,
+etc.), we are going to be referring to Dropbox in place of any Provider
 throughout this section.
 
 The following steps describe the actions that take place when a user
@@ -819,6 +834,13 @@ Authenticates and Uploads from Dropbox through Companion:
   (depending on the configuration: Apache, a Tus server, S3 bucket, etc).
 - Companion reports progress to Uppy, as if it were a local upload.
 - Completed!
+
+As of Companion 7, the encrypted token is sent to the client over the WebSocket
+connection, so the [WebSocket server](#express-middleware-mode) has to be
+running for an OAuth flow to complete. Uppy clients older than 6.0 don’t ask for
+a token over the WebSocket, and Companion falls back to sending it with
+`window.opener.postMessage` from the OAuth callback page. An Uppy 6 client needs
+Companion 7, so upgrade Companion first.
 
 ### How to use provider redirect URIs?
 
@@ -1004,7 +1026,6 @@ automatically restart when files are changed.
 [googledrive]: /docs/google-drive
 [googledrivepicker]: /docs/google-drive-picker
 [googlephotospicker]: /docs/google-photos-picker
-[instagram]: /docs/instagram
 [onedrive]: /docs/onedrive
 [unsplash]: /docs/unsplash
 [url]: /docs/url
