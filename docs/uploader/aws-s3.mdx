@@ -13,7 +13,8 @@ The `@uppy/aws-s3` plugin uploads files from the browser directly to an S3
 bucket, or to any S3-compatible service such as Cloudflare R2, MinIO, or
 DigitalOcean Spaces.
 
-Small files are sent with a single `PUT`, large files as a multipart upload.
+Small files are sent in a single request (a presigned `PUT` in the direct modes,
+a `POST` form upload through Companion), large files as a multipart upload.
 Every request to S3 has to be signed, and you choose how that happens:
 
 | Option              | Who signs                    | What you run                                        |
@@ -247,7 +248,8 @@ connections browsers open per host over HTTP/1.1.
 #### `getChunkSize(file)`
 
 A function that returns the part size in bytes to use when uploading the given
-file as multipart (`function`, default: the file size divided by 10,000).
+file as multipart (`function`, default: the file size divided by 10,000). It
+receives an object with only a `size` property, not the full Uppy file.
 
 S3 requires a minimum part size of 5&nbsp;MiB and supports at most 10,000 parts
 per upload. If `getChunkSize()` returns something smaller, or something that
@@ -291,8 +293,8 @@ It receives an object with:
 - `uploadId`: `string`, only present for multipart operations.
 - `partNumber`: `number`, only present when uploading a part.
 
-It must return an object (or a promise for one) with a single `url` key holding
-the presigned URL.
+It must return a promise for an object with a single `url` key holding the
+presigned URL.
 
 These are the operations your endpoint has to sign:
 
@@ -436,20 +438,23 @@ The configuration required for Uppy is this:
 ]
 ```
 
-A good practice is to use two CORS rules: one for viewing the uploaded files,
-and one for uploading files. This is done above where the first object in the
-array defines the rules for uploading, and the second for viewing. The example
-above **makes files publicly viewable**. You can change it according to your
-needs.
+A good practice is to use two CORS rules: one for uploading files (the first
+object in the array) and one for viewing them from the browser (the second).
+Note that CORS only controls which origins the browser lets read the responses —
+whether an object can be viewed at all is decided by your bucket policy and
+ACLs, not by this rule.
 
 `ExposeHeaders` has to include `ETag`, or multipart uploads cannot be completed:
 the browser needs to read the `ETag` of every part it uploads. `DELETE` is used
 to abort a multipart upload when the user cancels one, and `GET` to list the
 parts of an upload that is being resumed.
 
-If you are using an IAM policy to allow access to the S3 bucket, the policy must
-have at least the `s3:PutObject` and `s3:PutObjectAcl` permissions scoped to the
-bucket in question. In-depth documentation about CORS rules is available on the
+If you are using an IAM policy to allow access to the S3 bucket, the policy
+needs at least the `s3:PutObject`, `s3:ListMultipartUploadParts` (listing parts
+when an upload resumes), and `s3:AbortMultipartUpload` (cancelling an upload)
+permissions scoped to the bucket in question. Add `s3:PutObjectAcl` only if you
+configure an ACL on uploads. In-depth documentation about CORS rules is
+available on the
 [AWS documentation site](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
 
 ## Use with TypeScript
