@@ -249,6 +249,28 @@ Limit the amount of uploads going on at the same time (`number`, default: `20`).
 
 Setting this to `0` means no limit on concurrent uploads (not recommended).
 
+### Errors
+
+When a request fails and the [retries](#retrydelays) are exhausted, the server’s
+response is forwarded to the [`upload-error`](/docs/uppy/#upload-error) event
+and set on `file.response`. It has the same shape as the response you get on
+`upload-success`: the `status` the server returned, and a `body` with the
+underlying `xhr`.
+
+```js
+uppy.on('upload-error', (file, error, response) => {
+	console.log(response.status); // for instance 403
+	console.log(response.body.xhr.responseText); // what the server sent back
+});
+```
+
+Before Uppy 6.0 the plugin aborted the request in its error handler, which reset
+the response to status `0` with an empty body.
+
+`response` is `undefined` when the request failed without a response, such as
+when the server is unreachable. Use
+[`error.isNetworkError`](/docs/uppy/#upload-error) to detect those.
+
 ## Frequently Asked Questions
 
 :::info

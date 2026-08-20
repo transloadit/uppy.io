@@ -495,6 +495,38 @@ Form fields can also be computed dynamically using custom logic, by using the
 
 </details>
 
+### Plugin state
+
+The plugin mirrors the Assembly Status into its own plugin state, so you can
+render Assembly progress without wiring up event listeners. Read it with
+[`getPluginState()`](/docs/uppy/#getpluginstate), or from Uppy’s state under
+`plugins.Transloadit` (the key is the plugin [`id`](#id)).
+
+```js
+const { assemblyStatus, lastAssemblyStatus } = uppy
+	.getPlugin('Transloadit')
+	.getPluginState();
+```
+
+#### `assemblyStatus`
+
+The [Assembly Status][assembly-status] of the Assembly that is currently running
+(`object | undefined`, default: `undefined`).
+
+It is updated on every status transition Transloadit reports — such as
+`ASSEMBLY_UPLOADING` and then `ASSEMBLY_EXECUTING` in the `ok` property — and is
+set back to `undefined` as soon as there is no live Assembly, which is the case
+after the upload finished, was cancelled, or errored.
+
+#### `lastAssemblyStatus`
+
+The most recent [Assembly Status][assembly-status] that was seen
+(`object | undefined`, default: `undefined`).
+
+This one is never cleared, so you can keep showing the outcome of the previous
+run after [`assemblyStatus`](#assemblystatus) goes back to `undefined`. It is
+overwritten when the next Assembly reports a status.
+
 ### Static exports
 
 #### `COMPANION_URL`
