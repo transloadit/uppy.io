@@ -417,7 +417,7 @@ standalone-only option.
 #### `redisUrl` `COMPANION_REDIS_URL`
 
 URL to running Redis server. This can be used to scale Companion horizontally
-using many instances. See [How to scale Companion](#how-to-scale-companion).
+using many instances. See [Running many instances](#running-many-instances).
 
 #### `COMPANION_REDIS_EXPRESS_SESSION_PREFIX`
 
