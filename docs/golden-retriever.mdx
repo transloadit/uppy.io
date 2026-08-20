@@ -17,8 +17,8 @@ read more about it
 
 The Golden Retriever uses these methods of browser data storage:
 
-- `IndexedDB` to store file metadata and Uppy state, and for small files,
-  usually under 5MiB.
+- `IndexedDB` to store file metadata and Uppy state, and for small files, up to
+  10MiB per file by default.
 - `LocalStorage` for file metadata and Uppy state when `window.indexedDB` is not
   available. The plugin picks a store once, when it is installed; it does not
   move to `LocalStorage` later on.
@@ -89,9 +89,9 @@ new Uppy()
   .use(GoldenRetriever);
 ```
 
-By default, Golden Retriever will only use the `IndexedDB` storage, which is
-good enough for files up to 5 MiB. `Service Worker` is optional and requires
-setup.
+By default, Golden Retriever uses `IndexedDB` (or `LocalStorage` where IndexedDB
+is unavailable), which is good enough for files up to 10 MiB. `Service Worker`
+is optional and requires setup.
 
 ### Enabling Service Worker
 

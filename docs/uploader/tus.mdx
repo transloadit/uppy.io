@@ -253,23 +253,24 @@ Setting this to `0` means no limit on concurrent uploads (not recommended).
 
 When a request fails and the [retries](#retrydelays) are exhausted, the server’s
 response is forwarded to the [`upload-error`](/docs/uppy/#upload-error) event
-and set on `file.response`. It has the same shape as the response you get on
-`upload-success`: the `status` the server returned, and a `body` with the
-underlying `xhr`.
+and set on `file.response`: the `status` the server returned, and a `body`
+holding the underlying `xhr`.
 
 ```js
 uppy.on('upload-error', (file, error, response) => {
-	console.log(response.status); // for instance 403
-	console.log(response.body.xhr.responseText); // what the server sent back
+	console.log(response?.status); // for instance 403
+	console.log(response?.body.xhr.responseText); // what the server sent back
 });
 ```
 
 Before Uppy 6.0 the plugin aborted the request in its error handler, which reset
 the response to status `0` with an empty body.
 
-`response` is `undefined` when the request failed without a response, such as
-when the server is unreachable. Use
-[`error.isNetworkError`](/docs/uppy/#upload-error) to detect those.
+`response` is `undefined` when there is no server response to report: when the
+request failed without one (such as an unreachable server — use
+[`error.isNetworkError`](/docs/uppy/#upload-error) to detect those), and for
+remote files uploaded through Companion, which report errors without a response
+object.
 
 ## Frequently Asked Questions
 

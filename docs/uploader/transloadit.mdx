@@ -523,9 +523,14 @@ after the upload finished, was cancelled, or errored.
 The most recent [Assembly Status][assembly-status] that was seen
 (`object | undefined`, default: `undefined`).
 
-This one is never cleared, so you can keep showing the outcome of the previous
-run after [`assemblyStatus`](#assemblystatus) goes back to `undefined`. It is
-overwritten when the next Assembly reports a status.
+This one is never cleared, so it stays readable after
+[`assemblyStatus`](#assemblystatus) goes back to `undefined`, and is overwritten
+when the next Assembly reports a status. Keep in mind it is the last status the
+plugin _observed_, not necessarily the final outcome: with the default
+[`waitForEncoding: false`](#waitforencoding), the plugin stops following the
+Assembly once the upload is done, so the stored status can still say
+`ASSEMBLY_UPLOADING` or `ASSEMBLY_EXECUTING` while Transloadit finishes the job
+server-side.
 
 ### Static exports
 
