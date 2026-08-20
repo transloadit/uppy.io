@@ -285,7 +285,7 @@ like calling an external API.
 
 ```js
 import { UIPlugin } from '@uppy/core';
-import Translator from '@uppy/utils/lib/Translator';
+import { Translator } from '@uppy/core/utils';
 import Compressor from 'compressorjs/dist/compressor.esm.js';
 
 class UppyImageCompressor extends UIPlugin {
