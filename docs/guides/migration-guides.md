@@ -284,14 +284,15 @@ replacement provider.
 
 ### `@uppy/tus` no longer aborts the request on error
 
-A failed request is no longer aborted before the response is read. The server
-status and body are forwarded to the `upload-error` event and to
-`file.response`, instead of being reset to status `0`. Error handling that
-relied on the old behaviour needs updating:
+A failed request is no longer aborted before the response is read, so the server
+status and body now reach the `upload-error` event and `file.response`. In 5.x
+the plugin emitted `upload-error` with no response argument, so consumers saw
+`undefined` there and `file.response` stayed unset after a failure. If you
+branched on that, update it:
 
 ```diff
  uppy.on('upload-error', (file, error, response) => {
--	// response was always status 0 with no body
+-	// response was always undefined
 +	// response.status now holds what the server sent, and
 +	// response.body.xhr is the underlying XMLHttpRequest
  	console.log(response?.status, response?.body?.xhr.responseText);

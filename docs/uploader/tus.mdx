@@ -263,8 +263,9 @@ uppy.on('upload-error', (file, error, response) => {
 });
 ```
 
-Before Uppy 6.0 the plugin aborted the request in its error handler, which reset
-the response to status `0` with an empty body.
+Before Uppy 6.0 the plugin aborted the request in its error handler and emitted
+`upload-error` without a response at all, so this third argument was always
+`undefined` and `file.response` was never set on a failed upload.
 
 `response` is `undefined` when there is no server response to report: when the
 request failed without one (such as an unreachable server — use
