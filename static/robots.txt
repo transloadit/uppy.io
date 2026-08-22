@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+Sitemap: https://uppy.io/sitemap.xml
+
+# Machine-readable indexes for AI agents:
+#   https://uppy.io/llms.txt       - index of the documentation
+#   https://uppy.io/llms-full.txt  - the full documentation as one file
+# Every page is also available as Markdown by appending .md to its URL.

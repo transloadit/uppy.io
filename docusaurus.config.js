@@ -86,6 +86,7 @@ const config = {
 		],
 	],
 	plugins: [
+		require.resolve('./src/plugins/agent-readiness.js'),
 		[
 			'@docusaurus/plugin-client-redirects',
 			{
