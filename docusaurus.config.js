@@ -62,6 +62,63 @@ const config = {
 				content: 'JxARoHXoCI8bD07pLV_u3z6xpuWNcSIZIcHEytyCkUc',
 			},
 		},
+		{
+			// JSON-LD so agents get Uppy's identity, licence and maintainer as
+			// data rather than having to infer them from prose. Every claim here
+			// is verifiable from the repo or this site -- nothing asserted that
+			// cannot be checked (no ratings, no counts, no dates).
+			tagName: 'script',
+			attributes: { type: 'application/ld+json' },
+			innerHTML: JSON.stringify({
+				'@context': 'https://schema.org',
+				'@graph': [
+					{
+						'@type': 'Organization',
+						'@id': 'https://transloadit.com/#organization',
+						name: 'Transloadit',
+						url: 'https://transloadit.com',
+						description:
+							'Transloadit builds and maintains Uppy, and provides file encoding and processing infrastructure.',
+						sameAs: [
+							'https://github.com/transloadit',
+							'https://community.transloadit.com/',
+						],
+					},
+					{
+						'@type': 'WebSite',
+						'@id': 'https://uppy.io/#website',
+						url: 'https://uppy.io',
+						name: 'Uppy',
+						description:
+							'Documentation for Uppy, the open source JavaScript file uploader.',
+						publisher: { '@id': 'https://transloadit.com/#organization' },
+						inLanguage: 'en',
+					},
+					{
+						'@type': 'SoftwareApplication',
+						'@id': 'https://uppy.io/#software',
+						name: 'Uppy',
+						applicationCategory: 'DeveloperApplication',
+						description:
+							'Uppy is an open source JavaScript file uploader for the browser. It uploads from disk and from remote sources such as Google Drive, Dropbox and OneDrive, resumes interrupted uploads over the tus protocol, and has official bindings for React, Vue, Svelte and Angular.',
+						url: 'https://uppy.io',
+						downloadUrl: 'https://www.npmjs.com/package/uppy',
+						codeRepository: 'https://github.com/transloadit/uppy',
+						license: 'https://spdx.org/licenses/MIT.html',
+						programmingLanguage: 'JavaScript',
+						operatingSystem: 'Any',
+						isAccessibleForFree: true,
+						offers: {
+							'@type': 'Offer',
+							price: '0',
+							priceCurrency: 'USD',
+						},
+						author: { '@id': 'https://transloadit.com/#organization' },
+						maintainer: { '@id': 'https://transloadit.com/#organization' },
+					},
+				],
+			}),
+		},
 	],
 	presets: [
 		[

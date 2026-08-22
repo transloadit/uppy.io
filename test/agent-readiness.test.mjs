@@ -265,6 +265,58 @@ describe(
 			);
 		});
 
+		test('JSON-LD is emitted site-wide and parses', () => {
+			for (const page of [
+				'index.html',
+				'404.html',
+				'docs/quick-start/index.html',
+			]) {
+				const html = read(page);
+				const match =
+					/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(
+						html,
+					);
+				assert.ok(match, `${page} has no JSON-LD block`);
+
+				const graph = JSON.parse(match[1])['@graph'];
+				const types = graph.map((n) => n['@type']);
+				for (const type of ['Organization', 'WebSite', 'SoftwareApplication']) {
+					assert.ok(types.includes(type), `${page} JSON-LD is missing ${type}`);
+				}
+			}
+		});
+
+		test('the SoftwareApplication node carries the fields agents look for', () => {
+			const html = read('index.html');
+			const graph = JSON.parse(
+				/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(
+					html,
+				)[1],
+			)['@graph'];
+			const app = graph.find((n) => n['@type'] === 'SoftwareApplication');
+
+			for (const field of [
+				'name',
+				'description',
+				'applicationCategory',
+				'codeRepository',
+				'license',
+				'offers',
+			]) {
+				assert.ok(app[field], `SoftwareApplication is missing ${field}`);
+			}
+			assert.ok(
+				app.description.length > 100,
+				'description is too thin to be useful',
+			);
+			// Cross-reference must resolve inside the graph, or consumers drop it.
+			const ids = new Set(graph.map((n) => n['@id']));
+			assert.ok(
+				ids.has(app.author['@id']),
+				'author @id does not resolve in the graph',
+			);
+		});
+
 		test('the homepage is readable without JavaScript', () => {
 			const html = read('index.html');
 			assert.match(html, /<h1[^>]*>/);
