@@ -89,7 +89,7 @@ The move was not wholesale. `isTouchDevice` was deleted outright, not moved to
 
 ```js
 const isTouchDevice = () =>
-	'ontouchstart' in window || 'maxTouchPoints' in navigator;
+	'ontouchstart' in window || navigator.maxTouchPoints > 0;
 ```
 
 #### The `uppy` meta-package: no change
