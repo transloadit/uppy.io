@@ -1352,8 +1352,7 @@ uppy.on('dashboard:file-edit-start', (file) => {
 See the Uppy 2.0.0 announcement post about the batch
 [pre-signing URLs change](/blog/2021/08/2.0/#batch-pre-signing-urls-for-aws-s3-multipart).
 
-`prepareUploadPart` has been renamed to `signPart`. See the documentation link
-on how to use this function.
+`prepareUploadPart` has been renamed to `signPart`.
 
 ### Removed the `.run` method from [`@uppy/core`][core]
 
