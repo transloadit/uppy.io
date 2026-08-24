@@ -67,7 +67,9 @@ if (!authKey || !authSecret || !templateId) {
 const transloadit = new Transloadit({ authKey, authSecret });
 
 export function createAssemblyOptions() {
+	const expires = new Date(Date.now() + 60 * 60 * 1000).toISOString();
 	const { params, signature } = transloadit.calcSignature({
+		auth: { expires },
 		template_id: templateId,
 	});
 
@@ -80,10 +82,12 @@ route. The route should enforce the current user’s upload permissions, rate
 limits, and allowed Template. Do not accept arbitrary `template_id`, `steps`, or
 storage credentials from the browser and sign them without validation.
 
-Every client example below uses the same function:
+The signed options expire after one hour. Adjust that lifetime to the shortest
+window that still accommodates your users’ uploads. Every client example below
+uses the same function:
 
-```ts title="get-assembly-options.ts"
-export async function getAssemblyOptions() {
+```ts title="fetch-assembly-options.ts"
+export async function fetchAssemblyOptions() {
 	const response = await fetch('/api/transloadit-params', { method: 'POST' });
 
 	if (!response.ok) {
@@ -110,7 +114,7 @@ import Transloadit from '@uppy/transloadit';
 import '@uppy/core/css/style.min.css';
 import '@uppy/dashboard/css/style.min.css';
 
-import { getAssemblyOptions } from './get-assembly-options.js';
+import { fetchAssemblyOptions } from './fetch-assembly-options.js';
 
 const uppy = new Uppy()
 	.use(Dashboard, {
@@ -118,7 +122,7 @@ const uppy = new Uppy()
 		target: '#uppy',
 	})
 	.use(Transloadit, {
-		assemblyOptions: getAssemblyOptions,
+		assemblyOptions: fetchAssemblyOptions,
 		waitForEncoding: true,
 	});
 
@@ -140,18 +144,18 @@ npm install @uppy/core @uppy/dashboard @uppy/react @uppy/transloadit
 
 ```tsx title="Uploader.tsx"
 import Uppy from '@uppy/core';
-import { Dashboard } from '@uppy/react';
+import Dashboard from '@uppy/react/dashboard';
 import Transloadit from '@uppy/transloadit';
 import { useState, type ReactNode } from 'react';
 
 import '@uppy/core/css/style.min.css';
 import '@uppy/dashboard/css/style.min.css';
 
-import { getAssemblyOptions } from './get-assembly-options';
+import { fetchAssemblyOptions } from './fetch-assembly-options';
 
 function createUppy() {
 	return new Uppy().use(Transloadit, {
-		assemblyOptions: getAssemblyOptions,
+		assemblyOptions: fetchAssemblyOptions,
 		waitForEncoding: true,
 	});
 }
@@ -193,18 +197,18 @@ The Uppy component needs the client boundary because it uses browser APIs:
 'use client';
 
 import Uppy from '@uppy/core';
-import { Dashboard } from '@uppy/react';
+import Dashboard from '@uppy/react/dashboard';
 import Transloadit from '@uppy/transloadit';
 import { useState, type ReactNode } from 'react';
 
 import '@uppy/core/css/style.min.css';
 import '@uppy/dashboard/css/style.min.css';
 
-import { getAssemblyOptions } from './get-assembly-options';
+import { fetchAssemblyOptions } from './fetch-assembly-options';
 
 function createUppy() {
 	return new Uppy().use(Transloadit, {
-		assemblyOptions: getAssemblyOptions,
+		assemblyOptions: fetchAssemblyOptions,
 		waitForEncoding: true,
 	});
 }
@@ -226,16 +230,16 @@ npm install @uppy/core @uppy/dashboard @uppy/transloadit @uppy/vue
 <script setup lang="ts">
 import Uppy from '@uppy/core';
 import Transloadit from '@uppy/transloadit';
-import { Dashboard } from '@uppy/vue';
+import Dashboard from '@uppy/vue/dashboard';
 import { onBeforeUnmount } from 'vue';
 
 import '@uppy/core/css/style.min.css';
 import '@uppy/dashboard/css/style.min.css';
 
-import { getAssemblyOptions } from './get-assembly-options';
+import { fetchAssemblyOptions } from './fetch-assembly-options';
 
 const uppy = new Uppy().use(Transloadit, {
-	assemblyOptions: getAssemblyOptions,
+	assemblyOptions: fetchAssemblyOptions,
 	waitForEncoding: true,
 });
 
@@ -259,17 +263,17 @@ import { DashboardComponent } from '@uppy/angular';
 import Uppy from '@uppy/core';
 import Transloadit from '@uppy/transloadit';
 
-import { getAssemblyOptions } from './get-assembly-options';
+import { fetchAssemblyOptions } from './fetch-assembly-options';
 
 @Component({
 	selector: 'app-uploader',
 	standalone: true,
 	imports: [DashboardComponent],
-	template: '<uppy-dashboard [uppy]="uppy" />',
+	template: '<uppy-dashboard [uppy]="uppy"></uppy-dashboard>',
 })
 export class UploaderComponent implements OnDestroy {
 	readonly uppy = new Uppy().use(Transloadit, {
-		assemblyOptions: getAssemblyOptions,
+		assemblyOptions: fetchAssemblyOptions,
 		waitForEncoding: true,
 	});
 
@@ -290,9 +294,10 @@ Load the Uppy styles once in the application’s global stylesheet:
 
 The default `waitForEncoding: false` marks the Uppy upload complete after the
 files reach Transloadit, while the Assembly may still be processing. Use a
-verified `notify_url` and update your application asynchronously for long jobs.
-Use `waitForEncoding: true` only when the user should remain on the page until
-the final Assembly results are available.
+[`notify_url`][webhooks], verify the notification signature on your server, and
+update your application asynchronously for long jobs. Use
+`waitForEncoding: true` only when the user should remain on the page until the
+final Assembly results are available.
 
 Listen to [`transloadit:result` and `transloadit:complete`][plugin-events] when
 waiting in the browser. Save the Assembly ID in your application so processing
@@ -301,8 +306,10 @@ can still be reconciled after a navigation or connection loss.
 ## 5. Add remote sources only when needed
 
 Dropbox, Google Drive, URL imports, and similar sources need Companion. A
-Transloadit plan includes a hosted Companion service; configure it with the
-constants exported by `@uppy/transloadit`. Local-device uploads do not need
+Transloadit plan includes a hosted Companion service. Point each remote-source
+provider plugin at it by passing the `COMPANION_URL` and
+`COMPANION_ALLOWED_HOSTS` constants exported by `@uppy/transloadit`. See the
+[Companion configuration example][companion]. Local-device uploads do not need
 Companion.
 
 Continue with the [complete plugin API][plugin-api], the [runnable Transloadit
@@ -310,8 +317,10 @@ example][runnable-example], or the [Transloadit-side Uppy
 guide][transloadit-uppy].
 
 [first-app]: https://transloadit.com/docs/getting-started/my-first-app/
+[companion]: /docs/transloadit#use-with-companion
 [plugin-api]: /docs/transloadit
 [plugin-events]: /docs/transloadit#events
 [runnable-example]:
 	https://github.com/transloadit/uppy/tree/main/examples/transloadit
 [transloadit-uppy]: https://transloadit.com/docs/sdks/uppy/
+[webhooks]: https://transloadit.com/docs/topics/webhooks/
