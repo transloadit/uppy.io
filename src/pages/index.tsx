@@ -223,12 +223,12 @@ const packageManagers = [
  */
 const sources = [
 	{ file: 'onedrive.svg', name: 'OneDrive', x: 9.5, y: 23.6, mark: 53 },
-	{ file: 'box.svg', name: 'Box', x: 30.8, y: 15.7, mark: 64 },
-	{ file: 'googledrive.svg', name: 'Google Drive', x: 54.6, y: 10.8, mark: 51 },
-	{ file: 'dropbox.svg', name: 'Dropbox', x: 70.4, y: 29, mark: 52 },
-	{ file: 'googlephotos.svg', name: 'Google Photos', x: 84, y: 50, mark: 47 },
-	{ file: 'facebook.svg', name: 'Facebook', x: 52.4, y: 83.7, mark: 33 },
-	{ file: 'zoom.svg', name: 'Zoom', x: 29.5, y: 90, mark: 57 },
+	{ file: 'box.svg', name: 'Box', x: 32.8, y: 14.4, mark: 64 },
+	{ file: 'googledrive.svg', name: 'Google Drive', x: 57.4, y: 12.7, mark: 51 },
+	{ file: 'dropbox.svg', name: 'Dropbox', x: 75.9, y: 34.5, mark: 52 },
+	{ file: 'googlephotos.svg', name: 'Google Photos', x: 79.4, y: 67, mark: 47 },
+	{ file: 'facebook.svg', name: 'Facebook', x: 55.5, y: 83.6, mark: 33 },
+	{ file: 'zoom.svg', name: 'Zoom', x: 31.9, y: 90.2, mark: 57 },
 	{ file: 'unsplash.svg', name: 'Unsplash', x: 13.2, y: 73.1, mark: 32 },
 ];
 
