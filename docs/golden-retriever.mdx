@@ -15,18 +15,21 @@ can restore everything and continue uploading as if nothing happened. You can
 read more about it
 [on our blog](https://uppy.io/blog/2017/07/golden-retriever/).
 
-The Golden Retriever uses three methods of browser data storage:
+The Golden Retriever uses these methods of browser data storage:
 
-- `LocalStorage` to store file metadata and Uppy state only.
-- `IndexedDB` for small files, usually under 5MiB.
+- `IndexedDB` to store file metadata and Uppy state, and for small files, up to
+  10MiB per file by default.
+- `LocalStorage` for file metadata and Uppy state when `window.indexedDB` is not
+  available. The plugin picks a store once, when it is installed; it does not
+  move to `LocalStorage` later on.
 - `Service Worker` (_optional_) for _all_ files because, unlike `IndexedDB`,
   `Service Worker` can keep references to large files. Service Worker storage is
   _quite_ temporary though, and doesn’t persist across browser crashes or
   restarts. It works well, however, for accidental refreshes or closed tabs.
 
-Upon restore, the plugin first restores state from `LocalStorage` and then
-checks both file storages — `IndexedDB` and `ServiceWorker` — merging the
-results.
+Upon restore, the plugin first restores state from whichever of `IndexedDB` or
+`LocalStorage` it stored it in, and then checks both file storages — `IndexedDB`
+and `ServiceWorker` — merging the results.
 
 If restore is unsuccessful for certain files, they will be marked as “ghosts” in
 the Dashboard UI, and a message + button offering to re-select those files will
@@ -82,13 +85,13 @@ import Dashboard from '@uppy/dashboard';
 import GoldenRetriever from '@uppy/golden-retriever';
 
 new Uppy()
-  .use(Dashboard, {inline:true, target: '#dashboard')
-  .use(GoldenRetriever);
+	.use(Dashboard, { inline: true, target: '#dashboard' })
+	.use(GoldenRetriever);
 ```
 
-By default, Golden Retriever will only use the `IndexedDB` storage, which is
-good enough for files up to 5 MiB. `Service Worker` is optional and requires
-setup.
+By default, Golden Retriever uses `IndexedDB` (or `LocalStorage` where IndexedDB
+is unavailable), which is good enough for files up to 10 MiB. `Service Worker`
+is optional and requires setup.
 
 ### Enabling Service Worker
 
@@ -125,7 +128,7 @@ store references to large files.
    :::
 
    ```js title="sw.js"
-   import '@uppy/golden-retriever/lib/ServiceWorker';
+   import '@uppy/golden-retriever/lib/ServiceWorker.js';
    ```
 
 2. Register it in your app’s entry point:
@@ -161,8 +164,9 @@ A unique identifier for this plugin (`string`, default: `'GoldenRetriever'`).
 
 #### `expires`
 
-How long to store metadata and files for. Used for `LocalStorage` and
-`IndexedDB` (`number`, default: `24 * 60 * 60 * 1000` // 24 hours).
+How long to store metadata and files for. Used for `IndexedDB` and, when
+`window.indexedDB` is not available, `LocalStorage` (`number`, default:
+`24 * 60 * 60 * 1000` // 24 hours).
 
 #### `serviceWorker`
 

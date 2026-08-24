@@ -114,6 +114,10 @@ const config = {
 						from: ['/docs/google-photos'],
 					},
 					{
+						to: '/docs/guides/migration-guides',
+						from: ['/docs/instagram'],
+					},
+					{
 						to: '/docs/transloadit',
 						from: ['/docs/robodog'],
 					},
