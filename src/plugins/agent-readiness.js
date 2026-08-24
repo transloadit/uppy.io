@@ -96,6 +96,110 @@ function firstParagraph(body) {
 	return '';
 }
 
+// <UppyCdnExample> renders a CDN quick-start snippet from its children plus
+// the current uppy version. The same rendering, minus React, so the twins
+// carry the identical snippet the site shows.
+const uppyVersion = require('uppy/package.json').version;
+
+function renderCdnExample(match, props, inner) {
+	const attr = (name, fallback) =>
+		new RegExp(`${name}="([^"]+)"`).exec(props)?.[1] ?? fallback;
+	const cssName = attr('uppyCssName', 'uppy.min.css');
+	const jsName = attr('uppyJsName', 'uppy.min.mjs');
+	const jsUrl = `https://releases.transloadit.com/uppy/v${uppyVersion}/${jsName}`;
+
+	const lines = inner
+		.replace(/^[\s{`]+|[`}\s]+$/g, '')
+		.split('\n')
+		.map((line) => `  ${line.trim()}`)
+		.join('\n')
+		.replace(/{{UPPY_JS_URL}}/g, jsUrl);
+
+	return [
+		'> **Caution:** this CDN bundle contains most Uppy plugins, so it is not',
+		'> recommended for production. It is useful to get started quickly.',
+		'',
+		'```html',
+		'<!-- 1. Add CSS to `<head>` -->',
+		`<link href="https://releases.transloadit.com/uppy/v${uppyVersion}/${cssName}" rel="stylesheet">`,
+		'',
+		'<!-- 2. Initialize -->',
+		'<div id="uppy"></div>',
+		'',
+		'<script type="module">',
+		lines,
+		'</script>',
+		'```',
+	].join('\n');
+}
+
+// Docusaurus MDX pages use a handful of JSX components. In the Markdown twins
+// these are demoted to plain Markdown where the content is recoverable
+// (tab wrappers, links, inline item lists) and replaced with an explicit
+// pointer to the rendered page where it is not (live demos, TSX-only
+// content). Leaving raw JSX would silently omit content; a visible pointer
+// is honest about what the Markdown version lacks.
+function demoteJsxChunk(text, pageUrl) {
+	let out = text;
+
+	// <Tabs>/<TabItem> are layout: keep the content, turn labels into bold.
+	out = out.replace(/<Tabs[^>]*>|<\/Tabs>/g, '');
+	out = out.replace(
+		/<TabItem[^>]*?(?:label|value)="([^"]+)"[^>]*>/g,
+		(m, label) => {
+			const better = /label="([^"]+)"/.exec(m);
+			return `**${better ? better[1] : label}**\n`;
+		},
+	);
+	out = out.replace(/<\/TabItem>/g, '');
+
+	// Docusaurus <Link> is a plain link.
+	out = out.replace(
+		/<Link\s+(?:to|href)="([^"]+)"[^>]*>([\s\S]*?)<\/Link>/g,
+		'[$2]($1)',
+	);
+
+	// UppyCdnExample renders a version-pinned CDN snippet from its children.
+	out = out.replace(
+		/<UppyCdnExample([^>]*)>([\s\S]*?)<\/UppyCdnExample>/g,
+		renderCdnExample,
+	);
+
+	// QuickStartLinks carries its items inline in the MDX; render them.
+	out = out.replace(/<QuickStartLinks[\s\S]*?\/>/g, (m) => {
+		const items = [
+			...m.matchAll(
+				/name:\s*'([^']*)'[\s\S]*?description:\s*'([^']*)'[\s\S]*?link:\s*'([^']*)'/g,
+			),
+		];
+		return items
+			.map(([, name, desc, link]) => `- [${name}](${link}) — ${desc}`)
+			.join('\n');
+	});
+
+	// Anything left is a live demo or TSX-only content: say so, and say where
+	// the rendered version lives, instead of dropping it silently.
+	out = out.replace(
+		/<[A-Z][A-Za-z]*(?:\s[^<>]*?)?\/>/g,
+		`*(Interactive content omitted from the Markdown version — see ${pageUrl} for the rendered page.)*`,
+	);
+
+	// Collapse runs of identical omission notes.
+	out = out.replace(/(\*\(Interactive content[^)]*\)\*)(\s*\1)+/g, '$1');
+
+	return out;
+}
+
+function demoteJsx(body, pageUrl) {
+	// Fenced code blocks and inline code spans are documentation and must
+	// survive untouched.
+	return body
+		.split(/(```[\s\S]*?```|`[^`\n]*`)/)
+		.map((chunk, i) => (i % 2 ? chunk : demoteJsxChunk(chunk, pageUrl)))
+		.join('')
+		.replace(/\n{3,}/g, '\n\n');
+}
+
 // An OpenAPI description of the documentation *content* API: the pages, their
 // Markdown twins, and the machine-readable indexes. Generated from the same
 // page list as llms.txt so the two can never disagree. This describes what
@@ -200,9 +304,8 @@ function buildOpenApi(siteConfig, site, pages) {
 							name: 'slug',
 							in: 'path',
 							required: true,
-							// Some slugs contain a slash (e.g. guides/browser-support), so
-							// the valid values are enumerated rather than pattern-matched.
-							description: 'Page identifier. Some slugs contain a slash.',
+							description:
+								'Single-segment page identifier. Nested pages (a slug containing a slash) are described as literal paths in this document.',
 							schema: { type: 'string', enum: slugs },
 						},
 					],
@@ -227,7 +330,8 @@ function buildOpenApi(siteConfig, site, pages) {
 							name: 'slug',
 							in: 'path',
 							required: true,
-							description: 'Page identifier. Some slugs contain a slash.',
+							description:
+								'Single-segment page identifier. Nested pages (a slug containing a slash) are described as literal paths in this document.',
 							schema: { type: 'string', enum: slugs },
 						},
 					],
@@ -346,7 +450,10 @@ module.exports = function agentReadiness(context) {
 					route,
 					title,
 					description: data.description || firstParagraph(body),
-					body: inlinePartials(body, path.dirname(file), loadPartial),
+					body: demoteJsx(
+						inlinePartials(body, path.dirname(file), loadPartial),
+						`${site}${route}`,
+					),
 				});
 			}
 

@@ -109,9 +109,12 @@ export function jsonError(status, url, origin) {
 					`No page exists at ${new URL(url).pathname}`
 				:	`Request failed with status ${status}`,
 			resolution:
-				status === 404 ?
-					'Check https://uppy.io/llms.txt for the documentation index, or https://uppy.io/sitemap.xml for every URL on this site.'
-				:	'Retry the request. If it keeps failing, open an issue at https://github.com/transloadit/uppy.io/issues.',
+				{
+					404: 'Check https://uppy.io/llms.txt for the documentation index, or https://uppy.io/sitemap.xml for every URL on this site.',
+					410: 'This resource has been permanently removed and will not return. Check https://uppy.io/llms.txt for current documentation.',
+					403: 'Access to this resource is denied; retrying the same request will not succeed.',
+				}[status] ??
+				'Retry the request. If it keeps failing, open an issue at https://github.com/transloadit/uppy.io/issues.',
 			documentation: 'https://uppy.io/llms.txt',
 		},
 	};
@@ -172,9 +175,23 @@ export default {
 		const mdType = negotiable ? markdownType(accept) : null;
 
 		if (mdType) {
+			// The twin request keeps the read method and the caller's conditional
+			// validators, so a HEAD stays a HEAD and an If-None-Match can still
+			// earn its 304.
+			const twinHeaders = { 'accept-encoding': 'identity' };
+			for (const name of ['if-none-match', 'if-modified-since']) {
+				const value = request.headers.get(name);
+				if (value) twinHeaders[name] = value;
+			}
 			const md = await fetch(markdownUrl(request.url), {
-				headers: { 'accept-encoding': 'identity' },
+				method: request.method,
+				headers: twinHeaders,
 			});
+			if (md.status === 304) {
+				const headers = new Headers(md.headers);
+				mergeVary(headers, 'Accept', 'Accept-Encoding');
+				return new Response(null, { status: 304, headers });
+			}
 			if (md.ok) {
 				const headers = new Headers(md.headers);
 				headers.set('content-type', `${mdType}; charset=utf-8`);

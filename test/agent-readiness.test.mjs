@@ -148,6 +148,15 @@ describe('JSON errors', () => {
 		assert.match(body, /llms\.txt/);
 	});
 
+	test('410 and 403 do not advise retrying', async () => {
+		const gone = (await jsonError(410, 'https://uppy.io/x').json()).error;
+		assert.equal(gone.code, 'gone');
+		assert.match(gone.resolution, /permanently removed/);
+		assert.ok(!/retry/i.test(gone.resolution));
+		const forbidden = (await jsonError(403, 'https://uppy.io/x').json()).error;
+		assert.match(forbidden.resolution, /will not succeed/);
+	});
+
 	test('unmapped statuses still produce a structured body', async () => {
 		const { error } = await jsonError(503, 'https://uppy.io/x').json();
 		assert.equal(error.code, 'http_error');
@@ -336,6 +345,59 @@ describe(
 			}
 		});
 
+		test('JSX is demoted to markdown, not left raw in twins', () => {
+			// Tab wrappers become labels, CDN examples become real code fences,
+			// QuickStartLinks becomes a link list, and anything unrenderable is
+			// an explicit pointer to the rendered page -- never silent omission.
+			const tus = read('docs/tus.md');
+			assert.ok(!tus.includes('<Tabs'), 'tus.md still has <Tabs');
+			assert.ok(!tus.includes('<UppyCdnExample'), 'CDN example not rendered');
+			assert.match(tus, /^\s*\*\*NPM\*\*$/m);
+			assert.match(
+				tus,
+				/releases\.transloadit\.com\/uppy\/v\d+\.\d+\.\d+\/uppy\.min\.css/,
+			);
+
+			const qs = read('docs/quick-start.md');
+			assert.ok(!qs.includes('<QuickStartLinks'), 'links not rendered');
+			assert.match(
+				qs,
+				/- \[I want a full featured, extendable UI\]\(\/docs\/dashboard\)/,
+			);
+
+			const react = read('docs/react.md');
+			assert.ok(
+				!/^\s*<[A-Z][A-Za-z]*Demo \/>/m.test(react),
+				'raw demo tag left',
+			);
+			assert.match(
+				react,
+				/Interactive content omitted from the Markdown version/,
+			);
+			// Inline code spans naming components are prose and must survive.
+			assert.ok(
+				react.includes('`<Dashboard />`'),
+				'inline code span was mangled',
+			);
+		});
+
+		test('no unresolved JSX remains outside code in any twin', () => {
+			const twins = fs
+				.readdirSync(path.join(buildDir, 'docs'), { recursive: true })
+				.filter((f) => typeof f === 'string' && f.endsWith('.md'));
+			for (const twin of twins) {
+				const body = read(path.join('docs', twin))
+					.replace(/```[\s\S]*?```/g, '')
+					.replace(/`[^`\n]*`/g, '');
+				// Generic type prose such as Array<Object> is fine; JSX tags with
+				// attributes or self-closing syntax are not.
+				const jsx =
+					body.match(/<[A-Z][A-Za-z]*(\s[^<>]*)?\/?>(?![A-Za-z]*>)/g) ?? [];
+				const real = jsx.filter((t) => /[\s/]>$|\/>$/.test(t));
+				assert.deepEqual(real, [], `${twin} has unresolved JSX: ${real}`);
+			}
+		});
+
 		test('the 404 page gives agents somewhere to go', () => {
 			const html = read('404.html');
 			for (const target of ['/llms.txt', '/sitemap.xml', '/docs/quick-start']) {
@@ -428,13 +490,19 @@ describe(
 // so the negotiation and error paths are covered without a network or a
 // Cloudflare runtime.
 describe('worker request handling', () => {
-	const origin = (url) => {
+	const origin = (url, init) => {
 		const { pathname } = new URL(url);
-		if (pathname === '/docs/quick-start.md')
+		if (pathname === '/docs/quick-start.md') {
+			if (init?.headers?.['if-none-match'] === '"twin-etag"')
+				return new Response(null, {
+					status: 304,
+					headers: { etag: '"twin-etag"' },
+				});
 			return new Response('# Quick start\n', {
 				status: 200,
-				headers: { 'content-type': 'text/plain' },
+				headers: { 'content-type': 'text/plain', etag: '"twin-etag"' },
 			});
+		}
 		if (pathname === '/docs/quick-start/')
 			return new Response('<html><h1>Quick start</h1></html>', {
 				status: 200,
@@ -458,15 +526,15 @@ describe('worker request handling', () => {
 		});
 	};
 
-	const call = async (path, accept, method = 'GET') => {
+	const call = async (path, accept, method = 'GET', extraHeaders = {}) => {
 		const real = globalThis.fetch;
-		globalThis.fetch = async (input) =>
-			origin(typeof input === 'string' ? input : input.url);
+		globalThis.fetch = async (input, init) =>
+			origin(typeof input === 'string' ? input : input.url, init);
 		try {
 			return await worker.fetch(
 				new Request(`https://uppy.io${path}`, {
 					method,
-					headers: accept ? { accept } : {},
+					headers: { ...(accept ? { accept } : {}), ...extraHeaders },
 				}),
 			);
 		} finally {
@@ -505,6 +573,15 @@ describe('worker request handling', () => {
 		assert.equal(res.status, 404);
 		assert.match(res.headers.get('content-type'), /text\/markdown/);
 		assert.match(await res.text(), /llms\.txt/);
+	});
+
+	test('a conditional request can earn the twin 304', async () => {
+		const res = await call('/docs/quick-start/', 'text/markdown', 'GET', {
+			'if-none-match': '"twin-etag"',
+		});
+		assert.equal(res.status, 304);
+		assert.equal(res.body, null);
+		assert.match(res.headers.get('vary'), /Accept/);
 	});
 
 	test('a POST is never rewritten into the GET twin', async () => {
