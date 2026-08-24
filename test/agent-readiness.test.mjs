@@ -6,10 +6,12 @@ import { fileURLToPath } from 'node:url';
 
 import {
 	parseAccept,
-	prefersMarkdown,
+	markdownType,
 	prefersJson,
 	markdownUrl,
 	jsonError,
+	markdownError,
+	mergeVary,
 } from '../worker/index.js';
 import worker from '../worker/index.js';
 
@@ -38,31 +40,58 @@ describe('Accept parsing', () => {
 
 describe('markdown negotiation', () => {
 	test('serves markdown when it is asked for explicitly', () => {
-		assert.equal(prefersMarkdown('text/markdown'), true);
+		assert.equal(markdownType('text/markdown'), 'text/markdown');
 	});
 
 	test('serves markdown when it outranks html', () => {
-		assert.equal(prefersMarkdown('text/html;q=0.8, text/markdown;q=0.9'), true);
+		assert.equal(
+			markdownType('text/html;q=0.8, text/markdown;q=0.9'),
+			'text/markdown',
+		);
 	});
 
 	// The regression that matters: a browser must never be handed markdown.
 	test('a browser Accept header still gets html', () => {
 		assert.equal(
-			prefersMarkdown(
+			markdownType(
 				'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 			),
-			false,
+			null,
 		);
 	});
 
 	test('a bare wildcard is not a request for markdown', () => {
-		assert.equal(prefersMarkdown('*/*'), false);
+		assert.equal(markdownType('*/*'), null);
+	});
+
+	// RFC 9110: q is case-insensitive, and q=0 means "explicitly unacceptable".
+	test('an uppercase Q=0 excludes markdown', () => {
+		assert.equal(markdownType('text/markdown;Q=0, text/html'), null);
+	});
+
+	// The client gets the media type it asked for, not our favourite label.
+	test('a text/plain request is answered as text/plain', () => {
+		assert.equal(markdownType('text/plain'), 'text/plain');
 	});
 
 	test('json clients are not handed markdown, and vice versa', () => {
-		assert.equal(prefersMarkdown('application/json'), false);
+		assert.equal(markdownType('application/json'), null);
 		assert.equal(prefersJson('application/json'), true);
 		assert.equal(prefersJson('text/html,*/*;q=0.8'), false);
+	});
+});
+
+describe('Vary merging', () => {
+	test('appends to the origin value instead of clobbering it', () => {
+		const h = new Headers({ vary: 'Origin' });
+		mergeVary(h, 'Accept', 'Accept-Encoding');
+		assert.equal(h.get('vary'), 'Origin, Accept, Accept-Encoding');
+	});
+
+	test('does not duplicate an already-listed member', () => {
+		const h = new Headers({ vary: 'accept-encoding' });
+		mergeVary(h, 'Accept', 'Accept-Encoding');
+		assert.equal(h.get('vary'), 'Accept-Encoding, Accept');
 	});
 });
 
@@ -98,6 +127,25 @@ describe('JSON errors', () => {
 		assert.equal(error.status, 404);
 		assert.match(error.message, /\/nope/);
 		assert.match(error.resolution, /llms\.txt/);
+	});
+
+	test('load-bearing origin headers survive the body swap', () => {
+		const origin = new Response(null, {
+			status: 429,
+			headers: { 'retry-after': '30', vary: 'Origin' },
+		});
+		const res = jsonError(429, 'https://uppy.io/x', origin);
+		assert.equal(res.headers.get('retry-after'), '30');
+		assert.match(res.headers.get('vary'), /Accept/);
+	});
+
+	test('a markdown 404 is markdown, with recovery links', async () => {
+		const res = markdownError(404, 'text/markdown');
+		assert.equal(res.status, 404);
+		assert.match(res.headers.get('content-type'), /text\/markdown/);
+		const body = await res.text();
+		assert.match(body, /^# Page not found/);
+		assert.match(body, /llms\.txt/);
 	});
 
 	test('unmapped statuses still produce a structured body', async () => {
@@ -236,16 +284,55 @@ describe(
 			const slugs = new Set(
 				spec.paths['/docs/{slug}.md'].get.parameters[0].schema.enum,
 			);
+			// Nested slugs and the root docs page live as literal path items:
+			// a single {slug} parameter cannot span a `/` or be empty.
+			const literal = new Set(Object.keys(spec.paths));
 			const linked = [
-				...read('llms.txt').matchAll(/https:\/\/uppy\.io\/docs\/(\S+?)\.md\)/g),
-			]
-				.map(([, slug]) => slug)
-				.filter((slug) => slug !== 'docs');
-			for (const slug of linked) {
+				...read('llms.txt').matchAll(/https:\/\/uppy\.io(\/docs\S*?\.md)\)/g),
+			].map(([, route]) => route);
+			assert.ok(
+				linked.length > 40,
+				`expected many links, got ${linked.length}`,
+			);
+			for (const route of linked) {
+				const slug = route.replace(/^\/docs\//, '').replace(/\.md$/, '');
 				assert.ok(
-					slugs.has(slug),
-					`llms.txt links ${slug} but the spec omits it`,
+					slugs.has(slug) || literal.has(route),
+					`llms.txt links ${route} but the spec omits it`,
 				);
+			}
+		});
+
+		test('no slug in the {slug} enum contains a path separator', () => {
+			const spec = JSON.parse(read('openapi.json'));
+			for (const p of ['/docs/{slug}', '/docs/{slug}.md']) {
+				for (const slug of spec.paths[p].get.parameters[0].schema.enum) {
+					assert.ok(!slug.includes('/'), `${p} enum has multi-segment ${slug}`);
+				}
+			}
+		});
+
+		test('the root docs page and nested pages are literal spec paths', () => {
+			const spec = JSON.parse(read('openapi.json'));
+			for (const p of [
+				'/docs/',
+				'/docs.md',
+				'/docs/guides/building-plugins.md',
+			]) {
+				assert.ok(spec.paths[p]?.get, `spec is missing literal path ${p}`);
+			}
+		});
+
+		test('twins inline their MDX partials instead of leaving JSX stubs', () => {
+			// These partials hold whole documentation sections; a leftover
+			// self-closing tag means the content was silently dropped.
+			for (const [twin, tag, expected] of [
+				['docs/react.md', '<HooksShared', 'useDropzone'],
+				['docs/dropbox.md', '<CompanionOptions', 'companionUrl'],
+			]) {
+				const body = read(twin);
+				assert.ok(!body.includes(tag), `${twin} still contains ${tag}`);
+				assert.ok(body.includes(expected), `${twin} lost partial content`);
 			}
 		});
 
@@ -353,24 +440,32 @@ describe('worker request handling', () => {
 				status: 200,
 				headers: { 'content-type': 'text/html; charset=utf-8' },
 			});
+		if (pathname === '/examples/')
+			return new Response('<html><h1>Examples</h1></html>', {
+				status: 200,
+				headers: { 'content-type': 'text/html; charset=utf-8', vary: 'Origin' },
+			});
 		if (pathname === '/img/logo.svg')
 			return new Response('<svg/>', {
 				status: 200,
 				headers: { 'content-type': 'image/svg+xml' },
 			});
+		if (pathname === '/not-modified/')
+			return new Response(null, { status: 304 });
 		return new Response('<html>Page Not Found</html>', {
 			status: 404,
 			headers: { 'content-type': 'text/html; charset=utf-8' },
 		});
 	};
 
-	const call = async (path, accept) => {
+	const call = async (path, accept, method = 'GET') => {
 		const real = globalThis.fetch;
 		globalThis.fetch = async (input) =>
 			origin(typeof input === 'string' ? input : input.url);
 		try {
 			return await worker.fetch(
 				new Request(`https://uppy.io${path}`, {
+					method,
 					headers: accept ? { accept } : {},
 				}),
 			);
@@ -397,10 +492,37 @@ describe('worker request handling', () => {
 		assert.match(await res.text(), /<h1>/);
 	});
 
-	test('a missing twin falls back to html rather than 404ing', async () => {
+	test('a missing twin falls back to the html page, which succeeds', async () => {
 		const res = await call('/examples/', 'text/markdown');
-		assert.equal(res.status, 404); // origin's status, not a negotiation failure
+		assert.equal(res.status, 200);
 		assert.match(res.headers.get('content-type'), /text\/html/);
+		// The origin's own Vary survives, with Accept appended.
+		assert.equal(res.headers.get('vary'), 'Origin, Accept, Accept-Encoding');
+	});
+
+	test('a markdown agent hitting a dead path gets a markdown 404', async () => {
+		const res = await call('/does-not-exist/', 'text/markdown');
+		assert.equal(res.status, 404);
+		assert.match(res.headers.get('content-type'), /text\/markdown/);
+		assert.match(await res.text(), /llms\.txt/);
+	});
+
+	test('a POST is never rewritten into the GET twin', async () => {
+		const res = await call('/docs/quick-start/', 'text/markdown', 'POST');
+		// The stub serves the page for any method; what matters is that the
+		// worker passed the POST through instead of fetching the twin.
+		assert.match(res.headers.get('content-type'), /text\/html/);
+	});
+
+	test('a 304 passes through instead of crashing the error path', async () => {
+		const res = await call('/not-modified/', 'application/json');
+		assert.equal(res.status, 304);
+	});
+
+	test('a json client asking for a missing .json file still gets json', async () => {
+		const res = await call('/missing.json', 'application/json');
+		assert.equal(res.status, 404);
+		assert.match(res.headers.get('content-type'), /application\/json/);
 	});
 
 	test('an agent preferring json gets a structured 404', async () => {

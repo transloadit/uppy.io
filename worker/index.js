@@ -33,7 +33,7 @@ export function parseAccept(header) {
 		.split(',')
 		.map((part, index) => {
 			const [type, ...params] = part.trim().split(';');
-			const q = params.map((p) => /^\s*q=([0-9.]+)\s*$/.exec(p)).find(Boolean);
+			const q = params.map((p) => /^\s*q=([0-9.]+)\s*$/i.exec(p)).find(Boolean);
 			return {
 				type: type.trim().toLowerCase(),
 				// Ties keep source order, which is what the RFC recommends.
@@ -47,15 +47,17 @@ export function parseAccept(header) {
 }
 
 /**
- * True when the client asked for Markdown *in preference to* HTML. A browser
- * sending `Accept: text/html,...,* /*` must keep getting HTML.
+ * The markdown-ish type the client asked for *in preference to* HTML, or null.
+ * A browser sending `Accept: text/html,...,* /*` must keep getting HTML.
+ * `text/*` is deliberately not treated as a markdown request: HTML satisfies
+ * it, and RFC 9110 leaves the choice among acceptable types to the server.
  */
-export function prefersMarkdown(header) {
+export function markdownType(header) {
 	for (const type of parseAccept(header)) {
-		if (MARKDOWN_TYPES.includes(type)) return true;
-		if (type === 'text/html' || type === 'application/xhtml+xml') return false;
+		if (MARKDOWN_TYPES.includes(type)) return type;
+		if (type === 'text/html' || type === 'application/xhtml+xml') return null;
 	}
-	return false;
+	return null;
 }
 
 export function prefersJson(header) {
@@ -66,6 +68,24 @@ export function prefersJson(header) {
 	return false;
 }
 
+/** Append members to an existing Vary value without dropping the origin's. */
+export function mergeVary(headers, ...names) {
+	const seen = new Set(
+		(headers.get('vary') ?? '')
+			.split(',')
+			.map((v) => v.trim().toLowerCase())
+			.filter(Boolean),
+	);
+	for (const name of names) seen.add(name.toLowerCase());
+	headers.set(
+		'vary',
+		[...seen]
+			.map((v) => v.replace(/(^|-)./g, (c) => c.toUpperCase()))
+			.join(', '),
+	);
+	return headers;
+}
+
 /** Map a page URL to the `.md` twin emitted at build time. */
 export function markdownUrl(url) {
 	const target = new URL(url);
@@ -73,7 +93,7 @@ export function markdownUrl(url) {
 	return target.toString();
 }
 
-export function jsonError(status, url) {
+export function jsonError(status, url, origin) {
 	const codes = {
 		404: 'not_found',
 		410: 'gone',
@@ -95,14 +115,48 @@ export function jsonError(status, url) {
 			documentation: 'https://uppy.io/llms.txt',
 		},
 	};
+	const headers = new Headers({
+		'content-type': 'application/json; charset=utf-8',
+	});
+	// Semantically load-bearing origin headers survive the body swap.
+	for (const name of [
+		'retry-after',
+		'www-authenticate',
+		'allow',
+		'cache-control',
+	]) {
+		const value = origin?.headers.get(name);
+		if (value) headers.set(name, value);
+	}
+	// Same URL, different body per Accept: caches must key on it.
+	mergeVary(headers, 'Accept', 'Accept-Encoding');
 	return new Response(`${JSON.stringify(body, null, 2)}\n`, {
 		status,
-		headers: {
-			'content-type': 'application/json; charset=utf-8',
-			// Same URL, different body per Accept: caches must key on it.
-			vary: 'Accept, Accept-Encoding',
-		},
+		headers,
 	});
+}
+
+const MARKDOWN_404 = `# Page not found
+
+No page exists at this address.
+
+## Where to look next
+
+- [Documentation index](https://uppy.io/llms.txt) — every page, as Markdown
+- [Full documentation](https://uppy.io/llms-full.txt) — one file
+- [Sitemap](https://uppy.io/sitemap.xml) — every URL on this site
+- [Quick start](https://uppy.io/docs/quick-start.md)
+
+Every documentation page is available as Markdown by appending \`.md\` to its
+URL, for example \`/docs/quick-start.md\`.
+`;
+
+export function markdownError(status, type) {
+	const headers = new Headers({
+		'content-type': `${type}; charset=utf-8`,
+	});
+	mergeVary(headers, 'Accept', 'Accept-Encoding');
+	return new Response(MARKDOWN_404, { status, headers });
 }
 
 export default {
@@ -110,31 +164,49 @@ export default {
 		const accept = request.headers.get('accept');
 		const url = new URL(request.url);
 
-		if (PASSTHROUGH.test(url.pathname)) return fetch(request);
+		// Negotiation only ever applies to reads; anything else passes through
+		// untouched so methods and conditional semantics are preserved.
+		const negotiable =
+			(request.method === 'GET' || request.method === 'HEAD') &&
+			!PASSTHROUGH.test(url.pathname);
+		const mdType = negotiable ? markdownType(accept) : null;
 
-		if (prefersMarkdown(accept)) {
+		if (mdType) {
 			const md = await fetch(markdownUrl(request.url), {
 				headers: { 'accept-encoding': 'identity' },
 			});
 			if (md.ok) {
 				const headers = new Headers(md.headers);
-				headers.set('content-type', 'text/markdown; charset=utf-8');
-				headers.set('vary', 'Accept, Accept-Encoding');
-				return new Response(md.body, { status: 200, headers });
+				headers.set('content-type', `${mdType}; charset=utf-8`);
+				mergeVary(headers, 'Accept', 'Accept-Encoding');
+				return new Response(request.method === 'HEAD' ? null : md.body, {
+					status: 200,
+					headers,
+				});
 			}
-			// No twin for this URL: fall through to the HTML response below.
+			// No twin for this URL: fall through to the origin response below.
 		}
 
 		const response = await fetch(request);
 
-		if (!response.ok && prefersJson(accept)) {
-			return jsonError(response.status, request.url);
+		// Structured errors for structured clients -- >= 400 only, so valid
+		// 3xx responses (a 304 to a conditional request) pass through intact:
+		// constructing a bodied 304 would throw in the Workers runtime.
+		if (response.status >= 400) {
+			if (prefersJson(accept)) {
+				return jsonError(response.status, request.url, response);
+			}
+			if (mdType && response.status === 404) {
+				return markdownError(404, mdType);
+			}
 		}
 
-		// Advertise negotiation on every HTML response, so a cache never serves
-		// one variant to a client that asked for the other.
+		if (!negotiable) return response;
+
+		// Advertise negotiation on every negotiable response, so a cache never
+		// serves one variant to a client that asked for the other.
 		const headers = new Headers(response.headers);
-		headers.set('vary', 'Accept, Accept-Encoding');
+		mergeVary(headers, 'Accept', 'Accept-Encoding');
 		return new Response(response.body, {
 			status: response.status,
 			statusText: response.statusText,

@@ -46,19 +46,36 @@ function routeFor(relPath, slug) {
 }
 
 // MDX pages open with a preamble of `import`/`export` statements for their JSX
-// components. That is build machinery, not documentation, so it is stripped
-// from the Markdown we publish. Only the leading run is removed: an `import`
-// further down the page is almost certainly inside a fenced code example, and
-// stripping that would corrupt the docs.
-function stripMdxPreamble(body) {
+// components. That is build machinery, not documentation. Imports of local
+// Markdown partials (the `_*.mdx` files) are inlined -- they hold real shared
+// documentation, and dropping them would publish twins missing whole sections.
+// Imports of JSX components are stripped; their usages remain as-is in the
+// body.
+// ponytail: partials are used prop-less (`<CompanionOptions />`) in this repo,
+// so plain body substitution is exact. If a partial ever takes props, this
+// needs a real MDX render instead.
+const IMPORT_RE = /^import\s+(\w+)\s+from\s+['"]([^'"]+)['"];?\s*$/;
+
+function inlinePartials(body, fileDir, loadPartial) {
 	const statement =
 		/^\s*(?:import|export)\s(?:[^\n]*?;\s*$|[\s\S]*?^\s*\}?\s*from\s[^\n]*$|[^\n]*$)/m;
 
+	const partials = new Map();
 	let rest = body.replace(/^\s+/, '');
 	for (;;) {
 		const match = statement.exec(rest);
 		if (!match || match.index !== 0) break;
+		const imp = IMPORT_RE.exec(match[0].trim());
+		if (imp && /\.mdx?$/.test(imp[2]) && imp[2].startsWith('.')) {
+			partials.set(imp[1], path.join(fileDir, imp[2]));
+		}
 		rest = rest.slice(match[0].length).replace(/^\s+/, '');
+	}
+
+	for (const [name, partialPath] of partials) {
+		const usage = new RegExp(`<${name}\\s*/>`, 'g');
+		if (!usage.test(rest)) continue;
+		rest = rest.replace(usage, loadPartial(partialPath));
 	}
 	return rest.trim();
 }
@@ -68,7 +85,11 @@ function firstParagraph(body) {
 		const text = block.trim();
 		if (!text || text.startsWith('#') || text.startsWith(':::')) continue;
 		if (text.startsWith('import ') || text.startsWith('export ')) continue;
-		const flat = text.replace(/\s+/g, ' ');
+		// Links flattened to their text: a mid-link truncation would leave an
+		// unmatched bracket in llms.txt.
+		const flat = text
+			.replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+			.replace(/\s+/g, ' ');
 		if (flat.length <= 200) return flat;
 		return `${flat.slice(0, flat.lastIndexOf(' ', 200))}…`;
 	}
@@ -80,9 +101,55 @@ function firstParagraph(body) {
 // page list as llms.txt so the two can never disagree. This describes what
 // uppy.io actually serves -- every response here is reproducible with curl.
 function buildOpenApi(siteConfig, site, pages) {
-	const slugs = pages
+	// The root docs page (route /docs) gets its own literal path entries; the
+	// {slug} parameter cannot express an empty value. Slugs containing a slash
+	// also get literal entries: a single path parameter never matches across
+	// `/` (a generated client would percent-encode it), so enum-ing them under
+	// {slug} would document requests that 404.
+	const allSlugs = pages
 		.map((p) => p.route.replace(/^\/docs\/?/, ''))
 		.filter(Boolean);
+	const slugs = allSlugs.filter((slug) => !slug.includes('/'));
+	const nested = allSlugs.filter((slug) => slug.includes('/'));
+
+	const literalPage = (route, title) => ({
+		get: {
+			tags: ['pages'],
+			operationId: `get${route.replace(/[^a-zA-Z0-9]+/g, '_')}`,
+			summary: `Fetch ${title} as HTML.`,
+			responses: {
+				200: {
+					description: 'The rendered page.',
+					content: { 'text/html': { schema: { type: 'string' } } },
+				},
+			},
+		},
+	});
+	const literalMd = (route, title) => ({
+		get: {
+			tags: ['pages'],
+			operationId: `get${route.replace(/[^a-zA-Z0-9]+/g, '_')}_md`,
+			summary: `Fetch ${title} as Markdown.`,
+			responses: {
+				200: {
+					description: 'The page source.',
+					content: { 'text/markdown': { schema: { type: 'string' } } },
+				},
+			},
+		},
+	});
+
+	const literalPaths = {
+		'/docs/': literalPage('/docs/', 'the documentation index page'),
+		'/docs.md': literalMd('/docs.md', 'the documentation index page'),
+	};
+	for (const slug of nested) {
+		literalPaths[`/docs/${slug}`] = literalPage(`/docs/${slug}`, `"${slug}"`);
+		literalPaths[`/docs/${slug}.md`] = literalMd(
+			`/docs/${slug}.md`,
+			`"${slug}"`,
+		);
+	}
 
 	const notFound = {
 		description:
@@ -122,6 +189,7 @@ function buildOpenApi(siteConfig, site, pages) {
 			{ name: 'indexes', description: 'Machine-readable indexes of the site.' },
 		],
 		paths: {
+			...literalPaths,
 			'/docs/{slug}': {
 				get: {
 					tags: ['pages'],
@@ -233,6 +301,21 @@ module.exports = function agentReadiness(context) {
 			const pages = [];
 			const skipped = [];
 
+			// Loads a `_*.mdx` partial for inlining: frontmatter off, its own
+			// preamble stripped (partials may import components too).
+			const partialCache = new Map();
+			const loadPartial = (partialPath) => {
+				if (!partialCache.has(partialPath)) {
+					const raw = require('node:fs').readFileSync(partialPath, 'utf8');
+					const { body } = splitFrontmatter(raw);
+					partialCache.set(
+						partialPath,
+						inlinePartials(body, path.dirname(partialPath), loadPartial),
+					);
+				}
+				return partialCache.get(partialPath);
+			};
+
 			for (const file of files) {
 				const relPath = path.relative(docsRoot, file).split(path.sep).join('/');
 				const raw = await fs.readFile(file, 'utf8');
@@ -263,7 +346,7 @@ module.exports = function agentReadiness(context) {
 					route,
 					title,
 					description: data.description || firstParagraph(body),
-					body: stripMdxPreamble(body),
+					body: inlinePartials(body, path.dirname(file), loadPartial),
 				});
 			}
 
@@ -343,9 +426,17 @@ module.exports = function agentReadiness(context) {
 			console.log(
 				`[agent-readiness] ${pages.length} pages -> llms.txt, llms-full.txt, openapi.json, .md twins`,
 			);
-			if (skipped.length) {
-				console.warn(
-					`[agent-readiness] no built route for: ${skipped.join(', ')}`,
+			// `_`-prefixed files are partials, consumed by inlinePartials above;
+			// them having no route of their own is expected. Anything else
+			// missing a route means the route derivation disagrees with
+			// Docusaurus -- fail the build rather than silently publishing an
+			// index without that page.
+			const unexpected = skipped.filter(
+				(rel) => !path.basename(rel).startsWith('_'),
+			);
+			if (unexpected.length) {
+				throw new Error(
+					`[agent-readiness] no built route for: ${unexpected.join(', ')} -- route derivation is out of sync with Docusaurus`,
 				);
 			}
 		},
