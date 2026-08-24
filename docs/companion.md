@@ -116,7 +116,7 @@ server code.
 
 :::note
 
-Companion 7 requires Node.js `^20.19.3 || >=22.0.0`.
+Companion 7 requires Node.js `>=22.0.0`.
 
 Windows is not a supported platform right now. It may work, and we’re happy to
 accept improvements in this area, but we can’t provide support.
