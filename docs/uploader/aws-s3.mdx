@@ -23,7 +23,7 @@ Every request to S3 has to be signed, and you choose how that happens:
 | `signRequest`       | your own code                | an endpoint returning a presigned URL per operation |
 | `companionEndpoint` | [Companion](/docs/companion) | Companion                                           |
 
-The three modes are mutually exclusive. Pass exactly one — the plugin throws if
+The three modes are mutually exclusive. Pass exactly one: the plugin throws if
 you pass none.
 
 :::note
@@ -134,9 +134,9 @@ for a working `/s3/presign` route built on the AWS SDK.
 
 ### Sign on the client
 
-Your server hands out short-lived credentials — on AWS, from
-[STS](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
-— and the browser signs every S3 request itself with SigV4. The credentials are
+Your server hands out short-lived credentials (on AWS, from
+[STS](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)),
+and the browser signs every S3 request itself with SigV4. The credentials are
 requested once and reused until S3 rejects them as expired.
 
 ```js {9-11} showLineNumbers

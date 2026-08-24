@@ -4,7 +4,7 @@ Uppy 6.0 / Companion 7.0 ship breaking changes the docs don’t reflect yet. Thi
 issue tracks everything that must land before release, audited against
 `transloadit/uppy` `main`. PRs for most groups are ready to open.
 
-## Migration guide (land first — everything links into it)
+## Migration guide (land first: everything links into it)
 
 - [ ] “Migrate from Uppy 5.x to 6.x”: packages merged into `@uppy/core` (import
       table, `isTouchDevice` deleted), the `@uppy/aws-s3` rewrite (before/after
@@ -22,7 +22,7 @@ issue tracks everything that must land before release, audited against
       undocumented, and the “falls back to HTTP polling” claim is no longer
       true.
 - [ ] `docs/uploader/aws-s3-multipart.mdx`: 11 of 15 documented options no
-      longer exist — full rewrite around the three signing modes, renamed to
+      longer exist. Full rewrite around the three signing modes, renamed to
       `aws-s3.mdx` (same `/aws-s3` slug).
 - [ ] `docs/guides/building-plugins.md` + `docs/guides/custom-stores.md`: dead
       `@uppy/utils` / `@uppy/store-default` imports; `@uppy/store-redux` still
@@ -35,8 +35,8 @@ issue tracks everything that must land before release, audited against
 - [ ] Sweep remaining references: dashboard, comparison, quick-start,
       remote-sources, uppy-core, and the type unions in both
       framework-integration partials.
-- [ ] `src/pages/examples.tsx` and `src/pages/index.tsx` still `use(Instagram)`
-      — the site won’t compile against Uppy 6.
+- [ ] `src/pages/examples.tsx` and `src/pages/index.tsx` still `use(Instagram)`,
+      so the site won’t compile against Uppy 6.
 
 ## Behaviour updates
 
@@ -46,13 +46,13 @@ issue tracks everything that must land before release, audited against
       MiB, not 5 MiB.
 - [ ] `docs/uploader/tus.mdx`: errors now carry the server’s status and body
       instead of status `0`.
-- [ ] `docs/framework-integrations/angular.mdx`: note Angular 17–21 support.
+- [ ] `docs/framework-integrations/angular.mdx`: note Angular 17-21 support.
 
 ## Blog posts
 
-- [ ] The 6.0 announcement post — links to the Transloadit and migration-guide
+- [ ] The 6.0 announcement post: links to the Transloadit and migration-guide
       pages above, so it publishes after they land.
-- [ ] The AWS S3 rewrite deep-dive — depends on the rewritten `/docs/aws-s3`
+- [ ] The AWS S3 rewrite deep-dive: depends on the rewritten `/docs/aws-s3`
       page.
 - [ ] Resolve the `allowedMetaFields` question (it currently only applies on the
       Companion path) and make the blog and docs say the same thing.

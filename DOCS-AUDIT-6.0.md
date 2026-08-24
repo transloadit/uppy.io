@@ -10,9 +10,9 @@ removal #6455 landed after the original baseline).
 
 ---
 
-## P0 — broken code samples that will break readers
+## P0: broken code samples that will break readers
 
-### 1. `docs/companion.md:239` — `companion.socket()` signature changed
+### 1. `docs/companion.md:239`: `companion.socket()` signature changed
 
 ```js
 companion.socket(server);
@@ -33,7 +33,7 @@ the one docs bug most likely to generate release-day issues.
 Fix: `companion.socket(server, companionOptions)` plus a note that this is
 breaking.
 
-### 2. `docs/guides/building-plugins.md:288` — dead import
+### 2. `docs/guides/building-plugins.md:288`: dead import
 
 ```js
 import Translator from '@uppy/utils/lib/Translator';
@@ -45,7 +45,7 @@ export maps would block anyway. `Translator` is now exported from
 
 Fix: `import { Translator } from '@uppy/core/utils';`
 
-### 3. `docs/uploader/aws-s3-multipart.mdx` — every documented option is gone
+### 3. `docs/uploader/aws-s3-multipart.mdx`: every documented option is gone
 
 The page documents 15 options. Eleven of them no longer exist: `endpoint`,
 `headers`, `cookiesRule`, `retryDelays`, `getUploadParameters`,
@@ -65,19 +65,19 @@ signing modes. The filename should probably also move from
 `aws-s3-multipart.mdx` to `aws-s3.mdx`, keeping the `/aws-s3` slug and adding a
 redirect.
 
-### 4. `docs/guides/custom-stores.md` — whole guide is built on a removed package
+### 4. `docs/guides/custom-stores.md`: whole guide is built on a removed package
 
 Line 10 lists `@uppy/store-default` as a package, line 25 imports from it, line
 135 links to its (now deleted) source directory. It also still advertises
 `@uppy/store-redux`, which was deprecated back in 5.0.
 
-Fix: `import DefaultStore from '@uppy/core/store-default';` (default export —
-the guide’s existing default import shape is right, only the module path
-changes), drop the store-redux bullet, repoint the source link.
+Fix: `import DefaultStore from '@uppy/core/store-default';` (default export: the
+guide’s existing default import shape is right, only the module path changes),
+drop the store-redux bullet, repoint the source link.
 
 ---
 
-## P1 — content that is now wrong
+## P1: content that is now wrong
 
 ### 5. Instagram is removed but fully documented
 
@@ -96,7 +96,7 @@ page for a package that no longer ships. Also referenced from:
 Decide: delete the page and add a redirect, or keep it with a removal notice.
 Either way the type unions in the two shared partials are now factually wrong.
 
-### 6. `docs/companion.md:119` — Node version is badly stale
+### 6. `docs/companion.md:119`: Node version is badly stale
 
 > Since v2, you need to be running `node.js >= v10.20.1`
 
@@ -116,7 +116,7 @@ New Uppy clients receive the token over the WebSocket instead of
 one-directional: Companion 7 keeps the legacy `postMessage` path for old clients
 (`send-token.ts` falls back when no `authCallbackToken` is in the OAuth state),
 but an Uppy 6 client requires Companion 7. The `corsOrigins` docs (line 388)
-remain accurate for the legacy fallback — `isOriginAllowed` gates both paths —
+remain accurate for the legacy fallback, and `isOriginAllowed` gates both paths,
 so they need a note, not a rewrite.
 
 ### 9. `@uppy/golden-retriever` storage description is out of date
@@ -148,7 +148,7 @@ for other references to utils as a standalone package.
 
 ---
 
-## P2 — smaller
+## P2: smaller
 
 - `docs/uppy-core.mdx:604` links `DefaultStore` to the custom-stores guide; fine
   once that guide is fixed.
@@ -167,7 +167,7 @@ section. Proposed contents, in order of how many people it affects:
 
 ### Migrate from Uppy 5.x to 6.x
 
-1. **Packages merged into `@uppy/core`** — the four-row import table from #6420,
+1. **Packages merged into `@uppy/core`**: the four-row import table from #6420,
    the provider CSS path change, `RequestOptions` moving to
    `@uppy/core/companion-client`, and the removal of `CompanionClientProvider` /
    `CompanionClientSearchProvider`. Plus the meta-package note: `server`,
@@ -175,14 +175,14 @@ section. Proposed contents, in order of how many people it affects:
    `packages/uppy/src/bundle.ts`). Warn that the move was not wholesale:
    `isTouchDevice` was deleted outright (#6455), not moved to
    `@uppy/core/utils`. Source material: `MIGRATION-6.0-merge-into-core.md` from
-   PR #6370 (commit `4c145da99` — PR branch only, not on main) has the fuller
+   PR #6370 (commit `4c145da99`, PR branch only, not on main) has the fuller
    write-up including the `Pick`-based structural typing note for
    `UnknownProviderPlugin['provider']`, but port it with two fixes: it says the
    packages are “removed from npm” (the changeset’s “stay on npm but deprecated”
    is correct), and its example
-   `import type Provider from '@uppy/core/companion-client'` is wrong —
+   `import type Provider from '@uppy/core/companion-client'` is wrong:
    `Provider` is a named export, so `import type { Provider } from …`.
-2. **`@uppy/aws-s3` rewritten** — the largest section. Needs a before/after for
+2. **`@uppy/aws-s3` rewritten**: the largest section. Needs a before/after for
    each of the three old paths:
    - from `endpoint` (Companion) to `companionEndpoint`, including the warning
      that `headers` and `cookiesRule` are gone, so authenticated Companion
@@ -196,20 +196,20 @@ section. Proposed contents, in order of how many people it affects:
      the migration guide must still name)
    - explicit warning that `endpoint` maps to `companionEndpoint`, **not** to
      `s3Endpoint`
-3. **`@uppy/instagram` removed** — what to do instead.
-4. **Companion: WebSocket OAuth tokens** — upgrade order stated bluntly: upgrade
+3. **`@uppy/instagram` removed**: what to do instead.
+4. **Companion: WebSocket OAuth tokens**: upgrade order stated bluntly: upgrade
    Companion first (it still serves old clients via the legacy `postMessage`
    fallback); Uppy 6 clients do not work against Companion ≤6.
-5. **Companion: `companion.socket(server, companionOptions)`** — the new second
+5. **Companion: `companion.socket(server, companionOptions)`**: the new second
    argument.
-6. **Companion: Express 5** — Express 4 middleware mounting no longer works.
+6. **Companion: Express 5**: Express 4 middleware mounting no longer works.
 7. **Companion: Node 20.19.3+ / 22+.**
-8. **`@uppy/tus` no longer aborts on error** — what changes for existing
+8. **`@uppy/tus` no longer aborts on error**: what changes for existing
    error-handling code.
-9. ~~`@uppy/angular` requires Angular 21~~ — dropped: the peer range is
+9. ~~`@uppy/angular` requires Angular 21~~: dropped: the peer range is
    `^17 || ^18 || ^19 || ^20 || ^21`, so Angular 21 support is additive (minor),
    not a migration item.
-10. **`@uppy/golden-retriever` storage moved to IndexedDB** — probably no action
+10. **`@uppy/golden-retriever` storage moved to IndexedDB**: probably no action
     for users, but worth a line since recovery behaviour changes.
 
 Note: the existing “Migrate from Companion 5.x to 6.x” heading at line 5 will
@@ -220,7 +220,7 @@ sections consistently.
 
 ## Suggested order of work
 
-1. Fix P0-1 (`companion.socket`) — smallest fix, largest blast radius.
+1. Fix P0-1 (`companion.socket`): smallest fix, largest blast radius.
 2. Write the migration guide’s 5.x to 6.x section. Everything else can link into
    it.
 3. Rewrite the AWS S3 page. This is the big one and the S3 blog post depends on

@@ -268,7 +268,7 @@ Before Uppy 6.0 the plugin aborted the request in its error handler and emitted
 `undefined` and `file.response` was never set on a failed upload.
 
 `response` is `undefined` when there is no server response to report: when the
-request failed without one (such as an unreachable server — use
+request failed without one (such as an unreachable server; use
 [`error.isNetworkError`](/docs/uppy/#upload-error) to detect those), and for
 remote files uploaded through Companion, which report errors without a response
 object.

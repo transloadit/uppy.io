@@ -513,8 +513,8 @@ const { assemblyStatus, lastAssemblyStatus } = uppy
 The [Assembly Status][assembly-status] of the Assembly that is currently running
 (`object | undefined`, default: `undefined`).
 
-It is updated on every status transition Transloadit reports — such as
-`ASSEMBLY_UPLOADING` and then `ASSEMBLY_EXECUTING` in the `ok` property — and is
+It is updated on every status transition Transloadit reports (such as
+`ASSEMBLY_UPLOADING` and then `ASSEMBLY_EXECUTING` in the `ok` property), and is
 set back to `undefined` as soon as there is no live Assembly, which is the case
 after the upload finished, was cancelled, or errored.
 

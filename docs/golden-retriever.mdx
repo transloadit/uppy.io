@@ -28,8 +28,8 @@ The Golden Retriever uses these methods of browser data storage:
   restarts. It works well, however, for accidental refreshes or closed tabs.
 
 Upon restore, the plugin first restores state from whichever of `IndexedDB` or
-`LocalStorage` it stored it in, and then checks both file storages — `IndexedDB`
-and `ServiceWorker` — merging the results.
+`LocalStorage` it stored it in, and then checks both file storages (`IndexedDB`
+and `ServiceWorker`), merging the results.
 
 If restore is unsuccessful for certain files, they will be marked as “ghosts” in
 the Dashboard UI, and a message + button offering to re-select those files will

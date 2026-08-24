@@ -24,7 +24,7 @@ OAuth.
 If you want to let users download files from [Box][], [Dropbox][], [Facebook][],
 [Google Drive][googledrive], [Google Drive Picker][googledrivepicker], [Google
 Photos Picker][googlephotospicker], [OneDrive][], [Unsplash][], [Import from
-URL][url], or [Zoom][] — you need Companion.
+URL][url], or [Zoom][], you need Companion.
 
 Companion supports the same [uploaders](/docs/guides/choosing-uploader) as Uppy:
 [Tus](/docs/tus), [AWS S3](/docs/aws-s3), and [regular multipart](/docs/tus).

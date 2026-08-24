@@ -1,4 +1,4 @@
-# Uppy 6.0 blog post — adversarial review notes
+# Uppy 6.0 blog post: adversarial review notes
 
 Working document. Not part of the site build (root-level markdown is not picked
 up by Docusaurus). Delete once the findings are resolved.
@@ -31,7 +31,7 @@ deep dive’s wording rather than a summary of it.
 
 ---
 
-## Blockers — release post
+## Blockers: release post
 
 ### 1. `allowedMetaFields` is silently ineffective in direct-signing modes
 
@@ -98,7 +98,7 @@ it.
 
 ### 3. The `getCredentials` code sample is a copy-paste hazard
 
-Source: new — missed by both reviews. Review B filed it under “confirmed
+Source: new, missed by both reviews. Review B filed it under “confirmed
 correct”, with the conditional that it works only if the endpoint already
 returns lower-camel-case credentials. That conditional is doing too much work.
 
@@ -178,7 +178,7 @@ verified.
 > The plugin is now tested against a real MinIO instance in CI instead of mocks,
 > which is how several of those got caught in the first place.
 
-`tests/s3-client/minio.test.ts:14-26` constructs `new S3mini({...})` — the
+`tests/s3-client/minio.test.ts:14-26` constructs `new S3mini({...})`, the
 internal client, not the `AwsS3` plugin. Plugin-level tests still use fake
 signers (`tests/index.test.ts`). “Instead of mocks” is false, and the causal
 claim is unverifiable.
@@ -199,7 +199,7 @@ Source: review B, verified.
 `window.indexedDB`
 (`packages/@uppy/golden-retriever/src/IndexedDBStore.ts:3-15`), and the backend
 is chosen once (`src/index.ts:73-93`). If the API exists but `open()`/read/write
-fails — private mode, permissions, corruption, quota — the failure is swallowed
+fails (private mode, permissions, corruption, quota), the failure is swallowed
 and there is no fallback to localStorage. Those are exactly the cases a reader
 reads “not available” to mean.
 
@@ -208,7 +208,7 @@ best-effort and failures are deliberately swallowed.
 
 ---
 
-## Blockers — deep dive (`2026-03-18-aws-s3-rewrite.md`)
+## Blockers: deep dive (`2026-03-18-aws-s3-rewrite.md`)
 
 All from review B. Not individually re-verified except where noted.
 
@@ -222,15 +222,15 @@ All from review B. Not individually re-verified except where noted.
    Both options were removed and `CompanionS3` uses plain `fetch` with no custom
    headers or credentials mode.
 3. **`bucket` is listed as removed** but was never a 5.1.0 plugin option.
-4. **“S3mini: standalone, zero Uppy dependencies”** — it extends `S3Client`,
+4. **“S3mini: standalone, zero Uppy dependencies”**: it extends `S3Client`,
    which imports `fetcher` from `@uppy/core/utils`, and there is no public
    subpath export for it.
 5. **“progress, retries, pause/resume … behave identically across signing
-   modes”** — transport behaviour differs by mode; remote files bypass
+   modes”**: transport behaviour differs by mode; remote files bypass
    `S3Uploader` entirely.
-6. **“one server route instead of six”** — callbacks were arbitrary functions
-   and could always have called a single route. The rewrite guarantees one
-   _client hook_.
+6. **“one server route instead of six”**: callbacks were arbitrary functions and
+   could always have called a single route. The rewrite guarantees one _client
+   hook_.
 7. **`signRequest` sample omits `Content-Type: application/json`**, so a
    conventional `express.json()` route will not parse the body.
 8. **“13 open issues” and “most-used uploader plugin”** are unsubstantiated. The
@@ -256,7 +256,7 @@ All from review B. Not individually re-verified except where noted.
   combination”** is not what
   [#6055](https://github.com/transloadit/uppy/issues/6055) says. It describes
   the implementation as unmaintainable and the most-reported uploader. Use that.
-- **“Removed from npm”** (twice) — existing versions stay on npm; only new
+- **“Removed from npm”** (twice): existing versions stay on npm; only new
   versions stop. Already corrected in
   [#6420](https://github.com/transloadit/uppy/pull/6420), so the post and the
   changeset currently disagree.
