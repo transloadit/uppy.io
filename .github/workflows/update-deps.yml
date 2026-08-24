@@ -49,9 +49,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: actions/tools-update-${{ matrix.id }}
-          COMMIT_MESSAGE: '${{ matrix.subsystem }}: update ${{ matrix.id }} to ${{ env.NEW_VERSION }}'
-          PR_BODY: This is an automated update of ${{ matrix.id }} to ${{ env.NEW_VERSION }}.
-          PR_TITLE: '${{ matrix.subsystem }}: update ${{ matrix.id }} to ${{ env.NEW_VERSION }}'
+          COMMIT_MESSAGE:
+            '${{ matrix.subsystem }}: update ${{ matrix.id }} to ${{
+            env.NEW_VERSION }}'
+          PR_BODY:
+            This is an automated update of ${{ matrix.id }} to ${{
+            env.NEW_VERSION }}.
+          PR_TITLE:
+            '${{ matrix.subsystem }}: update ${{ matrix.id }} to ${{
+            env.NEW_VERSION }}'
         run: |
           set -euo pipefail
 
