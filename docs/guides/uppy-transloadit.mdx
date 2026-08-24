@@ -50,8 +50,8 @@ Install the Transloadit Node SDK in the server application:
 npm install transloadit
 ```
 
-This helper uses the SDK to add the Auth Key and expiration and to calculate the
-signature over the exact serialized `params` value:
+This helper sets a one-hour expiration, then uses the SDK to add the Auth Key
+and calculate the signature over the exact serialized `params` value:
 
 ```ts title="server/transloadit-options.ts"
 import { Transloadit } from 'transloadit';
@@ -123,10 +123,12 @@ const uppy = new Uppy()
 	})
 	.use(Transloadit, {
 		assemblyOptions: fetchAssemblyOptions,
+		// Keep the UI waiting only when browser code needs the final results.
 		waitForEncoding: true,
 	});
 
 uppy.on('transloadit:complete', (assembly) => {
+	// Results are keyed by Assembly Step name.
 	console.log('Assembly results:', assembly.results);
 });
 ```
@@ -156,7 +158,6 @@ import { fetchAssemblyOptions } from './fetch-assembly-options';
 function createUppy() {
 	return new Uppy().use(Transloadit, {
 		assemblyOptions: fetchAssemblyOptions,
-		waitForEncoding: true,
 	});
 }
 
@@ -209,7 +210,6 @@ import { fetchAssemblyOptions } from './fetch-assembly-options';
 function createUppy() {
 	return new Uppy().use(Transloadit, {
 		assemblyOptions: fetchAssemblyOptions,
-		waitForEncoding: true,
 	});
 }
 
@@ -240,7 +240,6 @@ import { fetchAssemblyOptions } from './fetch-assembly-options';
 
 const uppy = new Uppy().use(Transloadit, {
 	assemblyOptions: fetchAssemblyOptions,
-	waitForEncoding: true,
 });
 
 onBeforeUnmount(() => uppy.destroy());
@@ -274,7 +273,6 @@ import { fetchAssemblyOptions } from './fetch-assembly-options';
 export class UploaderComponent implements OnDestroy {
 	readonly uppy = new Uppy().use(Transloadit, {
 		assemblyOptions: fetchAssemblyOptions,
-		waitForEncoding: true,
 	});
 
 	ngOnDestroy(): void {
@@ -300,17 +298,18 @@ update your application asynchronously for long jobs. Use
 final Assembly results are available.
 
 Listen to [`transloadit:result` and `transloadit:complete`][plugin-events] when
-waiting in the browser. Save the Assembly ID in your application so processing
-can still be reconciled after a navigation or connection loss.
+waiting in the browser. To reconcile processing after a navigation or connection
+loss, listen to `transloadit:assembly-created` and save `assembly.assembly_id`
+in your application.
 
 ## 5. Add remote sources only when needed
 
 Dropbox, Google Drive, URL imports, and similar sources need Companion. A
 Transloadit plan includes a hosted Companion service. Point each remote-source
-provider plugin at it by passing the `COMPANION_URL` and
-`COMPANION_ALLOWED_HOSTS` constants exported by `@uppy/transloadit`. See the
-[Companion configuration example][companion]. Local-device uploads do not need
-Companion.
+provider plugin at it by assigning the `COMPANION_URL` and
+`COMPANION_ALLOWED_HOSTS` constants exported by `@uppy/transloadit` to the
+plugin’s `companionUrl` and `companionAllowedHosts` options. See the [Companion
+configuration example][companion]. Local-device uploads do not need Companion.
 
 Continue with the [complete plugin API][plugin-api], the [runnable Transloadit
 example][runnable-example], or the [Transloadit-side Uppy
