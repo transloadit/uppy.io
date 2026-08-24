@@ -227,7 +227,6 @@ const sources = [
 	{ file: 'googledrive.svg', name: 'Google Drive', x: 54.6, y: 10.8, mark: 51 },
 	{ file: 'dropbox.svg', name: 'Dropbox', x: 70.4, y: 29, mark: 52 },
 	{ file: 'googlephotos.svg', name: 'Google Photos', x: 84, y: 50, mark: 47 },
-	{ file: 'instagram.svg', name: 'Instagram', x: 75.3, y: 74.3, mark: 37 },
 	{ file: 'facebook.svg', name: 'Facebook', x: 52.4, y: 83.7, mark: 33 },
 	{ file: 'zoom.svg', name: 'Zoom', x: 29.5, y: 90, mark: 57 },
 	{ file: 'unsplash.svg', name: 'Unsplash', x: 13.2, y: 73.1, mark: 32 },
