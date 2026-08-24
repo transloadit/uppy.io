@@ -2,7 +2,7 @@
 
 If your app uses a state management library such as
 [Redux](https://redux.js.org), it can be useful to have Uppy store its state
-there instead—that way, you could write custom uploader UI components in the
+there instead. That way, you could write custom uploader UI components in the
 same way as the other components in the application.
 
 Uppy comes with one built-in state management solution (store):

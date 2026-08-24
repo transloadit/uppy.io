@@ -48,7 +48,7 @@ The provider styles moved with the code:
 | `@uppy/provider-views/css/style.min.css` | `@uppy/core/provider-views/css/style.min.css` |
 | `@uppy/provider-views/css/style.css`     | `@uppy/core/provider-views/css/style.css`     |
 
-Most apps don’t import this directly — it ships bundled in `@uppy/dashboard`’s
+Most apps don’t import this directly. It ships bundled in `@uppy/dashboard`’s
 CSS. Only change it if you imported the provider-views stylesheet explicitly.
 
 #### Types
@@ -64,7 +64,7 @@ where it lives next to `RequestClient`:
 `CompanionClientProvider` and `CompanionClientSearchProvider` are removed. They
 were hand-maintained stand-ins that existed only because `@uppy/utils` could not
 see the real provider classes. Import `Provider` (or `SearchProvider` in place
-of `CompanionClientSearchProvider`) instead — both are _named_ exports:
+of `CompanionClientSearchProvider`) instead. Both are _named_ exports:
 
 ```diff
 - import type { CompanionClientProvider } from '@uppy/utils';
@@ -100,7 +100,7 @@ the `@uppy/core` subpaths internally:
 
 ```js
 import { DefaultStore, server, Uppy, views } from 'uppy'; // still works
-// window.Uppy.DefaultStore — still works
+// window.Uppy.DefaultStore still works
 ```
 
 ### `@uppy/aws-s3` rewritten
@@ -109,9 +109,9 @@ import { DefaultStore, server, Uppy, views } from 'uppy'; // still works
 you passed in 5.x are gone (the full lists are below). Configuration is now
 three mutually exclusive signing modes:
 
-- `getCredentials` — client-side SigV4 signing with temporary credentials.
-- `signRequest` — bring your own signer, client side or server side.
-- `companionEndpoint` — Companion signs, as before.
+- `getCredentials`: client-side SigV4 signing with temporary credentials.
+- `signRequest`: bring your own signer, client side or server side.
+- `companionEndpoint`: Companion signs, as before.
 
 All three work against any S3-compatible service (R2, MinIO, DigitalOcean
 Spaces). Client-side signing previously hardcoded `*.amazonaws.com` and could
@@ -196,7 +196,7 @@ The credential fields are camelCase now:
 | `credentials.Expiration`      | `credentials.expiration`      |
 | `bucket`                      | part of the `s3Endpoint` URL  |
 
-The region is no longer inferred for you. Return it from `getCredentials` — the
+The region is no longer inferred for you. Return it from `getCredentials`; the
 response type requires it. At runtime the client prefers the response value,
 then the `region` option, then `auto`, but a callback that omits `region` does
 not type-check.
@@ -277,7 +277,7 @@ replacement provider.
 1. Remove `@uppy/instagram` from your dependencies and drop the
    `uppy.use(Instagram, …)` call.
 2. Remove `'Instagram'` from the `sources` list if you use
-   `@uppy/remote-sources` — Uppy 6 throws on unknown source keys.
+   `@uppy/remote-sources`. Uppy 6 throws on unknown source keys.
 3. Remove the Instagram credentials from your Companion configuration
    (`COMPANION_INSTAGRAM_KEY`, `COMPANION_INSTAGRAM_SECRET`) and the Instagram
    redirect URI from your provider setup.
@@ -313,7 +313,7 @@ needed, but recovery snapshots written by 5.x (in localStorage) are not read by
   `window.opener.postMessage`. Upgrade Companion first: Companion 7 keeps the
   legacy `postMessage` fallback, so older Uppy clients keep working against it,
   but Uppy 6 clients do not work against Companion 6 or older.
-- `companion.socket()` now requires the Companion options as a second argument —
+- `companion.socket()` now requires the Companion options as a second argument,
   the same object you pass to `companion.app()`:
 
   ```diff
@@ -881,7 +881,7 @@ If are already using ESM yourself, or are using the CDN builds, nothing changes
 for you!
 
 If you are using CommonJS, you might need to add some tooling for everything to
-work, or you might want to refactor your codebase to ESM – refer to the
+work, or you might want to refactor your codebase to ESM. Refer to the
 [Pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
 gist for added information and help on how to do that.
 
@@ -1374,7 +1374,7 @@ obsolete too.
 Uppy 1.0 will continue to receive bug fixes for three more months (until
 <time datetime="2021-12-01">1 December 2021</time>), security fixes for one more
 year (until <time datetime="2022-09-01">1 September 2022</time>), but no more
-new features after today. Exceptions are unlikely, but _can_ be made – to
+new features after today. Exceptions are unlikely, but _can_ be made, to
 accommodate those with commercial support contracts, for example.
 
 We hope you’ll waste no time in taking Uppy 2.0 out for a walk. When you do,

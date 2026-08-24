@@ -10,7 +10,7 @@ import UppyCdnExample from '/src/components/UppyCdnExample';
 
 # Dashboard
 
-The all you need Dashboard — powerful, responsive, and pluggable. Kickstart your
+The all you need Dashboard: powerful, responsive, and pluggable. Kickstart your
 uploading experience and gradually add more functionality. Add files from
 [remote sources](/docs/companion), [edit images](/docs/image-editor),
 [generate thumbnails](/docs/thumbnail-generator), and more.
@@ -286,7 +286,7 @@ A string of text to be placed in the Dashboard UI (`string`, default: `null`).
 
 This could for instance be used to explain any [`restrictions`](#restrictions)
 that are put in place. For example:
-`'Images and video only, 2–3 files, up to 1 MB'`.
+`'Images and video only, 2-3 files, up to 1 MB'`.
 
 #### `metaFields`
 
@@ -491,7 +491,7 @@ module.exports = {
 		dashboardTitle: 'Uppy Dashboard',
 		// Shown in the Informer when a link to a file was copied to the clipboard.
 		copyLinkToClipboardSuccess: 'Link copied to clipboard.',
-		// Used when a link cannot be copied automatically — the user has to select the text from the
+		// Used when a link cannot be copied automatically. The user has to select the text from the
 		// input element below this string.
 		copyLinkToClipboardFallback: 'Copy the URL below',
 		// Used as the hover title and screen reader label for buttons that copy a file link.
@@ -575,9 +575,9 @@ Uppy Dashboard supports “Dark Mode”. You can try it live on
 
 It supports the following values:
 
-- `light` — the default
+- `light`: the default
 - `dark`
-- `auto` — will respect the user’s system settings and switch automatically
+- `auto`: will respect the user’s system settings and switch automatically
 
 #### `autoOpen`
 
@@ -691,7 +691,7 @@ Fired when the Dashboard modal is closed.
 
 **Parameters:**
 
-- `file` — The [File Object](https://uppy.io/docs/uppy/#File-Objects)
+- `file`: the [File Object](https://uppy.io/docs/uppy/#File-Objects)
   representing the file that was opened for editing.
 
 Fired when the user clicks “edit” icon next to a file in the Dashboard. The
@@ -701,7 +701,7 @@ FileCard panel is then open with file metadata available for editing.
 
 **Parameters:**
 
-- `file` — The [File Object](https://uppy.io/docs/uppy/#File-Objects)
+- `file`: the [File Object](https://uppy.io/docs/uppy/#File-Objects)
   representing the file that was edited.
 
 Fired when the user finished editing the file metadata.
@@ -710,7 +710,7 @@ Fired when the user finished editing the file metadata.
 
 **Parameters:**
 
-- `id` — the active plugin ID .
+- `id`: the active plugin ID.
 
 Fired when the user opens a UI plugin.
 
@@ -718,7 +718,7 @@ Fired when the user opens a UI plugin.
 
 **Parameters:**
 
-- `id` — the previously active plugin ID .
+- `id`: the previously active plugin ID.
 
 Fired when the user closes a UI plugin.
 
@@ -729,46 +729,46 @@ all Uppy plugins.
 
 ### Sources
 
-- [`@uppy/audio`](/docs/audio) — record audio.
-- [`@uppy/box`](/docs/box) — import files from
+- [`@uppy/audio`](/docs/audio): record audio.
+- [`@uppy/box`](/docs/box): import files from
   [Box](https://www.box.com/en-nl/home).
-- [`@uppy/dropbox`](/docs/dropbox) — import from [Dropbox](https://dropbox.com).
-- [`@uppy/facebook`](/docs/facebook) — import from
+- [`@uppy/dropbox`](/docs/dropbox): import from [Dropbox](https://dropbox.com).
+- [`@uppy/facebook`](/docs/facebook): import from
   [Facebook](https://facebook.com).
-- [`@uppy/google-drive`](/docs/google-drive) — import from
+- [`@uppy/google-drive`](/docs/google-drive): import from
   [Google Drive](https://drive.google.com).
-- [`@uppy/google-drive-picker`](/docs/google-drive-picker) — import from
+- [`@uppy/google-drive-picker`](/docs/google-drive-picker): import from
   [Google Drive](https://drive.google.com) using the new Picker API.
-- [`@uppy/google-photos-picker`](/docs/google-photos-picker) — import from
+- [`@uppy/google-photos-picker`](/docs/google-photos-picker): import from
   [Google Photos](https://drive.google.com) using the new Picker API.
-- [`@uppy/onedrive`](/docs/onedrive) — import from
+- [`@uppy/onedrive`](/docs/onedrive): import from
   [OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage).
-- [`@uppy/screen-capture`](/docs/screen-capture) — Record your screen, including
+- [`@uppy/screen-capture`](/docs/screen-capture): Record your screen, including
   (optionally) your microphone.
-- [`@uppy/unsplash`](/docs/unsplash) — import files from
+- [`@uppy/unsplash`](/docs/unsplash): import files from
   [Unsplash](https://unsplash.com/)
-- [`@uppy/url`](/docs/url) — import files from any URL.
-- [`@uppy/webcam`](/docs/webcam) — Record or make a picture with your webcam.
-- [`@uppy/zoom`](/docs/zoom) — import files from [Zoom](https://zoom.us).
+- [`@uppy/url`](/docs/url): import files from any URL.
+- [`@uppy/webcam`](/docs/webcam): Record or make a picture with your webcam.
+- [`@uppy/zoom`](/docs/zoom): import files from [Zoom](https://zoom.us).
 
 ### UI
 
-- [`@uppy/image-editor`](/docs/image-editor) — allows users to crop, rotate,
-  zoom and flip images that are added to Uppy.
-- [`@uppy/informer`](/docs/informer) — show notifications.
-- [`@uppy/status-bar`](/docs/status-bar) — advanced upload progress status bar.
-- [`@uppy/thumbnail-generator`](/docs/thumbnail-generator) — generate preview
+- [`@uppy/image-editor`](/docs/image-editor): allows users to crop, rotate, zoom
+  and flip images that are added to Uppy.
+- [`@uppy/informer`](/docs/informer): show notifications.
+- [`@uppy/status-bar`](/docs/status-bar): advanced upload progress status bar.
+- [`@uppy/thumbnail-generator`](/docs/thumbnail-generator): generate preview
   thumbnails for images to be uploaded.
 
 ### Frameworks
 
-- [`@uppy/angular`](/docs/angular) — Dashboard component for
+- [`@uppy/angular`](/docs/angular): Dashboard component for
   [Angular](https://angular.io/).
-- [`@uppy/react`](/docs/react) — Dashboard component for
+- [`@uppy/react`](/docs/react): Dashboard component for
   [React](https://reactjs.org/).
-- [`@uppy/svelte`](/docs/svelte) — Dashboard component for
+- [`@uppy/svelte`](/docs/svelte): Dashboard component for
   [Svelte](https://svelte.dev/).
-- [`@uppy/vue`](/docs/vue) — Dashboard component for [Vue](https://vuejs.org/).
+- [`@uppy/vue`](/docs/vue): Dashboard component for [Vue](https://vuejs.org/).
 
 [ondragover]:
 	https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondragover
