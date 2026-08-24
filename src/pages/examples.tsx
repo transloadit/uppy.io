@@ -340,6 +340,13 @@ function Page() {
 					</Link>{' '}
 					folder for many more examples.
 				</Admonition>
+				<Admonition type="tip" title="Process uploads with Transloadit">
+					Use the canonical{' '}
+					<Link to="/docs/guides/uppy-transloadit">
+						Uppy + Transloadit framework guide
+					</Link>{' '}
+					for signed JavaScript, React, Next.js, Vue, and Angular examples.
+				</Admonition>
 				<p>Uppy offers three ways to build user interfaces:</p>
 				<ul>
 					<li>
