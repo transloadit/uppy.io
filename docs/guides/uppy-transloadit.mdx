@@ -7,8 +7,8 @@ title: Uppy + Transloadit framework guide
 # Use Uppy with Transloadit
 
 This is the canonical browser integration for sending user-selected files to a
-Transloadit Assembly. The same integration works in JavaScript, React, Next.js,
-Vue, and Angular.
+Transloadit Assembly—one execution of your Template. The same integration works
+in JavaScript, React, Next.js, Vue, and Angular.
 
 ## Know which part owns what
 
@@ -84,7 +84,8 @@ storage credentials from the browser and sign them without validation.
 
 The signed options expire after one hour. Adjust that lifetime to the shortest
 window that still accommodates your users’ uploads. Every client example below
-uses the same function:
+uses the same function. Save it as `fetch-assembly-options.js` in a plain
+JavaScript application:
 
 ```ts title="fetch-assembly-options.ts"
 export async function fetchAssemblyOptions() {
@@ -128,7 +129,7 @@ const uppy = new Uppy()
 	});
 
 uppy.on('transloadit:complete', (assembly) => {
-	// Results are keyed by Assembly Step name.
+	// Results are keyed by the Step names declared in your Template.
 	console.log('Assembly results:', assembly.results);
 });
 ```
@@ -288,19 +289,25 @@ Load the Uppy styles once in the application’s global stylesheet:
 @import '@uppy/dashboard/css/style.min.css';
 ```
 
+The React, Next.js, Vue, and Angular examples intentionally use the default
+`waitForEncoding: false`. Only the JavaScript example opts in to waiting because
+it demonstrates reading final results in browser code.
+
 ## 4. Decide when the UI is finished
 
 The default `waitForEncoding: false` marks the Uppy upload complete after the
-files reach Transloadit, while the Assembly may still be processing. Use a
-[`notify_url`][webhooks], verify the notification signature on your server, and
-update your application asynchronously for long jobs. Use
+files reach Transloadit, while the Assembly may still be processing. For long
+jobs, configure a [`notify_url`][webhooks] in your server-owned Assembly
+Instructions or Template—not as an Uppy plugin option. Verify the notification
+signature on your server and update your application asynchronously. Use
 `waitForEncoding: true` only when the user should remain on the page until the
 final Assembly results are available.
 
 Listen to [`transloadit:result` and `transloadit:complete`][plugin-events] when
-waiting in the browser. To reconcile processing after a navigation or connection
-loss, listen to `transloadit:assembly-created` and save `assembly.assembly_id`
-in your application.
+waiting in the browser; these events are emitted only with
+`waitForEncoding: true`. To reconcile processing after a navigation or
+connection loss, listen to `transloadit:assembly-created` and save
+`assembly.assembly_id` in your application.
 
 ## 5. Add remote sources only when needed
 
