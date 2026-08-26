@@ -201,7 +201,7 @@ If several Uppy instances are being used, for instance, on two different pages,
 an `id` should be specified. This allows Uppy to store information in
 `localStorage` without colliding with other Uppy instances.
 
-This ID should be persistent across page reloads and navigation—it shouldn’t be
+This ID should be persistent across page reloads and navigation. It shouldn’t be
 a random number that is different every time Uppy is loaded.
 
 :::
@@ -663,16 +663,16 @@ uppy.addFile({
 		// optional, store the directory path of a file so Uppy can tell identical files in different directories apart.
 		relativePath: webkitFileSystemEntry.relativePath,
 	},
-	source: 'Local', // optional, determines the source of the file, for example, Instagram.
+	source: 'Local', // optional, determines the source of the file, for example, Dropbox.
 	isRemote: false, // optional, set to true if actual file is not in the browser, but on some remote server, for example,
-	// when using companion in combination with Instagram.
+	// when using companion in combination with Dropbox.
 });
 ```
 
 :::note
 
-If you try to add a file that already exists, `addFile` will throw an error.
-Unless that duplicate file was dropped with a folder — duplicate files from
+If you try to add a file that already exists, `addFile` will throw an error,
+unless that duplicate file was dropped with a folder. Duplicate files from
 different folders are allowed, when selected with that folder. This is because
 we add `file.meta.relativePath` to the `file.id`.
 
@@ -726,12 +726,12 @@ the main reason to use this method for batch adds:
 - Emits `files-added` **once** for the whole batch, with the array of accepted
   files.
 - Restriction failures (file too big, wrong type, too many files, etc.) emit
-  `restriction-failed` for each failing file and surface an info message —
-  **they do not throw**, and valid files in the same batch are still added.
+  `restriction-failed` for each failing file and surface an info message: **they
+  do not throw**, and valid files in the same batch are still added.
 - Any non-restriction error (for example, an exception thrown from
   `onBeforeFileAdded`) is aggregated into an `AggregateError` (available on the
-  thrown error’s `.errors` property) and thrown **before state is updated** —
-  when this happens, **no files from the batch are added** and `files-added` is
+  thrown error’s `.errors` property) and thrown **before state is updated**.
+  When this happens, **no files from the batch are added** and `files-added` is
   not emitted.
 
 Prefer `addFiles` over calling `addFile` in a loop when adding multiple files:
@@ -938,10 +938,10 @@ a new upload, you probably want to use `clear()` method instead.
 
 #### `logout()`
 
-Calls `provider.logout()` on each remote provider plugin (Google Drive,
-Instagram, etc). Useful, for example, after your users log out of their account
-in your app — this will clean things up with Uppy cloud providers as well, for
-extra security.
+Calls `provider.logout()` on each remote provider plugin (Google Drive, Dropbox,
+etc). Useful, for example, after your users log out of their account in your
+app. This will clean things up with Uppy cloud providers as well, for extra
+security.
 
 #### `log(message, type)`
 
@@ -1072,7 +1072,7 @@ Fired each time one or more files are added. A single
 [`addFiles`](#addfilesfiles) call emits one `files-added` event for the whole
 batch; an [`addFile`](#addfilefile) call emits one `files-added` event with a
 single-element array. Looping `addFile` therefore produces N `files-added`
-events — use `addFiles` instead if you want a single batch event.
+events; use `addFiles` instead if you want a single batch event.
 
 #### `file-removed`
 
@@ -1281,8 +1281,8 @@ uppy.on('upload-error', (file, error, response) => {
 });
 ```
 
-If the error is related to network conditions — endpoint unreachable due to
-firewall or ISP blockage, for instance — the error will have
+If the error is related to network conditions (endpoint unreachable due to
+firewall or ISP blockage, for instance), the error will have
 `error.isNetworkError` property set to `true`. Here’s how you can check for
 network errors:
 

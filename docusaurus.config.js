@@ -10,10 +10,10 @@ const { themes } = require('prism-react-renderer');
  * in the docs and the blog is affected, which is most of the site.
  *
  * Same hues, darkened until they clear 4.5:1 on the code block's own ground and
- * on the #dddfe1 a highlighted line sits on — the darker of the two is what sets
+ * on the #dddfe1 a highlighted line sits on. The darker of the two is what sets
  * each value here, so the line-highlight keeps its default strength. The two
- * that already pass — function-variable at 6.1 and the blue tag/selector at
- * 13.2 — are untouched.
+ * that already pass (function-variable at 6.1 and the blue tag/selector at
+ * 13.2) are untouched.
  *
  * Patched here rather than in CSS because prism-react-renderer writes these as
  * inline styles on each span, which no stylesheet can override without
@@ -112,6 +112,10 @@ const config = {
 					{
 						to: '/docs/google-photos-picker',
 						from: ['/docs/google-photos'],
+					},
+					{
+						to: '/docs/guides/migration-guides',
+						from: ['/docs/instagram'],
 					},
 					{
 						to: '/docs/transloadit',
