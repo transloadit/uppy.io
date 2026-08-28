@@ -2,6 +2,331 @@
 
 These cover all the major Uppy versions and how to migrate to them.
 
+## Migrate from Uppy 5.x to 6.x
+
+### Four packages merged into `@uppy/core`
+
+`@uppy/utils`, `@uppy/store-default`, `@uppy/companion-client`, and
+`@uppy/provider-views` are now part of `@uppy/core` and are reached through
+subpath exports. Their existing releases stay on npm but are deprecated: no new
+versions will be published.
+
+| Removed package          | New import                    |
+| ------------------------ | ----------------------------- |
+| `@uppy/utils`            | `@uppy/core/utils`            |
+| `@uppy/store-default`    | `@uppy/core/store-default`    |
+| `@uppy/companion-client` | `@uppy/core/companion-client` |
+| `@uppy/provider-views`   | `@uppy/core/provider-views`   |
+
+```diff
+- import { fetcher } from '@uppy/utils';
++ import { fetcher } from '@uppy/core/utils';
+
+- import { RequestClient } from '@uppy/companion-client';
++ import { RequestClient } from '@uppy/core/companion-client';
+
+- import DefaultStore from '@uppy/store-default';
++ import DefaultStore from '@uppy/core/store-default';
+```
+
+`DefaultStore` stays a default export, `fetcher` and `RequestClient` stay named
+exports.
+
+**Migration steps:**
+
+1. Update the imports as per the table.
+2. Remove the four packages from your `package.json`. Every Uppy plugin already
+   depends on `@uppy/core`, so there is one source of truth instead of a
+   sub-dependency your lockfile can pin to an older copy.
+
+#### CSS
+
+The provider styles moved with the code:
+
+| Old                                      | New                                           |
+| ---------------------------------------- | --------------------------------------------- |
+| `@uppy/provider-views/css/style.min.css` | `@uppy/core/provider-views/css/style.min.css` |
+| `@uppy/provider-views/css/style.css`     | `@uppy/core/provider-views/css/style.css`     |
+
+Most apps don’t import this directly. It ships bundled in `@uppy/dashboard`’s
+CSS. Only change it if you imported the provider-views stylesheet explicitly.
+
+#### Types
+
+`RequestOptions` moved from `@uppy/utils` to `@uppy/core/companion-client`,
+where it lives next to `RequestClient`:
+
+```diff
+- import type { RequestOptions } from '@uppy/utils';
++ import type { RequestOptions } from '@uppy/core/companion-client';
+```
+
+`CompanionClientProvider` and `CompanionClientSearchProvider` are removed. They
+were hand-maintained stand-ins that existed only because `@uppy/utils` could not
+see the real provider classes. Import `Provider` (or `SearchProvider` in place
+of `CompanionClientSearchProvider`) instead. Both are _named_ exports:
+
+```diff
+- import type { CompanionClientProvider } from '@uppy/utils';
++ import type { Provider } from '@uppy/core/companion-client';
+
+- const provider: CompanionClientProvider = createProvider();
++ const provider: Provider<MyMeta, MyBody> = createProvider();
+
+- import type { CompanionClientSearchProvider } from '@uppy/utils';
++ import type { SearchProvider } from '@uppy/core/companion-client';
+```
+
+`UnknownProviderPlugin['provider']` and
+`UnknownSearchProviderPlugin['provider']` are typed as structural subsets of
+`Provider` and `SearchProvider` (through `Pick`), so a custom provider that
+matches the public surface still fits without subclassing either class.
+
+#### `isTouchDevice` is removed
+
+The move was not wholesale. `isTouchDevice` was deleted outright, not moved to
+`@uppy/core/utils`. Inline it if you used it:
+
+```js
+const isTouchDevice = () =>
+	'ontouchstart' in window || navigator.maxTouchPoints > 0;
+```
+
+#### The `uppy` meta-package: no change
+
+If you use the meta-package or the CDN bundle, nothing changes. `server`,
+`views.ProviderView`, and `DefaultStore` keep their names and are repointed at
+the `@uppy/core` subpaths internally:
+
+```js
+import { DefaultStore, server, Uppy, views } from 'uppy'; // still works
+// window.Uppy.DefaultStore still works
+```
+
+### `@uppy/aws-s3` rewritten
+
+`@uppy/aws-s3` has been rewritten on top of a standalone S3 client. Most options
+you passed in 5.x are gone (the full lists are below). Configuration is now
+three mutually exclusive signing modes:
+
+- `getCredentials`: client-side SigV4 signing with temporary credentials.
+- `signRequest`: bring your own signer, client side or server side.
+- `companionEndpoint`: Companion signs, as before.
+
+All three work against any S3-compatible service (R2, MinIO, DigitalOcean
+Spaces). Client-side signing previously hardcoded `*.amazonaws.com` and could
+only target AWS.
+
+#### Companion: `endpoint` becomes `companionEndpoint`
+
+```diff
+ uppy.use(AwsS3, {
+-	endpoint: 'https://companion.example.com',
+-	headers: { authorization: `Bearer ${token}` },
+-	cookiesRule: 'include',
++	companionEndpoint: 'https://companion.example.com',
+ });
+```
+
+:::caution
+
+`endpoint` maps to `companionEndpoint`, **not** to the new `s3Endpoint`.
+`s3Endpoint` is the URL of the bucket itself and is only used together with
+`getCredentials`. Pointing `s3Endpoint` at Companion will not work.
+
+:::
+
+`headers` and `cookiesRule` are removed. The plugin now calls Companion with
+plain `fetch`, sending no custom headers and no cross-site cookies. Same-origin
+cookies are still sent, so a Companion served from your own origin keeps
+working. Bearer tokens and cross-site cookies need a new arrangement, such as an
+authenticating proxy in front of Companion.
+
+`getTemporarySecurityCredentials: true` (letting Companion hand out temporary
+credentials) is also gone. Either let Companion sign every request through
+`companionEndpoint`, or issue the credentials yourself with `getCredentials`.
+
+#### Temporary credentials: `getTemporarySecurityCredentials` becomes `getCredentials`
+
+**Before:**
+
+```js
+uppy.use(AwsS3, {
+	shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
+	async getTemporarySecurityCredentials({ signal }) {
+		const response = await fetch('/sts-token', { signal });
+		if (!response.ok) throw new Error('Failed to fetch STS');
+		// { credentials: { AccessKeyId, … }, bucket, region }
+		return response.json();
+	},
+});
+```
+
+**After:**
+
+```js
+uppy.use(AwsS3, {
+	s3Endpoint: 'https://my-bucket.s3.us-east-1.amazonaws.com',
+	region: 'us-east-1',
+	shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
+	async getCredentials() {
+		const response = await fetch('/sts-token');
+		if (!response.ok) throw new Error('Failed to fetch STS');
+		const { credentials } = await response.json();
+		return {
+			credentials: {
+				accessKeyId: credentials.AccessKeyId,
+				secretAccessKey: credentials.SecretAccessKey,
+				sessionToken: credentials.SessionToken,
+				expiration: credentials.Expiration,
+			},
+			region: 'us-east-1',
+		};
+	},
+});
+```
+
+The credential fields are camelCase now:
+
+| 5.x                           | 6.x                           |
+| ----------------------------- | ----------------------------- |
+| `credentials.AccessKeyId`     | `credentials.accessKeyId`     |
+| `credentials.SecretAccessKey` | `credentials.secretAccessKey` |
+| `credentials.SessionToken`    | `credentials.sessionToken`    |
+| `credentials.Expiration`      | `credentials.expiration`      |
+| `bucket`                      | part of the `s3Endpoint` URL  |
+
+The region is no longer inferred for you. Return it from `getCredentials`; the
+response type requires it. At runtime the client prefers the response value,
+then the `region` option, then `auto`, but a callback that omits `region` does
+not type-check.
+
+#### Custom signing: six callbacks become `signRequest`
+
+`getUploadParameters`, `createMultipartUpload`, `listParts`, `signPart`,
+`abortMultipartUpload`, and `completeMultipartUpload` are replaced by a single
+`signRequest` function. Uppy performs the S3 API calls itself; your backend only
+presigns URLs.
+
+**Before:**
+
+```js
+uppy.use(AwsS3, {
+	getUploadParameters: (file) => fetchUploadParameters(file),
+	createMultipartUpload: (file) => fetchCreateMultipartUpload(file),
+	listParts: (file, { uploadId, key }) => fetchListParts(uploadId, key),
+	signPart: (file, { uploadId, key, partNumber }) =>
+		fetchSignPart(uploadId, key, partNumber),
+	abortMultipartUpload: (file, { uploadId, key }) => fetchAbort(uploadId, key),
+	completeMultipartUpload: (file, { uploadId, key, parts }) =>
+		fetchComplete(uploadId, key, parts),
+});
+```
+
+**After:**
+
+```js
+uppy.use(AwsS3, {
+	async signRequest(request) {
+		const response = await fetch('/s3/sign', {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify(request),
+		});
+		if (!response.ok) throw new Error('Failed to sign request');
+		return response.json(); // { url }
+	},
+});
+```
+
+`signRequest` receives one request object and returns the presigned URL for it.
+Which fields are present depends on the operation:
+
+```ts
+type PresignableRequest = {
+	method: 'GET' | 'PUT' | 'POST' | 'DELETE';
+	key: string;
+	uploadId?: string;
+	partNumber?: number;
+	expiresIn?: number;
+};
+```
+
+This mode needs no `s3Endpoint`: the presigned URLs you return are absolute.
+
+#### Options
+
+**Removed:** `endpoint`, `headers`, `cookiesRule`,
+`getTemporarySecurityCredentials`, `getUploadParameters`, `signPart`,
+`createMultipartUpload`, `listParts`, `abortMultipartUpload`,
+`completeMultipartUpload`, `uploadPartBytes`, `retryDelays`.
+
+**New:** `s3Endpoint`, `region`, `getCredentials`, `signRequest`,
+`companionEndpoint`, `generateObjectKey`.
+
+**Unchanged:** `shouldUseMultipart`, `limit`, `getChunkSize`,
+`allowedMetaFields`.
+
+### `@uppy/instagram` removed
+
+`@uppy/instagram` and its Companion provider are removed. There is no
+replacement provider.
+
+**Migration steps:**
+
+1. Remove `@uppy/instagram` from your dependencies and drop the
+   `uppy.use(Instagram, …)` call.
+2. Remove `'Instagram'` from the `sources` list if you use
+   `@uppy/remote-sources`. Uppy 6 throws on unknown source keys.
+3. Remove the Instagram credentials from your Companion configuration
+   (`COMPANION_INSTAGRAM_KEY`, `COMPANION_INSTAGRAM_SECRET`) and the Instagram
+   redirect URI from your provider setup.
+
+### `@uppy/tus` no longer aborts the request on error
+
+A failed request is no longer aborted before the response is read, so the server
+status and body now reach the `upload-error` event and `file.response`. In 5.x
+the plugin emitted `upload-error` with no response argument, so consumers saw
+`undefined` there and `file.response` stayed unset after a failure. If you
+branched on that, update it:
+
+```diff
+ uppy.on('upload-error', (file, error, response) => {
+-	// response was always undefined
++	// response.status now holds what the server sent, and
++	// response.body.xhr is the underlying XMLHttpRequest
+ 	console.log(response?.status, response?.body?.xhr.responseText);
+ });
+```
+
+### `@uppy/golden-retriever` stores metadata in IndexedDB
+
+The recovery metadata store moved from localStorage to IndexedDB, and falls back
+to localStorage when `window.indexedDB` is unavailable. The fallback is a
+one-time capability check made when the plugin starts. No code changes are
+needed, but recovery snapshots written by 5.x (in localStorage) are not read by
+6.x, so an upload interrupted before the upgrade cannot be restored after it.
+
+## Migrate from Companion 6.x to 7.x
+
+- OAuth tokens are sent to Uppy over the WebSocket connection instead of
+  `window.opener.postMessage`. Upgrade Companion first: Companion 7 keeps the
+  legacy `postMessage` fallback, so older Uppy clients keep working against it,
+  but Uppy 6 clients do not work against Companion 6 or older.
+- `companion.socket()` now requires the Companion options as a second argument,
+  the same object you pass to `companion.app()`:
+
+  ```diff
+  - companion.socket(server);
+  + companion.socket(server, companionOptions);
+  ```
+
+- Companion runs on Express 5. Mounting Companion as middleware in an Express 4
+  app no longer works: upgrade your app to Express 5 first.
+- The minimum Node.js version is `^20.19.3 || >=22.0.0`.
+- Companion is ported to TypeScript. The port itself has no intended breaking
+  changes, but watch for unexpected breakage.
+
 ## Migrate from Companion 5.x to 6.x
 
 - Option `companionAllowedHosts` no longer wrapped in Regex start/end characters
@@ -556,7 +881,7 @@ If are already using ESM yourself, or are using the CDN builds, nothing changes
 for you!
 
 If you are using CommonJS, you might need to add some tooling for everything to
-work, or you might want to refactor your codebase to ESM – refer to the
+work, or you might want to refactor your codebase to ESM. Refer to the
 [Pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
 gist for added information and help on how to do that.
 
@@ -620,7 +945,7 @@ uppy.use(Dropbox, {
 
 ### `@uppy/aws-s3-multipart`
 
-#### Make `headers` inside the return value of [`signPart`](/docs/aws-s3/#signpartfile-partdata) part-indexed too.
+#### Make `headers` inside the return value of `signPart` part-indexed too.
 
 This is to allow custom headers to be set per part. See this
 [issue](https://github.com/transloadit/uppy/issues/3881) for details.
@@ -1027,9 +1352,7 @@ uppy.on('dashboard:file-edit-start', (file) => {
 See the Uppy 2.0.0 announcement post about the batch
 [pre-signing URLs change](/blog/2021/08/2.0/#batch-pre-signing-urls-for-aws-s3-multipart).
 
-`prepareUploadPart` has been renamed to
-[`signPart`](/docs/aws-s3/#signpartfile-partdata). See the documentation link on
-how to use this function.
+`prepareUploadPart` has been renamed to `signPart`.
 
 ### Removed the `.run` method from [`@uppy/core`][core]
 
@@ -1051,7 +1374,7 @@ obsolete too.
 Uppy 1.0 will continue to receive bug fixes for three more months (until
 <time datetime="2021-12-01">1 December 2021</time>), security fixes for one more
 year (until <time datetime="2022-09-01">1 September 2022</time>), but no more
-new features after today. Exceptions are unlikely, but _can_ be made – to
+new features after today. Exceptions are unlikely, but _can_ be made, to
 accommodate those with commercial support contracts, for example.
 
 We hope you’ll waste no time in taking Uppy 2.0 out for a walk. When you do,
