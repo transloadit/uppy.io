@@ -334,11 +334,13 @@ needed, but recovery snapshots written by 5.x (in localStorage) are not read by
   match.
 - Backwards compat token decryption removed: old Uppy auth tokens (created
   before
-  [uppy%404.16.0](https://github.com/transloadit/uppy/releases/tag/uppy%404.16.0)
-  06d9a7c689e5123d41b38191074eb8bbd4ff5325) will become invalid and users who
-  have these old toknes will have to re-authenticate.
+  [`uppy@4.16.0`](https://github.com/transloadit/uppy/releases/tag/uppy%404.16.0),
+  commit
+  [`06d9a7c`](https://github.com/transloadit/uppy/commit/06d9a7c689e5123d41b38191074eb8bbd4ff5325))
+  will become invalid, and users who have these old tokens will have to
+  re-authenticate.
 - Removed `token` param from `Provider` class methods: `list()`, `download()`,
-  `logout()`, `thumbnail()`. Please use: `providerUserSession`.`accessToken`
+  `logout()`, `thumbnail()`. Please use `providerUserSession.accessToken`
   instead.
 
 ## Migrate from Uppy 4.x to 5.x
