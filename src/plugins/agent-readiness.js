@@ -4,18 +4,28 @@ const path = require('node:path');
 const DOCS_DIR = 'docs';
 const ROUTE_BASE = '/docs';
 
-// ponytail: hand-rolled scalar-only frontmatter reader. We only ever read
-// `title`, `description` and `slug`, all plain strings. Swap in `gray-matter`
-// if a doc ever needs nested or multi-line frontmatter.
+// Limitation: this is a hand-rolled scalar-only frontmatter reader. We only read
+// `title`, `description` and `slug`, as inline or continued plain strings. Swap
+// in `gray-matter` if a doc ever needs nested or structured frontmatter.
 function splitFrontmatter(raw) {
 	const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
 	if (!match) return { data: {}, body: raw };
 
 	const data = {};
+	let continuedKey = null;
 	for (const line of match[1].split(/\r?\n/)) {
 		const kv = /^([A-Za-z0-9_-]+):\s*(.*)$/.exec(line);
-		if (!kv) continue;
-		data[kv[1]] = kv[2].trim().replace(/^['"]|['"]$/g, '');
+		if (kv) {
+			const value = kv[2].trim().replace(/^['"]|['"]$/g, '');
+			data[kv[1]] = value;
+			continuedKey = value ? null : kv[1];
+			continue;
+		}
+		if (continuedKey && /^\s+\S/.test(line)) {
+			data[continuedKey] = `${data[continuedKey]} ${line.trim()}`.trim();
+			continue;
+		}
+		continuedKey = null;
 	}
 	return { data, body: raw.slice(match[0].length) };
 }
@@ -51,7 +61,7 @@ function routeFor(relPath, slug) {
 // documentation, and dropping them would publish twins missing whole sections.
 // Imports of JSX components are stripped; their usages remain as-is in the
 // body.
-// ponytail: partials are used prop-less (`<CompanionOptions />`) in this repo,
+// Limitation: partials are used prop-less (`<CompanionOptions />`) in this repo,
 // so plain body substitution is exact. If a partial ever takes props, this
 // needs a real MDX render instead.
 const IMPORT_RE = /^import\s+(\w+)\s+from\s+['"]([^'"]+)['"];?\s*$/;
@@ -75,9 +85,25 @@ function inlinePartials(body, fileDir, loadPartial) {
 	for (const [name, partialPath] of partials) {
 		const usage = new RegExp(`<${name}\\s*/>`, 'g');
 		if (!usage.test(rest)) continue;
-		rest = rest.replace(usage, loadPartial(partialPath));
+		// A replacement function keeps `$&`, `$\`` and `$'` in Markdown code
+		// samples literal instead of interpreting them as String.replace tokens.
+		rest = rest.replace(usage, () => loadPartial(partialPath));
 	}
 	return rest.trim();
+}
+
+// Source-relative links must point at the generated route, not at an `.mdx`
+// file that does not exist in the deployed site. Resolve through the same
+// route map used for the twins so frontmatter slugs remain authoritative.
+function rewriteLocalDocLinks(body, file, routeByFile) {
+	return body.replace(
+		/(\]\()(\.[^)\s?#]+\.mdx?)([?#][^)\s]*)?(\))/g,
+		(match, prefix, reference, suffix = '', close) => {
+			const target = path.resolve(path.dirname(file), reference);
+			const route = routeByFile.get(target);
+			return route ? `${prefix}${route}.md${suffix}${close}` : match;
+		},
+	);
 }
 
 function firstParagraph(body) {
@@ -88,7 +114,9 @@ function firstParagraph(body) {
 		// Links flattened to their text: a mid-link truncation would leave an
 		// unmatched bracket in llms.txt.
 		const flat = text
+			.replace(/!?\[([^\]]*)\]\[[^\]]*\]/g, '$1')
 			.replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+			.replace(/<(https?:\/\/[^>]+)>/g, '$1')
 			.replace(/\s+/g, ' ');
 		if (flat.length <= 200) return flat;
 		return `${flat.slice(0, flat.lastIndexOf(' ', 200))}…`;
@@ -96,9 +124,8 @@ function firstParagraph(body) {
 	return '';
 }
 
-// <UppyCdnExample> renders a CDN quick-start snippet from its children plus
-// the current uppy version. The same rendering, minus React, so the twins
-// carry the identical snippet the site shows.
+// <UppyCdnExample> renders the same CDN code block the site shows, minus React.
+// The surrounding caution is condensed for the Markdown twin.
 const uppyVersion = require('uppy/package.json').version;
 
 function renderCdnExample(match, props, inner) {
@@ -159,12 +186,6 @@ function demoteJsxChunk(text, pageUrl) {
 		'[$2]($1)',
 	);
 
-	// UppyCdnExample renders a version-pinned CDN snippet from its children.
-	out = out.replace(
-		/<UppyCdnExample([^>]*)>([\s\S]*?)<\/UppyCdnExample>/g,
-		renderCdnExample,
-	);
-
 	// QuickStartLinks carries its items inline in the MDX; render them.
 	out = out.replace(/<QuickStartLinks[\s\S]*?\/>/g, (m) => {
 		const items = [
@@ -181,19 +202,26 @@ function demoteJsxChunk(text, pageUrl) {
 	// the rendered version lives, instead of dropping it silently.
 	out = out.replace(
 		/<[A-Z][A-Za-z]*(?:\s[^<>]*?)?\/>/g,
-		`*(Interactive content omitted from the Markdown version — see ${pageUrl} for the rendered page.)*`,
+		`*(A rendered component is omitted from the Markdown version — see ${pageUrl} for the full page.)*`,
 	);
 
 	// Collapse runs of identical omission notes.
-	out = out.replace(/(\*\(Interactive content[^)]*\)\*)(\s*\1)+/g, '$1');
+	out = out.replace(/(\*\(A rendered component[^)]*\)\*)(\s*\1)+/g, '$1');
 
 	return out;
 }
 
 function demoteJsx(body, pageUrl) {
+	// Render this wrapper before protecting Markdown code spans: its JavaScript
+	// template can itself contain escaped backticks, which are not Markdown code.
+	const renderedCdnExamples = body.replace(
+		/^[ \t]*<UppyCdnExample([^>]*)>([\s\S]*?)<\/UppyCdnExample>/gm,
+		renderCdnExample,
+	);
+
 	// Fenced code blocks and inline code spans are documentation and must
 	// survive untouched.
-	return body
+	return renderedCdnExamples
 		.split(/(```[\s\S]*?```|`[^`\n]*`)/)
 		.map((chunk, i) => (i % 2 ? chunk : demoteJsxChunk(chunk, pageUrl)))
 		.join('')
@@ -243,12 +271,14 @@ function buildOpenApi(siteConfig, site, pages) {
 		},
 	});
 
-	const literalPaths = {
-		'/docs/': literalPage('/docs/', 'the documentation index page'),
-		'/docs.md': literalMd('/docs.md', 'the documentation index page'),
-	};
+	const literalPaths = {};
+	const rootPage = pages.find(({ route }) => route === '/docs');
+	if (rootPage) {
+		literalPaths['/docs/'] = literalPage('/docs/', rootPage.title);
+		literalPaths['/docs.md'] = literalMd('/docs.md', rootPage.title);
+	}
 	for (const slug of nested) {
-		literalPaths[`/docs/${slug}`] = literalPage(`/docs/${slug}`, `"${slug}"`);
+		literalPaths[`/docs/${slug}/`] = literalPage(`/docs/${slug}/`, `"${slug}"`);
 		literalPaths[`/docs/${slug}.md`] = literalMd(
 			`/docs/${slug}.md`,
 			`"${slug}"`,
@@ -257,7 +287,7 @@ function buildOpenApi(siteConfig, site, pages) {
 
 	const notFound = {
 		description:
-			'No such page. The body lists the documentation index, the sitemap and llms.txt so a client can recover.',
+			'No such page. The body links llms.txt (the documentation index), llms-full.txt (the full documentation), openapi.json and the sitemap so a client can recover.',
 		content: { 'text/html': { schema: { type: 'string' } } },
 	};
 
@@ -272,9 +302,10 @@ function buildOpenApi(siteConfig, site, pages) {
 			title: `${siteConfig.title} documentation content API`,
 			summary: 'Read-only HTTP access to the Uppy documentation.',
 			description: [
-				'uppy.io serves its documentation as static files. Every page is',
-				'available as HTML and as Markdown (append `.md` to the path), and',
-				'the whole corpus is indexed by llms.txt.',
+				'uppy.io serves its documentation as static files. Every documentation page is',
+				'available as HTML and as Markdown. For Markdown, replace the HTML path’s',
+				'trailing slash with `.md` (`/docs/quick-start/` becomes `/docs/quick-start.md`).',
+				'The whole corpus is indexed by llms.txt.',
 				'',
 				'This is a content API, not a service API: every operation is a GET,',
 				'nothing is authenticated, and nothing has side effects. The Uppy',
@@ -282,7 +313,6 @@ function buildOpenApi(siteConfig, site, pages) {
 				`${site}/docs/companion.`,
 			].join('\n'),
 			version: '1.0.0',
-			license: { name: 'MIT', identifier: 'MIT' },
 		},
 		servers: [{ url: site }],
 		tags: [
@@ -294,7 +324,7 @@ function buildOpenApi(siteConfig, site, pages) {
 		],
 		paths: {
 			...literalPaths,
-			'/docs/{slug}': {
+			'/docs/{slug}/': {
 				get: {
 					tags: ['pages'],
 					operationId: 'getDocPage',
@@ -366,6 +396,21 @@ function buildOpenApi(siteConfig, site, pages) {
 					},
 				},
 			},
+			'/openapi.json': {
+				get: {
+					tags: ['indexes'],
+					operationId: 'getOpenApi',
+					summary: 'OpenAPI 3.1 description of this documentation content API.',
+					responses: {
+						200: {
+							description: 'This OpenAPI document.',
+							content: {
+								'application/json': { schema: { type: 'object' } },
+							},
+						},
+					},
+				},
+			},
 			'/sitemap.xml': {
 				get: {
 					tags: ['indexes'],
@@ -403,6 +448,7 @@ module.exports = function agentReadiness(context) {
 			const files = (await walk(docsRoot)).sort();
 
 			const pages = [];
+			const sourcePages = [];
 			const skipped = [];
 
 			// Loads a `_*.mdx` partial for inlining: frontmatter off, its own
@@ -446,13 +492,30 @@ module.exports = function agentReadiness(context) {
 					(/^#\s+(.+)$/m.exec(body)?.[1] ?? '').trim() ||
 					path.basename(relPath, path.extname(relPath));
 
-				pages.push({
+				sourcePages.push({
+					file,
 					route,
 					title,
 					description: data.description || firstParagraph(body),
+					body,
+				});
+			}
+
+			const routeByFile = new Map(
+				sourcePages.map(({ file, route }) => [path.resolve(file), route]),
+			);
+			for (const page of sourcePages) {
+				pages.push({
+					route: page.route,
+					title: page.title,
+					description: page.description,
 					body: demoteJsx(
-						inlinePartials(body, path.dirname(file), loadPartial),
-						`${site}${route}`,
+						rewriteLocalDocLinks(
+							inlinePartials(page.body, path.dirname(page.file), loadPartial),
+							page.file,
+							routeByFile,
+						),
+						`${site}${page.route}`,
 					),
 				});
 			}
@@ -479,6 +542,8 @@ module.exports = function agentReadiness(context) {
 				);
 			}
 
+			// Keep this capability summary synchronized with the SoftwareApplication
+			// JSON-LD in docusaurus.config.js and the supported integration docs.
 			const index = [
 				`# ${siteConfig.title}`,
 				'',
@@ -489,8 +554,8 @@ module.exports = function agentReadiness(context) {
 				'and OneDrive, resumes interrupted uploads over the tus protocol, and has',
 				'official bindings for React, Vue, Svelte and Angular.',
 				'',
-				'Every page below is also available as Markdown at the same URL with a',
-				'`.md` suffix.',
+				'For a Markdown twin, replace the HTML URL’s trailing slash with `.md`',
+				'(`/docs/quick-start/` becomes `/docs/quick-start.md`).',
 				'',
 				'## Documentation',
 				'',
@@ -501,6 +566,7 @@ module.exports = function agentReadiness(context) {
 				'',
 				'## Optional',
 				'',
+				`- [OpenAPI](${site}/openapi.json): Machine-readable description of the documentation content API.`,
 				`- [Examples](${site}/examples): Live, runnable Uppy demos.`,
 				`- [Blog](${site}/blog): Release notes and announcements.`,
 				`- [Sitemap](${site}/sitemap.xml): Every URL on this site.`,

@@ -7,4 +7,6 @@ Sitemap: https://uppy.io/sitemap.xml
 # Machine-readable indexes for AI agents:
 #   https://uppy.io/llms.txt       - index of the documentation
 #   https://uppy.io/llms-full.txt  - the full documentation as one file
-# Every page is also available as Markdown by appending .md to its URL.
+#   https://uppy.io/openapi.json   - documentation content API description
+# For Markdown, replace a documentation URL’s trailing slash with .md:
+#   /docs/quick-start/ -> /docs/quick-start.md

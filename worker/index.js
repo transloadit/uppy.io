@@ -5,10 +5,11 @@
  * server-side logic. Two agent-readiness behaviours therefore have to live in
  * front of it, in the Cloudflare zone that already proxies the domain:
  *
- *   1. Markdown content negotiation (acceptmarkdown.com). A request carrying
- *      `Accept: text/markdown` for an HTML page is served the `.md` twin that
- *      the `agent-readiness` Docusaurus plugin writes at build time, and every
- *      negotiable response advertises `Vary: Accept`.
+ *   1. Markdown content negotiation over HTTP, as advocated by
+ *      acceptmarkdown.com. A request carrying `Accept: text/markdown` for an
+ *      HTML page is served the `.md` twin that the `agent-readiness` Docusaurus
+ *      plugin writes at build time, and every negotiable response advertises
+ *      `Vary: Accept`.
  *
  *   2. JSON error responses. A 4xx/5xx for a client that prefers JSON gets a
  *      structured body with a code, a message and a resolution hint instead of
@@ -36,7 +37,8 @@ export function parseAccept(header) {
 			const q = params.map((p) => /^\s*q=([0-9.]+)\s*$/i.exec(p)).find(Boolean);
 			return {
 				type: type.trim().toLowerCase(),
-				// Ties keep source order, which is what the RFC recommends.
+				// On a tie we keep the order the client sent; RFC 9110 leaves the
+				// representation choice to the server.
 				q: q ? Number.parseFloat(q[1]) : 1,
 				index,
 			};
@@ -63,6 +65,7 @@ export function markdownType(header) {
 export function prefersJson(header) {
 	for (const type of parseAccept(header)) {
 		if (type === 'application/json') return true;
+		if (MARKDOWN_TYPES.includes(type)) return false;
 		if (type === 'text/html' || type === 'application/xhtml+xml') return false;
 	}
 	return false;
@@ -131,7 +134,8 @@ export function jsonError(status, url, origin) {
 		const value = origin?.headers.get(name);
 		if (value) headers.set(name, value);
 	}
-	// Same URL, different body per Accept: caches must key on it.
+	// Same URL, different body per Accept. Vary-aware caches can key on it;
+	// deployments must configure their edge cache accordingly (see README.md).
 	mergeVary(headers, 'Accept', 'Accept-Encoding');
 	return new Response(`${JSON.stringify(body, null, 2)}\n`, {
 		status,
@@ -150,8 +154,8 @@ No page exists at this address.
 - [Sitemap](https://uppy.io/sitemap.xml) — every URL on this site
 - [Quick start](https://uppy.io/docs/quick-start.md)
 
-Every documentation page is available as Markdown by appending \`.md\` to its
-URL, for example \`/docs/quick-start.md\`.
+For a Markdown twin, replace the HTML URL’s trailing slash with \`.md\`, for
+example \`/docs/quick-start/\` → \`/docs/quick-start.md\`.
 `;
 
 export function markdownError(status, type) {
@@ -167,8 +171,8 @@ export default {
 		const accept = request.headers.get('accept');
 		const url = new URL(request.url);
 
-		// Negotiation only ever applies to reads; anything else passes through
-		// untouched so methods and conditional semantics are preserved.
+		// Markdown twin lookup only applies to reads, preserving method and
+		// conditional semantics. Structured JSON errors can apply to any method.
 		const negotiable =
 			(request.method === 'GET' || request.method === 'HEAD') &&
 			!PASSTHROUGH.test(url.pathname);
@@ -220,8 +224,8 @@ export default {
 
 		if (!negotiable) return response;
 
-		// Advertise negotiation on every negotiable response, so a cache never
-		// serves one variant to a client that asked for the other.
+		// Advertise negotiation on every negotiable response. The edge must either
+		// honor Vary: Accept or leave these responses uncached (see README.md).
 		const headers = new Headers(response.headers);
 		mergeVary(headers, 'Accept', 'Accept-Encoding');
 		return new Response(response.body, {

@@ -5,13 +5,9 @@ import Link from '@docusaurus/Link';
 import type { Props } from '@theme/NotFound/Content';
 import Heading from '@theme/Heading';
 
-/*
- * eslint-disable @docusaurus/no-html-links --
- * The links to /llms.txt, /llms-full.txt, /sitemap.xml and the .md twins are
- * static files, not routes. `<Link>` appends this site's configured trailing
- * slash and turns them into /llms.txt/, which 404s.
- */
-/* eslint-disable @docusaurus/no-html-links */
+// These are static files, not routes; `<Link>` would append the configured
+// trailing slash and turn /llms.txt into /llms.txt/, which 404s.
+/* eslint-disable @docusaurus/no-html-links -- Static-file URLs must preserve their exact path. */
 
 // Recovery links rendered into the 404 body so that crawlers and AI agents that
 // hit a dead URL can find their way back without executing JavaScript.
@@ -32,6 +28,11 @@ const machineReadableLinks = [
 		href: '/llms-full.txt',
 		label: '/llms-full.txt',
 		hint: 'Full docs as one file',
+	},
+	{
+		href: '/openapi.json',
+		label: '/openapi.json',
+		hint: 'OpenAPI description of the documentation',
 	},
 	{
 		href: '/sitemap.xml',
@@ -83,8 +84,8 @@ export default function NotFoundContent({ className }: Props): ReactNode {
 					</ul>
 
 					<p>
-						Every documentation page is also available as Markdown by appending{' '}
-						<code>.md</code> to its URL, for example{' '}
+						For a Markdown twin, replace the HTML URL’s trailing slash with{' '}
+						<code>.md</code>: <code>/docs/quick-start/</code> →{' '}
 						<a href="/docs/quick-start.md">/docs/quick-start.md</a>.
 					</p>
 					<p>

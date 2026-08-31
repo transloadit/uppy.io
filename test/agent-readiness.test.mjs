@@ -53,6 +53,14 @@ describe('content negotiation', () => {
 		assert.equal(markdownType('text/markdown;Q=0, text/html'), null);
 		assert.equal(markdownType('application/json'), null);
 		assert.equal(prefersJson('application/json'), true);
+		assert.equal(
+			prefersJson('text/markdown;q=1, application/json;q=0.5'),
+			false,
+		);
+		assert.equal(
+			prefersJson('application/json;q=1, text/markdown;q=0.5'),
+			true,
+		);
 		assert.equal(prefersJson('text/html,*/*;q=0.8'), false);
 	});
 
@@ -144,6 +152,14 @@ describe(
 			assert.match(llms, /^# Uppy\n/);
 			assert.match(llms, /^> .+/m); // summary blockquote
 			assert.match(llms, /^## Documentation$/m);
+			assert.match(llms, /\(https:\/\/uppy\.io\/openapi\.json\)/);
+			assert.doesNotMatch(llms, /\[[^\]]+\]\[[^\]]*\]/);
+			assert.doesNotMatch(llms, /<https?:\/\//);
+			assert.match(
+				llms,
+				/- \[Uppy documentation\]\(https:\/\/uppy\.io\/docs\.md\): Install Uppy, choose an uploader, add UI plugins, integrate frameworks, and configure Companion for remote sources\./,
+			);
+			assert.doesNotMatch(llms, /Uppy documentation.*application needs:/);
 			const links = [
 				...llms.matchAll(/\(https:\/\/uppy\.io(\/docs\S*?\.md)\)/g),
 			].map(([, route]) => route);
@@ -179,9 +195,20 @@ describe(
 					`${twin} starts with an MDX statement`,
 				);
 				assert.match(body, /^# ./m, `${twin} has no H1`);
+				assert.doesNotMatch(
+					body,
+					/^ {4}> \*\*Caution:/m,
+					`${twin} renders its CDN warning as a code block`,
+				);
+				assert.doesNotMatch(
+					body,
+					/\.mdx(?:[?#][^)\s]*)?\)/,
+					`${twin} links to an undeployed MDX source`,
+				);
 			}
 			const qs = read('docs/quick-start.md');
 			assert.equal((qs.match(/^# Quick start$/gm) ?? []).length, 1);
+			assert.match(read('docs.md'), /Choose an uploader/);
 		});
 
 		test('no unresolved JSX remains outside code in any twin', () => {
@@ -189,11 +216,13 @@ describe(
 				const body = read(path.join('docs', twin))
 					.replace(/```[\s\S]*?```/g, '')
 					.replace(/`[^`\n]*`/g, '');
-				// Generic type prose such as Array<Object> is fine; JSX tags with
-				// attributes or self-closing syntax are not.
-				const jsx = (
-					body.match(/<[A-Z][A-Za-z]*(\s[^<>]*)?\/?>(?![A-Za-z]*>)/g) ?? []
-				).filter((t) => /[\s/]>$|\/>$/.test(t));
+				const knownTags =
+					body.match(
+						/<\/?(?:Tabs|TabItem|UppyCdnExample|QuickStartLinks|Link)\b[^>]*>/g,
+					) ?? [];
+				const selfClosingTags =
+					body.match(/<[A-Z][A-Za-z]*(?:\s[^<>]*?)?\/>/g) ?? [];
+				const jsx = [...knownTags, ...selfClosingTags];
 				assert.deepEqual(jsx, [], `${twin} has unresolved JSX: ${jsx}`);
 			}
 		});
@@ -202,7 +231,17 @@ describe(
 			// Partials (the adversarial review's High finding), tabs, the CDN
 			// example, quick-start links -- and code examples must survive.
 			assert.match(read('docs/react.md'), /useDropzone/);
-			assert.match(read('docs/dropbox.md'), /companionUrl/);
+			const dropbox = read('docs/dropbox.md');
+			assert.match(dropbox, /companionUrl/);
+			assert.ok(
+				dropbox.includes('new RegExp(`^${value}$`);'),
+				'partial replacement changed JavaScript replacement tokens',
+			);
+			assert.equal(
+				(dropbox.match(/^## API$/gm) ?? []).length,
+				1,
+				'partial replacement duplicated the surrounding page',
+			);
 			const tus = read('docs/tus.md');
 			assert.match(tus, /^\s*\*\*NPM\*\*$/m);
 			assert.match(
@@ -214,11 +253,15 @@ describe(
 				/- \[I want a full featured, extendable UI\]\(\/docs\/dashboard\)/,
 			);
 			const react = read('docs/react.md');
-			assert.match(react, /Interactive content omitted from the Markdown/);
+			assert.match(react, /A rendered component is omitted from the Markdown/);
 			assert.ok(react.includes('`<Dashboard />`'), 'inline code span mangled');
 			assert.match(
 				read('docs/angular.md'),
 				/```typescript[\s\S]*?^import \{ NgModule \}/m,
+			);
+			assert.match(
+				read('docs/google-drive-picker.md'),
+				/\[Google Photos Picker\]\(\/docs\/google-photos-picker\.md\)/,
 			);
 		});
 
@@ -226,15 +269,26 @@ describe(
 			const spec = JSON.parse(read('openapi.json'));
 			assert.equal(spec.openapi, '3.1.0');
 			assert.equal(spec.servers[0].url, 'https://uppy.io');
+			assert.equal(spec.info.license, undefined);
 			for (const p of [
-				'/docs/{slug}',
+				'/docs/{slug}/',
 				'/docs/{slug}.md',
 				'/docs/',
 				'/docs.md',
 				'/llms.txt',
+				'/openapi.json',
 				'/sitemap.xml',
 			]) {
 				assert.ok(spec.paths[p]?.get, `spec is missing GET ${p}`);
+			}
+			assert.ok(
+				fs.existsSync(path.join(buildDir, 'docs', 'index.html')) &&
+					fs.existsSync(path.join(buildDir, 'docs.md')),
+				'OpenAPI root documentation paths do not exist in the build',
+			);
+			for (const route of Object.keys(spec.paths)) {
+				if (!route.startsWith('/docs/') || route.endsWith('.md')) continue;
+				assert.ok(route.endsWith('/'), `HTML docs path lacks slash: ${route}`);
 			}
 			// Every enum slug must be single-segment and actually built.
 			const slugs = spec.paths['/docs/{slug}.md'].get.parameters[0].schema.enum;
@@ -263,7 +317,12 @@ describe(
 
 		test('the 404 page gives agents somewhere to go', () => {
 			const html = read('404.html');
-			for (const target of ['/llms.txt', '/sitemap.xml', '/docs/quick-start']) {
+			for (const target of [
+				'/llms.txt',
+				'/openapi.json',
+				'/sitemap.xml',
+				'/docs/quick-start',
+			]) {
 				assert.ok(html.includes(target), `404 page should link to ${target}`);
 			}
 		});
@@ -405,6 +464,17 @@ describe('worker request handling', () => {
 		assert.equal(json.status, 404);
 		assert.equal((await json.json()).error.code, 'not_found');
 
+		const mixedMarkdown = await call(
+			'/does-not-exist/',
+			'text/markdown;q=1, application/json;q=0.5',
+		);
+		assert.match(mixedMarkdown.headers.get('content-type'), /text\/markdown/);
+		const mixedJson = await call(
+			'/does-not-exist/',
+			'application/json;q=1, text/markdown;q=0.5',
+		);
+		assert.match(mixedJson.headers.get('content-type'), /application\/json/);
+
 		// Machine-readable paths must not bypass error negotiation.
 		const asset = await call('/missing.json', 'application/json');
 		assert.match(asset.headers.get('content-type'), /application\/json/);
@@ -425,10 +495,16 @@ describe('worker request handling', () => {
 		assert.equal(bare.status, 304);
 	});
 
-	test('non-GET methods and assets pass through untouched', async () => {
+	test('non-GET success responses and assets pass through untouched', async () => {
 		const post = await call('/docs/quick-start/', 'text/markdown', 'POST');
 		assert.match(post.headers.get('content-type'), /text\/html/);
 		const asset = await call('/img/logo.svg', 'text/markdown');
 		assert.equal(asset.headers.get('content-type'), 'image/svg+xml');
+	});
+
+	test('non-GET errors are structured for clients that prefer JSON', async () => {
+		const post = await call('/does-not-exist/', 'application/json', 'POST');
+		assert.equal(post.status, 404);
+		assert.equal((await post.json()).error.code, 'not_found');
 	});
 });
