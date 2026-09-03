@@ -234,7 +234,7 @@ uppy.use(AwsS3, {
 			body: JSON.stringify(request),
 		});
 		if (!response.ok) throw new Error('Failed to sign request');
-		return response.json(); // { url }
+		return response.json(); // { url }, or { url, key } (see below)
 	},
 });
 ```
@@ -251,6 +251,28 @@ type PresignableRequest = {
 	expiresIn?: number;
 };
 ```
+
+The object key is now generated on the client (via `generateObjectKey`, by
+default `${crypto.randomUUID()}-${file.name}`). In 5.x the server's key was
+authoritative: `getUploadParameters` returned it in `fields.key`, and
+`createMultipartUpload` returned it directly. In 6.x, if your server stores the
+object under a different key, it must tell Uppy. Return that key as `key` next
+to `url` in the response to the request that creates the upload (available from
+`@uppy/aws-s3` 6.1.0). If the server uses the key Uppy sent, leave `key` out.
+Change the key only on that request: every later request carries an `uploadId`
+and must be signed for exactly the key it arrives with, which was fixed when the
+upload was created.
+
+If your server changes the key but does not return it, a single-part upload
+still succeeds, but `upload-success` reports a key that does not exist in the
+bucket. A multipart upload only works if your server turns the same input into
+the same key on every request, because Uppy keeps passing the key it generated
+to `signRequest`. A server that generates a unique key at create time fails at
+the first part with `NoSuchUpload`. The
+[Node.js](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/routes/presign.js)
+and
+[PHP](https://github.com/transloadit/uppy/blob/main/examples/aws-php/s3-sign.php)
+signer examples show how to return the key correctly.
 
 This mode needs no `s3Endpoint`: the presigned URLs you return are absolute.
 
