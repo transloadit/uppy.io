@@ -253,7 +253,7 @@ type PresignableRequest = {
 ```
 
 The object key is now generated on the client (via `generateObjectKey`, by
-default `${crypto.randomUUID()}-${file.name}`). In 5.x the server's key was
+default `${crypto.randomUUID()}-${file.name}`). In 5.x the server’s key was
 authoritative: `getUploadParameters` returned it in `fields.key`, and
 `createMultipartUpload` returned it directly. In 6.x, if your server stores the
 object under a different key, it must tell Uppy. Return that key as `key` next
