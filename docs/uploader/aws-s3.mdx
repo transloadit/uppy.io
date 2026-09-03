@@ -120,7 +120,8 @@ new Uppy().use(Dashboard, { inline: true, target: 'body' }).use(AwsS3, {
 			body: JSON.stringify({ method, key, uploadId, partNumber }),
 		});
 		if (!response.ok) throw new Error('Failed to sign S3 request');
-		// The server responds with `{ "url": "https://…" }`
+		// The server responds with `{ "url": "https://…" }`,
+		// optionally with a `key` if it stored the object elsewhere
 		return response.json();
 	},
 });
@@ -277,6 +278,9 @@ uppy.use(AwsS3, {
 });
 ```
 
+The key generated here is a proposal. With [`signRequest`](#signrequestrequest),
+your server can store the object under a different key by returning it as `key`.
+
 Not used with [`companionEndpoint`](#companionendpoint): Companion generates the
 key.
 
@@ -293,8 +297,12 @@ It receives an object with:
 - `uploadId`: `string`, only present for multipart operations.
 - `partNumber`: `number`, only present when uploading a part.
 
-It must return a promise for an object with a single `url` key holding the
-presigned URL.
+It must return a promise for an object with:
+
+- `url`: `string`, the presigned URL.
+- `key`: `string`, optional. The key your server stored the object under. Uppy
+  uses it for the rest of the upload and reports it in `upload-success`. Leave
+  it out if the server used the key Uppy sent.
 
 These are the operations your endpoint has to sign:
 
@@ -309,6 +317,18 @@ These are the operations your endpoint has to sign:
 
 If [`shouldUseMultipart`](#shouldusemultipartfile) is `false` for every file,
 the first row is the only one you need.
+
+To generate the object key on your server instead, change it only on the request
+that creates the object: the single-part `PUT`, or the `POST` without an
+`uploadId`. Return the key you used as `key` there. Every request that carries
+an `uploadId` must be signed for exactly the key it arrives with. That key was
+fixed when the upload was created, and a `key` returned on those requests is
+ignored. A server that derives the key again on every request prefixes a key
+that is already prefixed, and S3 answers with `NoSuchUpload`. The
+[Node.js](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/routes/presign.js)
+and
+[PHP](https://github.com/transloadit/uppy/blob/main/examples/aws-php/s3-sign.php)
+signer examples show how to do this correctly.
 
 #### `getCredentials()`
 
