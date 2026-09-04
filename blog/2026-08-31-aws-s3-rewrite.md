@@ -16,7 +16,7 @@ touch it.
 So we rewrote it.
 
 The new plugin closes
-[**13 open issues**](https://github.com/transloadit/uppy/issues/6229) and
+[**14 open issues**](https://github.com/transloadit/uppy/issues/6229) and
 replaces 11 overlapping callbacks (which conflated signing with S3 protocol
 details) with 3 mutually exclusive signing modes, plus a few orthogonal config
 options. Companion is now optional: you can talk directly to any S3-compatible
