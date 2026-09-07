@@ -16,7 +16,7 @@ touch it.
 So we rewrote it.
 
 The new plugin closes
-[**13 open issues**](https://github.com/transloadit/uppy/issues/6055) and
+[**14 open issues**](https://github.com/transloadit/uppy/issues/6229) and
 replaces 11 overlapping callbacks (which conflated signing with S3 protocol
 details) with 3 mutually exclusive signing modes, plus a few orthogonal config
 options. Companion is now optional: you can talk directly to any S3-compatible
@@ -30,7 +30,7 @@ The old plugin was the product of years of incremental additions. What started
 as a multipart uploader grew to handle single-part PUT uploads, presigned POST
 uploads, client-side SigV4 signing, Companion-backed signing, and more. All of
 it lived in one class with shared state and interleaved code paths. The
-[tracking issue](https://github.com/transloadit/uppy/issues/6055) sums it up:
+[original proposal](https://github.com/transloadit/uppy/issues/6055) sums it up:
 the plugin had become completely unwieldy, accumulating the highest number of
 [reported problems](https://github.com/transloadit/uppy/issues?q=is%3Aissue%20state%3Aopen%20aws%20s3).
 
