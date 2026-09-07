@@ -97,7 +97,9 @@ to supply the real region one way or the other.
 ### `signRequest` : bring your own signer
 
 Your backend signs each request and returns a presigned URL. No other options
-needed; the upload location is derived from the presigned URL itself.
+needed; the presigned URL determines where the bytes go. If your backend chooses
+a different key, it returns it as `key`, and Uppy uses that key for the rest of
+the upload.
 
 ```js
 new Uppy().use(AwsS3, {
@@ -106,7 +108,7 @@ new Uppy().use(AwsS3, {
 			method: 'POST',
 			body: JSON.stringify({ method, key, uploadId, partNumber }),
 		});
-		return res.json(); // { url: 'https://presigned-url.example' }
+		return res.json(); // { url: 'https://presigned-url.example' }, key is optional
 	},
 });
 ```
@@ -257,7 +259,7 @@ new Uppy().use(AwsS3, {
 			method: 'POST',
 			body: JSON.stringify({ method, key, uploadId, partNumber }),
 		});
-		return res.json(); // { url }
+		return res.json(); // { url } or { url, key }
 	},
 });
 ```
@@ -266,6 +268,16 @@ Your `/api/s3/sign` endpoint receives `{ method, key, uploadId, partNumber }`
 and returns a presigned URL for that operation. This consolidation means one
 server route instead of six, with consistent flow and logging in one place. The
 plugin owns the upload flow and backend is only used for signing.
+
+If your backend generates its own object keys, see the
+[`signRequest` docs](/docs/aws-s3/#signrequestrequest) and the
+[migration guide](/docs/guides/migration-guides/#custom-signing-six-callbacks-become-signrequest)
+for what changed from v5, why, and how to implement the signer correctly. See
+also the
+[Node.js](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/routes/presign.js)
+and
+[PHP](https://github.com/transloadit/uppy/blob/main/examples/aws-php/s3-sign.php)
+signer examples.
 
 ### Breaking changes
 
