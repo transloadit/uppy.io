@@ -323,7 +323,7 @@ needed, but recovery snapshots written by 5.x (in localStorage) are not read by
 
 - Companion runs on Express 5. Mounting Companion as middleware in an Express 4
   app no longer works: upgrade your app to Express 5 first.
-- The minimum Node.js version is `^20.19.3 || >=22.0.0`.
+- The minimum Node.js version is 22 (was 20).
 - Companion is ported to TypeScript. The port itself has no intended breaking
   changes, but watch for unexpected breakage.
 
