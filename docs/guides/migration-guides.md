@@ -89,7 +89,7 @@ The move was not wholesale. `isTouchDevice` was deleted outright, not moved to
 
 ```js
 const isTouchDevice = () =>
-	'ontouchstart' in window || 'maxTouchPoints' in navigator;
+	'ontouchstart' in window || navigator.maxTouchPoints > 0;
 ```
 
 #### The `uppy` meta-package: no change
@@ -323,7 +323,7 @@ needed, but recovery snapshots written by 5.x (in localStorage) are not read by
 
 - Companion runs on Express 5. Mounting Companion as middleware in an Express 4
   app no longer works: upgrade your app to Express 5 first.
-- The minimum Node.js version is `^20.19.3 || >=22.0.0`.
+- The minimum Node.js version is 22 (was 20).
 - Companion is ported to TypeScript. The port itself has no intended breaking
   changes, but watch for unexpected breakage.
 
@@ -1352,8 +1352,7 @@ uppy.on('dashboard:file-edit-start', (file) => {
 See the Uppy 2.0.0 announcement post about the batch
 [pre-signing URLs change](/blog/2021/08/2.0/#batch-pre-signing-urls-for-aws-s3-multipart).
 
-`prepareUploadPart` has been renamed to `signPart`. See the documentation link
-on how to use this function.
+`prepareUploadPart` has been renamed to `signPart`.
 
 ### Removed the `.run` method from [`@uppy/core`][core]
 
