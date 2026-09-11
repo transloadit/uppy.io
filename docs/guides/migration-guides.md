@@ -234,7 +234,7 @@ uppy.use(AwsS3, {
 			body: JSON.stringify(request),
 		});
 		if (!response.ok) throw new Error('Failed to sign request');
-		return response.json(); // { url }
+		return response.json(); // { url }, or { url, key } (see below)
 	},
 });
 ```
@@ -251,6 +251,28 @@ type PresignableRequest = {
 	expiresIn?: number;
 };
 ```
+
+The object key is now generated on the client (via `generateObjectKey`, by
+default `${crypto.randomUUID()}-${file.name}`). In 5.x the server’s key was
+authoritative: `getUploadParameters` returned it in `fields.key`, and
+`createMultipartUpload` returned it directly. In 6.x, if your server stores the
+object under a different key, it must tell Uppy. Return that key as `key` next
+to `url` in the response to the request that creates the upload (available from
+`@uppy/aws-s3` 6.1.0). If the server uses the key Uppy sent, leave `key` out.
+Change the key only on that request: every later request carries an `uploadId`
+and must be signed for exactly the key it arrives with, which was fixed when the
+upload was created.
+
+If your server changes the key but does not return it, a single-part upload
+still succeeds, but `upload-success` reports a key that does not exist in the
+bucket. A multipart upload only works if your server turns the same input into
+the same key on every request, because Uppy keeps passing the key it generated
+to `signRequest`. A server that generates a unique key at create time fails at
+the first part with `NoSuchUpload`. The
+[Node.js](https://github.com/transloadit/uppy/blob/main/examples/aws-nodejs/routes/presign.js)
+and
+[PHP](https://github.com/transloadit/uppy/blob/main/examples/aws-php/s3-sign.php)
+signer examples show how to return the key correctly.
 
 This mode needs no `s3Endpoint`: the presigned URLs you return are absolute.
 
@@ -323,7 +345,7 @@ needed, but recovery snapshots written by 5.x (in localStorage) are not read by
 
 - Companion runs on Express 5. Mounting Companion as middleware in an Express 4
   app no longer works: upgrade your app to Express 5 first.
-- The minimum Node.js version is 22 (was 20).
+- The minimum Node.js version is `^20.19.3 || >=22.0.0`.
 - Companion is ported to TypeScript. The port itself has no intended breaking
   changes, but watch for unexpected breakage.
 
@@ -334,11 +356,13 @@ needed, but recovery snapshots written by 5.x (in localStorage) are not read by
   match.
 - Backwards compat token decryption removed: old Uppy auth tokens (created
   before
-  [uppy%404.16.0](https://github.com/transloadit/uppy/releases/tag/uppy%404.16.0)
-  06d9a7c689e5123d41b38191074eb8bbd4ff5325) will become invalid and users who
-  have these old toknes will have to re-authenticate.
+  [`uppy@4.16.0`](https://github.com/transloadit/uppy/releases/tag/uppy%404.16.0),
+  commit
+  [`06d9a7c`](https://github.com/transloadit/uppy/commit/06d9a7c689e5123d41b38191074eb8bbd4ff5325))
+  will become invalid, and users who have these old tokens will have to
+  re-authenticate.
 - Removed `token` param from `Provider` class methods: `list()`, `download()`,
-  `logout()`, `thumbnail()`. Please use: `providerUserSession`.`accessToken`
+  `logout()`, `thumbnail()`. Please use `providerUserSession.accessToken`
   instead.
 
 ## Migrate from Uppy 4.x to 5.x
