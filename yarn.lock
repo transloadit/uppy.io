@@ -4184,12 +4184,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/aws-s3@npm:6.0.0":
-  version: 6.0.0
-  resolution: "@uppy/aws-s3@npm:6.0.0"
+"@uppy/aws-s3@npm:6.1.0":
+  version: 6.1.0
+  resolution: "@uppy/aws-s3@npm:6.1.0"
   peerDependencies:
-    "@uppy/core": ^6.0.0
-  checksum: 10/0f4b05ba110f1dbc451259e553ebf97c700cb937b74d58917a1dbf3ab320db132cc448c51677eedb33b5f9b2f4d097ec58df7e6258b3f78cddbfcf6c9a688d1e
+    "@uppy/core": ^6.0.1
+  checksum: 10/83a2839461a2b9405be7ca11a34d8228307d22cecc6061e0080b9e7fd020f458c5fd30d405ed360b0c9681bccf43934c77aea92eaf116703a5b52097e796cd37
   languageName: node
   linkType: hard
 
@@ -4241,9 +4241,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:6.0.0, @uppy/core@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@uppy/core@npm:6.0.0"
+"@uppy/core@npm:6.0.1, @uppy/core@npm:^6.0.0":
+  version: 6.0.1
+  resolution: "@uppy/core@npm:6.0.1"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^2.0.0"
     classnames: "npm:^2.5.1"
@@ -4254,7 +4254,7 @@ __metadata:
     p-queue: "npm:^9.3.3"
     p-retry: "npm:^6.1.0"
     preact: "npm:^10.29.2"
-  checksum: 10/95700a56e0962bcdc3a4468cc4fda9feaf388946da011e134bf910e56312859de52193d6e40b6e8784019045500f7bc79d0af979c7ff3d1172c598978ecd0d01
+  checksum: 10/a4a17e071f543845cba65f558cd3d2d99f18682a9632dd3a1c37948af8adbbadea87a1408babc9cd8bd791aba7870836359902dacc4eb44e09892c39b5833a6b
   languageName: node
   linkType: hard
 
@@ -11644,9 +11644,9 @@ __metadata:
   linkType: hard
 
 "p-timeout@npm:^7.0.0":
-  version: 7.0.1
-  resolution: "p-timeout@npm:7.0.1"
-  checksum: 10/1d65827a07fd10eae5bc1fa493ef5c40522acda21cbbb04131cdb0f63f703c91e5fac2701431e28e308992284a86807d7138dbc2be694e2b8342bee20be652f6
+  version: 7.0.2
+  resolution: "p-timeout@npm:7.0.2"
+  checksum: 10/bff40b953f049addc1748cad5d3614a653a1f3b26b20fc7c6acb8d0d64594569769447d6942f52e139453c205739a7206c5efa66e5ec5d4377907aefda54b481
   languageName: node
   linkType: hard
 
@@ -15723,14 +15723,14 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 6.0.0
-  resolution: "uppy@npm:6.0.0"
+  version: 6.0.1
+  resolution: "uppy@npm:6.0.1"
   dependencies:
     "@uppy/audio": "npm:4.0.0"
-    "@uppy/aws-s3": "npm:6.0.0"
+    "@uppy/aws-s3": "npm:6.1.0"
     "@uppy/box": "npm:5.0.0"
     "@uppy/compressor": "npm:4.0.0"
-    "@uppy/core": "npm:6.0.0"
+    "@uppy/core": "npm:6.0.1"
     "@uppy/dashboard": "npm:6.0.0"
     "@uppy/drag-drop": "npm:6.0.0"
     "@uppy/drop-target": "npm:5.0.0"
@@ -15757,7 +15757,7 @@ __metadata:
     "@uppy/webdav": "npm:2.0.0"
     "@uppy/xhr-upload": "npm:6.0.0"
     "@uppy/zoom": "npm:5.0.0"
-  checksum: 10/211bc014986ca0f3c4f40561a78b962c7e03063ced9a6503bb7b7d22fb3bf85ec213da2bedd322c6af5512f5656d3a168fd9574d30c81807a860303494d81f41
+  checksum: 10/f811bb941ca61e90b35950d07f4de817bd3c3b56d6bbf2f5ab3bc7d326a53843b71c5722692b074b69b040ec151f82f3d9a9edf49392fa45604a1d896a907520
   languageName: node
   linkType: hard
 
