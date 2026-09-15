@@ -303,12 +303,13 @@ It must return a promise for an object with:
 - `key`: `string`, optional. The key your server stored the object under. Uppy
   uses it for the rest of the upload and reports it in `upload-success`. Leave
   it out if the server used the key Uppy sent.
-- `headers`: `object`, optional. Headers the URL was signed with, such as
-  `Content-Disposition`. Uppy sends them with the request. A `Content-Type` here
-  replaces the one Uppy sets from the file’s type. Leave out headers the browser
-  sets itself (`Host`, `Content-Length`): the browser ignores them. Every header
-  you return has to be in your bucket’s CORS `AllowedHeaders`. Available from
-  `@uppy/aws-s3` 6.2.0.
+- `headers`: `object`, optional. The headers this URL was signed with: every
+  name in its `X-Amz-SignedHeaders` except `host`, with the values you signed.
+  Uppy sends them with the request. A `Content-Type` here replaces the one Uppy
+  sets from the file’s type. `host` is always signed, but the browser sets it,
+  so leave it out; the same goes for `Content-Length`. Each header must also be
+  in your bucket’s CORS `AllowedHeaders` (see
+  [Bucket and CORS setup](#bucket-and-cors-setup)).
 
 These are the operations your endpoint has to sign:
 
@@ -335,6 +336,12 @@ that is already prefixed, and S3 answers with `NoSuchUpload`. The
 and
 [PHP](https://github.com/transloadit/uppy/blob/main/examples/aws-php/s3-sign.php)
 signer examples show how to do this correctly.
+
+The same goes for `headers`: return only what that request was signed with.
+`Content-Disposition` and `Content-Type` belong on the request that creates the
+object. Returning them on every request sends them where they were not signed,
+and a `Content-Type` on the `POST` that completes a multipart upload replaces
+the `application/xml` Uppy needs there.
 
 #### `getCredentials()`
 
@@ -475,7 +482,7 @@ the browser needs to read the `ETag` of every part it uploads. `DELETE` is used
 to abort a multipart upload when the user cancels one, and `GET` to list the
 parts of an upload that is being resumed.
 
-`AllowedHeaders` has to list every header the browser sends. That is
+`AllowedHeaders` has to list every header Uppy sets on the request. That is
 `content-type`, plus any header your [`signRequest`](#signrequestrequest)
 returns, such as `content-disposition`. A header missing here fails the CORS
 preflight before the upload starts.

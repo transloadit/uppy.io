@@ -250,6 +250,12 @@ type PresignableRequest = {
 	partNumber?: number;
 	expiresIn?: number;
 };
+
+type PresignedResponse = {
+	url: string;
+	key?: string;
+	headers?: Record<string, string>;
+};
 ```
 
 The object key is now generated on the client (via `generateObjectKey`, by
@@ -263,10 +269,12 @@ Change the key only on that request: every later request carries an `uploadId`
 and must be signed for exactly the key it arrives with, which was fixed when the
 upload was created.
 
-Headers that `getUploadParameters` returned in `headers` go in `headers` next to
-`url` as well (available from `@uppy/aws-s3` 6.2.0). Uppy sends them with the
-request, so a URL signed with `Content-Disposition` or a specific `Content-Type`
-keeps working.
+`getUploadParameters` and `signPart` could also return `headers`. Return them
+the same way, next to `url`, and Uppy sends them with the request (available
+from `@uppy/aws-s3` 6.2.0). Include only the headers that URL was signed with,
+such as `Content-Disposition`. The 5.x advice to always return `content-type` no
+longer applies: Uppy sets it from the file’s type itself. Return it only if you
+signed it.
 
 If your server changes the key but does not return it, a single-part upload
 still succeeds, but `upload-success` reports a key that does not exist in the
