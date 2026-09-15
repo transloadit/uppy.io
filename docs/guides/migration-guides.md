@@ -234,7 +234,7 @@ uppy.use(AwsS3, {
 			body: JSON.stringify(request),
 		});
 		if (!response.ok) throw new Error('Failed to sign request');
-		return response.json(); // { url }, or { url, key } (see below)
+		return response.json(); // { url }, or { url, key, headers } (see below)
 	},
 });
 ```
@@ -250,6 +250,12 @@ type PresignableRequest = {
 	partNumber?: number;
 	expiresIn?: number;
 };
+
+type PresignedResponse = {
+	url: string;
+	key?: string;
+	headers?: Record<string, string>;
+};
 ```
 
 The object key is now generated on the client (via `generateObjectKey`, by
@@ -262,6 +268,13 @@ to `url` in the response to the request that creates the upload (available from
 Change the key only on that request: every later request carries an `uploadId`
 and must be signed for exactly the key it arrives with, which was fixed when the
 upload was created.
+
+`getUploadParameters` and `signPart` could also return `headers`. Return them
+the same way, next to `url`, and Uppy sends them with the request (available
+from `@uppy/aws-s3` 6.2.0). Include only the headers that URL was signed with,
+such as `Content-Disposition`. The 5.x advice to always return `content-type` no
+longer applies: Uppy sets it from the file’s type itself. Return it only if you
+signed it.
 
 If your server changes the key but does not return it, a single-part upload
 still succeeds, but `upload-success` reports a key that does not exist in the
