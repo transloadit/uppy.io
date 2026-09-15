@@ -303,6 +303,12 @@ It must return a promise for an object with:
 - `key`: `string`, optional. The key your server stored the object under. Uppy
   uses it for the rest of the upload and reports it in `upload-success`. Leave
   it out if the server used the key Uppy sent.
+- `headers`: `object`, optional. Headers the URL was signed with, such as
+  `Content-Disposition`. Uppy sends them with the request. A `Content-Type` here
+  replaces the one Uppy sets from the file’s type. Leave out headers the browser
+  sets itself (`Host`, `Content-Length`): the browser ignores them. Every header
+  you return has to be in your bucket’s CORS `AllowedHeaders`. Available from
+  `@uppy/aws-s3` 6.2.0.
 
 These are the operations your endpoint has to sign:
 
@@ -468,6 +474,11 @@ this rule.
 the browser needs to read the `ETag` of every part it uploads. `DELETE` is used
 to abort a multipart upload when the user cancels one, and `GET` to list the
 parts of an upload that is being resumed.
+
+`AllowedHeaders` has to list every header the browser sends. That is
+`content-type`, plus any header your [`signRequest`](#signrequestrequest)
+returns, such as `content-disposition`. A header missing here fails the CORS
+preflight before the upload starts.
 
 If you are using an IAM policy to allow access to the S3 bucket, the policy
 needs at least the `s3:PutObject`, `s3:ListMultipartUploadParts` (listing parts

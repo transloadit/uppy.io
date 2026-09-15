@@ -234,7 +234,7 @@ uppy.use(AwsS3, {
 			body: JSON.stringify(request),
 		});
 		if (!response.ok) throw new Error('Failed to sign request');
-		return response.json(); // { url }, or { url, key } (see below)
+		return response.json(); // { url }, or { url, key, headers } (see below)
 	},
 });
 ```
@@ -262,6 +262,11 @@ to `url` in the response to the request that creates the upload (available from
 Change the key only on that request: every later request carries an `uploadId`
 and must be signed for exactly the key it arrives with, which was fixed when the
 upload was created.
+
+Headers that `getUploadParameters` returned in `headers` go in `headers` next to
+`url` as well (available from `@uppy/aws-s3` 6.2.0). Uppy sends them with the
+request, so a URL signed with `Content-Disposition` or a specific `Content-Type`
+keeps working.
 
 If your server changes the key but does not return it, a single-part upload
 still succeeds, but `upload-success` reports a key that does not exist in the
