@@ -53,11 +53,24 @@ plan.
 :::tip
 
 Choosing Transloadit for your file services also comes with temporary
-credentials for all remote providers. This means you don’t have to waste time
-going through the approval process of every app to get started.
+credentials for most remote providers, so you can get started without going
+through each provider’s app approval process. Google Drive is the exception, see
+below.
 
 When you’re ready, we still expect you to add your own credentials to prevent
 rate limits across our customers.
+
+:::
+
+:::warning Google Drive needs your own Google OAuth app
+
+Transloadit’s shared Google OAuth app is blocked by Google, so the
+[Google Drive](/docs/google-drive) plugin does not work on hosted Companion with
+the default credentials. Users get a Google page that says “This app is
+blocked”. Register your own Google OAuth app and store it as a Transloadit
+credential as described in
+[Use with Transloadit](/docs/google-drive#use-with-transloadit), or use the
+[Google Drive Picker](/docs/google-drive-picker) plugin instead.
 
 :::
 
@@ -86,10 +99,11 @@ You may also hit rate limits, because the OAuth application is shared between
 everyone using Transloadit.
 
 To solve that, you can use your own OAuth keys with Transloadit’s hosted
-Companion servers by using Transloadit Template Credentials. [Create a Template
-Credential][template-credentials] on the Transloadit site. Select “Companion
-OAuth” for the service, and enter the key and secret for the provider you want
-to use. Then you can pass the name of the new credentials to that provider:
+Companion servers. [Create a credential][template-credentials] on the
+Transloadit site (the console calls them Third-party Credentials). Select
+“Companion OAuth” for the service, pick the provider, and enter the key and
+secret. Then pass the name of the credential to that provider plugin together
+with your Transloadit API key:
 
 ```js
 import { COMPANION_URL, COMPANION_ALLOWED_HOSTS } from '@uppy/transloadit';
@@ -1034,4 +1048,4 @@ automatically restart when files are changed.
 [zoom]: /docs/zoom
 [transloadit]: https://transloadit.com
 [template-credentials]:
-	https://transloadit.com/docs/#how-to-create-template-credentials
+	https://transloadit.com/docs/topics/template-credentials/

@@ -6,6 +6,7 @@ slug: /transloadit
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import UppyCdnExample from '/src/components/UppyCdnExample';
+import GoogleOwnCredentials from '../sources/companion-plugins/_google-own-credentials.mdx';
 
 # Transloadit
 
@@ -128,18 +129,20 @@ uppy.use(Dropbox, {
 });
 ```
 
-This will already work. Transloadit’s OAuth applications are used to
-authenticate your users by default. Your users will be asked to provide
+This already works for most providers. Transloadit’s OAuth applications are used
+to authenticate your users by default. Your users will be asked to provide
 Transloadit access to their files. Since your users are probably not aware of
 Transloadit, this may be confusing or decrease trust. You may also hit rate
 limits, because the OAuth application is shared between everyone using
 Transloadit.
 
-To solve that, you can use your own OAuth keys with Transloadit’s hosted
-Companion servers by using Transloadit Template Credentials. [Create a Template
-Credential][template-credentials] on the Transloadit site. Select “Companion
-OAuth” for the service, and enter the key and secret for the provider you want
-to use. Then you can pass the name of the new credentials to that provider:
+<GoogleOwnCredentials />
+
+To use your own OAuth keys with Transloadit’s hosted Companion servers, [create
+a credential][template-credentials] on the Transloadit site (the console calls
+them Third-party Credentials). Select “Companion OAuth” for the service, pick
+the provider, and enter the key and secret. Then pass the name of the credential
+to that provider plugin together with your Transloadit API key:
 
 ```js
 import { COMPANION_URL, COMPANION_ALLOWED_HOSTS } from '@uppy/transloadit';
@@ -703,6 +706,6 @@ manually cancels the upload any running assemblies will be cancelled.
 
 [assembly-status]: https://transloadit.com/docs/api/#assembly-status-response
 [template-credentials]:
-	https://transloadit.com/docs/#how-to-create-template-credentials
+	https://transloadit.com/docs/topics/template-credentials/
 [transloadit-services]: https://transloadit.com/services/
 [transloadit-concepts]: https://transloadit.com/docs/getting-started/concepts/
