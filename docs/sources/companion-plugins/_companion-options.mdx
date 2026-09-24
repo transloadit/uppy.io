@@ -59,7 +59,9 @@ app up to security vulnerabilities.
 
 Only applies to plugins that sign in through Companion (Google Drive, Dropbox,
 Box, OneDrive, …). The Google Drive Picker and Google Photos Picker ignore it;
-they authenticate with their own `clientId`, `apiKey` and `appId`.
+they authenticate directly with Google. Google Drive Picker uses its own
+`clientId`, `apiKey` and `appId`, while Google Photos Picker uses its own
+`clientId`.
 
 Use your own OAuth app with Transloadit-hosted Companion instead of
 Transloadit’s shared one (`Object`, default: `undefined`). It has two fields:
