@@ -18,6 +18,12 @@ DOM element, CSS selector, or plugin to place the drag and drop area into
 
 URL to a [Companion](/docs/companion) instance (`string`, default: `null`).
 
+For Transloadit-hosted Companion use the `COMPANION_URL` constant exported by
+`@uppy/transloadit`, which is `https://api2.transloadit.com/companion`. Do not
+use a regional hostname such as `api2-eu-west-1.transloadit.com`: the OAuth flow
+then starts on one host and returns to another, and login fails with “Cannot
+find state in session”.
+
 #### `companionHeaders`
 
 Custom headers that should be sent along to [Companion](/docs/companion) on
@@ -48,6 +54,31 @@ app up to security vulnerabilities.
 - Example vulnerability: `'https://www.example.com'` would allow an attacker
   with the domain `wwwxexample.com` to forge and inject a fraudulent token into
   Uppy.
+
+#### `companionKeysParams`
+
+Use your own OAuth app with Transloadit-hosted Companion instead of
+Transloadit’s shared one (`Object`, default: `undefined`). It has two fields:
+
+- `key`: your Transloadit API key.
+- `credentialsName`: the name of a “Companion OAuth” credential you created in
+  the Transloadit console, which holds the provider’s OAuth key and secret.
+
+```js
+companionKeysParams: {
+	key: 'YOUR_TRANSLOADIT_API_KEY',
+	credentialsName: 'google_drive_own',
+}
+```
+
+Before the login popup opens, the plugin sends these values to Companion to
+obtain a pre-auth token, and Companion fetches the OAuth key and secret from
+Transloadit when the flow starts. The values are also sent along with every
+later request in a `uppy-credentials-params` header. Companion does not validate
+the credential name up front, so a wrong name only fails when a user tries to
+sign in. On Transloadit-hosted Companion this option is required for Google
+Drive, see
+[Google Drive: Use with Transloadit](/docs/google-drive#use-with-transloadit).
 
 #### `companionCookiesRule`
 
