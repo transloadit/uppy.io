@@ -127,15 +127,24 @@ On the [Credentials page](https://transloadit.com/c/template-credentials/) of
 the Transloadit console, under **Third-party Credentials**, click **New
 Credential** and fill in:
 
-| Field                   | Value                                                                                                                                                                                                             |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Service                 | Companion OAuth                                                                                                                                                                                                   |
-| Name                    | 3 to 255 characters: letters, digits, dots, dashes or underscores, e.g. `google_drive_own`. You pass this to the plugin as `credentialsName`.                                                                     |
-| Provider Name           | Google Drive                                                                                                                                                                                                      |
-| Allowed Origins         | Optional, can be left empty.                                                                                                                                                                                      |
-| OAuth Key               | The Google client ID                                                                                                                                                                                              |
-| OAuth Secret            | The Google client secret                                                                                                                                                                                          |
-| Transloadit Gateway URL | `https://api2.transloadit.com`. The field is marked optional, but Companion currently rejects an empty value and login fails with “Could not fetch credentials”. This value gives the same redirect URI as above. |
+| Field                   | Value                                                                                                                                         |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Service                 | Companion OAuth                                                                                                                               |
+| Name                    | 3 to 255 characters: letters, digits, dots, dashes or underscores, e.g. `google_drive_own`. You pass this to the plugin as `credentialsName`. |
+| Provider Name           | Google Drive                                                                                                                                  |
+| Allowed Origins         | Optional, can be left empty.                                                                                                                  |
+| OAuth Key               | The Google client ID                                                                                                                          |
+| OAuth Secret            | The Google client secret                                                                                                                      |
+| Transloadit Gateway URL | Optional. Leave empty unless you run your own Transloadit Gateway (a proxy that white-labels the API endpoints).                              |
+
+:::note
+
+Companion 7.0.0 to 7.0.2 rejected an empty gateway URL and login failed with
+“Could not fetch credentials” (fixed in the next Companion release). If you
+self-host one of those versions, set the field to your Companion’s public base
+URL as a workaround.
+
+:::
 
 #### 3. Point the plugin at the credential
 
@@ -172,13 +181,13 @@ the app name from your
 
 #### Errors you can run into
 
-| What the user sees                                                                | Cause                                                                                                                                    |
-| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Google page “This app is blocked”                                                 | `companionKeysParams` is missing, so Companion fell back to Transloadit’s blocked app.                                                   |
-| Google page “Access blocked: … has not completed the Google verification process” | Your app is unverified and this Google account is not on its test user list.                                                             |
-| Companion page “Could not fetch credentials”                                      | Wrong `key` or `credentialsName`, or the Transloadit Gateway URL on the credential is empty.                                             |
-| Companion page “Cannot find state in session”                                     | `companionUrl` is not `https://api2.transloadit.com/companion`.                                                                          |
-| Requests fail with 401 right after switching credentials                          | The browser still has an auth token from the earlier login. Sign out in the plugin UI, which clears the stored token, and sign in again. |
+| What the user sees                                                                | Cause                                                                                                                                                                                                                                                           |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Google page “This app is blocked”                                                 | `companionKeysParams` is missing, so the login used Transloadit’s shared Google app, which some Google accounts (for example those with Advanced Protection) refuse.                                                                                            |
+| Google page “Access blocked: … has not completed the Google verification process” | Your app is unverified and this Google account is not on its test user list.                                                                                                                                                                                    |
+| Companion page “Could not fetch credentials”                                      | Wrong `key` or `credentialsName`: the credential could not be looked up in the workspace that `key` belongs to.                                                                                                                                                 |
+| Companion page “Cannot find state in session”                                     | `companionUrl` points at a regional hostname (for example `api2-eu-west-1.transloadit.com`) while the OAuth callback returns through the global `api2.transloadit.com`; the two can land in different regions, and the login session lives in only one of them. |
+| Requests fail with 401 right after switching credentials                          | The browser still has an auth token from the earlier login. Sign out in the plugin UI, which clears the stored token, and sign in again.                                                                                                                        |
 
 ### Use with self-hosted Companion
 
