@@ -3461,9 +3461,9 @@ __metadata:
   linkType: hard
 
 "@transloadit/types@npm:^4.3.1":
-  version: 4.4.0
-  resolution: "@transloadit/types@npm:4.4.0"
-  checksum: 10/c23a9647c219e20aeacf5aeaa4ad1086320fbea78d10b362afba43e0878e68e86bd5924a6a1e6a62cd468611c13b1ed0022e9d95e557c649616e16436f7dffcd
+  version: 4.5.0
+  resolution: "@transloadit/types@npm:4.5.0"
+  checksum: 10/770bc66e516fd18ee1285b942fef5e85ec36cbef151e3c458faecd0412e617995a2391e79fc9e35d16bbfe81187eb47cd5cbb765e20c667a47a9e4f582e53186
   languageName: node
   linkType: hard
 
@@ -4184,12 +4184,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/aws-s3@npm:6.1.0":
-  version: 6.1.0
-  resolution: "@uppy/aws-s3@npm:6.1.0"
+"@uppy/aws-s3@npm:6.2.0":
+  version: 6.2.0
+  resolution: "@uppy/aws-s3@npm:6.2.0"
   peerDependencies:
-    "@uppy/core": ^6.0.1
-  checksum: 10/83a2839461a2b9405be7ca11a34d8228307d22cecc6061e0080b9e7fd020f458c5fd30d405ed360b0c9681bccf43934c77aea92eaf116703a5b52097e796cd37
+    "@uppy/core": ^6.0.2
+  checksum: 10/8f331ff87fd101a5aa5b76e4cf013dbdd4b12a28ee508a6f0c8e77180bf4c833d34cea447c3593f5ad3775c26659574ba9d880a4b4388272bad2b9a2c943884e
   languageName: node
   linkType: hard
 
@@ -4241,20 +4241,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:6.0.1, @uppy/core@npm:^6.0.0":
-  version: 6.0.1
-  resolution: "@uppy/core@npm:6.0.1"
+"@uppy/core@npm:6.0.2, @uppy/core@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@uppy/core@npm:6.0.2"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^2.0.0"
     classnames: "npm:^2.5.1"
     lodash: "npm:^4.18.1"
     mime-match: "npm:^1.0.2"
     namespace-emitter: "npm:^2.0.1"
-    nanoid: "npm:^5.1.11"
+    nanoid: "npm:^6.0.1"
     p-queue: "npm:^9.3.3"
     p-retry: "npm:^6.1.0"
     preact: "npm:^10.29.2"
-  checksum: 10/a4a17e071f543845cba65f558cd3d2d99f18682a9632dd3a1c37948af8adbbadea87a1408babc9cd8bd791aba7870836359902dacc4eb44e09892c39b5833a6b
+  checksum: 10/7326ad6572441e800cf81e58563272810b38515995b5cd9a03814046edcf3a73ca1826ffc6f04886a7899e76fb514165cee0b89d6746ac49427919d6f323a631
   languageName: node
   linkType: hard
 
@@ -4396,12 +4396,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/locales@npm:5.2.0":
-  version: 5.2.0
-  resolution: "@uppy/locales@npm:5.2.0"
+"@uppy/locales@npm:5.2.1":
+  version: 5.2.1
+  resolution: "@uppy/locales@npm:5.2.1"
   dependencies:
-    "@uppy/core": "npm:^6.0.0"
-  checksum: 10/e552a2bdb205c8dc3204ecb6f21fe44077b103185060b13636ba451268a59150d3518d8b271cf1642c6684f244f0c08e742cc8111c808a304c762673be4bac59
+    "@uppy/core": "npm:^6.0.2"
+  checksum: 10/52cc41a00ba324d0e8f7cf5f9b2e5eda6eda002d1c4b94f57663a3d5eade27a50ec3aeefd3c7d5b11f5fc21bfd1bd566dc8487bee7313792a0842c2ad317ec39
   languageName: node
   linkType: hard
 
@@ -11136,6 +11136,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "nanoid@npm:6.0.1"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 10/e49582351f6fff22c275a58504950e923b74c611fc1eac9589a98e89506270d2d1e3b61ed6429df6e7529e54ff71d9f0c5fbb1c540aaee81ae33a523e88ca668
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -15723,14 +15732,14 @@ __metadata:
   linkType: soft
 
 "uppy@npm:latest":
-  version: 6.0.1
-  resolution: "uppy@npm:6.0.1"
+  version: 6.0.2
+  resolution: "uppy@npm:6.0.2"
   dependencies:
     "@uppy/audio": "npm:4.0.0"
-    "@uppy/aws-s3": "npm:6.1.0"
+    "@uppy/aws-s3": "npm:6.2.0"
     "@uppy/box": "npm:5.0.0"
     "@uppy/compressor": "npm:4.0.0"
-    "@uppy/core": "npm:6.0.1"
+    "@uppy/core": "npm:6.0.2"
     "@uppy/dashboard": "npm:6.0.0"
     "@uppy/drag-drop": "npm:6.0.0"
     "@uppy/drop-target": "npm:5.0.0"
@@ -15743,7 +15752,7 @@ __metadata:
     "@uppy/google-photos-picker": "npm:2.0.0"
     "@uppy/image-editor": "npm:5.0.0"
     "@uppy/image-generator": "npm:2.0.0"
-    "@uppy/locales": "npm:5.2.0"
+    "@uppy/locales": "npm:5.2.1"
     "@uppy/onedrive": "npm:6.0.0"
     "@uppy/remote-sources": "npm:4.0.0"
     "@uppy/screen-capture": "npm:6.0.0"
@@ -15757,7 +15766,7 @@ __metadata:
     "@uppy/webdav": "npm:2.0.0"
     "@uppy/xhr-upload": "npm:6.0.0"
     "@uppy/zoom": "npm:5.0.0"
-  checksum: 10/f811bb941ca61e90b35950d07f4de817bd3c3b56d6bbf2f5ab3bc7d326a53843b71c5722692b074b69b040ec151f82f3d9a9edf49392fa45604a1d896a907520
+  checksum: 10/ba471b655871b4b970ca615246ff0f0e7a10a6269d45573c384503d4eaeb70469f8282ca236735e308b65e9771c059d7e98c8cd8db92313df3ede8b38cd28b9d
   languageName: node
   linkType: hard
 
