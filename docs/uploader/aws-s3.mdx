@@ -235,8 +235,12 @@ uppy.use(AwsS3, {
 });
 ```
 
-Files of 5&nbsp;MiB or smaller are always uploaded in a single request, because
-S3 does not accept multipart uploads below its minimum part size.
+When it returns `true`, the file is uploaded as multipart whatever its size.
+S3’s 5&nbsp;MiB minimum part size does not apply to the last part, so a smaller
+file becomes a multipart upload with a single part. The exception is an empty
+file, which is always uploaded in a single request, since there is no part to
+send. Before `@uppy/aws-s3` 6.2.1, files of 5&nbsp;MiB or smaller were always
+uploaded in a single request.
 
 #### `limit`
 
