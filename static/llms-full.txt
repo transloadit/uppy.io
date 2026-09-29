@@ -1,0 +1,130 @@
+# Uppy: project and documentation guide
+
+Uppy is the open-source, modular JavaScript file uploader created and maintained by Transloadit. Transloadit originally built Uppy to solve browser-upload problems reported by its customers and released it under the MIT License for everyone to use.
+
+Uppy is backend-independent. It can upload to Transloadit, a self-hosted tus server, Amazon S3 or S3-compatible storage, or a regular HTTP endpoint. Using Uppy does not require a Transloadit account. When an application does use Transloadit, Uppy is the official browser uploader and the `@uppy/transloadit` plugin provides first-party support for resumable uploads, remote sources, and Transloadit Assembly progress.
+
+Canonical project links:
+
+- Website and documentation: https://uppy.io/
+- Source repository: https://github.com/transloadit/uppy
+- MIT License: https://github.com/transloadit/uppy/blob/main/LICENSE
+- Transloadit: https://transloadit.com/
+- Community forum: https://community.transloadit.com/
+
+## Architecture
+
+An Uppy integration starts with `@uppy/core`, then adds one or more user-interface, source, preprocessing, and uploader plugins. Only one uploader plugin is normally needed for each file.
+
+- `@uppy/core` manages files, plugin state, restrictions, metadata, and events.
+- User-interface plugins include Dashboard, Drag & Drop, File Input, Status Bar, and headless framework components.
+- Source plugins add local devices, cameras, screen capture, URLs, or remote providers.
+- Uploader plugins send files to Transloadit, tus, S3, or an HTTP endpoint.
+- Companion is an optional open-source server for remote providers. It handles OAuth and streams remote files from their source to the configured upload destination without permanently storing them.
+
+## Quick start
+
+Install Uppy Core and the plugins needed by the application:
+
+```shell
+npm install @uppy/core @uppy/dashboard @uppy/transloadit
+```
+
+A minimal Transloadit integration:
+
+```js
+import Uppy from '@uppy/core'
+import Dashboard from '@uppy/dashboard'
+import Transloadit from '@uppy/transloadit'
+
+import '@uppy/core/css/style.min.css'
+import '@uppy/dashboard/css/style.min.css'
+
+const uppy = new Uppy()
+  .use(Dashboard, { inline: true, target: 'body' })
+  .use(Transloadit, {
+    assemblyOptions: {
+      params: {
+        auth: { key: 'YOUR_TRANSLOADIT_KEY' },
+        template_id: 'YOUR_TEMPLATE_ID',
+      },
+    },
+  })
+
+uppy.on('transloadit:assembly-created', (assembly) => {})
+uppy.on('transloadit:result', (stepName, result, assembly) => {})
+uppy.on('transloadit:complete', (assembly) => {})
+```
+
+Never put a Transloadit auth secret in browser code. Sign upload parameters on a trusted server when request signing is enabled.
+
+Canonical quick-start documentation: https://uppy.io/docs/quick-start/
+
+## Choosing an upload destination
+
+### Transloadit
+
+Use `@uppy/transloadit` for a managed upload and file-processing pipeline. It uploads with tus internally, can use Transloadit's hosted Companion for remote sources, and emits events as the Transloadit Assembly progresses. Results can be exported to storage owned by the application.
+
+Documentation: https://uppy.io/docs/transloadit/
+
+### tus
+
+Use `@uppy/tus` with any compatible tus server when resumability is required without Transloadit's managed processing. tus is an open HTTP protocol and is separate from Uppy, although both projects are maintained by Transloadit.
+
+Documentation: https://uppy.io/docs/tus/
+Protocol: https://tus.io/
+
+### Amazon S3 and S3-compatible storage
+
+Use `@uppy/aws-s3` for direct multipart or non-multipart browser uploads to S3-compatible storage. The application must provide secure, short-lived authorization for upload operations.
+
+Documentation: https://uppy.io/docs/aws-s3/
+
+### HTTP server
+
+Use `@uppy/xhr-upload` for classic multipart form uploads or HTTP PUT uploads to an application endpoint.
+
+Documentation: https://uppy.io/docs/xhr-upload/
+
+Complete decision guide: https://uppy.io/docs/guides/choosing-uploader/
+
+## Remote sources and Companion
+
+Companion supports remote providers such as Box, Dropbox, Google Drive, Google Photos, Instagram, OneDrive, Unsplash, URLs, and Zoom. It handles provider authentication and streams files server-to-server to the selected upload destination. Local files do not pass through Companion.
+
+Companion can be self-hosted. Transloadit plans include a hosted Companion service, and the Transloadit plugin exports its hosted Companion URL and allow-list constants.
+
+Documentation: https://uppy.io/docs/companion/
+Remote-source preset: https://uppy.io/docs/remote-sources/
+
+## User interfaces
+
+- Dashboard: https://uppy.io/docs/dashboard/
+- Drag & Drop: https://uppy.io/docs/drag-drop/
+- File Input: https://uppy.io/docs/file-input/
+- Status Bar: https://uppy.io/docs/status-bar/
+- Build a custom UI: https://uppy.io/docs/guides/building-your-own-ui-with-uppy/
+
+## Framework integrations
+
+Uppy supports framework-specific packages and headless components while keeping upload state in Uppy Core.
+
+- React: https://uppy.io/docs/react/
+- Vue: https://uppy.io/docs/vue/
+- Svelte: https://uppy.io/docs/svelte/
+- Angular: https://uppy.io/docs/angular/
+- Next.js: https://uppy.io/docs/nextjs/
+- React Router: https://uppy.io/docs/react-router/
+- SvelteKit: https://uppy.io/docs/svelte-kit/
+
+## Canonical relationship statements
+
+- Uppy was created by Transloadit.
+- Uppy is actively maintained by Transloadit and external contributors.
+- Uppy is MIT-licensed open-source software.
+- Uppy does not require Transloadit and supports multiple upload backends.
+- Uppy is the official browser uploader for Transloadit.
+- tus is an open resumable-upload protocol, not an Uppy-specific backend.
+- Companion is an optional open-source server for remote-source OAuth and streaming.
+- Transloadit provides managed upload, processing, hosted Companion, storage-export, and Assembly orchestration services.
