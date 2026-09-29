@@ -303,11 +303,12 @@ It must return a promise for an object with:
 - `key`: `string`, optional. The key your server stored the object under. Uppy
   uses it for the rest of the upload and reports it in `upload-success`. Leave
   it out if the server used the key Uppy sent.
-- `headers`: `object`, optional. The headers this URL was signed with: every
-  name in its `X-Amz-SignedHeaders` except `host`, with the values you signed.
-  Uppy sends them with the request. A `Content-Type` here replaces the one Uppy
-  sets from the file’s type. `host` is always signed, but the browser sets it,
-  so leave it out; the same goes for `Content-Length`. Each header must also be
+- `headers`: `object`, optional. The headers this URL was signed with, from its
+  `X-Amz-SignedHeaders`, with the values you signed. Uppy sends them with the
+  request. A `Content-Type` here replaces the one Uppy sets from the file’s
+  type. Leave out `host` and `content-length`: the browser sends those itself.
+  Don’t sign headers the browser won’t let JavaScript set, such as `date`, since
+  a URL signed with one can’t be used from a browser. Each header must also be
   in your bucket’s CORS `AllowedHeaders` (see
   [Bucket and CORS setup](#bucket-and-cors-setup)).
 
