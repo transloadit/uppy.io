@@ -318,12 +318,22 @@ provider plugin at it by assigning the `COMPANION_URL` and
 plugin’s `companionUrl` and `companionAllowedHosts` options. See the [Companion
 configuration example][companion]. Local-device uploads do not need Companion.
 
+Google Drive is the one source that does not work out of the box: Google has
+blocked Transloadit’s shared OAuth app, so you must register your own and store
+it as a Transloadit credential. See [Google Drive: Use with
+Transloadit][google-drive-transloadit], or use the [Google Drive
+Picker][google-drive-picker] plugin, which uses a non-restricted scope and needs
+no Google verification (it still needs your own Google client ID, API key and
+app ID).
+
 Continue with the [complete plugin API][plugin-api], the [runnable Transloadit
 example][runnable-example], or the [Transloadit-side Uppy
 guide][transloadit-uppy].
 
 [first-app]: https://transloadit.com/docs/getting-started/my-first-app/
 [companion]: /docs/transloadit#use-with-companion
+[google-drive-transloadit]: /docs/google-drive#use-with-transloadit
+[google-drive-picker]: /docs/google-drive-picker
 [plugin-api]: /docs/transloadit
 [plugin-events]: /docs/transloadit#events
 [runnable-example]:

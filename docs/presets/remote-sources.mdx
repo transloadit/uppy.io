@@ -7,6 +7,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 import UppyCdnExample from '/src/components/UppyCdnExample';
+import GoogleOwnCredentials from '../sources/companion-plugins/_google-own-credentials.mdx';
 
 # Remote sources
 
@@ -93,14 +94,18 @@ uppy.use(RemoteSources, {
 });
 ```
 
+<GoogleOwnCredentials />
+
 You may also hit rate limits, because the OAuth application is shared between
 everyone using Transloadit.
 
-To solve that, you can use your own OAuth keys with Transloadit’s hosted
-Companion servers by using Transloadit Template Credentials. [Create a Template
-Credential][template-credentials] on the Transloadit site. Select “Companion
-OAuth” for the service, and enter the key and secret for the provider you want
-to use. Then you can pass the name of the new credentials to that provider:
+To use your own OAuth keys with Transloadit’s hosted Companion servers, [create
+a credential][template-credentials] on the Transloadit site (the console calls
+them Third-party Credentials). Select “Companion OAuth” for the service, pick
+the provider, and enter the key and secret. Then pass the name of the credential
+to the matching plugin, keyed by plugin ID, together with your Transloadit API
+key. The [Google Drive page](/docs/google-drive#use-with-transloadit) has the
+full setup for Google.
 
 ```js
 import { COMPANION_URL, COMPANION_ALLOWED_HOSTS } from '@uppy/transloadit';
@@ -110,8 +115,14 @@ uppy.use(RemoteSources, {
 	companionUrl: COMPANION_URL,
 	companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
 	companionKeysParams: {
-		GoogleDrive: { key: '...', credentialsName: '...' },
-		Dropbox: { key: '...', credentialsName: '...' },
+		GoogleDrive: {
+			key: 'YOUR_TRANSLOADIT_API_KEY',
+			credentialsName: 'google_drive_own',
+		},
+		Dropbox: {
+			key: 'YOUR_TRANSLOADIT_API_KEY',
+			credentialsName: 'dropbox_own',
+		},
 		// ...etc
 	},
 });
@@ -177,4 +188,4 @@ DOM element, CSS selector, or plugin to place the drag and drop area into
 [`request.credentials` value]:
 	https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials
 [template-credentials]:
-	https://transloadit.com/docs/#how-to-create-template-credentials
+	https://transloadit.com/docs/topics/template-credentials/
