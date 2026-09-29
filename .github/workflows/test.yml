@@ -32,3 +32,5 @@ jobs:
         run: corepack yarn install --immutable
       - name: Test build website
         run: corepack yarn build
+      - name: Verify agent-readiness output
+        run: corepack yarn test

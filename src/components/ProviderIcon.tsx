@@ -18,7 +18,6 @@ export default function ProviderIconDemo() {
 		{ id: 'audio', name: 'Audio' },
 		{ id: 'dropbox', name: 'Dropbox' },
 		{ id: 'facebook', name: 'Facebook' },
-		{ id: 'instagram', name: 'Instagram' },
 		{ id: 'onedrive', name: 'OneDrive' },
 		{ id: 'googlephotos', name: 'Google Photos' },
 		{ id: 'googledrive', name: 'Google Drive' },

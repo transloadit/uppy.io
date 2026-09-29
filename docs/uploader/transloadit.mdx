@@ -6,6 +6,7 @@ slug: /transloadit
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import UppyCdnExample from '/src/components/UppyCdnExample';
+import GoogleOwnCredentials from '../sources/companion-plugins/_google-own-credentials.mdx';
 
 # Transloadit
 
@@ -13,6 +14,14 @@ The `@uppy/transloadit` plugin can be used to upload files directly to
 [Transloadit](https://transloadit.com/) for all kinds of processing, such as
 transcoding video, resizing images, zipping/unzipping, [and much
 more][transloadit-services].
+
+:::tip Canonical framework guide
+
+Follow [Use Uppy with Transloadit](/docs/guides/uppy-transloadit) for complete,
+signed examples in JavaScript, React, Next.js, Vue, and Angular. Uppy owns the
+open-source upload experience; Transloadit owns the managed processing backend.
+
+:::
 
 ## When should I use it?
 
@@ -120,18 +129,20 @@ uppy.use(Dropbox, {
 });
 ```
 
-This will already work. Transloadit’s OAuth applications are used to
-authenticate your users by default. Your users will be asked to provide
+This already works for most providers. Transloadit’s OAuth applications are used
+to authenticate your users by default. Your users will be asked to provide
 Transloadit access to their files. Since your users are probably not aware of
 Transloadit, this may be confusing or decrease trust. You may also hit rate
 limits, because the OAuth application is shared between everyone using
 Transloadit.
 
-To solve that, you can use your own OAuth keys with Transloadit’s hosted
-Companion servers by using Transloadit Template Credentials. [Create a Template
-Credential][template-credentials] on the Transloadit site. Select “Companion
-OAuth” for the service, and enter the key and secret for the provider you want
-to use. Then you can pass the name of the new credentials to that provider:
+<GoogleOwnCredentials />
+
+To use your own OAuth keys with Transloadit’s hosted Companion servers, [create
+a credential][template-credentials] on the Transloadit site (the console calls
+them Third-party Credentials). Select “Companion OAuth” for the service, pick
+the provider, and enter the key and secret. Then pass the name of the credential
+to that provider plugin together with your Transloadit API key:
 
 ```js
 import { COMPANION_URL, COMPANION_ALLOWED_HOSTS } from '@uppy/transloadit';
@@ -495,6 +506,43 @@ Form fields can also be computed dynamically using custom logic, by using the
 
 </details>
 
+### Plugin state
+
+The plugin mirrors the Assembly Status into its own plugin state, so you can
+render Assembly progress without wiring up event listeners. Read it with
+[`getPluginState()`](/docs/uppy/#getpluginstate), or from Uppy’s state under
+`plugins.Transloadit` (the key is the plugin [`id`](#id)).
+
+```js
+const { assemblyStatus, lastAssemblyStatus } = uppy
+	.getPlugin('Transloadit')
+	.getPluginState();
+```
+
+#### `assemblyStatus`
+
+The [Assembly Status][assembly-status] of the Assembly that is currently running
+(`object | undefined`, default: `undefined`).
+
+It is updated on every status transition Transloadit reports (such as
+`ASSEMBLY_UPLOADING` and then `ASSEMBLY_EXECUTING` in the `ok` property), and is
+set back to `undefined` as soon as there is no live Assembly, which is the case
+after the upload finished, was cancelled, or errored.
+
+#### `lastAssemblyStatus`
+
+The most recent [Assembly Status][assembly-status] that was seen
+(`object | undefined`, default: `undefined`).
+
+This one is never cleared, so it stays readable after
+[`assemblyStatus`](#assemblystatus) goes back to `undefined`, and is overwritten
+when the next Assembly reports a status. It is the last status the plugin
+_observed_, not necessarily the final outcome: with the default
+[`waitForEncoding: false`](#waitforencoding), the plugin stops following the
+Assembly once the upload is done, so the stored status can still say
+`ASSEMBLY_UPLOADING` or `ASSEMBLY_EXECUTING` while Transloadit finishes the job
+server-side.
+
 ### Static exports
 
 #### `COMPANION_URL`
@@ -658,6 +706,6 @@ manually cancels the upload any running assemblies will be cancelled.
 
 [assembly-status]: https://transloadit.com/docs/api/#assembly-status-response
 [template-credentials]:
-	https://transloadit.com/docs/#how-to-create-template-credentials
+	https://transloadit.com/docs/topics/template-credentials/
 [transloadit-services]: https://transloadit.com/services/
 [transloadit-concepts]: https://transloadit.com/docs/getting-started/concepts/

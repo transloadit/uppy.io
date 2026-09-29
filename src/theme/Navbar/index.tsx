@@ -15,10 +15,10 @@ export default function NavbarWrapper(props: Props): JSX.Element {
 			    outside one it is page content belonging to no region at all, and
 			    landmark navigation jumps over it. */}
 			<aside className={styles.banner} aria-label="Announcement">
-				<Link to="/blog/uppy-5.0" className={styles.link}>
-					<span className={styles.tag}>5.0</span>
+				<Link to="/blog/uppy-6.0" className={styles.link}>
+					<span className={styles.tag}>6.0</span>
 					<span className={styles.text}>
-						Headless components and hooks are here
+						Fewer moving parts and a rewritten S3 plugin
 					</span>
 					<span className={styles.arrow} aria-hidden>
 						→

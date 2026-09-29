@@ -10,10 +10,10 @@ const { themes } = require('prism-react-renderer');
  * in the docs and the blog is affected, which is most of the site.
  *
  * Same hues, darkened until they clear 4.5:1 on the code block's own ground and
- * on the #dddfe1 a highlighted line sits on — the darker of the two is what sets
+ * on the #dddfe1 a highlighted line sits on. The darker of the two is what sets
  * each value here, so the line-highlight keeps its default strength. The two
- * that already pass — function-variable at 6.1 and the blue tag/selector at
- * 13.2 — are untouched.
+ * that already pass (function-variable at 6.1 and the blue tag/selector at
+ * 13.2) are untouched.
  *
  * Patched here rather than in CSS because prism-react-renderer writes these as
  * inline styles on each span, which no stylesheet can override without
@@ -62,6 +62,63 @@ const config = {
 				content: 'JxARoHXoCI8bD07pLV_u3z6xpuWNcSIZIcHEytyCkUc',
 			},
 		},
+		{
+			// JSON-LD so agents get Uppy's identity, licence and maintainer as
+			// data rather than having to infer them from prose. Every claim here
+			// is verifiable from the repo or this site -- nothing asserted that
+			// cannot be checked (no ratings, no counts, no dates).
+			tagName: 'script',
+			attributes: { type: 'application/ld+json' },
+			innerHTML: JSON.stringify({
+				'@context': 'https://schema.org',
+				'@graph': [
+					{
+						'@type': 'Organization',
+						'@id': 'https://transloadit.com/#organization',
+						name: 'Transloadit',
+						url: 'https://transloadit.com',
+						description:
+							'Transloadit builds and maintains Uppy, and provides file encoding and processing infrastructure.',
+						sameAs: [
+							'https://github.com/transloadit',
+							'https://community.transloadit.com/',
+						],
+					},
+					{
+						'@type': 'WebSite',
+						'@id': 'https://uppy.io/#website',
+						url: 'https://uppy.io',
+						name: 'Uppy',
+						description:
+							'Documentation for Uppy, the open source JavaScript file uploader.',
+						publisher: { '@id': 'https://transloadit.com/#organization' },
+						inLanguage: 'en',
+					},
+					{
+						'@type': 'SoftwareApplication',
+						'@id': 'https://uppy.io/#software',
+						name: 'Uppy',
+						applicationCategory: 'DeveloperApplication',
+						description:
+							'Uppy is an open source JavaScript file uploader for the browser. It uploads from disk and from remote sources such as Google Drive, Dropbox and OneDrive, resumes interrupted uploads over the tus protocol, and has official bindings for React, Vue, Svelte and Angular.',
+						url: 'https://uppy.io',
+						downloadUrl: 'https://www.npmjs.com/package/uppy',
+						codeRepository: 'https://github.com/transloadit/uppy',
+						license: 'https://spdx.org/licenses/MIT.html',
+						programmingLanguage: 'JavaScript',
+						operatingSystem: 'Any',
+						isAccessibleForFree: true,
+						offers: {
+							'@type': 'Offer',
+							price: '0',
+							priceCurrency: 'USD',
+						},
+						author: { '@id': 'https://transloadit.com/#organization' },
+						maintainer: { '@id': 'https://transloadit.com/#organization' },
+					},
+				],
+			}),
+		},
 	],
 	presets: [
 		[
@@ -86,6 +143,7 @@ const config = {
 		],
 	],
 	plugins: [
+		require.resolve('./src/plugins/agent-readiness.js'),
 		[
 			'@docusaurus/plugin-client-redirects',
 			{
@@ -112,6 +170,10 @@ const config = {
 					{
 						to: '/docs/google-photos-picker',
 						from: ['/docs/google-photos'],
+					},
+					{
+						to: '/docs/guides/migration-guides',
+						from: ['/docs/instagram'],
 					},
 					{
 						to: '/docs/transloadit',

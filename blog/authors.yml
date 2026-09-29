@@ -85,3 +85,8 @@ prakash:
   id: 'prakash'
   tagline: 'Developer'
   image_url: 'https://github.com/qxprakash.png'
+remcohaszing:
+  name: 'Remco Haszing'
+  id: 'remco'
+  tagline: 'Developer'
+  image_url: 'https://github.com/remcohaszing.png'
