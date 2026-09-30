@@ -239,8 +239,7 @@ When it returns `true`, the file is uploaded as multipart whatever its size.
 S3’s 5&nbsp;MiB minimum part size does not apply to the last part, so a smaller
 file becomes a multipart upload with a single part. The exception is an empty
 file, which is always uploaded in a single request, since there is no part to
-send. In `@uppy/aws-s3` 6.0.0 to 6.2.0, files of 5&nbsp;MiB or smaller were
-always uploaded in a single request.
+send.
 
 #### `limit`
 
