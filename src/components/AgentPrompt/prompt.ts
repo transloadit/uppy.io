@@ -72,7 +72,7 @@ Then implement the server side for whichever uploader was chosen (tus handler, S
 For \`@uppy/aws-s3\`, pick exactly one signing mode:
 
 - \`signRequest\` — your server returns a presigned URL per S3 operation; credentials never leave the server. The default choice.
-- \`getCredentials\` — your server hands out temporary STS credentials and the browser signs (SigV4). Needs \`s3Endpoint\` (the bucket URL) and \`region\`.
+- \`getCredentials\` — your server hands out temporary STS credentials and the browser signs (SigV4). Needs \`s3Endpoint\` (the bucket URL), and \`getCredentials\` must return the bucket's \`region\` along with the credentials.
 - \`companionEndpoint\` — Companion signs. Only if you already run Companion.
 
 ## Step 4: Remote sources (only if asked for)
