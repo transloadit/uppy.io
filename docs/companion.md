@@ -568,7 +568,7 @@ same can be achieved by the `getKey` option when using the express middleware.
 ##### `s3.awsClientOptions`
 
 You can supply any
-[S3 option supported by the AWS SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property)
+[S3 option supported by the AWS SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-s3/Interface/S3ClientConfig/)
 in the `s3.awsClientOptions` object, _except for_ the below:
 
 - `accessKeyId`. Instead, use the `s3.key` property. This is to make
