@@ -125,6 +125,7 @@ const config = {
 			'classic',
 			/** @type {import('@docusaurus/preset-classic').Options} */
 			({
+				sitemap: { lastmod: 'datetime' },
 				docs: {
 					breadcrumbs: false,
 					remarkPlugins: [require('./src/remark/comparison-icons.cjs')],
