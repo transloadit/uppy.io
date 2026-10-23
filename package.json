@@ -65,7 +65,7 @@
 	},
 	"devDependencies": {
 		"@docusaurus/eslint-plugin": "^3.9.2",
-		"@docusaurus/module-type-aliases": "^3.9.2",
+		"@docusaurus/module-type-aliases": "^3.10.2",
 		"@tsconfig/docusaurus": "^2.0.7",
 		"@types/react": "^19.2.7",
 		"@types/react-dom": "^19.2.3",
