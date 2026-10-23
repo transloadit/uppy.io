@@ -2946,15 +2946,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/eslint-plugin@npm:^3.9.2":
-  version: 3.9.2
-  resolution: "@docusaurus/eslint-plugin@npm:3.9.2"
+"@docusaurus/eslint-plugin@npm:^3.10.2":
+  version: 3.10.2
+  resolution: "@docusaurus/eslint-plugin@npm:3.10.2"
   dependencies:
     "@typescript-eslint/utils": "npm:^5.62.0"
     tslib: "npm:^2.6.0"
   peerDependencies:
     eslint: ">=6"
-  checksum: 10/a138ad8f04fd88f5fd059d0ef5aa3969d90a490b4552976336740e06e1a58c0606254603e610fe61fcbc2eb6fba4a1e72634daf4c596168b177c756b7e7c23b7
+  checksum: 10/4fa1a9d68ee2035111e190d01ecc9520121ffba825a5672154fab2cae7132fba8664f5992974fc904731511e97a4db28fb7ed9e55aa0560998472d1312e16669
   languageName: node
   linkType: hard
 
@@ -17246,7 +17246,7 @@ __metadata:
   resolution: "uppy-io@workspace:."
   dependencies:
     "@docusaurus/core": "npm:^3.9.2"
-    "@docusaurus/eslint-plugin": "npm:^3.9.2"
+    "@docusaurus/eslint-plugin": "npm:^3.10.2"
     "@docusaurus/module-type-aliases": "npm:^3.9.2"
     "@docusaurus/plugin-client-redirects": "npm:^3.9.2"
     "@docusaurus/preset-classic": "npm:^3.9.2"
